@@ -1,0 +1,59 @@
+.navBar {
+  padding: 20px 0px;
+  position: relative;
+}
+
+.navContainer {
+  padding-left: 80px;
+  padding-right: 80px;
+}
+
+.ulLink {
+  list-style: none;
+  margin-bottom: 0px;
+  padding-left: 0px;
+  column-gap: 40px;
+  & > a {
+    text-decoration: none;
+  }
+}
+
+.ulLink .grayColor {
+  font-size: 18px;
+  font-weight: 600;
+  color: #606f7b;
+}
+.ulLink .blackColor {
+  color: #000000;
+}
+.greenDiv {
+  height: 5px;
+  /* UI Properties */
+  background: #00f3bb 0% 0% no-repeat padding-box;
+  opacity: 1;
+  position: absolute;
+  bottom: 0px;
+
+  & > span {
+    visibility: hidden;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .ulLink {
+    column-gap: 30px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .navContainer {
+    padding-left: 25px;
+    padding-right: 25px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .greenDiv {
+    display: none;
+  }
+}

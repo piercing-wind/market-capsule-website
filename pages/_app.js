@@ -1,8 +1,12 @@
-import "@/styles/globals.css";
+import "@/styles/globals.scss";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { Provider } from "react-redux";
 import { wrapper } from "@/store";
 import { appWithTranslation } from "next-i18next";
 import { Plus_Jakarta_Sans } from "next/font/google";
+import NavbarLayout from "@/components/Layout/Navbar/Navbar";
+import clsx from "clsx";
+
 const plus_Jakarta_Sans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   display: 'swap',
@@ -13,11 +17,11 @@ const App = ({ Component, ...rest }) => {
   const { pageProps } = props;
 
 
-  console.log("wrapper", wrapper)
   return (
     <Provider store={store}>
 
-      <main className={`${plus_Jakarta_Sans.className}`}>
+      <main className={clsx(`${plus_Jakarta_Sans.className}`, "gray-bg")}>
+        <NavbarLayout />
         <Component {...pageProps} />
 
       </main>
