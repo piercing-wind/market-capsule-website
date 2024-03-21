@@ -7,6 +7,7 @@ import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { wrapper } from "@/store";
+import { counterAdd } from "@/store/slices/authSlice";
 
 
 export default function Home(props) {
@@ -30,7 +31,6 @@ export default function Home(props) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main >
-
         {/* {
           router?.locale === "ar" ? (
             <Link href={router?.asPath} passHref locale={"en"}> English</Link>

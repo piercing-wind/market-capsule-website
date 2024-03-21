@@ -13,7 +13,7 @@ const App = ({ Component, ...rest }) => {
   const { pageProps } = props;
 
 
-
+  console.log("wrapper", wrapper)
   return (
     <Provider store={store}>
 
@@ -25,4 +25,4 @@ const App = ({ Component, ...rest }) => {
   )
 }
 
-export default wrapper.withRedux(appWithTranslation(App));
+export default appWithTranslation(App);
