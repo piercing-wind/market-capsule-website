@@ -2,7 +2,11 @@ import "@/styles/globals.css";
 import { Provider } from "react-redux";
 import { wrapper } from "@/store";
 import { appWithTranslation } from "next-i18next";
-
+import { Plus_Jakarta_Sans } from "next/font/google";
+const plus_Jakarta_Sans = Plus_Jakarta_Sans({
+  subsets: ['latin'],
+  display: 'swap',
+});
 
 const App = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest);
@@ -13,10 +17,10 @@ const App = ({ Component, ...rest }) => {
   return (
     <Provider store={store}>
 
-      <div>
+      <main className={`${plus_Jakarta_Sans.className}`}>
         <Component {...pageProps} />
 
-      </div>
+      </main>
     </Provider>
   )
 }
