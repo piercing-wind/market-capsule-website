@@ -14,7 +14,6 @@ import { useRouter } from 'next/router';
 
 const NavbarLayout = () => {
     const router = useRouter()
-    console.log("router", router)
 
     //create an account fun
     const createAnAccountFun = () => {

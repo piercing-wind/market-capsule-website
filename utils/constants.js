@@ -1,4 +1,3 @@
-import moment from "moment";
 
 export const DEFAULT_LOCALE = 'en';
 export const apiEndPoints = {
@@ -79,3 +78,19 @@ export const initializeRazorpay = () => {
         document.body.appendChild(script);
     });
 };
+
+
+//handle paragarph text
+export const truncateText = (text, maxLines) => {
+    const words = text.split(' ');
+    // console.log("words", words)
+    let truncatedText = '';
+    for (let i = 0; i < words.length; i++) {
+        if (i > 0 && i % maxLines === 0) {
+            truncatedText += '...';
+            break;
+        }
+        truncatedText += words[i] + ' ';
+    }
+    return truncatedText.trim();
+}
