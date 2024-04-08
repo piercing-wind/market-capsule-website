@@ -12,14 +12,18 @@ import { Container, Row } from "react-bootstrap";
 import clsx from "clsx";
 import styles from "../section/Homepage/style/home.module.scss"
 import LoderModule from "@/components/Module/LoaderModule";
-import { Suspense } from "react";
+import React, { Suspense } from "react";
 import dynamic from "next/dynamic";
 const LeftHomeSection = dynamic(() => import('@/section/Homepage/LeftHomeSection/LeftHomeSection'), { suspense: true, loading: () => <LoderModule /> })
 const MidleHomeSection = dynamic(() => import('@/section/Homepage/MidleHomeSection/MidleHomeSection'), { suspense: true, loading: () => <LoderModule /> })
 const RightHomeSection = dynamic(() => import('@/section/Homepage/RightHomeSection/RightHomeSection'), { suspense: true, loading: () => <LoderModule /> })
+const NavbarLayout = dynamic(() => import('@/components/Layout/Navbar/Navbar'), { suspense: true, loading: () => <LoderModule /> })
+
 
 export default function Home(props) {
   const { t } = useTranslation("common");
+  const [sidebarTransform, setSidebarTransform] = React.useState('');
+  const [sidebarPosition, setSidebarPosition] = React.useState('');
 
   const dispatch = useDispatch()
   const router = useRouter();
@@ -29,19 +33,48 @@ export default function Home(props) {
 
   router.defaultLocale = "en";
 
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      const sidebar = document.querySelector('.sidebar');
+      const sidebarContent = document.querySelector('.content-wrapper');
+      const sidebarTop = sidebar.getBoundingClientRect().top + window.pageYOffset;
+      const contentHeight = sidebarContent.getBoundingClientRect().height;
+      console.log("scrollTop", scrollTop)
+      console.log("viewportHeight", viewportHeight)
+      console.log("sidebar", sidebar)
+      console.log("sidebarContent", sidebarContent)
+      console.log("contentHeight", contentHeight)
+      console.log("sidebarTop", sidebarTop)
 
+      if (scrollTop >= contentHeight - viewportHeight + sidebarTop) {
+        setSidebarTransform(`translateY(-${contentHeight - viewportHeight + sidebarTop}px)`);
+        setSidebarPosition("fixed");
+      } else {
+        setSidebarTransform('');
+        setSidebarPosition('');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   return (
     <Suspense fallback={<LoderModule />}>
-
-      <Container fluid className={clsx(styles.containerPadding, "mt-3 pb-5")}>
-        <Row className="mx-0 ">
+      <Container fluid className={clsx(styles.containerPadding, "mt-3 pb-5 ")}>
+        <Row className="mx-0 app">
           <LeftHomeSection />
           <MidleHomeSection />
-          <RightHomeSection />
+          <RightHomeSection sidebarTransform={sidebarTransform} sidebarPosition={sidebarPosition} />
 
         </Row>
 
       </Container>
+
     </Suspense>
   );
 }

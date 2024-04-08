@@ -1,3 +1,44 @@
 {
-  "headTitle": "بتدور على شغل"
+  "navbar": {
+    "home": "Home1",
+    "capsulePluse": "capsule+1",
+    "screener": "Screener1",
+    "ipo": "IPO1",
+    "watchlist": "Watchlist1",
+    "createAnAccount": "Create an Account1"
+  },
+  "homepage": {
+    "leftSection": {
+      "sensex": "Sensex1",
+      "nifty": "Nifty1",
+      "lastUpdatedOn": "Last updated on Today, 12:00 PM1",
+      "bse": "BSE1",
+      "nse": "NSE1",
+      "topGainers": "TOP GAINERS1",
+      "topLosers": "TOP LOSERS1",
+      "refresh": "Refresh1"
+    },
+    "midleSection": {
+      "searchForArticlesAndCompanies": "Search for Articles, Companies1",
+      "all": "All1",
+      "finance": "Finance1",
+      "retail": "Retail1",
+      "agriculture": "Agriculture1",
+      "technology": "Technology1",
+      "article": "ARTICLE1",
+      "readNow": "Read Now1",
+      "upgradeNow": "Upgrade Now1",
+      "caseStudy": "CASE STUDY1",
+      "exclusiveFor": "EXCLUSIVE FOR1",
+      "loadMorePlus": "Load More +1"
+    },
+    "rightSection": {
+      "trandingNewsHeading": "Trending News1",
+      "upgradeToCapsulePlus": "Upgrade to",
+      "capsulePlus": "Capsule+",
+      "nowToUnlock": "now to unlock exclusive content!",
+      "upgradeNow": "Upgrade Now1",
+      "recentCaseStudiesHeading": "Recent Case Studies1"
+    }
+  }
 }

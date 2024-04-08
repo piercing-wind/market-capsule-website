@@ -10,10 +10,12 @@ import HomeBlueButton from '@/components/Module/Button/HomeBlueButton';
 import { navLinkData } from './navigationData';
 import Bolt from '@/components/svg/Bolt';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
 
 const NavbarLayout = () => {
     const router = useRouter()
+    const { t } = useTranslation("common");
 
     //create an account fun
     const createAnAccountFun = () => {
@@ -30,7 +32,7 @@ const NavbarLayout = () => {
 
     }
     return (
-        <Navbar expand="lg" className={clsx("white", styles.navBar)}>
+        <Navbar sticky="top" expand="lg" className={clsx("white", styles.navBar)}>
             <Container fluid className={clsx(styles.navContainer)}>
                 <Link className="navbar-brand d-lg-none d-block" href="#">
                     <Image priority={true} src="/assests/homepage/market-capsule-logo.svg" alt="market capsule logo" width="150" height="40" />
@@ -48,14 +50,14 @@ const NavbarLayout = () => {
                                         return (
                                             <Link className={clsx(styles.grayColor, handleActiveNavFun(el?.slug, router?.pathname) ? styles.blackColor : "")} href={el?.slug} key={index} >
                                                 <li className='d-flex align-items-center column-gap-1'>
-                                                    {el?.slug === "/capsule-plus" && <Bolt />}{el?.label}
+                                                    {el?.slug === "/capsule-plus" && <Bolt />}{t(el?.label)}
 
                                                 </li>
                                                 {
                                                     handleActiveNavFun(el?.slug, router?.pathname)
                                                     && (
                                                         <div className={clsx(styles.greenDiv)}>
-                                                            <span>{el?.label}</span>
+                                                            <span>{t(el?.label)}</span>
                                                         </div>
                                                     )
 
@@ -70,7 +72,7 @@ const NavbarLayout = () => {
                             <HomeBlueButton
                                 color={"#FFFFFF"}
                                 bg={"#3E63FF"}
-                                label={"Create an Account"}
+                                label={t("navbar.createAnAccount")}
                                 handlerFun={createAnAccountFun}
                             />
                         </div>

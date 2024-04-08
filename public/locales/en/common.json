@@ -1,3 +1,44 @@
 {
-  "headTitle": "Are you looking for a job?"
+  "navbar": {
+    "home": "Home",
+    "capsulePluse": "capsule+",
+    "screener": "Screener",
+    "ipo": "IPO",
+    "watchlist": "Watchlist",
+    "createAnAccount": "Create an Account"
+  },
+  "homepage": {
+    "leftSection": {
+      "sensex": "Sensex",
+      "nifty": "Nifty",
+      "lastUpdatedOn": "Last updated on Today, 12:00 PM",
+      "bse": "BSE",
+      "nse": "NSE",
+      "topGainers": "TOP GAINERS",
+      "topLosers": "TOP LOSERS",
+      "refresh": "Refresh"
+    },
+    "midleSection": {
+      "searchForArticlesAndCompanies": "Search for Articles, Companies",
+      "all": "All",
+      "finance": "Finance",
+      "retail": "Retail",
+      "agriculture": "Agriculture",
+      "technology": "Technology",
+      "article": "ARTICLE",
+      "readNow": "Read Now",
+      "upgradeNow": "Upgrade Now",
+      "caseStudy": "CASE STUDY",
+      "exclusiveFor": "EXCLUSIVE FOR",
+      "loadMorePlus": "Load More +"
+    },
+    "rightSection": {
+      "trandingNewsHeading": "Trending News",
+      "upgradeToCapsulePlus": "Upgrade to",
+      "capsulePlus": "Capsule+",
+      "nowToUnlock": "now to unlock exclusive content!",
+      "upgradeNow": "Upgrade Now",
+      "recentCaseStudiesHeading": "Recent Case Studies"
+    }
+  }
 }

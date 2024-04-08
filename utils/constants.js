@@ -1,5 +1,7 @@
 
 export const DEFAULT_LOCALE = 'en';
+const TO_LOCALE_STRING = { en: "en-US", ar: "ar-EG" };
+
 export const apiEndPoints = {
 
 };
@@ -93,4 +95,23 @@ export const truncateText = (text, maxLines) => {
         truncatedText += words[i] + ' ';
     }
     return truncatedText.trim();
+}
+
+
+//convert number to other langugage number
+export const numberToLocaleString = (num, userLanguage = DEFAULT_LOCALE, leadingZero = false) => {
+    let num1 = num?.toLocaleString(TO_LOCALE_STRING[userLanguage], { useGrouping: false })
+    if (leadingZero && num >= 0 && num < 10) {
+        return numberToLocaleString(0, userLanguage) + num1
+    }
+    return num1
+
+}
+
+export function getScreenWidth() {
+    if (typeof window !== 'undefined') {
+        return window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    }
+
+    return undefined;
 }

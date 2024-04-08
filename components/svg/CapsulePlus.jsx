@@ -13,9 +13,9 @@ export const CapsulePlus = () => {
           id="capsule_"
           data-name="capsule+"
           transform="translate(630 48)"
-          font-size="18"
-          font-family="PlusJakartaSans-SemiBold, Plus Jakarta Sans"
-          font-weight="600"
+          fontSize="18"
+          fontFamily="PlusJakartaSans-SemiBold, Plus Jakarta Sans"
+          fontWeight="600"
         >
           <tspan x="0" y="0">
             capsule+

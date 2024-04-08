@@ -3,9 +3,11 @@ import Image from 'next/image';
 import clsx from "clsx";
 import styles from '../style/trandingNewsCard.module.scss'
 import { truncateText } from '@/utils/constants';
+import { useTranslation } from 'next-i18next';
 
 
 const TrandingNewsCard = ({ data }) => {
+    const { t } = useTranslation("common");
 
     const hideBorderInLastDiv = (trandingNewsArrLength, index) => {
         if (trandingNewsArrLength - 1 !== index) {
@@ -20,7 +22,7 @@ const TrandingNewsCard = ({ data }) => {
                 {
                     data?.headingLogo
                 }
-                <h5>{data?.headingLabel}</h5>
+                <h5>{t(data?.headingLabel)}</h5>
             </div>
 
             {/* news div */}

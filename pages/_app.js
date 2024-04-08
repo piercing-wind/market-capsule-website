@@ -4,8 +4,8 @@ import { Provider } from "react-redux";
 import { wrapper } from "@/store";
 import { appWithTranslation } from "next-i18next";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import NavbarLayout from "@/components/Layout/Navbar/Navbar";
 import clsx from "clsx";
+import NavbarLayout from "@/components/Layout/Navbar/Navbar";
 
 const plus_Jakarta_Sans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -22,6 +22,7 @@ const App = ({ Component, ...rest }) => {
 
       <main className={clsx(`${plus_Jakarta_Sans.className}`, "gray-bg")}>
         <NavbarLayout />
+
         <Component {...pageProps} />
 
       </main>

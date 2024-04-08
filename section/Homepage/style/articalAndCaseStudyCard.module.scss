@@ -1,0 +1,77 @@
+.midleDiv {
+  border-radius: 12px;
+  padding: 8px;
+  background: #f1f1f1 0% 0% no-repeat padding-box;
+}
+
+.orangeBackground {
+  background: #ffeacc 0% 0% no-repeat padding-box;
+}
+
+.grayBackground {
+  background: #f1f1f1 0% 0% no-repeat padding-box;
+}
+
+.greenDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: block;
+  background-color: #00f3bb;
+}
+
+.orangeDot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  display: block;
+  background-color: #fe975b;
+}
+
+.statusPara {
+  margin-bottom: 0px;
+}
+
+.statusPara > span {
+  font-size: 10px;
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: 600;
+}
+
+.textPara {
+  font-size: 18px;
+  color: #000000;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.exclusiveDiv > p {
+  font-size: 8px;
+  color: #7c7777;
+  font-weight: 600;
+}
+
+.loadMoreBtn {
+  border: none;
+  background-color: transparent;
+  color: #464646;
+  font-size: 16px;
+  display: block;
+  width: 100%;
+}
+
+.loadMoreBtn > span {
+  height: 180px;
+  display: block;
+}
+
+@media screen and (max-width: 1200px) {
+  .textPara {
+    font-size: 16px;
+  }
+}
+@media screen and (max-width: 575px) {
+  .imgWidth {
+    width: 100px;
+  }
+}

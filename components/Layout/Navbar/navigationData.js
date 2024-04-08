@@ -1,27 +1,27 @@
 export const navLinkData = [
     {
         id: 1,
-        label: "Home",
+        label: "navbar.home",
         slug: "/"
     },
     {
         id: 2,
-        label: "capsule+",
+        label: "navbar.capsulePluse",
         slug: "/capsule-plus"
     },
     {
         id: 3,
-        label: "Screener",
+        label: "navbar.screener",
         slug: "/screener"
     },
     {
         id: 4,
-        label: "IPO",
+        label: "navbar.ipo",
         slug: "/ipo"
     },
     {
         id: 5,
-        label: "Watchlist",
+        label: "navbar.watchlist",
         slug: "/watchlist"
     }
 ]
