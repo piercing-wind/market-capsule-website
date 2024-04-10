@@ -9,7 +9,7 @@ import { caseStudyDataObj, trandingNewsDataObj } from '../homePageData';
 const RightHomeSection = () => {
   return (
 
-    <Col lg={3} className=' ps-2 pe-lg-0' >
+    <Col lg={3} className='order-2 ps-2 pe-lg-0' >
       {/* tranding news div */}
       <div className="positionSticky">
 

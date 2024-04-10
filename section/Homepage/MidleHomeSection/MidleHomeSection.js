@@ -8,7 +8,7 @@ const FilterButton = dynamic(() => import('./FilterButton'))
 
 const MidleHomeSection = () => {
   return (
-    <Col lg={6} className=' px-2'>
+    <Col lg={6} className='order-lg-1 order-0 px-2'>
       <div className={clsx('gray-border trandingDiv')}>
         <SearchBarArticalsAndCompany />
         <FilterButton />
