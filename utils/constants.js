@@ -115,3 +115,11 @@ export function getScreenWidth() {
 
     return undefined;
 }
+
+export function getScreenHeight() {
+    if (typeof window !== 'undefined') {
+        return window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+    }
+
+    return undefined;
+}

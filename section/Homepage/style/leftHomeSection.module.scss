@@ -1,0 +1,41 @@
+.trandingDiv {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 8px;
+  opacity: 1;
+  margin-bottom: 12px;
+}
+
+.refreshDiv {
+  & > p {
+    font-size: 10px;
+    font-weight: 400;
+    color: #868686;
+
+    & > .semiboldSpan {
+      font-weight: 600;
+    }
+  }
+
+  & > button {
+    font-size: 10px;
+    font-weight: 400;
+    color: #3e63ff;
+    border: none;
+    background: transparent;
+  }
+}
+
+.numberDiv {
+  & > p {
+    font-weight: bold;
+    font-size: 19px;
+    color: #232323;
+  }
+  .redColor {
+    color: #ff4f55;
+  }
+  .greenColor {
+    color: green;
+  }
+}

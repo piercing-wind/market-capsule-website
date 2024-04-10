@@ -9,6 +9,12 @@ a {
   text-decoration: none;
 }
 
+.redColor {
+  color: #ff4f55;
+}
+.greenColor {
+  color: green;
+}
 .gray-bg {
   background-color: #f0f0f0;
 }
@@ -41,22 +47,15 @@ a {
 }
 
 .left1 {
-  width: 294px;
   height: 327px;
   border: 1px solid blue;
   margin-bottom: 12px;
 }
 
-.left2 {
-  width: 294px;
-  height: 692px;
-  border: 1px solid blue;
+.positionSticky {
+  top: 100px;
+  position: sticky;
 }
-
-.sidebar {
-  transition: transform 0.6s ease-in-out, right 0.6s ease-in-out;
-}
-
 @media screen and (max-width: 575px) {
   .borderBottomGray {
     border: none;

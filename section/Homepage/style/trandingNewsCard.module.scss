@@ -21,16 +21,23 @@
   padding-bottom: 12px;
 }
 
-.trandingHeadlineDiv > p {
-  font-size: 14px;
-  color: #272424;
-  margin-bottom: 0px;
-}
-
 .paragraph {
   // Add styles here for paragraph truncation if needed
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  font-size: 14px;
+  color: #272424;
+  margin-bottom: 0px;
+}
+
+.sourcePara {
+  color: #909090;
+  font-size: 10px;
+  font-weight: 400;
+  .mediumItalic {
+    font-weight: 500;
+    font-style: italic;
+  }
 }

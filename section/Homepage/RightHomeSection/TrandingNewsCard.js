@@ -31,9 +31,25 @@ const TrandingNewsCard = ({ data }) => {
                     data?.trandingNewsArr?.length ? (
                         data?.trandingNewsArr?.map((el, index) => {
                             return (
-                                <div key={index} className={clsx("d-flex align-items-center column-gap-2 ", styles.trandingHeadlineDiv, hideBorderInLastDiv(data?.trandingNewsArr?.length, index))}>
-                                    <Image src={el?.img} alt='newsimg' width={58} height={43} />
-                                    <p className={styles.paragraph}>{truncateText(el?.para, 25)}</p>
+                                <div key={index} className={clsx("d-flex flex-column column-gap-2 ", styles.trandingHeadlineDiv, hideBorderInLastDiv(data?.trandingNewsArr?.length, index))}>
+                                    <div className={clsx("d-flex align-items-center column-gap-2 ",)}>
+                                        <Image src={el?.img} alt='newsimg' width={58} height={43} />
+                                        <p className={styles.paragraph}>{truncateText(el?.para, 25)}</p>
+
+                                    </div>
+                                    {
+                                        el?.source ? (
+                                            <p className={clsx("mb-0 mt-2", styles.sourcePara)}>
+                                                <span>
+                                                    {t("homepage.rightSection.source")}
+                                                </span>
+                                                {" "}
+                                                <span className={clsx("mb-0", styles.mediumItalic)}>
+                                                    {el?.source}
+                                                </span>
+                                            </p>
+                                        ) : null
+                                    }
                                 </div>
                             )
                         })

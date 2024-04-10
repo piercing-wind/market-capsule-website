@@ -6,21 +6,21 @@ const CapsulePlusCard = dynamic(() => import('./CapsulePlusCard'), { suspense: t
 
 import { caseStudyDataObj, trandingNewsDataObj } from '../homePageData';
 
-const RightHomeSection = ({ sidebarTransform, sidebarPosition }) => {
+const RightHomeSection = () => {
   return (
 
-    <Col lg={3} className=' ps-2 pe-lg-0 sidebar' >
+    <Col lg={3} className=' ps-2 pe-lg-0' >
       {/* tranding news div */}
-      <div className="content-wrapper">
+      <div className="positionSticky">
 
         <TrandingNewsCard
           data={trandingNewsDataObj}
         />
-
-        <CapsulePlusCard />
         <TrandingNewsCard
           data={caseStudyDataObj}
         />
+
+        <CapsulePlusCard />
       </div>
     </Col>
   )

@@ -26,17 +26,32 @@ const ArticalAndCaseStudyCard = () => {
     //show cssbased on type
 
     const articalAndCaseStudyCardCss = (type) => {
-        if (type === "artical") {
+        if (type === "capsulePlus") {
             return true
         } else {
             return false
         }
     }
 
+    const showHedingAndCssBaseOnType = (type) => {
+        if (type === "screener") {
+            return { dotColor: styles.purpleDot, label: "homepage.midleSection.screener" }
+        } else if (type === "capsulePlus") {
+            return { dotColor: styles.orangeDot, label: "homepage.midleSection.capsulePlus" }
+
+        } else {
+            return { dotColor: styles.greenDot, label: "homepage.midleSection.ipo" }
+
+        }
+    }
+
     //load more btn 
     const loadMoreFun = () => {
         console.log("load more fun")
-        setItemPerPage(itemPerPage + 2)
+        if (midleSectionArr?.length !== itemPerPage) {
+
+            setItemPerPage(itemPerPage + 2)
+        }
     }
 
     useEffect(() => {
@@ -62,15 +77,15 @@ const ArticalAndCaseStudyCard = () => {
                             // first 5 
 
                             return (
-                                <div key={index} className={clsx("  column-gap-3 d-flex  mb-2", styles.midleDiv, articalAndCaseStudyCardCss(el?.type) ? styles.grayBackground : styles.orangeBackground)}>
+                                <div key={index} className={clsx("  column-gap-3 d-flex  mb-2", styles.midleDiv, articalAndCaseStudyCardCss(el?.type) ? styles.orangeBackground : styles.grayBackground)}>
                                     <div className='d-flex align-items-center'>
                                         <Image priority={false} className={clsx(" h-100", styles.imgWidth)} src={el?.img} alt="artical img" width="197" height="158" />
                                     </div>
                                     <div className={clsx("pe-1 d-flex flex-column justify-content-evenly")}>
                                         <div>
                                             <p className={clsx("d-flex column-gap-1 align-items-center ", styles.statusPara)}>
-                                                <span className={clsx(articalAndCaseStudyCardCss(el?.type) ? styles.greenDot : styles.orangeDot)} ></span>
-                                                <span>{articalAndCaseStudyCardCss(el?.type) ? t("homepage.midleSection.article") : t("homepage.midleSection.caseStudy")}</span>
+                                                <span className={clsx(showHedingAndCssBaseOnType(el?.type)?.dotColor)} ></span>
+                                                <span>{t(showHedingAndCssBaseOnType(el?.type)?.label)}</span>
                                             </p>
                                             <p className={clsx(styles.textPara)}>{truncateText(el?.para, screenWidth < 768 ? 5 : 13)}</p>
                                         </div>
@@ -114,11 +129,21 @@ const ArticalAndCaseStudyCard = () => {
                 }
 
                 <button className={clsx(styles.loadMoreBtn, "mt-3")} onClick={loadMoreFun}>
-                    <span>
-                        {t("homepage.midleSection.loadMorePlus")}
-
+                    <span >
+                        {
+                            midleSectionArr?.length === itemPerPage ? (
+                                t("homepage.midleSection.noMoreData")
+                            ) : (
+                                t("homepage.midleSection.loadMorePlus")
+                            )
+                        }
                     </span>
+
+
+
                 </button>
+
+
             </div>
         </>
     )

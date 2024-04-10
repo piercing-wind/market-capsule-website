@@ -11,12 +11,13 @@
     "leftSection": {
       "sensex": "Sensex1",
       "nifty": "Nifty1",
-      "lastUpdatedOn": "Last updated on Today, 12:00 PM1",
+      "lastUpdatedOn": "Last updated on ",
       "bse": "BSE1",
       "nse": "NSE1",
       "topGainers": "TOP GAINERS1",
       "topLosers": "TOP LOSERS1",
-      "refresh": "Refresh1"
+      "refresh": "Refresh1",
+      "dayChange": "DAY CHANGE %"
     },
     "midleSection": {
       "searchForArticlesAndCompanies": "Search for Articles, Companies1",
@@ -30,7 +31,11 @@
       "upgradeNow": "Upgrade Now1",
       "caseStudy": "CASE STUDY1",
       "exclusiveFor": "EXCLUSIVE FOR1",
-      "loadMorePlus": "Load More +1"
+      "loadMorePlus": "Load More +1",
+      "noMoreData": "No more data is available",
+      "screener": "SCREENER",
+      "capsulePlus": "CAPSULE+",
+      "ipo": "IPO"
     },
     "rightSection": {
       "trandingNewsHeading": "Trending News1",
@@ -38,7 +43,9 @@
       "capsulePlus": "Capsule+",
       "nowToUnlock": "now to unlock exclusive content!",
       "upgradeNow": "Upgrade Now1",
-      "recentCaseStudiesHeading": "Recent Case Studies1"
+      "recentCaseStudiesHeading": "Recent Case Studies1",
+      "source": "Source:",
+      "whatNewInCapsulePlus": "What's New in Capsule+"
     }
   }
 }
