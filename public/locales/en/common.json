@@ -59,5 +59,17 @@
     "readNow": "Read Now",
     "capsulePlus": "capsule+",
     "loadMore": "Load More+"
+  },
+  "watchlist": {
+    "myWatchlist": "My Watchlist",
+    "companyName": "COMPANY NAME",
+    "ltp": "LTP",
+    "prevClose": "PREV.CLOSE",
+    "change": "CHANGE",
+    "changePersent": "CHANGE(%)",
+    "daysLowHigh": "DAY'S LOW/HIGH",
+    "youAreNoteWatching": "You are not watching anything yet.",
+    "beginMonitoring": "Begin monitoring your selected stocks by adding them to your Watchlist.",
+    "addStock": "+ ADD STOCK"
   }
 }
