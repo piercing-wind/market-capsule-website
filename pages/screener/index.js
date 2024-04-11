@@ -1,5 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
-import { Trans, useTranslation } from "next-i18next";
+import { useDispatch } from "react-redux";
+import { useTranslation } from "next-i18next";
 import { getFileLangList } from "@/middleware/getProps";
 import { secureHeader } from "@/middleware/securityHeader";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
@@ -15,9 +15,6 @@ const LoderModule = dynamic(() => import("@/components/Module/LoaderModule"))
 const ScreeenerHeadingCom = dynamic(() => import("@/components/Module/HeadingComponent/ScreenerHeadingCom"))
 const FilterButton = dynamic(() => import("@/components/Module/Button/FilterButton"))
 const CompanyCard = dynamic(() => import("@/components/Module/ScreenerCard/CompanyCard"))
-
-
-
 
 export default function CapsulePlusPage(props) {
     const { t } = useTranslation("common");
@@ -52,9 +49,6 @@ export default function CapsulePlusPage(props) {
             setItemPerPage(itemPerPage + 3)
         }
     }
-    console.log("cardData?.length", cardData?.length)
-
-    console.log("itemPerPage", itemPerPage)
 
     return (
         <>
@@ -135,9 +129,6 @@ export default function CapsulePlusPage(props) {
                         </Col>
 
                     </Row>
-
-
-
                 </Container>
 
             </Suspense>

@@ -9,7 +9,6 @@ import Bolt from '@/components/svg/Bolt';
 import { truncateText } from '@/utils/constants';
 const RightArrow = dynamic(() => import('@/components/svg/RightArrow'))
 
-
 const CompanyCard = (props) => {
     const { dataObj } = props;
     const { img, alt, heading, para, slug, labels, capsulePlus } = dataObj;
@@ -37,7 +36,11 @@ const CompanyCard = (props) => {
                 {
                     capsulePlus && (
                         <div className={clsx("d-flex column-gap-1 align-items-center justify-content-center", styles.capsulePlusDiv)}>
-                            <Bolt /><span>capsule+</span>
+                            <Bolt /><span>
+                                <Trans i18nKey={"screener.capsulePlus"}>
+                                    capsule+
+                                </Trans>
+                            </span>
                         </div>
 
                     )
@@ -59,7 +62,9 @@ const CompanyCard = (props) => {
             <p>{truncateText(para, 9)}</p>
 
             <Link className={clsx(styles.readNow)} href={`/screener/${slug}`}>
-                Read Now <RightArrow />
+                <Trans i18nKey={"screener.readNow"}>
+                    Read Now
+                </Trans>  <RightArrow />
             </Link>
         </div>
     )
