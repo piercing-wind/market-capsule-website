@@ -85,7 +85,6 @@ export const initializeRazorpay = () => {
 //handle paragarph text
 export const truncateText = (text, maxLines) => {
     const words = text.split(' ');
-    // console.log("words", words)
     let truncatedText = '';
     for (let i = 0; i < words.length; i++) {
         if (i > 0 && i % maxLines === 0) {

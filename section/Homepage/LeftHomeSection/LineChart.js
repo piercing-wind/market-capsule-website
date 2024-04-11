@@ -97,7 +97,6 @@ export const data = {
     ],
 };
 
-console.log("sensexChartData", sensexChartData)
 const LineChart = () => {
     return (
         <div>

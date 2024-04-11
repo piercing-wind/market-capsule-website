@@ -1,0 +1,60 @@
+.containerPadding {
+  padding-left: 180px;
+  padding-right: 180px;
+  padding-bottom: 134px;
+
+  & > div {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #d5d5d5;
+    border-radius: 8px;
+
+    // height: 1380px;
+  }
+}
+
+.loadMoreBtn {
+  border: none;
+  background-color: transparent;
+  color: #464646;
+  font-size: 16px;
+  display: block;
+  width: 100%;
+  margin-bottom: 35px;
+}
+
+.cardSection {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+@media screen and (max-width: 1200px) {
+  .containerPadding {
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 48px;
+  }
+  .cardSection {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .cardSection {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .containerPadding {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .filterButtonDiv {
+    flex-direction: column;
+  }
+}

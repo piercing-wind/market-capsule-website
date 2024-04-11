@@ -1,0 +1,62 @@
+.trandingDiv {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 15px;
+  opacity: 1;
+  margin-bottom: 12px;
+}
+
+.labelDiv > span {
+  border-radius: 17px;
+  font-size: 10px;
+  font-weight: 500;
+  color: #000000;
+}
+
+.trandingDiv > h5 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000000;
+}
+.trandingDiv > p {
+  font-size: 16px;
+  font-weight: 400;
+  color: #606f7b;
+}
+.greenBgColor {
+  background-color: #c8ffb7;
+}
+.skyBgColor {
+  background-color: #b7fdff;
+}
+.lightYellowBgColor {
+  background-color: #ffe0b7;
+}
+
+.readNow {
+  color: #000000;
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.imageDiv {
+  position: relative;
+  & > .capsulePlusDiv {
+    position: absolute;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border-radius: 17px;
+    top: 8px;
+    right: 8px;
+    font-size: 8px;
+    font-weight: 600;
+    color: #000000;
+    width: 65px;
+    min-height: 20px;
+
+    & > svg {
+      width: 8px;
+      height: 10px;
+    }
+  }
+}

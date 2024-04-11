@@ -47,5 +47,17 @@
       "source": "Source:",
       "whatNewInCapsulePlus": "What's New in Capsule+"
     }
+  },
+  "screener": {
+    "screener": "Screener",
+    "functional": "Functional",
+    "sectoral": "Sectoral",
+    "importantBuckets": "Important Buckets",
+    "free": "Free",
+    "companies": "Companies",
+    "recentlyUpdated": "Recently updated",
+    "readNow": "Read Now",
+    "capsulePlus": "capsule+",
+    "loadMore": "Load More+"
   }
 }

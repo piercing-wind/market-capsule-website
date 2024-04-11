@@ -38,7 +38,6 @@ const LeftHomeSection = () => {
     }
 
   }
-  console.log("sensex", sensex)
   return (
     <Col lg={3} className=' px-2 order-lg-0 order-1'>
       <div className='positionSticky'>

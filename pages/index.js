@@ -1,13 +1,10 @@
-import Head from "next/head";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Trans, useTranslation } from "next-i18next";
 import { getFileLangList } from "@/middleware/getProps";
 import { secureHeader } from "@/middleware/securityHeader";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
-import Link from "next/link";
 import { wrapper } from "@/store";
-import { counterAdd } from "@/store/slices/authSlice";
 import { Container, Row } from "react-bootstrap";
 import clsx from "clsx";
 import styles from "../section/Homepage/style/home.module.scss"
@@ -17,13 +14,11 @@ import dynamic from "next/dynamic";
 const LeftHomeSection = dynamic(() => import('@/section/Homepage/LeftHomeSection/LeftHomeSection'), { suspense: true, loading: () => <LoderModule /> })
 const MidleHomeSection = dynamic(() => import('@/section/Homepage/MidleHomeSection/MidleHomeSection'), { suspense: true, loading: () => <LoderModule /> })
 const RightHomeSection = dynamic(() => import('@/section/Homepage/RightHomeSection/RightHomeSection'), { suspense: true, loading: () => <LoderModule /> })
-const NavbarLayout = dynamic(() => import('@/components/Layout/Navbar/Navbar'), { suspense: true, loading: () => <LoderModule /> })
 
 
 export default function Home(props) {
   const { t } = useTranslation("common");
 
-  const dispatch = useDispatch()
   const router = useRouter();
   router.locale = props?.language
     ? props?.language

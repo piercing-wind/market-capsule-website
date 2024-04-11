@@ -3,7 +3,7 @@ import clsx from "clsx";
 import { useTranslation } from 'next-i18next';
 import styles from "./style/filterButton.module.scss"
 const FilterButton = (props) => {
-    const { color, bg, handlerFun, label, type } = props;
+    const { color, bg, handlerFun, label, type, pLeft = "24px", pRight = "24px" } = props;
     const { t } = useTranslation("common");
 
     //handle home btn function
@@ -11,7 +11,7 @@ const FilterButton = (props) => {
         handlerFun(type)
     }
     return (
-        <button style={{ color: color, background: bg }} onClick={btnFun} className={clsx(styles.btn)}>{t(label)}</button>
+        <button style={{ color: color, background: bg, paddingLeft: pLeft, paddingRight: pRight }} onClick={btnFun} className={clsx(styles.btn)}>{t(label)}</button>
     )
 }
 
