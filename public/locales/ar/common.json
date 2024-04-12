@@ -71,5 +71,42 @@
     "youAreNoteWatching": "You are not watching anything yet.",
     "beginMonitoring": "Begin monitoring your selected stocks by adding them to your Watchlist.",
     "addStock": "+ ADD STOCK"
+  },
+
+  "loginAndSignupModal": {
+    "loginForFree": "Login for Free",
+    "joinOrLogin": "Join or Login now to get more benefits",
+    "emailAddress": "Email address",
+    "continue": "Continue",
+    "or": "OR",
+    "continueWithGoogle": "Continue with Google",
+    "continueWithFacebook": "Continue with facebook",
+    "continueWithLinkedin": "Continue with Linkedin",
+    "dontHaveAnAccount": "Don't have an account?",
+    "signUp": "Signup",
+    "createAnAccount": "Create an Account",
+    "iAgreeToAll": "I agree to all",
+    "termsAndCondition": "Terms & Conditions",
+    "and": "and",
+    "privacyPolicy": "Privacy Policy",
+    "ofMarketCapsule": "of Market Capsule",
+    "iAgreeToReceive": "I agree to receive Newsletters and other promotional mails from Market Capsule",
+    "alreadyHaveAnAccount": "Already have an account?",
+    "loginIn": "Login In"
+  },
+  "otpModal": {
+    "confirmation": "Confirmation",
+    "otpSentTo": "OTP sent to ",
+    "enterOtp": "Enter OTP",
+    "submit": "Submit"
+  },
+  "accountCreatedSuccessfullyModal": {
+    "accountCreatedSuccessfully": "Account Created Successfully!",
+    "completeYourProfileNow": "Complete your profile now.",
+    "whatIsYourName": "What's your Name?",
+    "gender": "Gender",
+    "dateOfBirth": "Date of Birth",
+    "profession": "Profession",
+    "getStarted": "Get Started"
   }
 }

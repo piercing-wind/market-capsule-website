@@ -1,0 +1,57 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.form {
+  & > h5 {
+    @include basicFontSize(22px, bold, #000000);
+  }
+  & > p {
+    @include basicFontSize(16px, 400, #606f7b);
+  }
+
+  & > .or {
+    @include basicFontSize(12px, 400, #606f7b);
+  }
+}
+
+.signUpBtnDiv {
+  & > p {
+    @include basicFontSize(16px, 400, #606f7b);
+  }
+  & > button {
+    border: none;
+    background-color: transparent;
+    @include basicFontSize(16px, 500, #3e63ff);
+  }
+}
+
+.socialLoginBtnDiv {
+  row-gap: 6px;
+}
+
+@media screen and (max-width: 375px) {
+  .form {
+    & > h5 {
+      @include basicFontSize(18px, bold, #000000);
+    }
+    & > p {
+      @include basicFontSize(12px, 400, #606f7b);
+    }
+
+    & > .or {
+      @include basicFontSize(10px, 400, #606f7b);
+    }
+  }
+
+  .signUpBtnDiv {
+    & > p {
+      @include basicFontSize(14px, 400, #606f7b);
+    }
+    & > button {
+      @include basicFontSize(14px, 500, #3e63ff);
+    }
+  }
+}

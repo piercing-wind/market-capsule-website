@@ -5,7 +5,9 @@ import { wrapper } from "@/store";
 import { appWithTranslation } from "next-i18next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import clsx from "clsx";
-import NavbarLayout from "@/components/Layout/Navbar/Navbar";
+import toast, { Toaster } from 'react-hot-toast';
+import dynamic from "next/dynamic";
+const NavbarLayout = dynamic(() => import('@/components/Module/Navbar/Navbar'))
 
 const plus_Jakarta_Sans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -24,7 +26,10 @@ const App = ({ Component, ...rest }) => {
         <NavbarLayout />
 
         <Component {...pageProps} />
-
+        <Toaster
+          position="bottom-center"
+          reverseOrder={false}
+        />
       </main>
     </Provider>
   )

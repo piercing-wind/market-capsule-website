@@ -1,0 +1,26 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.emailInputDiv {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+
+  & > input {
+    // border: none
+    width: 100%;
+    border: none;
+
+    @include basicFontSize(14px, 400, #000000);
+
+    &::placeholder {
+      @include basicFontSize(14px, 400, #a8a8a8);
+    }
+    &:focus-visible {
+      outline: none;
+    }
+  }
+}

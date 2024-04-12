@@ -1,0 +1,101 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize + px !important;
+  font-weight: $fontWeight !important;
+  color: $color !important;
+}
+
+.fGOverlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0px;
+  z-index: 1;
+  display: block;
+}
+
+.feedbackGForm {
+  // max-width: 720px;
+  background: #fff;
+  position: fixed;
+  border-radius: 4px;
+  z-index: 2;
+  width: 50%;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.crossIcon {
+  position: absolute;
+  cursor: pointer;
+  top: 0px;
+  right: -35px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.getintouchPageUpdate {
+  position: relative;
+}
+
+.formCol {
+  padding: 40px 35px 40px 40px;
+}
+
+@media screen and (max-width: 1200px) {
+  .formCol {
+    padding: 15px 15px 15px 15px;
+  }
+  .feedbackGForm {
+    top: 55%;
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 991px) {
+  .feedbackGForm {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .feedbackGForm {
+    top: 60%;
+
+    width: 60%;
+  }
+  .crossIcon {
+    top: 0%;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .feedbackGForm {
+    top: 59%;
+
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .feedbackGForm {
+    width: 90%;
+    left: 48%;
+  }
+  .crossIcon {
+    right: -29px !important;
+  }
+}
+
+@media screen and (max-width: 385px) {
+  .crossIcon {
+    right: -26px !important;
+  }
+}
