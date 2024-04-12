@@ -29,3 +29,29 @@
     background: #ffffff;
   }
 }
+
+.threeDot {
+  background-color: transparent;
+  border: none;
+  color: #a2afe1;
+  &::after {
+    display: none;
+  }
+  &:active,
+  &:hover,
+  &:focus-visible {
+    background-color: transparent;
+    border-color: transparent;
+    color: #a2afe1;
+    box-shadow: none;
+  }
+
+  div {
+    span {
+      width: 3px;
+      height: 3px;
+      background-color: #a2afe1;
+      border-radius: 50%;
+    }
+  }
+}

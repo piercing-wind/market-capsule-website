@@ -57,6 +57,20 @@ a {
   top: 100px;
   position: sticky;
 }
+
+.threeDotDropdown {
+  .btn-check:checked + .btn,
+  .btn.active,
+  .btn.show,
+  .btn:first-child:active,
+  :not(.btn-check) + .btn:active {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: #a2afe1 !important;
+    box-shadow: none !important;
+  }
+}
+
 @media screen and (max-width: 575px) {
   .borderBottomGray {
     border: none;

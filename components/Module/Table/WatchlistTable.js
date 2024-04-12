@@ -2,10 +2,13 @@ import Sort from '@/components/svg/Sort';
 import clsx from 'clsx';
 import Table from 'react-bootstrap/Table';
 import styles from "./style/watchlistTable.module.scss"
+import Dropdown from 'react-bootstrap/Dropdown';
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { useTranslation } from 'next-i18next';
 
 function WatchlistTable(props) {
     const { companyData, companyTableHeading } = props;
-
+    const { t } = useTranslation("common")
     //sort by filter
     const soringFun = () => {
         console.log("sort fun")
@@ -21,7 +24,7 @@ function WatchlistTable(props) {
                                     <th key={index} className={clsx(styles.heading)} >
                                         <div className={clsx('d-flex column-gap-2 align-items-center ', index !== 0 && "justify-content-center")}>
                                             <span  >
-                                                {el?.heading}
+                                                {t(el?.heading)}
 
                                             </span>
                                             {
@@ -59,7 +62,20 @@ function WatchlistTable(props) {
                                     <td className='text-center' >{el?.change}</td>
                                     <td className='text-center'>{el?.changePercent}</td>
                                     <td className='text-center'>{`${el?.daysLow}-${el?.daysHigh}`}</td>
-                                    <td >{`...`}</td>
+                                    <td >
+                                        <Dropdown className={clsx("threeDotDropdown")}>
+                                            <Dropdown.Toggle id="dropdown-basic" className={clsx(styles.threeDot)}>
+                                                <BsThreeDotsVertical />
+                                            </Dropdown.Toggle>
+
+                                            <Dropdown.Menu>
+                                                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                                                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                                                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+                                            </Dropdown.Menu>
+                                        </Dropdown>
+
+                                    </td>
                                 </tr>
                             )
                         })

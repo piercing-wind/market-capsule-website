@@ -10,9 +10,11 @@ import styles from "../../section/Watchlist/style/watchlist.module.scss"
 import LoderModule from "@/components/Module/LoaderModule";
 import React, { Suspense } from "react";
 import dynamic from "next/dynamic";
-import WatchlistTable from "@/components/Module/Table/WatchlistTable";
 import { companyData, companyTableHeading } from "@/section/Watchlist/watchlistData";
 const ScreeenerHeadingCom = dynamic(() => import("@/components/Module/HeadingComponent/ScreenerHeadingCom"))
+const WatchlistTable = dynamic(() => import("@/components/Module/Table/WatchlistTable"))
+const EmptyWatchlistCard = dynamic(() => import("@/section/Watchlist/EmptyWatchlistCard"))
+
 
 
 
@@ -34,12 +36,22 @@ export default function WatchlistPage(props) {
                     <Col xs={12} className='px-0'>
                         <ScreeenerHeadingCom
                             heading={"watchlist.myWatchlist"}
-                            para={"Add Stocks to your Watchlist to start tracking them here."}
+                            para={true ? "Add Stocks to your Watchlist to start tracking them here." : "Monitor stocks by adding them to your Watchlist"}
                         />
                     </Col>
-                    <Col xs={12} className='ps-4 pe-0 '>
-                        <WatchlistTable companyData={companyData} companyTableHeading={companyTableHeading} />
-                    </Col>
+                    {
+                        true ? (
+                            <Col xs={12} className='ps-4 pe-0 '>
+                                <WatchlistTable companyData={companyData} companyTableHeading={companyTableHeading} />
+
+                            </Col>
+
+                        ) : (
+                            <Col xs={12} className='px-xl-4 px-4 '>
+                                <EmptyWatchlistCard />
+                            </Col>
+                        )
+                    }
 
                 </Row>
 
