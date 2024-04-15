@@ -64,6 +64,7 @@ const SignupForm = () => {
                         alert(JSON.stringify(values, null, 2));
                         console.log("values", values)
                         setSubmitting(false);
+                        dispatch(setAuthType("otp"))
 
                     }, 400);
                 }}

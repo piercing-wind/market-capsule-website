@@ -1,0 +1,75 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.form {
+  & > h5 {
+    @include basicFontSize(22px, bold, #000000);
+  }
+  & > p {
+    @include basicFontSize(16px, 400, #606f7b);
+  }
+}
+
+.otpSendTo {
+  font-size: 16px;
+  font-weight: 400;
+  color: #606f7b;
+}
+
+.blue {
+  color: #3e63ff;
+}
+
+.otpDiv {
+  display: flex;
+  align-items: center;
+}
+
+.containerStyle1 .inputStyle1 {
+  width: 65px !important;
+  border-radius: 4px;
+  background: white;
+  height: 46px;
+  outline: #d9d9d9;
+  border: 1px solid #d1d1d1;
+  text-align: center;
+  padding: 5px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.enterOtp {
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000;
+}
+@media screen and (max-width: 375px) {
+  .form {
+    & > h5 {
+      @include basicFontSize(18px, bold, #000000);
+    }
+    & > p {
+      @include basicFontSize(12px, 400, #606f7b);
+    }
+  }
+
+  .containerStyle1 .inputStyle1 {
+    width: 45px !important;
+    border-radius: 4px;
+    background: white;
+    height: 46px;
+    outline: #d9d9d9;
+    border: 1px solid #d1d1d1;
+    text-align: center;
+    padding: 5px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .otpSendTo {
+    font-size: 14px;
+  }
+}
