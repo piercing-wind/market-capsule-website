@@ -1,0 +1,23 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.checkMainDiv {
+  margin-top: -4px;
+  margin-bottom: 18px;
+}
+
+.checkboxDiv {
+  margin-bottom: 12px;
+}
+.label {
+  position: relative;
+  cursor: pointer;
+  @include basicFontSize(12px, 400, #606f7b);
+  & > .link {
+    text-decoration: underline;
+    @include basicFontSize(12px, 500, #3e63ff);
+  }
+}

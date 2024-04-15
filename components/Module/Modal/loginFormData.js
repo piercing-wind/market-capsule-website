@@ -6,19 +6,19 @@ export const continueFromSocial = [
     {
         id: 1,
         icon: <GoogleIcon />,
-        label: "Continue with Google",
+        label: "loginAndSignupModal.continueWithGoogle",
         socialType: "googleType"
     },
     {
         id: 2,
         icon: <FacebookIcon />,
-        label: "Continue with Facebook",
+        label: "loginAndSignupModal.continueWithFacebook",
         socialType: "facebookType"
     },
     {
         id: 3,
         icon: <LinkedinIcon />,
-        label: "Continue with LinkedIn",
+        label: "loginAndSignupModal.continueWithLinkedin",
         socialType: "linkedinType"
     }
 ]

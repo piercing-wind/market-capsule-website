@@ -11,8 +11,12 @@ import Bolt from '@/components/svg/Bolt';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { setShowForm } from '@/store/slices/authSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
+import AccountCreatedSuccessForm from '../Modal/AccountCreatedSuccessForm';
+import OtpForm from '../Modal/OtpForm';
+import SignupForm from '../Modal/SignupForm';
+import GreenCheckbox from '../Checkbox/GreenCheckbox';
 const LoginModal = dynamic(() => import('../Modal/LoginModal'))
 const LoginForm = dynamic(() => import('../Modal/LoginForm'))
 const HomeBlueButton = dynamic(() => import('@/components/Module/Button/HomeBlueButton'))
@@ -23,6 +27,12 @@ const NavbarLayout = () => {
     const router = useRouter()
     const { t } = useTranslation("common");
     const dispatch = useDispatch()
+    const { authType } = useSelector((state) => (
+        {
+            authType: state?.authSlice?.loginModal?.authType,
+        }
+    ))
+
 
     //create an account fun
     const createAnAccountFun = () => {
@@ -39,6 +49,7 @@ const NavbarLayout = () => {
         }
 
     }
+
     return (
         <>
             <Navbar sticky="top" expand="lg" className={clsx("white", styles.navBar)}>
@@ -91,9 +102,22 @@ const NavbarLayout = () => {
                 </Container>
             </Navbar>
 
+
             {/* login flow modal */}
             <LoginModal>
-                <LoginForm />
+                {
+                    authType === "login" ? (
+                        <LoginForm />
+
+                    ) : authType === "signup" ? (
+                        <SignupForm />
+
+                    ) : authType === "otp" ? (
+                        <OtpForm />
+                    ) : (
+                        <AccountCreatedSuccessForm />
+                    )
+                }
             </LoginModal>
         </>
     )

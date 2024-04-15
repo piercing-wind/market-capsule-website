@@ -71,6 +71,10 @@ a {
   }
 }
 
+.borderRed {
+  border: 1px solid rgb(219, 49, 49) !important;
+}
+
 @media screen and (max-width: 575px) {
   .borderBottomGray {
     border: none;

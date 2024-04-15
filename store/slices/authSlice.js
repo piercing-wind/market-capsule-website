@@ -3,18 +3,20 @@ import { HYDRATE } from 'next-redux-wrapper';
 
 const loginModalObj = {
     showForm: true,
+    authType: "signup"
 
 }
 export const authSlice = createSlice({
     name: 'authSlice',
     initialState: {
         loginModal: loginModalObj,
-
     },
     reducers: {
         setShowForm(state, action) {
-
             state.loginModal.showForm = action.payload
+        },
+        setAuthType(state, action) {
+            state.loginModal.authType = action.payload
         },
     },
     // extraReducers: {
@@ -27,7 +29,7 @@ export const authSlice = createSlice({
     // }
 });
 
-export const { setShowForm } = authSlice.actions
+export const { setShowForm, setAuthType } = authSlice.actions
 
 export default authSlice.reducer
 

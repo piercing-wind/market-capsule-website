@@ -6,9 +6,11 @@ import styles from "./style/loginButton.module.scss"
 const LoginButton = (props) => {
     const { t } = useTranslation("common");
 
-    const { label, color, fontSize, fontWeight, borderRadius, pAll, bg, border, type } = props;
+    const { label, color, fontSize, fontWeight, borderRadius, pAll, bg, border, type, handleFun = false } = props;
     const handleBtnFun = () => {
-        props?.handleFun(props?.socialType)
+        if (handleFun) {
+            props?.handleFun(props?.socialType)
+        }
     }
     return (
         <button
