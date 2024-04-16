@@ -107,5 +107,31 @@
     "dateOfBirth": "Date of Birth",
     "profession": "Profession",
     "getStarted": "Get Started"
+  },
+  "userProfileDropdown": {
+    "hi": "Hi!",
+    "accountSetting": "Account Settings",
+    "manageSubscription": "Manage Subscription",
+    "notifications": "Notifications",
+    "logout": "Logout"
+  },
+  "accountSettingsPage": {
+    "accountSetting": "Account Settings",
+    "edit": "Edit",
+    "save": "Save"
+  },
+  "manageSubscription": {
+    "manageSubscription": "Manage Subscription",
+    "nextBillingOn": "Next billing on:",
+    "change": "Change",
+    "date": "DATE",
+    "orderId": "ORDER ID",
+    "plan": "PLAN",
+    "amount": "AMOUNT",
+    "downloadInvoice": "Download Invoice"
+  },
+  "notifications": {
+    "notifications": "Notifications",
+    "paymentCompletedSuccessfully": "Payment completed Successfully!"
   }
 }

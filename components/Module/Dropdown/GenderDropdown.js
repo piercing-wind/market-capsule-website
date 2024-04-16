@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useTransition } from 'react';
 import styles from "./style/genderDropdown.module.scss";
 import { Dropdown } from 'react-bootstrap';
 import clsx from "clsx";
-import { DownArrow } from '@/components/svg/DownArrow';
+import { Trans, useTranslation } from 'next-i18next';
 
 
 const GenderDropdown = (props) => {
     const { defaultValue, data } = props;
+    const { t } = useTranslation("common")
     const [value, setValue] = useState("")
     const setValueFun = (valueObj) => {
         setValue(valueObj?.label)
@@ -16,7 +17,7 @@ const GenderDropdown = (props) => {
             <Dropdown className={clsx("genderDropdown")}>
                 <Dropdown.Toggle id="dropdown-basic" className={clsx(value && styles.blackColor)}>
                     <span>
-                        {value ? value : defaultValue}
+                        {value ? value : t(defaultValue)}
                     </span>
                 </Dropdown.Toggle>
 

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 
 const loginModalObj = {
-    showForm: true,
+    showForm: false,
     authType: ""
 
 }

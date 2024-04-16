@@ -13,13 +13,14 @@ import { useTranslation } from 'next-i18next';
 import { setShowForm } from '@/store/slices/authSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
-import AccountCreatedSuccessForm from '../Modal/AccountCreatedSuccessForm';
-import OtpForm from '../Modal/OtpForm';
-import SignupForm from '../Modal/SignupForm';
-import GreenCheckbox from '../Checkbox/GreenCheckbox';
 const LoginModal = dynamic(() => import('../Modal/LoginModal'))
 const LoginForm = dynamic(() => import('../Modal/LoginForm'))
 const HomeBlueButton = dynamic(() => import('@/components/Module/Button/HomeBlueButton'))
+const ProfileDropdown = dynamic(() => import('../Dropdown/ProfileDropdown'))
+const AccountCreatedSuccessForm = dynamic(() => import('../Modal/AccountCreatedSuccessForm'))
+const OtpForm = dynamic(() => import('../Modal/OtpForm'))
+const SignupForm = dynamic(() => import('../Modal/SignupForm'))
+
 
 
 
@@ -89,12 +90,22 @@ const NavbarLayout = () => {
 
                                 </ul>
 
-                                <HomeBlueButton
-                                    color={"#FFFFFF"}
-                                    bg={"#3E63FF"}
-                                    label={t("navbar.createAnAccount")}
-                                    handlerFun={createAnAccountFun}
-                                />
+                                {
+                                    true ? (
+                                        <ProfileDropdown
+
+                                        />
+                                    ) : (
+
+                                        <HomeBlueButton
+                                            color={"#FFFFFF"}
+                                            bg={"#3E63FF"}
+                                            label={t("navbar.createAnAccount")}
+                                            handlerFun={createAnAccountFun}
+                                        />
+                                    )
+
+                                }
                             </div>
 
                         </Nav>

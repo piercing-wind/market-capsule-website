@@ -75,13 +75,13 @@ const AccountCreatedSuccessForm = () => {
                         />
                         <GenderDropdown
                             data={genderData}
-                            defaultValue={"Gender"}
+                            defaultValue={"accountCreatedSuccessfullyModal.gender"}
                         />
                         <DobDatePikar />
                         <div style={{ marginBottom: "21px" }}>
                             <GenderDropdown
                                 data={professionData}
-                                defaultValue={"Profession"}
+                                defaultValue={"accountCreatedSuccessfullyModal.profession"}
                             />
 
                         </div>

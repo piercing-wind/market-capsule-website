@@ -25,3 +25,21 @@ export const navLinkData = [
         slug: "/watchlist"
     }
 ]
+
+export const userProfileNavData = [
+    {
+        id: 1,
+        label: "userProfileDropdown.accountSetting",
+        slug: "/account-settings"
+    },
+    {
+        id: 2,
+        label: "userProfileDropdown.manageSubscription",
+        slug: "/manage-subscription"
+    },
+    {
+        id: 3,
+        label: "userProfileDropdown.notifications",
+        slug: "/notifications"
+    }
+]

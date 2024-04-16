@@ -1,0 +1,95 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.genderDropdown button {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  display: flex;
+  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  column-gap: 8px;
+  border: none;
+
+  &::after {
+    display: none;
+  }
+  &:active,
+  &:hover,
+  &:focus-visible {
+    color: #a8a8a8;
+    box-shadow: none;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: none;
+  }
+
+  select::-ms-expand {
+    display: none; /* Hide arrow in IE */
+  }
+}
+
+.menu {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  box-shadow: 0px 3px 6px #00000029;
+  border-radius: 8px;
+  right: 0px;
+  min-width: 231px;
+  padding-top: 23px;
+  padding-bottom: 23px;
+  left: unset !important;
+}
+
+.hi {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000000;
+}
+
+.menu a {
+  font-size: 16px;
+  font-weight: 400;
+  color: #606f7b;
+  padding-left: 12px;
+  padding-right: 12px;
+  &:active,
+  &:hover,
+  &:focus-visible {
+    color: #000000;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    outline: none;
+  }
+}
+
+.slugStyle {
+  padding-bottom: 22px;
+  padding-top: 0px;
+}
+
+.divider {
+  padding-bottom: 20px;
+}
+
+.logoutBtn {
+  border: none;
+  background-color: transparent;
+  font-size: 16px;
+  font-weight: 400;
+  color: #606f7b;
+}
+
+@media screen and (max-width: 991px) {
+  .menu {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  .slugStyle {
+    padding-bottom: 15px;
+  }
+  .divider {
+    padding-bottom: 15px;
+  }
+}
