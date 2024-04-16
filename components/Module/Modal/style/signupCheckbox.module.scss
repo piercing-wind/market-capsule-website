@@ -21,3 +21,9 @@
     @include basicFontSize(12px, 500, #3e63ff);
   }
 }
+
+@media screen and (max-width: 767px) {
+  .form {
+    padding-bottom: 20px;
+  }
+}

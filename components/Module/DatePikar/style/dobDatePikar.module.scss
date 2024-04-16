@@ -1,0 +1,22 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.dobDiv {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  padding: 16px;
+}
+
+.mainDiv {
+  & > div {
+    width: 100%;
+  }
+}
+
+.placeholder {
+  @include basicFontSize(14px, 400, #a8a8a8);
+}

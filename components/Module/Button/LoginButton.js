@@ -6,7 +6,7 @@ import styles from "./style/loginButton.module.scss"
 const LoginButton = (props) => {
     const { t } = useTranslation("common");
 
-    const { label, color, fontSize, fontWeight, borderRadius, pAll, bg, border, type, handleFun = false } = props;
+    const { label, color, fontSize, fontWeight, borderRadius, pAll, bg, border, type, handleFun = false, disabled = false } = props;
     const handleBtnFun = () => {
         if (handleFun) {
             props?.handleFun(props?.socialType)
@@ -14,7 +14,7 @@ const LoginButton = (props) => {
     }
     return (
         <button
-            className={clsx('w-100 d-flex column-gap-3 justify-content-center align-items-center', styles.btn)}
+            className={clsx('w-100 d-flex column-gap-3 justify-content-center align-items-center', styles.btn, disabled && styles.disabled)}
             type={type}
             style={{
                 color: color,
@@ -26,6 +26,7 @@ const LoginButton = (props) => {
                 border: border
             }}
             onClick={handleBtnFun}
+            disabled={disabled}
         >
             {
                 props?.icon && (

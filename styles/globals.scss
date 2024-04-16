@@ -70,6 +70,21 @@ a {
     box-shadow: none !important;
   }
 }
+.genderDropdown {
+  .btn-check:checked + .btn,
+  .btn.active,
+  .btn.show,
+  .btn:first-child:active,
+  :not(.btn-check) + .btn:active {
+    color: #a8a8a8 !important;
+    box-shadow: none !important;
+    background: #ffffff 0% 0% no-repeat padding-box !important;
+    border: 1px solid #d1d1d1 !important;
+    background-image: url("/assests/auth-flow/down-arrow.svg") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 20px center !important;
+  }
+}
 
 .borderRed {
   border: 1px solid rgb(219, 49, 49) !important;

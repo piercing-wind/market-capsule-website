@@ -15,16 +15,13 @@ import * as Yup from "yup";
 import { Trans, useTranslation } from 'next-i18next';
 
 const validationSchema = Yup.object().shape({
-    email: Yup.string().required("* This field is mandatory"),
+    email: Yup.string().email("Invalid email format").required("* This field is mandatory"),
 
     termsAndCondition: Yup.boolean().oneOf(
         [true],
         "You must accept our Privacy Policy and Terms of Use"
-    ),
-    newsletters: Yup.boolean().oneOf(
-        [true],
-        "You must accept our Privacy Policy and Terms of Use"
-    ),
+    ).required("You must accept our Privacy Policy and Terms of Use"),
+
 });
 
 
@@ -162,7 +159,7 @@ const SignupForm = () => {
                             </div>
 
                             <LoginButton
-                                color={"#FFFFFF"}
+                                color={(formik.errors.email || formik.errors.termsAndCondition) || !formik.values.email ? "gray" : "#FFFFFF"}
                                 fontSize={"16px"}
                                 fontWeight={"400"}
                                 borderRadius={"8px"}
@@ -171,6 +168,8 @@ const SignupForm = () => {
                                 border={"none"}
                                 type={"submit"}
                                 label={"loginAndSignupModal.continue"}
+                                disabled={(formik.errors.email || formik.errors.termsAndCondition) || !formik.values.email ? true : false}
+
                             />
 
                             <p className={clsx("mt-lg-4 mt-2 mb-lg-3 mb-2 text-center", styles.or)}>

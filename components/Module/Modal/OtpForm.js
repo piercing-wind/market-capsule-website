@@ -8,6 +8,7 @@ import PenCircle from '@/components/svg/PenCircle';
 import OtpInput from "react-otp-input";
 import styles from "./style/otpForm.module.scss";
 import { setAuthType } from '@/store/slices/authSlice';
+import toast from 'react-hot-toast';
 
 
 const OtpForm = () => {
@@ -21,7 +22,16 @@ const OtpForm = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         console.log("otp", otp)
+        if (otp?.length !== 4) {
+            return
+        }
         dispatch(setAuthType("accountCreatedSuccessfully"))
+    }
+
+    //go to signup modal
+    const goToPrevModal = () => {
+        dispatch(setAuthType("signup"))
+
     }
     return (
         <div className={clsx(styles.loginFormDiv)}>
@@ -38,7 +48,10 @@ const OtpForm = () => {
                         </Trans>
                     </span>
                     <span className={clsx("me-1", styles.blue)}>johndoe@gmail.com</span>
-                    <PenCircle />
+                    <button onClick={goToPrevModal} className={clsx(styles.penBtn)}>
+                        <PenCircle />
+
+                    </button>
                 </div>
                 {/* enter otp section */}
                 <div>
@@ -61,7 +74,7 @@ const OtpForm = () => {
                     </div>
                 </div>
                 <LoginButton
-                    color={"#FFFFFF"}
+                    color={otp?.length !== 4 ? "gray" : "#FFFFFF"}
                     fontSize={"16px"}
                     fontWeight={"400"}
                     borderRadius={"8px"}
@@ -70,6 +83,7 @@ const OtpForm = () => {
                     border={"none"}
                     type={"submit"}
                     label={"otpModal.submit"}
+                    disabled={otp?.length !== 4 ? true : false}
                 />
 
 

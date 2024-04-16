@@ -28,7 +28,7 @@ const App = ({ Component, ...rest }) => {
         <Component {...pageProps} />
         <Toaster
           position="bottom-center"
-          reverseOrder={false}
+          reverseOrder={true}
         />
       </main>
     </Provider>

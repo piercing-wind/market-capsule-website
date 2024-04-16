@@ -32,6 +32,12 @@
   row-gap: 6px;
 }
 
+@media screen and (max-width: 767px) {
+  .form {
+    padding-bottom: 20px;
+  }
+}
+
 @media screen and (max-width: 375px) {
   .form {
     & > h5 {

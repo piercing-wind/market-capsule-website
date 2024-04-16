@@ -1,0 +1,62 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.genderDropdown button {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  width: 100%;
+  padding: 16px 14px;
+  @include basicFontSize(14px, 400, #a8a8a8);
+  display: flex;
+  align-items: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 20px; /* Adjust as needed */
+  background-image: url("/assests/auth-flow/down-arrow.svg");
+  background-repeat: no-repeat;
+  background-position: right 20px center;
+
+  &::after {
+    display: none;
+  }
+  &:active,
+  &:hover,
+  &:focus-visible {
+    color: #a8a8a8;
+    box-shadow: none;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #d1d1d1;
+    background-image: url("/assests/auth-flow/down-arrow.svg");
+    background-repeat: no-repeat;
+    background-position: right 20px center;
+  }
+
+  select::-ms-expand {
+    display: none; /* Hide arrow in IE */
+  }
+}
+
+.genderDropdown .blackColor {
+  @include basicFontSize(14px, 400, #000000);
+
+  &:active,
+  &:hover,
+  &:focus-visible {
+    color: #000000;
+  }
+}
+
+.menu a {
+  &:active,
+  &:hover,
+  &:focus-visible {
+    color: #000000;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    outline: none;
+  }
+}

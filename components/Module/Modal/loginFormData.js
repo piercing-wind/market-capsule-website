@@ -22,3 +22,42 @@ export const continueFromSocial = [
         socialType: "linkedinType"
     }
 ]
+
+
+export const genderData = [
+    {
+        id: 1,
+        label: "Male",
+        type: "male",
+    },
+    {
+        id: 2,
+        label: "FeMale",
+        type: "female",
+    },
+    {
+        id: 3,
+        label: "Other",
+        type: "other",
+    }
+
+]
+
+export const professionData = [
+    {
+        id: 1,
+        label: "Web Developer",
+        type: "webDeveloper",
+    },
+    {
+        id: 2,
+        label: "React Developer",
+        type: "reactDeveloper",
+    },
+    {
+        id: 3,
+        label: "Next.js Developer",
+        type: "nextJsDeveloper",
+    }
+
+]
