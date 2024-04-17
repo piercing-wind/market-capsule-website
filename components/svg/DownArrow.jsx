@@ -1,6 +1,6 @@
 import React from "react";
 
-export const DownArrow = () => {
+export const DownArrow = ({ color = "#242526" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -18,7 +18,7 @@ export const DownArrow = () => {
           data-name="Path 26"
           d="M10.469,15.453,9.4,14.382l4.006-4.009L9.4,6.364l1.072-1.071,4,4.009a1.515,1.515,0,0,1,0,2.142Z"
           transform="translate(-9.4 -5.293)"
-          fill="#242526"
+          fill={color}
         />
       </g>
     </svg>

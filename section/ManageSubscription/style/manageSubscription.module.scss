@@ -1,0 +1,56 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.containerPadding {
+  padding-left: 180px;
+  padding-right: 180px;
+  padding-bottom: 200px;
+  margin-top: 58px;
+}
+
+.leftSidebarMaindDiv {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  padding-top: 32px;
+  padding-bottom: 38px;
+}
+
+.upperDiv {
+  margin-bottom: 32px;
+  h4 {
+    @include basicFontSize(22px, 700, #828282);
+  }
+}
+
+.nextBillingDiv p {
+  @include basicFontSize(16px, 400, #606f7b);
+  .mediumFont {
+    @include basicFontSize(16px, 500, #606f7b);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .containerPadding {
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 48px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .LeftSidebar > div {
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .containerPadding {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 15px;
+  }
+}

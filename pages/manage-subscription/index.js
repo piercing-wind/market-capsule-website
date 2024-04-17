@@ -5,6 +5,14 @@ import { secureHeader } from "@/middleware/securityHeader";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { wrapper } from "@/store";
+import { Suspense } from "react";
+import LoderModule from "@/components/Module/LoaderModule";
+import { Col, Container, Row } from "react-bootstrap";
+import styles from "../../section/ManageSubscription/style/manageSubscription.module.scss"
+import clsx from "clsx";
+import dynamic from "next/dynamic";
+const LeftSidebar = dynamic(() => import("@/components/Module/Sidebar/LeftSidebar"))
+const ManageSubscription = dynamic(() => import("@/section/ManageSubscription/ManageSubscription"))
 
 
 export default function ManageSubscriptionPage(props) {
@@ -18,15 +26,24 @@ export default function ManageSubscriptionPage(props) {
 
     router.defaultLocale = "en";
 
-
     return (
         <>
 
-            <main >
+            <Suspense fallback={<LoderModule />}>
+                <Container fluid className={clsx(styles.containerPadding)}>
+                    <Row className={clsx("mx-0")}>
 
-                capsule plus
+                        <Col className={clsx("px-0", styles.LeftSidebar)} lg={3} sm={12}>
+                            <LeftSidebar />
+                        </Col>
+                        <Col className="px-0" lg={9} sm={12}>
+                            <ManageSubscription />
+                        </Col>
 
-            </main>
+                    </Row>
+                </Container>
+
+            </Suspense>
         </>
     );
 }

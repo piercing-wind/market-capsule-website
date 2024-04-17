@@ -86,6 +86,19 @@ a {
   }
 }
 
+.changeDropdown {
+  .btn-check:checked + .btn,
+  .btn.active,
+  .btn.show,
+  .btn:first-child:active,
+  :not(.btn-check) + .btn:active {
+    color: #30373d !important;
+    box-shadow: none !important;
+    background: #ffffff 0% 0% no-repeat padding-box !important;
+    border: none !important;
+  }
+}
+
 .genderDropdown {
   .btn.disabled,
   .btn:disabled,
