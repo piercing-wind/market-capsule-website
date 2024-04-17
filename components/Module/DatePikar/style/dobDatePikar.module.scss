@@ -17,6 +17,9 @@
   }
 }
 
+.dobColor {
+  @include basicFontSize(14px, 500, #000000);
+}
 .placeholder {
   @include basicFontSize(14px, 400, #a8a8a8);
 }

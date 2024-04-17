@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from "clsx";
 import styles from "./style/profileDropdown.module.scss"
 import { Dropdown } from 'react-bootstrap';
@@ -8,9 +8,12 @@ import { Trans, useTranslation } from 'next-i18next';
 import { DownArrow } from '@/components/svg/DownArrow';
 import Signout from '@/components/svg/Signout';
 import Link from 'next/link';
+import DefaultProfile from '../ProfileImage/DefaultProfile';
 
 const ProfileDropdown = () => {
     const { t } = useTranslation("common")
+    const [profileURL, setProfileUrl] = useState("/assests/user-profile/user-img.png")
+
     let userName = "John"
 
     //logout fun
@@ -21,14 +24,15 @@ const ProfileDropdown = () => {
         <div className={clsx('mb-2', styles.genderDropdown)}>
             <Dropdown className={clsx("threeDotDropdown")}>
                 <Dropdown.Toggle >
-                    <Image src={`/assests/user-profile/user-img.png`} alt="user-image" width="40" height="40" />
+                    <DefaultProfile firstCharHeight={"40px"} firstCharWidth={"40px"} userName={`John Doe`} src={profileURL} width={40} height={40} />
+
                     <DownArrow />
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu className={clsx("w-100", styles.menu)}>
                     <Dropdown.Item >
                         <h5 className={clsx(styles.hi)}>
-                            <Trans i18nKey={"userProfileDropdown.hi"}>Hi!</Trans>
+                            <Trans i18nKey={"userProfileDropdown.hi"}>Hi!</Trans>{" "}
                             {userName}
 
                         </h5>
@@ -39,8 +43,7 @@ const ProfileDropdown = () => {
                         userProfileNavData?.map((el, index) => {
                             return (
 
-                                <Dropdown.Item href='/ipo' className={styles.slugStyle} key={index} onClick={() => {
-                                }} >
+                                <Dropdown.Item href={el?.slug} className={styles.slugStyle} key={index} >
                                     {t(el?.label)}
 
                                 </Dropdown.Item>

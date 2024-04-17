@@ -6,16 +6,16 @@ import { Trans, useTranslation } from 'next-i18next';
 
 
 const GenderDropdown = (props) => {
-    const { defaultValue, data } = props;
+    const { defaultValue, data, value, formik, handleFun, readOnly = false } = props;
     const { t } = useTranslation("common")
-    const [value, setValue] = useState("")
+
     const setValueFun = (valueObj) => {
-        setValue(valueObj?.label)
+        handleFun(formik, valueObj?.label)
     }
     return (
         <div className={clsx('mb-2', styles.genderDropdown)}>
             <Dropdown className={clsx("genderDropdown")}>
-                <Dropdown.Toggle id="dropdown-basic" className={clsx(value && styles.blackColor)}>
+                <Dropdown.Toggle id="dropdown-basic" className={clsx(value && styles.blackColor)} disabled={readOnly ? true : false}>
                     <span>
                         {value ? value : t(defaultValue)}
                     </span>

@@ -22,7 +22,7 @@ const validationSchema = Yup.object().shape({
 const signupFormData = {
     name: "",
     gender: "",
-    dateOfBirte: "",
+    dob: "",
     profession: ""
 
 }
@@ -30,7 +30,31 @@ const AccountCreatedSuccessForm = () => {
     const { t } = useTranslation("common");
     const dispatch = useDispatch()
 
+    // handle gender dropdown
+    const handleGenderFun = (formik, value) => {
+        formik.setValues({
+            ...formik.values,
+            gender: value,
+        });
 
+    }
+
+    // handle professional dropdown
+    const handleProfessionFun = (formik, value) => {
+        formik.setValues({
+            ...formik.values,
+            profession: value,
+        });
+
+    }
+
+    //handle dob dropdown
+    const handleDobFun = (formik, value) => {
+        formik.setValues({
+            ...formik.values,
+            dob: value,
+        });
+    }
 
     return (
         <div className={clsx(styles.loginFormDiv)}>
@@ -76,12 +100,25 @@ const AccountCreatedSuccessForm = () => {
                         <GenderDropdown
                             data={genderData}
                             defaultValue={"accountCreatedSuccessfullyModal.gender"}
+                            value={formik?.values?.gender}
+                            handleFun={handleGenderFun}
+                            formik={formik}
                         />
-                        <DobDatePikar />
+                        <DobDatePikar
+                            setStartDate={handleDobFun}
+                            startDate={formik?.values.dob}
+                            formik={formik}
+
+                        />
                         <div style={{ marginBottom: "21px" }}>
                             <GenderDropdown
                                 data={professionData}
                                 defaultValue={"accountCreatedSuccessfullyModal.profession"}
+                                value={formik?.values?.profession}
+                                handleFun={handleProfessionFun}
+                                formik={formik}
+
+
                             />
 
                         </div>

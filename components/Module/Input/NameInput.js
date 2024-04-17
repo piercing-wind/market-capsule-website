@@ -4,10 +4,10 @@ import clsx from 'clsx';
 import styles from "./style/nameInput.module.scss"
 
 const NameInput = (props) => {
-    const { type, placeholder, value, formik, name } = props;
+    const { type, placeholder, value, formik, name, readOnly = false } = props;
     const { t } = useTranslation("common");
     return (
-        <div className={clsx("d-flex column-gap-2 align-items-center px-3  mb-2", styles.emailInputDiv)} >
+        <div className={clsx("d-flex column-gap-2 align-items-center px-3 py-3  mb-2", styles.emailInputDiv)} >
             <input
                 name={name}
                 type={type}
@@ -15,6 +15,7 @@ const NameInput = (props) => {
                 value={value}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                readOnly={readOnly ? true : false}
             />
         </div>
     )

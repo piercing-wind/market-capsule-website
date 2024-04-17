@@ -1,0 +1,64 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.containerPadding {
+  padding-left: 180px;
+  padding-right: 180px;
+  padding-bottom: 200px;
+  margin-top: 58px;
+}
+
+.leftSidebarMaindDiv {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  padding-top: 32px;
+  padding-bottom: 57px;
+}
+
+.upperDiv {
+  margin-bottom: 20px;
+  h4 {
+    @include basicFontSize(22px, 700, #828282);
+  }
+  button {
+    border: none;
+    background-color: transparent;
+    @include basicFontSize(16px, 400, #3e63ff);
+  }
+}
+
+.userImage {
+  margin-bottom: 20px;
+}
+
+.crossBtn {
+  border: none;
+  background-color: transparent;
+}
+
+@media screen and (max-width: 1200px) {
+  .containerPadding {
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 48px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .cardSection {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .containerPadding {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 15px;
+  }
+}

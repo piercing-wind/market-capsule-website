@@ -119,7 +119,7 @@
   "accountSettingsPage": {
     "accountSetting": "Account Settings",
     "edit": "Edit",
-    "save": "Save"
+    "saveNow": "Save Now"
   },
   "manageSubscription": {
     "manageSubscription": "Manage Subscription",

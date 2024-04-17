@@ -4,15 +4,19 @@ import styles from "./style/homeBlueButton.module.scss";
 import { useTranslation } from 'next-i18next';
 
 const HomeBlueButton = (props) => {
-    const { color, bg, handlerFun, label } = props;
+    const { color, bg, handlerFun = false, label, type = "button" } = props;
     const { t } = useTranslation("common");
 
     //handle home btn function
     const btnFun = () => {
-        handlerFun()
+
+        if (handlerFun) {
+
+            handlerFun()
+        }
     }
     return (
-        <button style={{ color: color, background: bg }} onClick={btnFun} className={clsx(styles.btn)}>{t(label)}</button>
+        <button type={type} style={{ color: color, background: bg }} onClick={btnFun} className={clsx(styles.btn)}>{t(label)}</button>
     )
 }
 

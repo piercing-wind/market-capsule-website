@@ -5,8 +5,9 @@ import styles from "./style/dobDatePikar.module.scss"
 import clsx from "clsx";
 import { Calender } from "@/components/svg/Calender";
 
-const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
-    <button className={clsx("w-100 d-flex justify-content-between align-items-center", styles.dobDiv)} onClick={onClick} ref={ref}>
+const ExampleCustomInput = forwardRef(({ value, onClick, readOnly = false }, ref) => (
+
+    <button type={"button"} disabled={readOnly ? true : false} className={clsx("w-100 d-flex justify-content-between align-items-center", styles.dobDiv, readOnly && styles.dobColor)} onClick={onClick} ref={ref}>
         {value ? (
             <span>{value}</span>
         ) : (
@@ -16,21 +17,21 @@ const ExampleCustomInput = forwardRef(({ value, onClick }, ref) => (
     </button>
 ));
 ExampleCustomInput.displayName = 'ExampleCustomInput';
-const DobDatePikar = () => {
-    const [startDate, setStartDate] = useState();
+const DobDatePikar = ({ startDate, setStartDate, formik, readOnly }) => {
 
     return (
         <div className={clsx("mb-2", styles.mainDiv)}
         >
             <DatePicker
                 selected={startDate}
-                onChange={(date) => setStartDate(date)}
+                onChange={(date) => setStartDate(formik, date)}
                 customInput={<ExampleCustomInput />}
                 dateFormat="dd/MM/yyyy"
                 showYearDropdown
                 scrollableYearDropdown
                 yearDropdownItemNumber={100}
                 maxDate={new Date()} // Restrict future dates
+                readOnly={readOnly}
             />
 
         </div>
