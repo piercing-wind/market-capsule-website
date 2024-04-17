@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react';
 import clsx from "clsx";
 import styles from "./style/accountSettings.module.scss";
 import Image from 'next/image';
-import { useTranslation } from 'next-i18next';
 import PenCircle from '@/components/svg/PenCircle';
 import { Col, Row } from 'react-bootstrap';
 import dynamic from 'next/dynamic';
@@ -18,6 +17,7 @@ import * as Yup from "yup";
 import { useDropzone } from 'react-dropzone';
 import { RxCross2 } from "react-icons/rx";
 import CrossCircle from '@/components/svg/CrossCircle';
+import { Trans, useTranslation } from "next-i18next";
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email format").required("* This field is mandatory"),
@@ -106,9 +106,17 @@ const AccountSettingsSection = () => {
         <div className={clsx(styles.leftSidebarMaindDiv, "px-sm-4 px-3")}>
             {/* heading section */}
             <div className={clsx("d-flex align-items-center column-gap-3", styles.upperDiv)}>
-                <h4 className='mb-0'>Account Settings</h4>
+                <h4 className='mb-0'>
+                    <Trans i18nKey={"accountSettingsPage.accountSetting"}>
+                        Account Settings
+                    </Trans>
+                </h4>
                 <button onClick={handleEditForm} className='d-flex align-items-center column-gap-1'>
-                    <span>Edit</span>
+                    <span>
+                        <Trans i18nKey={"accountSettingsPage.edit"}>
+                            Edit
+                        </Trans>
+                    </span>
                     <PenCircle />
                 </button>
             </div>
@@ -198,7 +206,7 @@ const AccountSettingsSection = () => {
 
                                 />
                             </Col>
-                            <Col className='ps-lg-0 pe-lg-1  pb-1 px-sm-3 px-0' lg={6}>
+                            <Col className='ps-lg-0 pe-lg-1  pb-1 px-sm-3 px-0' lg={12}>
 
                                 <hr className='mt-3 mb-4 ' />
                             </Col>
