@@ -1,0 +1,79 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.containerPadding {
+  padding-left: 180px;
+  padding-right: 180px;
+  padding-bottom: 200px;
+  margin-top: 58px;
+}
+
+.leftSidebarMaindDiv {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #d5d5d5;
+  border-radius: 8px;
+  padding-top: 32px;
+  padding-bottom: 38px;
+}
+
+.upperDiv {
+  margin-bottom: 32px;
+  h4 {
+    @include basicFontSize(22px, 700, #828282);
+  }
+}
+
+.notifcationDiv {
+  h6 {
+    @include basicFontSize(18px, 600, #4b4b4b);
+  }
+  .blueColor {
+    @include basicFontSize(18px, 600, #3e63ff);
+  }
+  p {
+    @include basicFontSize(14px, 400, #000000);
+  }
+
+  span {
+    @include basicFontSize(12px, 700, #000000);
+  }
+}
+
+.blueBg {
+  background: #e0e6ff 0% 0% no-repeat padding-box;
+}
+
+.blueDot {
+  span {
+    display: block;
+    width: 12px;
+    height: 12px;
+    background: #3e63ff 0% 0% no-repeat padding-box;
+    border-radius: 50%;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .containerPadding {
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 48px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .LeftSidebar > div {
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .containerPadding {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 15px;
+  }
+}

@@ -5,9 +5,17 @@ import { secureHeader } from "@/middleware/securityHeader";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { wrapper } from "@/store";
+import { Suspense } from "react";
+import LoderModule from "@/components/Module/LoaderModule";
+import { Col, Container, Row } from "react-bootstrap";
+import styles from "../../section/Notifications/style/notifications.module.scss"
+import clsx from "clsx";
+import dynamic from "next/dynamic";
+const LeftSidebar = dynamic(() => import("@/components/Module/Sidebar/LeftSidebar"))
+const Notifications = dynamic(() => import("@/section/Notifications/Notifications"))
 
 
-export default function NotificationsPage(props) {
+export default function ManageSubscriptionPage(props) {
     const { t } = useTranslation("common");
 
     const dispatch = useDispatch()
@@ -18,15 +26,24 @@ export default function NotificationsPage(props) {
 
     router.defaultLocale = "en";
 
-
     return (
         <>
 
-            <main >
+            <Suspense fallback={<LoderModule />}>
+                <Container fluid className={clsx(styles.containerPadding)}>
+                    <Row className={clsx("mx-0")}>
 
-                capsule plus
+                        <Col className={clsx("px-0", styles.LeftSidebar)} lg={3} sm={12}>
+                            <LeftSidebar />
+                        </Col>
+                        <Col className="px-0" lg={9} sm={12}>
+                            <Notifications />
+                        </Col>
 
-            </main>
+                    </Row>
+                </Container>
+
+            </Suspense>
         </>
     );
 }
