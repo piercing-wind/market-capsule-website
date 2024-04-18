@@ -134,5 +134,18 @@
   "notifications": {
     "notifications": "Notifications",
     "paymentCompletedSuccessfully": "Payment completed Successfully!"
+  },
+  "subscriptionPage": {
+    "plan": "PLAN",
+    "capsulePlus": "Capsule+",
+    "yearlyPlan": "Yearly Plan",
+    "biMonthlyPlan": "Bi-monthly Plan",
+    "persentOff": "% OFF",
+    "orderSummary": "ORDER SUMMARY",
+    "addPromoCode": "+ Add Promo Code",
+    "annualPlanSubscription": "(Annual Plan Subscription)",
+    "totalDueToday": "Total due today",
+    "pay": "Pay ",
+    "now": " now"
   }
 }

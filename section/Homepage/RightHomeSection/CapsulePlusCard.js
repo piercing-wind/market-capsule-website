@@ -5,13 +5,16 @@ import styles from '../style/capsulePlusCard.module.scss'
 import dynamic from 'next/dynamic';
 const HomeBlueButton = dynamic(() => import('@/components/Module/Button/HomeBlueButton'), { suspense: true })
 import { Trans, useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 
 const CapsulePlusCard = () => {
     const { t } = useTranslation("common");
+    const router = useRouter()
 
     const upgradeNowFun = () => {
         console.log("upgrade now ")
+        router.push("/subscription")
     }
     return (
         <div className={clsx("p-2", styles.trandingDiv)}>

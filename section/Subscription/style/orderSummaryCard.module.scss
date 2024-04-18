@@ -1,0 +1,50 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+.planCard {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border-radius: 8px;
+}
+
+.div1 {
+  border-bottom: 1px solid #d4d4d4;
+  padding-bottom: 33px;
+  & > p {
+    @include basicFontSize(18px, 600, #4b4b4b);
+    .medium {
+      @include basicFontSize(18px, 500, #4b4b4b);
+    }
+  }
+}
+
+.div2 {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #d4d4d4;
+
+  & > p {
+    margin-bottom: 0px;
+    @include basicFontSize(18px, 800, #000000);
+  }
+}
+
+.para1 {
+  padding-top: 12px;
+  margin-bottom: 24px;
+
+  @include basicFontSize(14px, 400, #4b4b4b);
+}
+
+@media screen and (max-width: 768px) {
+  .btnDiv > button {
+    width: 50% !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .btnDiv > button {
+    width: 100% !important;
+  }
+}

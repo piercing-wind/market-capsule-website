@@ -18,7 +18,6 @@ const App = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pageProps } = props;
 
-
   return (
     <Provider store={store}>
 
@@ -29,6 +28,7 @@ const App = ({ Component, ...rest }) => {
         <Toaster
           position="bottom-center"
           reverseOrder={true}
+          containerClassName="toasterCss"
         />
       </main>
     </Provider>

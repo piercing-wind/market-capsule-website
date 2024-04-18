@@ -1,0 +1,84 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.planCard {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border-radius: 8px;
+
+  .planDiv {
+    background: #ffffff 0% 0% no-repeat padding-box;
+    border: 1px solid #c9c9c9;
+    border-radius: 8px;
+    margin-bottom: 12px;
+  }
+  .selectedDiv {
+    background: transparent linear-gradient(180deg, #d8dfff 0%, #b4ffde 100%) 0%
+      0% no-repeat padding-box;
+    border: none;
+  }
+}
+
+.leftDiv {
+  & > p {
+    @include basicFontSize(11px, 600, #000000);
+    & > span {
+      margin-left: 3px;
+    }
+  }
+
+  & > .planPara {
+    @include basicFontSize(18px, 800, #000000);
+  }
+}
+
+.leftInputDiv {
+  input {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.rightDiv {
+  & > p {
+    margin-bottom: 0px;
+    & > .realPrice {
+      text-decoration: line-through;
+      text-decoration-color: #ff4f55;
+      @include basicFontSize(12px, 700, #474747);
+    }
+    & > .redColor {
+      @include basicFontSize(10px, 500, #ff4f55);
+    }
+
+    & > .offerPrice {
+      @include basicFontSize(20px, 700, #000000);
+    }
+    & > .planDuration {
+      @include basicFontSize(10px, 300, #000000);
+    }
+  }
+}
+
+@media screen and (max-width: 426px) {
+  .rightDiv {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 376px) {
+  .planCard {
+    .planDiv {
+      flex-direction: column;
+      row-gap: 8px;
+      align-items: flex-start !important;
+      justify-content: flex-start !important;
+    }
+  }
+
+  .rightDiv {
+    flex-direction: row;
+  }
+}

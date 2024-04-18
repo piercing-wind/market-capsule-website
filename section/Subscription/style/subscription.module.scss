@@ -1,0 +1,50 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.containerPadding {
+  padding-left: 280px;
+  padding-right: 280px;
+  padding-bottom: 200px;
+  margin-top: 85px;
+}
+
+.colDiv {
+  & > p {
+    margin-bottom: 22px;
+    @include basicFontSize(14, 400, #000000);
+  }
+  & > hr {
+    border-top: 1px solid #c5c5c5;
+    @include basicFontSize(14, 400, #000000);
+  }
+  .addPromoCode {
+    border: none;
+    background-color: transparent;
+    @include basicFontSize(14, 500, #3e63ff);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .containerPadding {
+    padding-left: 25px;
+    padding-right: 25px;
+    padding-bottom: 25px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .containerPadding {
+    margin-top: 25px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .containerPadding {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-top: 15px;
+  }
+}
