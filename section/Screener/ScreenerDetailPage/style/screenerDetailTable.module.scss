@@ -1,0 +1,47 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.heading span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #606f7b;
+}
+.heading {
+  border-bottom: none;
+}
+.trTable > td {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+  border-bottom: none;
+}
+.addTo {
+  @include basicFontSize(14px, 400, #7c7c7c);
+}
+
+.readMore {
+  min-width: none;
+  &:hover {
+    @include basicFontSize(14px, 400, #3e63ff);
+  }
+}
+
+.sortBtn {
+  border: none;
+  background-color: transparent;
+}
+
+.skyBlueBgColor {
+  & > td {
+    background: #f5f7ff 0% 0% no-repeat padding-box;
+  }
+}
+
+.whiteBgColor {
+  & > td {
+    background: #ffffff;
+  }
+}

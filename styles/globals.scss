@@ -122,6 +122,25 @@ a {
   }
 }
 
+// accrodian
+.accrodianBtn {
+  .accordion-button:not(.collapsed) {
+    background-color: transparent !important;
+    box-shadow: none !important;
+  }
+  & > button {
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+.accrodian {
+  .accordion-item:last-of-type {
+    border-radius: 0px !important;
+  }
+}
+
 .borderRed {
   border: 1px solid rgb(219, 49, 49) !important;
 }

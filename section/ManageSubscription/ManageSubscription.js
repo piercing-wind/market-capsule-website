@@ -49,7 +49,9 @@ const ManageSubscription = () => {
             </div>
             <Row className='mx-0'>
                 <Col xs={12} className='px-0 '>
-                    <ManageSubscriptionTable dataTable={manageSubscriptionTable} dataTableHeading={manageSubscriptionTableHeading} />
+                    <ManageSubscriptionTable
+                        dataTable={manageSubscriptionTable}
+                        dataTableHeading={manageSubscriptionTableHeading} />
                 </Col>
 
             </Row>

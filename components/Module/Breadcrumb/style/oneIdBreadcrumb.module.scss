@@ -1,0 +1,15 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.linkDiv {
+  a {
+    @include basicFontSize(14px, 500, #3e63ff);
+    text-decoration: none;
+  }
+  span {
+    @include basicFontSize(14px, 500, #606f7b);
+  }
+}

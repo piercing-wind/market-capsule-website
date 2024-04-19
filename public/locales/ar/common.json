@@ -60,6 +60,26 @@
     "capsulePlus": "capsule+",
     "loadMore": "Load More+"
   },
+  "screenerIdPage": {
+    "screener": " Screener",
+    "filters": "FILTERS",
+    "typeOfSme": "Type of SME",
+    "sme": "SME",
+    "nonSme": "Non SME",
+    "pe": "PE",
+    "all": "All",
+    "lessThan40": "Less Than 40",
+    "greaterThan40": "Greater Than 40",
+    "marketCap": "Market Cap",
+    "lessThan500Cr": "Less Than 500 Cr",
+    "greaterThan500Cr": "Greater Than 500 Cr",
+    "companyName": "COMPANY NAME",
+    "marketCapInCrore": "MARKET CAP (IN CRORE)",
+    "ttmPe": "TTM PE",
+    "addToWatchlist": "Add to Watchlist",
+    "readMore": "Read More",
+    "dateOfInformation": "Date Of Information"
+  },
   "watchlist": {
     "myWatchlist": "My Watchlist",
     "companyName": "COMPANY NAME",

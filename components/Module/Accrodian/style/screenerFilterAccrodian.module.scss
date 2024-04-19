@@ -1,0 +1,46 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.div {
+  padding: 20px 20px 8px 20px;
+  p {
+    @include basicFontSize(14px, 500, #606f7b);
+  }
+}
+
+.accrodian {
+  padding-left: 20px;
+  border-radius: 0px;
+}
+.accrodian > div {
+  border-left: none;
+  border-top: none;
+  border-right: none;
+  border-radius: 0px;
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.btn > button {
+  @include basicFontSize(16px, 500, #000000);
+  padding-left: 0px;
+  border-bottom: none;
+  border-radius: 0px;
+}
+
+.body {
+  padding-left: 0px;
+  padding-top: 0px;
+  border-radius: 0px;
+}
+
+.checkDiv {
+  span {
+    @include basicFontSize(14px, 400, #606f7b);
+  }
+  .medium {
+    @include basicFontSize(14px, 500, #000000);
+  }
+}
