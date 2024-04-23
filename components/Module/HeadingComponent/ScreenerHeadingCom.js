@@ -10,7 +10,7 @@ const ScreeenerHeadingCom = ({ heading, para }) => {
   return (
     <div className={clsx(router?.pathname === "/screener" ? "px-xl-5" : "px-xl-4", " py-xl-4 px-3 py-3", styles.screeenerDiv)}>
       <h4>{t(heading)}</h4>
-      <p className='mb-0'>{para}</p>
+      <p className='mb-0'>{t(para)}</p>
     </div>
   )
 }

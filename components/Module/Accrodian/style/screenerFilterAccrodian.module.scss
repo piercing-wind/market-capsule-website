@@ -37,6 +37,7 @@
 }
 
 .checkDiv {
+  cursor: pointer;
   span {
     @include basicFontSize(14px, 400, #606f7b);
   }

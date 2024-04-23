@@ -6,16 +6,19 @@ import styles from "./style/screenerFilterAccrodian.module.scss"
 import dynamic from 'next/dynamic';
 import { Trans, useTranslation } from 'next-i18next';
 const FilterCheckbox = dynamic(() => import("../Checkbox/filterCheckbox"))
+const SectorAutofillDropdown = dynamic(() => import("../Dropdown/SectorAutofillDropdown"))
 
 const ScreenerFilterAccrodian = ({ initialFilterData }) => {
     const [filterData, setFilterData] = useState(initialFilterData);
+    const [sector, setSector] = useState("");
+    const [industry, setIndustry] = useState("");
+    const [company, setCompany] = useState("");
     const { t } = useTranslation("common")
 
     const handleCheckbox = (status, filterDataIndex, typeIndex) => {
         const updatedFilterData = [...filterData];
         updatedFilterData[filterDataIndex].typesArr[typeIndex].status = !status;
         setFilterData(updatedFilterData);
-        console.log("Updated filterData:", updatedFilterData);
     };
     return (
         <div>
@@ -40,19 +43,62 @@ const ScreenerFilterAccrodian = ({ initialFilterData }) => {
                                     <Accordion.Header className={clsx("accrodianBtn", styles.btn)} >{t(el?.heading)}</Accordion.Header>
                                     <Accordion.Body className={clsx(styles.body)}>
                                         {
-                                            el?.typesArr?.map((elId, typeIndex) => {
-                                                return (
-                                                    <div key={typeIndex} className={clsx("d-flex align-items-center column-gap-2 mb-2", styles.checkDiv)}>
-                                                        <FilterCheckbox
-                                                            handleCheckbox={(type, status) => handleCheckbox(status, filterIndex, typeIndex)} value={elId?.type}
-                                                            status={elId.status}
-                                                            type={elId.type}
-                                                        />
-                                                        <span className={clsx(elId?.status && styles.medium)}>{t(elId?.label)}</span>
-                                                    </div>
+                                            el?.typeValue === "sector" ? (
+                                                <SectorAutofillDropdown
+                                                    name={"sector"}
+                                                    placeholder={t("ipoPage.searchSector")}
+                                                    value={sector}
+                                                    onChange={(value) => {
+                                                        setSector(value)
+                                                    }}
+                                                    sectorArr={el?.typesArr}
+                                                    filterIndex={filterIndex}
+                                                    handleCheckbox={handleCheckbox}
+                                                />
 
-                                                )
-                                            })
+                                            ) : el?.typeValue === "industry" ? (
+                                                <SectorAutofillDropdown
+                                                    name={"industry"}
+                                                    placeholder={t("ipoPage.searchIndustry")}
+                                                    value={industry}
+                                                    onChange={(value) => {
+                                                        setIndustry(value)
+                                                    }}
+                                                    sectorArr={el?.typesArr}
+                                                    filterIndex={filterIndex}
+                                                    handleCheckbox={handleCheckbox}
+                                                />
+                                            ) : el?.typeValue === "companyName" ? (
+                                                <SectorAutofillDropdown
+                                                    name={"companyName"}
+                                                    placeholder={t("ipoPage.searchCompany")}
+                                                    value={company}
+                                                    onChange={(value) => {
+                                                        setCompany(value)
+                                                    }}
+                                                    sectorArr={el?.typesArr}
+                                                    filterIndex={filterIndex}
+                                                    handleCheckbox={handleCheckbox}
+                                                />
+                                            ) : (
+                                                el?.typesArr?.map((elId, typeIndex) => {
+                                                    return (
+                                                        <div
+                                                            key={typeIndex}
+                                                            className={clsx("d-flex align-items-center column-gap-2 mb-2", styles.checkDiv)}
+                                                            onClick={(type, status) => handleCheckbox(elId?.status, filterIndex, typeIndex)}
+                                                            value={elId?.type}
+                                                        >
+                                                            <FilterCheckbox
+                                                                status={elId?.status}
+                                                                type={elId?.type}
+                                                            />
+                                                            <span className={clsx(elId?.status && styles.medium)}>{t(elId?.label)}</span>
+                                                        </div>
+
+                                                    )
+                                                })
+                                            )
                                         }
                                     </Accordion.Body>
                                 </Accordion.Item>

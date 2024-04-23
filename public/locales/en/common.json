@@ -166,5 +166,26 @@
     "totalDueToday": "Total due today",
     "pay": "Pay ",
     "now": " now"
+  },
+  "ipoPage": {
+    "ipoZone": "IPO Zone",
+    "exploreTheLatest": "Explore the latest IPO information for all companies, including offering price, Growth, and more",
+    "typeOfSme": "Type of SME",
+    "sme": "SME",
+    "nonSme": "Non SME",
+    "sector": "Sector",
+    "searchSector": "Search Sector",
+    "searchIndustry": "Search Industry",
+    "searchCompany": "Search Company",
+    "shomMorePlus": "Show More +",
+    "shoeLess": "Show Less -",
+    "Industry": "Industry",
+    "companyName": "Company Name",
+    "companyNameCaps": "COMPANY NAME",
+    "openDate": "OPEN DATE",
+    "offerPricePe": "OFFER PRICE PE",
+    "lySalesGrowth": "LY SALES GROWTH",
+    "industryCaps": "INDUSTRY",
+    "readMore": "Read More"
   }
 }

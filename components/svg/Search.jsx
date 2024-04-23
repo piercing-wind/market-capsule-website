@@ -1,11 +1,11 @@
 import React from "react";
 
-const Search = () => {
+const Search = ({ width = "24.032", height = "24.032" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="24.032"
-      height="24.032"
+      width={width}
+      height={height}
       viewBox="0 0 24.032 24.032"
     >
       <path
