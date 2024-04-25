@@ -187,5 +187,17 @@
     "lySalesGrowth": "LY SALES GROWTH",
     "industryCaps": "INDUSTRY",
     "readMore": "Read More"
+  },
+  "capsulePlusPage": {
+    "capsulePlus": "capsule+",
+    "discover": "Discover premium capsule+ insights for expert stock guidance, enhancing your decision-making prowess.",
+    "primeArticles": "Prime Articles",
+    "promoterInterview": "Promoter Interview",
+    "free": "Free",
+    "readNow": "Read Now",
+    "upgradeToCapsulePlus": "Upgrade to Capsule+ now to unlock exclusive content!",
+    "upgradeNow": "Upgrade Now",
+    "persentOff": "% OFF",
+    "year": "YEAR"
   }
 }

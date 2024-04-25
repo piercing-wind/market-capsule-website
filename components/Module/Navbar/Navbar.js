@@ -7,7 +7,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import Link from 'next/link';
 import Image from 'next/image';
 import { navLinkData } from './navigationData';
-import Bolt from '@/components/svg/Bolt';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { setShowForm } from '@/store/slices/authSlice';
@@ -71,7 +70,7 @@ const NavbarLayout = () => {
                                             return (
                                                 <Link className={clsx(styles.grayColor, handleActiveNavFun(el?.slug, router?.pathname) ? styles.blackColor : "")} href={el?.slug} key={index} >
                                                     <li className='d-flex align-items-center column-gap-1'>
-                                                        {el?.slug === "/capsule-plus" && <Bolt />}{t(el?.label)}
+                                                        {el?.slug === "/capsule-plus" && <Image src="/assests/capsule-plus/bolt.svg" alt="bolt" width={"19"} height={"26"} />}{t(el?.label)}
 
                                                     </li>
                                                     {

@@ -21,10 +21,7 @@ const IpoTable = (props) => {
         }
     }
 
-    //sort by filter
-    const soringFun = () => {
-        console.log("sort fun")
-    }
+
 
     return (
         <>

@@ -1,0 +1,124 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.planDiv {
+  background-color: red;
+  background: transparent linear-gradient(93deg, #a8ffd9 0%, #ccd6ff 100%) 0% 0%
+    no-repeat padding-box;
+  border-radius: 13px;
+  width: 100%;
+}
+
+.card {
+  z-index: 5;
+  width: 100%;
+  padding: 0px 120px;
+  position: fixed;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.leftPara {
+  p {
+    @include basicFontSize(22px, 700, #000000);
+  }
+}
+
+.minWidth {
+  min-width: 50px;
+}
+
+.rightDiv {
+  & > p {
+    margin-bottom: 0px;
+    & > .realPrice {
+      text-decoration: line-through;
+      text-decoration-color: #ff4f55;
+      @include basicFontSize(12px, 700, #474747);
+    }
+    & > .redColor {
+      @include basicFontSize(10px, 500, #ff4f55);
+    }
+
+    & > .offerPrice {
+      @include basicFontSize(20px, 700, #000000);
+    }
+    & > .planDuration {
+      @include basicFontSize(10px, 300, #000000);
+    }
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .card {
+    padding: 0px 80px;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .card {
+    padding: 0px 25px;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .leftPara {
+    p {
+      @include basicFontSize(18px, 700, #000000);
+    }
+  }
+
+  .rightDiv {
+    & > p {
+      & > .realPrice {
+        @include basicFontSize(12px, 700, #474747);
+      }
+      & > .redColor {
+        @include basicFontSize(10px, 500, #ff4f55);
+      }
+
+      & > .offerPrice {
+        @include basicFontSize(16px, 700, #000000);
+      }
+      & > .planDuration {
+        @include basicFontSize(10px, 300, #000000);
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .leftPara {
+    p {
+      @include basicFontSize(16px, 700, #000000);
+    }
+  }
+
+  .rightDiv {
+    flex-direction: column;
+    gap: 8px;
+    & > p {
+      & > .realPrice {
+        @include basicFontSize(12px, 700, #474747);
+      }
+      & > .redColor {
+        @include basicFontSize(10px, 500, #ff4f55);
+      }
+
+      & > .offerPrice {
+        @include basicFontSize(14px, 700, #000000);
+      }
+      & > .planDuration {
+        @include basicFontSize(10px, 300, #000000);
+      }
+    }
+  }
+
+  .minWidth {
+    flex-direction: row !important;
+  }
+}
