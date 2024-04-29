@@ -9,11 +9,14 @@ import OtpInput from "react-otp-input";
 import styles from "./style/otpForm.module.scss";
 import { setAuthType } from '@/store/slices/authSlice';
 import toast from 'react-hot-toast';
+const CountdownTimer = dynamic(() => import('../Timer/CountdownTimer'))
 
 
 const OtpForm = () => {
     const { t } = useTranslation("common");
     const [otp, setOtp] = useState("");
+    const [resetValue, setResetValue] = useState(false);
+    const [trigger, setTrigger] = useState(false);
 
     const dispatch = useDispatch()
 
@@ -33,6 +36,11 @@ const OtpForm = () => {
         dispatch(setAuthType("signup"))
 
     }
+
+    // resend otp timer
+    const resendOtp = async () => {
+        setOtp("");
+    };
     return (
         <div className={clsx(styles.loginFormDiv)}>
             <form className={clsx(styles.form)} onSubmit={handleSubmit}>
@@ -86,7 +94,21 @@ const OtpForm = () => {
                     disabled={otp?.length !== 4 ? true : false}
                 />
 
+                <div className="d-flex  flex-sm-row flex-column align-items-start mt-4 " style={{ marginBottom: "0px", columnGap: "10px", fontSize: "16px", color: "#606F7B", fontWeight: "400" }} >
+                    <span style={{ display: resetValue ? "block" : "none" }} >
+                        <Trans i18nKey="otpVerifyPage.didNotReceive">
+                            {`Didn't receive?`}
+                        </Trans></span>
+                    <span style={{ display: !trigger ? "inline-block" : "none" }}>
+                        <CountdownTimer
+                            minSecs={{ minutes: 0, seconds: 180 }}
+                            handleSubmit={resendOtp}
+                            setResetValue={setResetValue}
+                            resetValue={resetValue}
+                        />
+                    </span>
 
+                </div>
 
             </form>
 
