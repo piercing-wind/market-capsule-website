@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import clsx from "clsx";
 import styles from "./style/profileDropdown.module.scss"
 import { Dropdown } from 'react-bootstrap';
-import { userProfileNavData } from '../Navbar/navigationData';
+import { userProfileNavData, userProfileNavData400 } from '../Navbar/navigationData';
 import Image from 'next/image';
 import { Trans, useTranslation } from 'next-i18next';
 import { DownArrow } from '@/components/svg/DownArrow';
 import Signout from '@/components/svg/Signout';
 import Link from 'next/link';
 import DefaultProfile from '../ProfileImage/DefaultProfile';
+import { useRouter } from 'next/router';
 
 const ProfileDropdown = () => {
     const { t } = useTranslation("common")
+    const router = useRouter("")
     const [profileURL, setProfileUrl] = useState("/assests/user-profile/user-img.png")
 
     let userName = "John"
@@ -38,18 +40,35 @@ const ProfileDropdown = () => {
                         </h5>
                     </Dropdown.Item>
                     <Dropdown.Divider className={clsx(styles.divider)} />
-
                     {
-                        userProfileNavData?.map((el, index) => {
-                            return (
+                        router?.pathname !== "/404" ? (
 
-                                <Dropdown.Item href={el?.slug} className={styles.slugStyle} key={index} >
-                                    {t(el?.label)}
+                            userProfileNavData?.map((el, index) => {
+                                return (
 
-                                </Dropdown.Item>
+                                    <Dropdown.Item href={el?.slug} className={styles.slugStyle} key={index} >
+                                        {t(el?.label)}
 
-                            )
-                        })
+                                    </Dropdown.Item>
+
+                                )
+                            })
+
+
+                        ) : (
+
+                            userProfileNavData400?.map((el, index) => {
+                                return (
+
+                                    <Dropdown.Item href={el?.slug} className={styles.slugStyle} key={index} >
+                                        {t(el?.label)}
+
+                                    </Dropdown.Item>
+
+                                )
+                            })
+
+                        )
                     }
                     <Dropdown.Divider className='pb-3' />
                     <Dropdown.Item className='pt-0 pe-3'>

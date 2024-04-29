@@ -7,7 +7,11 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import clsx from "clsx";
 import toast from 'react-hot-toast';
 import dynamic from "next/dynamic";
+import { useReducer } from "react";
+import { useRouter } from "next/router";
 const NavbarLayout = dynamic(() => import('@/components/Module/Navbar/Navbar'))
+const Navbar404 = dynamic(() => import('@/components/Module/Navbar/Navbar404'))
+
 const Toaster = dynamic(
   () => import("react-hot-toast").then((c) => c.Toaster),
   {
@@ -22,15 +26,23 @@ const plus_Jakarta_Sans = Plus_Jakarta_Sans({
 const App = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pageProps } = props;
-
-
+  const router = useRouter()
+  console.log("router", router)
   return (
 
     <Provider store={store}>
 
       <main className={clsx(`${plus_Jakarta_Sans.className}`, "gray-bg")}>
-        <NavbarLayout />
 
+        {
+          router?.pathname !== "/404" ? (
+            <NavbarLayout />
+
+          ) : (
+            <Navbar404 />
+
+          )
+        }
         <Component {...pageProps} />
       </main>
       <Toaster
