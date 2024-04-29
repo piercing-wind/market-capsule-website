@@ -81,6 +81,7 @@
     "dateOfInformation": "Date Of Information"
   },
   "screenerSlugPage": {
+    "screener":"Screener",
     "addToWatchlist": "Add to Watchlist",
     "basicDetails": "Basic Details",
     "prevClose": "Prev Close",

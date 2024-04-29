@@ -22,10 +22,8 @@ const InDepthCard = dynamic(() => import("@/components/Module/UpgradeCard/InDept
 
 export default function CapsulePlusPage(props) {
     const { t } = useTranslation("common");
-    const [screenerFilter, setScreenerFilter] = useState("functional")
     const { prevClosePrice, marketCap, sectoralPERange, BSE, ttpmPE, peRemark, sector } = basicDetailsData?.data?.company_share_detail
     const { about, compnay_timeline } = basicDetailsData?.data;
-    const dispatch = useDispatch()
     const router = useRouter();
     router.locale = props?.language
         ? props?.language
@@ -33,60 +31,50 @@ export default function CapsulePlusPage(props) {
 
     router.defaultLocale = "en";
 
-    //filter based on type and section
-    const functionalSectorialBucketsFilter = (type) => {
-        if (type === "functional") {
-            setScreenerFilter("functional")
-        } else if (type === "sectoral") {
-            setScreenerFilter("sectoral")
-        } else {
-            setScreenerFilter("importantBuckets")
-        }
 
-    }
 
     // basic detailsobj
     const basicDetailArr = [
         {
             id: 1,
-            label: "Prev Close",
+            label: "screenerSlugPage.prevClose",
             value: `₹${prevClosePrice}`,
             bg: true
         },
         {
             id: 2,
-            label: "Sector",
+            label: "screenerSlugPage.sector",
             value: `${sector}`,
             bg: true
         },
         {
             id: 3,
-            label: "Market Cap",
+            label: "screenerSlugPage.marketCap",
             value: `₹${marketCap}Cr`,
             bg: false
         },
         {
             id: 4,
-            label: "TTM PE",
+            label: "screenerSlugPage.ttmPe",
             value: `${ttpmPE}x`,
             bg: false,
         },
         {
             id: 5,
-            label: "Sectoral PE Range",
+            label: "screenerSlugPage.sectoralPeRange",
             value: `${sectoralPERange}`,
             bg: true,
             updated: true,
         },
         {
             id: 6,
-            label: "PE Remark",
+            label: "screenerSlugPage.peRemark",
             value: `${peRemark}`,
             bg: true
         },
         {
             id: 7,
-            label: "BSE",
+            label: "screenerSlugPage.bse",
             value: `${BSE}`,
             bg: false
         }
@@ -99,7 +87,7 @@ export default function CapsulePlusPage(props) {
                 <div className={clsx(styles.breadPading)}>
                     <TwoIdBreadcrumb
                         linkSlug1={`/screener`}
-                        linkLable1={t(`Screener`)}
+                        linkLable1={t(`screenerSlugPage.screener`)}
                         linkSlug2={`/screener/${router?.query?.id}`}
                         linkLable2={t(`Capacity Expansions & New Product Launches`)}
                         idLable={basicDetailsData?.data?.name}
@@ -115,20 +103,20 @@ export default function CapsulePlusPage(props) {
                         <Col xs={12} className={clsx(styles.paddingDetails)} >
                             <BasicDetailsSection
                                 basicDetailArr={basicDetailArr}
-                                headingLabel={`Basic Details`}
+                                headingLabel={`screenerSlugPage.basicDetails`}
                             />
                         </Col>
                         <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                             <AboutTheCompany
                                 aboutDescription={about}
-                                headingLabel={`About the Company`}
+                                headingLabel={`screenerSlugPage.aboutTheCompany`}
                             />
                         </Col>
 
                         <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                             <TimelineSection
                                 compnayTimelineList={compnay_timeline}
-                                headingLabel={`Timeline`}
+                                headingLabel={`screenerSlugPage.timeline`}
                             />
                         </Col>
                         <Col xs={12} className={clsx(styles.paddingDetailsInDefth)} >
@@ -141,7 +129,7 @@ export default function CapsulePlusPage(props) {
 
                         <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                             <DisclamerCard
-                                heading={`DISCLAIMER`}
+                                heading={`screenerSlugPage.disclaimer`}
                                 para={`: This document is created for educational and informational purposes only and should not be construed as a Buy/Sell recommendation, investment advice or a research report. Although the document accurately reflects the personal views of the authors,there may be manual/ human errors in the document. The authors may also have equity shares in the companies mentioned in this report. Investor is advised to consult his/her investment advisor and undertake further due diligence before making any investment decision in the companies mentioned. Authors are not liable for any financial gains or losses due to investments made as per the information written in this document.`}
 
                             />

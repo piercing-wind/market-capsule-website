@@ -14,7 +14,7 @@ const HeadingCom = ({ label, updated = false }) => {
                 {
                     updated && (
                         <span className={clsx(styles.updated)}>
-                            Updated
+                            {t(`screenerSlugPage.updated`)}
                         </span>
 
                     )

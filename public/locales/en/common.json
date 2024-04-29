@@ -81,6 +81,7 @@
     "readMore": "Read More"
   },
   "screenerSlugPage": {
+    "screener":"Screener",
     "addToWatchlist": "Add to Watchlist",
     "basicDetails": "Basic Details",
     "prevClose": "Prev Close",
@@ -97,7 +98,7 @@
     "exclusiveFor": "EXCLUSIVE FOR",
     "capsulePlus": "CAPSULE+",
     "readNow": "Read Now",
-    "disclaimer": "DISCLAIMER:",
+    "disclaimer": "DISCLAIMER",
     "updated": "Updated"
   },
   "watchlist": {

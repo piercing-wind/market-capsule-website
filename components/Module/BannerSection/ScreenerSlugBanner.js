@@ -5,9 +5,11 @@ import Image from 'next/image';
 import IconPayNowButton from '../Button/IconPayNowButton';
 import ArrowUpRight from '@/components/svg/ArrowUpRight';
 import Bookmark from '@/components/svg/Bookmark';
+import { useTranslation, Trans } from 'next-i18next';
 
 
 const ScreenerSlugBanner = () => {
+    const { t } = useTranslation("common");
 
 
     const handleAddToWatchlist = () => {
@@ -35,7 +37,7 @@ const ScreenerSlugBanner = () => {
             {/* right div */}
             <div className={clsx(styles.rightDiv)}>
                 <IconPayNowButton
-                    label={"Add to Watchlist"}
+                    label={`screenerSlugPage.addToWatchlist`}
                     color={"#FFFFFF"}
                     fontSize={"16px"}
                     fontWeight={"400"}

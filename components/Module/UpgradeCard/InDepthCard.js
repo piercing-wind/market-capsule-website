@@ -20,22 +20,28 @@ const InDepthCard = () => {
             <div className={clsx("px-lg-4 py-lg-4 p-3 d-flex flex-md-row flex-column row-gap-2 column-xl-gap-0 column-gap-3 justify-content-between align-items-center", styles.planDiv)}>
                 <div className={clsx("", styles.leftPara)}>
                     <h5 className={clsx(styles.heading)}>
-                        <Trans i18nKey={""}>
+                        <Trans i18nKey={"screenerSlugPage.discover"}>
                             Discover In-depth Insights About the Company
                         </Trans>
                     </h5>
                     <p className={clsx("mb-0", styles.para)}>
-                        {`Explore detailed information regarding the company's share capital, exclusive statistics, insights, and much more.`}
+                        <Trans i18nKey={"screenerSlugPage.discoverSlug"}>
+                            {`Explore detailed information regarding the company's share capital, exclusive statistics, insights, and much more.`}
+                        </Trans>
                     </p>
                 </div>
 
                 <div className={clsx("d-flex column-gap-3 align-items-center", styles.rightDiv)}>
                     <p className='mb-0'>
-                        <span className={clsx(styles.offerPrice)}>EXCLUSIVE FOR</span>
+                        <span className={clsx(styles.offerPrice)}>
+                            <Trans i18nKey={"screenerSlugPage.exclusiveFor"}>
+                                EXCLUSIVE FOR
+                            </Trans>
+                        </span>
                         <MarketCapsule />
                     </p>
                     <IconPayNowButton
-                        label={"Read Now"}
+                        label={"screenerSlugPage.readNow"}
                         color={"#FFFFFF"}
                         fontSize={"16px"}
                         fontWeight={"400"}
