@@ -7,10 +7,14 @@ import { Trans, useTranslation } from 'next-i18next';
 import AddToWatchlistBookmark from '@/components/svg/AddToWatchlistBookmark';
 import BlueRightArrow from '@/components/svg/BlueRightArrow';
 import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 const LoadMoreBtn = dynamic(() => import("@/components/Module/Button/LoadMoreBtn"))
 
 const ScreenerDetailTable = (props) => {
-    const [itemPerPage, setItemPerPage] = useState(10)
+    const [itemPerPage, setItemPerPage] = useState(10);
+    const router = useRouter()
+    console.log("router", router)
 
     const { dataTable, dataTableHeading } = props;
     const { t } = useTranslation("common")
@@ -29,7 +33,6 @@ const ScreenerDetailTable = (props) => {
         console.log("sort fun")
     }
 
-    console.log("itemPerPage", itemPerPage)
     return (
         <>
             <Table responsive>
@@ -89,14 +92,16 @@ const ScreenerDetailTable = (props) => {
                                             </p>
                                         </td>
                                         <td className={clsx('text-center', styles.readMore)}>
-                                            <p className={clsx('mb-0  d-flex align-items-center ')}>
-                                                <span style={{ marginRight: "5px" }}>
-                                                    <Trans i18nKey={"screenerIdPage.readMore"}>
-                                                        Read More
-                                                    </Trans>
-                                                </span>
-                                                <BlueRightArrow />
-                                            </p>
+                                            <Link href={`/screener/${router?.query?.id}/${el?.slug}`}>
+                                                <p className={clsx('mb-0  d-flex align-items-center ')}>
+                                                    <span style={{ marginRight: "5px" }}>
+                                                        <Trans i18nKey={"screenerIdPage.readMore"}>
+                                                            Read More
+                                                        </Trans>
+                                                    </span>
+                                                    <BlueRightArrow />
+                                                </p>
+                                            </Link>
 
                                         </td>
                                     </tr>

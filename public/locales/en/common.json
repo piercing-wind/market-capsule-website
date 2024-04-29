@@ -80,6 +80,26 @@
     "addToWatchlist": "Add to Watchlist",
     "readMore": "Read More"
   },
+  "screenerSlugPage": {
+    "addToWatchlist": "Add to Watchlist",
+    "basicDetails": "Basic Details",
+    "prevClose": "Prev Close",
+    "sector": "Sector",
+    "marketCap": "Market Cap",
+    "ttmPe": "TTM PE",
+    "sectoralPeRange": "Sectoral PE Range",
+    "peRemark": "PE Remark",
+    "bse": "BSE",
+    "aboutTheCompany": "About the Company",
+    "timeline": "Timeline",
+    "discover": "Discover In-depth Insights About the Company",
+    "discoverSlug": "Explore detailed information regarding the company's share capital, exclusive statistics, insights, and much more.",
+    "exclusiveFor": "EXCLUSIVE FOR",
+    "capsulePlus": "CAPSULE+",
+    "readNow": "Read Now",
+    "disclaimer": "DISCLAIMER:",
+    "updated": "Updated"
+  },
   "watchlist": {
     "myWatchlist": "My Watchlist",
     "companyName": "COMPANY NAME",

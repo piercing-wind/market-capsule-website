@@ -3,12 +3,14 @@ import clsx from "clsx";
 import styles from "./style/upgradeCard.module.scss"
 import { Trans, useTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
 const IconPayNowButton = dynamic(() => import("../Button/IconPayNowButton"))
 
 const UpgradeCard = () => {
-    const { t } = useTranslation("common")
+    const { t } = useTranslation("common");
+    const router = useRouter()
     const handleUpgradeNowFun = () => {
-        console.log("upgradnoe fun")
+        router.push("/subscription")
     }
 
     return (

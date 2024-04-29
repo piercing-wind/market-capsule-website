@@ -76,31 +76,6 @@ export default function CapsulePlusPage(props) {
 
                         <Col lg={9} className={clsx('px-0 ', styles.borderLeft)}>
                             <Row className={clsx("mx-0", styles.rowDiv)}>
-                                {/* filter button  */}
-                                <Col xs={12} className='px-0 mb-3'>
-                                    <div className={clsx('d-flex column-gap-1  row-gap-2', styles.filterButtonDiv)}>
-                                        {
-                                            filterButtonData?.map((el, index) => {
-                                                return (
-
-                                                    <FilterButton
-                                                        key={index}
-                                                        color={screenerFilter === el?.type ? "#FFFFFF" : "#606F7B"}
-                                                        bg={screenerFilter === el?.type ? "#000000" : "#DFE2E4"}
-                                                        handlerFun={functionalSectorialBucketsFilter}
-                                                        label={el?.label}
-                                                        type={el?.type}
-                                                        pLeft={"16px"}
-                                                        pRight={"16px"}
-                                                    />
-
-                                                )
-                                            })
-                                        }
-
-                                    </div>
-
-                                </Col>
 
                                 <Col xs={12}
                                     className={clsx("px-0", styles.cardSection)}

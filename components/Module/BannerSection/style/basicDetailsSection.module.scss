@@ -1,0 +1,57 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.basicDiv {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+
+  & > div {
+    h6 {
+      @include basicFontSize(14px, 600, #000000);
+    }
+
+    p {
+      @include basicFontSize(14px, 400, #000000);
+    }
+  }
+}
+
+.grayBorder {
+  border-right: 1px solid rgba(112, 112, 112, 0.2);
+}
+
+.skyBlueBgColor {
+  background: #f5f7ff 0% 0% no-repeat padding-box;
+}
+
+.white {
+  background: #ffffff 0% 0% no-repeat padding-box;
+}
+
+.updated {
+  margin-left: 8px;
+  padding: 3px 8px;
+  background: #e3d4fe 0% 0% no-repeat padding-box;
+  @include basicFontSize(10px, 600, #7300f3);
+}
+
+@media screen and (max-width: 576px) {
+  .grayBorder {
+    border-right: none;
+  }
+
+  .white {
+    background: #f5f7ff 0% 0% no-repeat padding-box;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .div {
+    flex-direction: column;
+  }
+}

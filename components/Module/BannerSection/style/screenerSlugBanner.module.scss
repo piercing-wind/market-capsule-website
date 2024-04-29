@@ -1,0 +1,58 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.bannerDiv {
+  background-image: url("/assests/screener/banner.png");
+  background-repeat: no-repeat;
+  background-size: cover; /* Cover the entire element */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-position: center center;
+  padding: 50px 45px;
+  border-radius: 8px 8px 0px 0px;
+}
+
+.leftDiv {
+  h5 {
+    @include basicFontSize(23px, bold, #ffffff);
+  }
+  & > div {
+    button {
+      border: none;
+      padding: 4px 8px;
+      @include basicFontSize(10px, 500, #ffffff);
+      background: #000000 0% 0% no-repeat padding-box;
+      border-radius: 17px;
+    }
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .bannerDiv {
+    padding: 50px 15px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .image {
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .leftDiv {
+    h5 {
+      text-align: center;
+      @include basicFontSize(18px, bold, #ffffff);
+    }
+  }
+
+  .rightDiv > button {
+    font-size: 14px !important;
+  }
+}

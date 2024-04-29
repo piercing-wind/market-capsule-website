@@ -1,0 +1,9 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.para {
+  @include basicFontSize(16px, 400, #30373d);
+}

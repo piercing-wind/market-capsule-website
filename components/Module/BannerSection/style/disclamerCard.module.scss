@@ -1,0 +1,15 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.paraDiv {
+  span {
+    @include basicFontSize(12, 400, #1c1c1c);
+  }
+
+  .heading {
+    @include basicFontSize(12, 500, #1c1c1c);
+  }
+}

@@ -9,7 +9,7 @@ import clsx from "clsx";
 import LoderModule from "@/components/Module/LoaderModule";
 import React, { Suspense } from "react";
 import dynamic from "next/dynamic";
-import styles from "../../section/Screener/ScreenerDetailPage/style/screenerDetail.module.scss"
+import styles from "../../../section/Screener/ScreenerDetailPage/style/screenerDetail.module.scss"
 import { filterData, screenerDetailTableData, screenerDetailTableHeading } from "@/section/Screener/ScreenerDetailPage/screenerDetailPageData";
 const OneIdBreadcrumb = dynamic(() => import("@/components/Module/Breadcrumb/OneIdBreadcrumb"))
 const ScreeenerHeadingCom = dynamic(() => import("@/components/Module/HeadingComponent/ScreenerHeadingCom"))

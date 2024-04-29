@@ -1,0 +1,70 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.planDiv {
+  background: transparent linear-gradient(93deg, #a8ffd9 0%, #ccd6ff 100%) 0% 0%
+    no-repeat padding-box;
+  border-radius: 13px;
+  width: 100%;
+}
+
+.leftPara {
+  width: 65%;
+  .heading {
+    @include basicFontSize(22px, 700, #000000);
+  }
+  .para {
+    @include basicFontSize(16px, 400, #30373d);
+  }
+}
+
+.minWidth {
+  min-width: 50px;
+}
+
+.rightDiv {
+  & .offerPrice {
+    @include basicFontSize(8px, 600, #7c7777);
+  }
+}
+@media screen and (max-width: 768px) {
+  .leftPara {
+    width: 100%;
+    .heading {
+      text-align: center;
+    }
+    .para {
+      text-align: center;
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .leftPara {
+    .heading {
+      @include basicFontSize(18px, 700, #000000);
+    }
+    .para {
+      @include basicFontSize(16px, 400, #30373d);
+    }
+  }
+}
+
+@media screen and (max-width: 365px) {
+  .rightDiv {
+    flex-direction: column;
+    gap: 8px;
+    p {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .minWidth {
+    flex-direction: row !important;
+  }
+}

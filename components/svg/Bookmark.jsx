@@ -1,11 +1,11 @@
 import React from "react";
 
-const Bookmark = () => {
+const Bookmark = ({ width = "50.466", height = "55.061" }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="50.466"
-      height="55.061"
+      width={width}
+      height={height}
       viewBox="0 0 50.466 55.061"
     >
       <path

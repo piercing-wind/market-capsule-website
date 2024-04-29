@@ -15,12 +15,7 @@ export const continueFromSocial = [
         label: "loginAndSignupModal.continueWithFacebook",
         socialType: "facebookType"
     },
-    {
-        id: 3,
-        icon: <LinkedinIcon />,
-        label: "loginAndSignupModal.continueWithLinkedin",
-        socialType: "linkedinType"
-    }
+
 ]
 
 

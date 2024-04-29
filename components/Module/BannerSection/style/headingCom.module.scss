@@ -1,0 +1,20 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+.heading {
+  border-left: 6px solid #2edc90;
+  padding-left: 5px;
+  & > p {
+    @include basicFontSize(16px, 700, #000000);
+  }
+}
+
+.updated {
+  margin-left: 8px;
+  padding: 3px 8px;
+  background: #e3d4fe 0% 0% no-repeat padding-box;
+  @include basicFontSize(10px, 600, #7300f3);
+}

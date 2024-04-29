@@ -1,7 +1,11 @@
 .disabled {
   cursor: not-allowed;
 }
-
+.hoverBtn {
+  &:hover {
+    background: black !important;
+  }
+}
 @media screen and (max-width: 375px) {
   .btn {
     font-size: 12px !important;

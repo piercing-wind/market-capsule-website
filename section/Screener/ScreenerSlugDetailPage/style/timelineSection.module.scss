@@ -1,0 +1,62 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+/* styles/VerticalStepper.module.css */
+.verticalStepper {
+  display: flex;
+  flex-direction: column;
+}
+
+.step {
+  display: flex;
+  //   align-items: flex-start;
+}
+
+.circle {
+  width: 16px;
+  height: 18px;
+  border-radius: 50%;
+  background: #3e63ff 0% 0% no-repeat padding-box;
+  border: 1px solid #3e63ff;
+}
+
+.circle2 {
+  width: 16px;
+  height: 18px;
+  background: #2edc90 0% 0% no-repeat padding-box;
+  border: 1px solid #2edc90;
+}
+
+.line {
+  width: 1px;
+  height: 100%;
+  border: 1px dashed #2edc90;
+}
+
+.stepContent {
+  margin-left: 12px;
+  margin-bottom: 20px;
+}
+
+.stepLastContent {
+  margin-left: 12px;
+  margin-bottom: 0px;
+}
+
+.heading {
+  font-size: 14px;
+  color: #30373d;
+  font-weight: 700;
+}
+
+.para {
+  font-size: 16px;
+  color: #30373d;
+}
+
+.lastPara {
+  margin-bottom: 0px;
+}

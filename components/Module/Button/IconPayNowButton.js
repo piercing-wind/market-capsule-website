@@ -6,7 +6,7 @@ import styles from "./style/IconPayNowButton.module.scss"
 const IconPayNowButton = (props) => {
     const { t } = useTranslation("common");
 
-    const { icon = false, label, color, fontSize, fontWeight, borderRadius, pAll, bg, border, type, handleFun = false, disabled = false } = props;
+    const { icon = false, label, color, fontSize, fontWeight, borderRadius, pAll, bg, border, type, handleFun = false, disabled = false, gradient = false } = props;
     const handleBtnFun = () => {
         if (handleFun) {
             props?.handleFun()
@@ -14,7 +14,7 @@ const IconPayNowButton = (props) => {
     }
     return (
         <button
-            className={clsx('w-100 d-flex column-gap-2 justify-content-center align-items-center', styles.btn, disabled && styles.disabled)}
+            className={clsx('w-100 d-flex column-gap-2 justify-content-center align-items-center', styles.btn, disabled && styles.disabled, gradient && styles.hoverBtn)}
             type={type}
             style={{
                 color: color,
