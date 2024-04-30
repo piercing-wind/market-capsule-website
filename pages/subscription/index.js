@@ -12,8 +12,10 @@ import styles from "../../section/Subscription/style/subscription.module.scss"
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { setShowForm } from "@/store/slices/subscriptionSlice";
 const PlanCard = dynamic(() => import("@/section/Subscription/PlanCard"))
 const OrderSummaryCard = dynamic(() => import("@/section/Subscription/OrderSummaryCard"))
+const PromoCodeModal = dynamic(() => import("@/components/Module/Modal/PromoCodeModal"))
 
 
 export default function SubscriptionPage(props) {
@@ -28,7 +30,9 @@ export default function SubscriptionPage(props) {
     router.defaultLocale = "en";
 
     const addPromoCodeFun = () => {
-        console.log("add promocode")
+        console.log('coli')
+        dispatch(setShowForm(true))
+
     }
     return (
         <>
@@ -70,6 +74,8 @@ export default function SubscriptionPage(props) {
 
                     </Row>
                 </Container>
+                {/* promo code modal */}
+                <PromoCodeModal />
 
             </Suspense>
         </>

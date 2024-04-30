@@ -187,7 +187,16 @@
     "annualPlanSubscription": "(Annual Plan Subscription)",
     "totalDueToday": "Total due today",
     "pay": "Pay ",
-    "now": " now"
+    "now": " now",
+    "promoCodeModal":{
+      "promoCode":"Promo code",
+      "reedem":"Redeem your promo code here",
+      "enterCoupenCode":"Enter coupon code",
+      "check":"CHECK",
+      "offOn":"off on capsule+ subscription",
+      "applyNow":"Apply Now",
+      "notValid":"This promo code is not valid"
+    }
   },
   "capsulePlusPage": {
     "capsulePlus": "capsule+",
