@@ -1,72 +1,66 @@
 import React, { useState, useTransition } from 'react';
 import clsx from "clsx";
 import styles from "../style/filterButton.module.scss";
-import { filterButtonArr } from '../homePageData';
+import { homePageFilterModalArr } from '../homePageData';
 import dynamic from 'next/dynamic';
 import { useTranslation } from 'next-i18next';
 import { numberToLocaleString } from '@/utils/constants';
+import { setShowFilterModalForm } from '@/store/slices/homepageSlice';
+import { useDispatch } from 'react-redux';
+const HomepageFilterModal = dynamic(() => import('@/components/Module/Modal/HomepageFilterModal'))
 
 const FilterButton = () => {
     const { t } = useTranslation("common");
-
-    const [filterActiveState, setFilterActiveState] = useState("all")
-
-    //show btn color based on type
-    const showBtnColorBasedOnType = (type) => {
-        // console.log("type", type)
-        if ("all" === type) {
-            return styles.whiteColor
-        } else {
-            return styles.blackColor
-        }
-    }
-
-    //show btn background based on type
-    const showBgColorBasedOnType = (type) => {
-
-        const bgMap = {
-            all: styles.blackBgColor,
-            finance: styles.greenBgColor,
-            retail: styles.orangeBgColor,
-            agriculture: styles.yellowBgColor,
-            technology: styles.seaBgColor,
-            // Add more types and corresponding styles here
-        };
-        return bgMap[type]
-    }
+    const dispatch = useDispatch()
+    const [filterActiveState, setFilterActiveState] = useState("all1771")
 
     //handle filter based on type
     const handleFilterBasedOnType = (type) => {
+        console.log("type", type)
         setFilterActiveState(type)
     }
 
     //give last btn count
-    const giveLengthOf = (filterButtonArr) => {
-        return numberToLocaleString(filterButtonArr?.length - 5)
+    const giveLengthOf = (homePageFilterModal) => {
+        return numberToLocaleString(homePageFilterModal?.length - 5)
     }
 
     //show all type list
     const showAllListType = () => {
         console.log("show all type")
+        dispatch(setShowFilterModalForm(true))
     }
     return (
-        <div className={clsx("py-3 mx-3 d-flex column-gap-1 borderBottomGray", styles.btnScroll)}>
-            {
-                filterButtonArr?.slice(0, 5)?.map((el, index) => {
-                    return (
-                        <button key={index}
-                            onClick={() => {
-                                handleFilterBasedOnType(el?.type)
-                            }} className={clsx(styles.btn, showBtnColorBasedOnType(el?.type), showBgColorBasedOnType(el?.type))}>{t(el?.label)}</button>
-                    )
-                })
-            }
-            <button
-                onClick={() => {
-                    showAllListType()
-                }} className={clsx(styles.btn, styles.blackColor, styles.grayBgColor)}>{`+ ${giveLengthOf(filterButtonArr)}`}</button>
+        <>
 
-        </div>
+            <div className={clsx("py-3 mx-3 d-flex column-gap-1 borderBottomGray", styles.btnScroll)}>
+                {
+                    homePageFilterModalArr?.slice(0, 5)?.map((el, index) => {
+                        return (
+                            <button key={index}
+                                onClick={() => {
+                                    handleFilterBasedOnType(el?.attributes?.slug)
+                                }}
+                                style={{
+                                    color: el?.attributes?.slug === filterActiveState ? "white" : "black",
+                                    background: el?.attributes?.slug === filterActiveState ? "black" : el?.attributes?.tag?.data?.attributes?.name
+                                }}
+
+                                className={clsx(styles.btn)}>{t(el?.attributes?.name)}</button>
+                        )
+                    })
+                }
+                <button
+                    onClick={() => {
+                        showAllListType()
+                    }} className={clsx(styles.btn, styles.blackColor, styles.grayBgColor)}>{`+ ${giveLengthOf(homePageFilterModalArr)}`}</button>
+
+            </div>
+            <HomepageFilterModal
+                filterActiveState={filterActiveState}
+                setFilterActiveState={setFilterActiveState}
+            />
+        </>
 
     )
 }

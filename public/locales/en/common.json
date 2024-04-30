@@ -46,6 +46,11 @@
       "recentCaseStudiesHeading": "Recent Case Studies",
       "source": "Source:",
       "whatNewInCapsulePlus": "What's New in Capsule+"
+    },
+    "filterBtnModal":{
+      "selectCategory":"Select Category",
+      "selectAnyOne":"Select any one the category",
+      "submit":"Submit"
     }
   },
   "screener": {

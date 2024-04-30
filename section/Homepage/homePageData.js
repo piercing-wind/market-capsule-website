@@ -74,68 +74,6 @@ export const caseStudyDataObj = {
 }
 
 
-export const filterButtonArr = [
-    {
-        id: 1,
-        label: "homepage.midleSection.all",
-        type: "all",
-    },
-    {
-        id: 2,
-        label: "homepage.midleSection.finance",
-        type: "finance",
-    },
-    {
-        id: 3,
-        label: "homepage.midleSection.retail",
-        type: "retail",
-    },
-    {
-        id: 4,
-        label: "homepage.midleSection.agriculture",
-        type: "agriculture",
-    },
-    {
-        id: 5,
-        label: "homepage.midleSection.technology",
-        type: "technology",
-    },
-    {
-        id: 6,
-        label: "All1",
-        type: "all1",
-    },
-    {
-        id: 7,
-        label: "All2",
-        type: "all2",
-    },
-    {
-        id: 8,
-        label: "All3",
-        type: "all3",
-    },
-    {
-        id: 9,
-        label: "All4",
-        type: "all4",
-    },
-    {
-        id: 10,
-        label: "All5",
-        type: "all5",
-    },
-    {
-        id: 9,
-        label: "All4",
-        type: "all4",
-    },
-    {
-        id: 10,
-        label: "All5",
-        type: "all5",
-    }
-]
 
 export const midleSectionArr = [
     {
@@ -392,3 +330,339 @@ export const sensexChartBarData = [{
 }
 
 ]
+
+export const homePageFilterModalArr = [
+    {
+        "id": 1,
+        "attributes": {
+            "name": "All",
+            "slug": "all1771",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#FFF8B7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 2,
+        "attributes": {
+            "name": "Finance",
+            "slug": "retail1",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#C8FFB7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Retail",
+            "slug": "retail2",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#FFE0B7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 4,
+        "attributes": {
+            "name": "Agriculture",
+            "slug": "retail3",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#B7FDFF"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 5,
+        "attributes": {
+            "name": "Technology",
+            "slug": "retail4",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#C8FFB7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 6,
+        "attributes": {
+            "name": "Insurance",
+            "slug": "retail5",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#FFE0B7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 7,
+        "attributes": {
+            "name": "Real Estate",
+            "slug": "retail6",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#FFF8B7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 8,
+        "attributes": {
+            "name": "Hospitality and Tourism",
+            "slug": "retail7",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#B7FDFF"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 9,
+        "attributes": {
+            "name": "Consulting",
+            "slug": "retail8",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#C8FFB7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 10,
+        "attributes": {
+            "name": "Legal",
+            "slug": "retail9",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#FFE0B7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 11,
+        "attributes": {
+            "name": "Marketing and Advertising",
+            "slug": "retail10",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#FFF8B7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 12,
+        "attributes": {
+            "name": "Telecommunications",
+            "slug": "retail11",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#B7FDFF"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 13,
+        "attributes": {
+            "name": "Manufacturing and Production",
+            "slug": "retail12",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#C8FFB7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 14,
+        "attributes": {
+            "name": "Logistics",
+            "slug": "retail13",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#FFE0B7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 15,
+        "attributes": {
+            "name": "Healthcare",
+            "slug": "retail14",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#FFF8B7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 16,
+        "attributes": {
+            "name": "Education",
+            "slug": "retail15",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#B7FDFF"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 17,
+        "attributes": {
+            "name": "Human Resources",
+            "slug": "retail16",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#C8FFB7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 18,
+        "attributes": {
+            "name": "E-commerce",
+            "slug": "retail17",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#FFE0B7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 19,
+        "attributes": {
+            "name": "Energy and Utilities",
+            "slug": "retail18",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#FFF8B7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 20,
+        "attributes": {
+            "name": "Entertainment and Media",
+            "slug": "retail19",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#B7FDFF"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 21,
+        "attributes": {
+            "name": "Food and Beverage",
+            "slug": "retail20",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#C8FFB7"
+                    }
+                }
+            }
+        }
+    },
+    {
+        "id": 22,
+        "attributes": {
+            "name": "Startups",
+            "slug": "retail21",
+            "tag": {
+                "data": {
+                    "id": 2,
+                    "attributes": {
+                        "name": "#FFE0B7"
+                    }
+                }
+            }
+
+
+        }
+    }
+]
+
