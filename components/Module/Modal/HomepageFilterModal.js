@@ -55,8 +55,16 @@ const HomepageFilterModal = ({ filterActiveState, setFilterActiveState }) => {
                                     </div>
                                     <Row className={clsx("d-flex justify-content-center mx-0", styles.formRow)}>
                                         <Col className={clsx(styles.formCol)} >
-                                            <h5>Select Category</h5>
-                                            <p>Select any one the category</p>
+                                            <h5>
+                                                <Trans i18nKey={`homepage.filterBtnModal.selectCategory`}>
+                                                    Select Category
+                                                </Trans>
+                                            </h5>
+                                            <p>
+                                                <Trans i18nKey={`homepage.filterBtnModal.selectAnyOne`}>
+                                                    Select any one the category
+                                                </Trans>
+                                            </p>
                                             <div className={clsx("pt-3 mx-sm-3 mx-0 d-flex gap-1 flex-wrap ")}>
                                                 {
                                                     homePageFilterModalArr?.map((el, index) => {
@@ -79,7 +87,7 @@ const HomepageFilterModal = ({ filterActiveState, setFilterActiveState }) => {
 
                                             <div className={clsx('d-flex justify-content-center', styles.marginBtn)}>
                                                 <IconPayNowButton
-                                                    label={"Submit"}
+                                                    label={"homepage.filterBtnModal.submit"}
                                                     color={`#FFFFFF`}
                                                     fontSize={`16px`}
                                                     fontWeight={`400`}
