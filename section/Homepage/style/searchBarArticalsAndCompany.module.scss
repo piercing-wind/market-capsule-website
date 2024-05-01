@@ -1,3 +1,10 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
+
 .searchBarSection {
   background: linear-gradient(
       180deg,
@@ -10,14 +17,82 @@
   border-radius: 8px 8px 0px 0px;
 }
 
-.searchBarSection > div {
+// coach auto fil dropdown
+div.inputBlock {
+  position: relative;
+  padding: 0px;
+  margin: 0px 0px;
+}
+
+
+
+.typeahead {
+  .inputSearchBox {
+    z-index: 1;
+    width: 100%;
+    max-height: 300px;
+    overflow: scroll;
+    overflow-x: hidden;
+    position: absolute;
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+box-shadow: 0px 3px 6px #00000029;
+border-radius: 8px;
+top:50px;
+
+    &::-webkit-scrollbar {
+      width: 0px;
+      border-radius: 0px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: transparent;
+      border: 1px solid white;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: white;
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: white;
+    }
+
+    & > div {
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.linkDiv{
+a{
+  text-decoration: none;
+}
+}
+
+.label{
+  border-bottom: 1px solid #DBDBDB;
+  margin-bottom: 0px;
+  padding-bottom: 14px;
+  padding-top: 14px;
+
+  @include basicFontSize(14px,400 ,#606F7B );
+}
+
+
+ .div1 {
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 3px 6px #00000029;
   border-radius: 8px;
   opacity: 1;
   padding-top: 12px;
   padding-bottom: 12px;
-
+  z-index: 2;
+position: relative;
   & > button {
     background-color: transparent;
     border: none;
@@ -35,3 +110,4 @@
     }
   }
 }
+

@@ -666,3 +666,72 @@ export const homePageFilterModalArr = [
     }
 ]
 
+
+export const searchBarCompanyList = [
+    {
+        id: 1,
+        companyName: "ADC India Communications Ltd.",
+        industry: "Equipment & Accessories",
+        sector: "Telecommunication",
+    },
+    {
+        "id": 2,
+        "companyName": "XYZ Telecommunications",
+        "industry": "Equipment & Accessories",
+        "sector": "Telecommunication"
+    },
+    {
+        "id": 3,
+        "companyName": "GlobalCom Technologies",
+        "industry": "Equipment & Accessories",
+        "sector": "Telecommunication"
+    },
+    {
+        "id": 4,
+        "companyName": "WaveLink Solutions",
+        "industry": "Equipment & Accessories",
+        "sector": "Telecommunication"
+    },
+    {
+        "id": 5,
+        "companyName": "TeleConnect Innovations",
+        "industry": "Equipment & Accessories",
+        "sector": "Telecommunication"
+    },
+    {
+        "id": 6,
+        "companyName": "TechCom Telecom",
+        "industry": "Equipment & Accessories",
+        "sector": "Telecommunication"
+    },
+    {
+        "id": 7,
+        "companyName": "Wireless Wave",
+        "industry": "Equipment & Accessories",
+        "sector": "Telecommunication"
+    },
+    {
+        "id": 8,
+        "companyName": "TeleNova Systems",
+        "industry": "Equipment & Accessories",
+        "sector": "Telecommunication"
+    },
+    {
+        "id": 9,
+        "companyName": "Linkage Communications",
+        "industry": "Equipment & Accessories",
+        "sector": "Telecommunication"
+    },
+    {
+        "id": 10,
+        "companyName": "ConnectEdge Technologies",
+        "industry": "Equipment & Accessories",
+        "sector": "Telecommunication"
+    },
+    {
+        "id": 11,
+        "companyName": "NexGen Telecom",
+        "industry": "Equipment & Accessories",
+        "sector": "Telecommunication"
+    }
+]
