@@ -27,7 +27,6 @@ const App = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pageProps } = props;
   const router = useRouter()
-  console.log("router", router)
   return (
 
     <Provider store={store}>

@@ -1,0 +1,47 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+    font-size: $fontSize;
+    font-weight: $fontWeight;
+    color: $color;
+  }
+  
+.rightIcon{
+    
+    &::before{
+        color: #007AF3;
+        display: none;
+    }
+}
+
+.leftIcon{
+    &::before{
+        display: none;
+    }
+    svg{
+        transform: rotate(180deg);
+    }
+}
+
+.paddingRight12{
+    padding-right: 12px;
+}
+
+.redColor{
+    &::before{
+        color: #007AF3;
+        display: none;
+    }
+    height: 100%!important;
+    width: 10%!important;
+    display: flex!important;
+    align-items: center!important;
+    justify-content: flex-end!important;
+    background: transparent linear-gradient(270deg, #FFFFFF 0%, #FFFFFF00 100%) 0% 0% no-repeat padding-box!important;
+    filter: opacity(100%)!important;      
+}
+
+.hedingDiv{
+    h5{
+        margin-bottom: 16px;
+@include basicFontSize(16px,bold ,#000000)
+    }
+}

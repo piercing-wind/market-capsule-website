@@ -7,6 +7,16 @@
     "watchlist": "Watchlist",
     "createAnAccount": "Create an Account"
   },
+"searchResultPage":{
+"searchResult":"Search results",
+"showingResultFor":"Showing Results for",
+"searchResultFound":"Search results found",
+"capsulePlus":"Capsule+",
+"readNow":"Read Now",
+"ipoZone":"IPO Zone",
+"backToHomepage":"Back to Homepage",
+"screener":"Screener"
+  },
   "homepage": {
     "leftSection": {
       "sensex": "Sensex",

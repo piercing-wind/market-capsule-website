@@ -14,7 +14,6 @@ const LoadMoreBtn = dynamic(() => import("@/components/Module/Button/LoadMoreBtn
 const ScreenerDetailTable = (props) => {
     const [itemPerPage, setItemPerPage] = useState(10);
     const router = useRouter()
-    console.log("router", router)
 
     const { dataTable, dataTableHeading } = props;
     const { t } = useTranslation("common")

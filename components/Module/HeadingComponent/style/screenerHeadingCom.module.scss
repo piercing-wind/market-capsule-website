@@ -1,5 +1,4 @@
 .screeenerDiv {
-  border-bottom: 1px solid #dbdbdb;
 
   & > h4 {
     font-size: 22px;
@@ -11,3 +10,41 @@
     color: #606f7b;
   }
 }
+
+.grayBorder{
+  border-bottom: 1px solid #dbdbdb;
+
+}
+
+.link{
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.paddingRight{
+  padding-right: 100px;
+
+}
+
+
+@media screen and (max-width: 1200px) {
+  .paddingRight{
+    padding-right: 25px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .paddingRight{
+    padding-right: 16px;
+    padding-left: 16px;
+    padding-bottom: 16px;
+  }
+
+  .link{
+    padding-right: 16px;
+    padding-left: 16px;
+    
+  }
+}
+
