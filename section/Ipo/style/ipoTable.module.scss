@@ -22,10 +22,15 @@
 .readMore {
   min-width: none;
   cursor: pointer;
-  &:hover {
-    @include basicFontSize(14px, 400, #3e63ff);
+  a {
+    text-decoration: none;
+    @include basicFontSize(14px, 500, #000000);
+    &:hover {
+      @include basicFontSize(14px, 400, #3e63ff);
+    }
   }
 }
+
 
 .sortBtn {
   border: none;

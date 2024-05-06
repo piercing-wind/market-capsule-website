@@ -1,0 +1,94 @@
+
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+.breadPading {
+  padding-left: 180px;
+  padding-right: 180px;
+}
+  .containerPadding {
+    padding-left: 180px;
+    padding-right: 180px;
+    padding-bottom: 134px;
+  
+    .row {
+      background: #ffffff 0% 0% no-repeat padding-box;
+      border: 1px solid #d5d5d5;
+      border-radius: 8px;
+    }
+  }
+  
+  .paddingDetails {
+    padding: 40px 46px;
+  }
+  
+  .paddingDetailsAbout {
+    padding: 0px 46px 40px 46px;
+  }
+  .finacialHightlightPadding{
+    padding: 0px 10px 40px 46px;
+
+  }
+  .shareHoldingPadding{
+    padding: 0px 46px 40px 10px;
+
+  }
+  .paddingDetailsInDefth {
+    padding: 0px 46px 6px 46px;
+  }
+  
+  .line {
+    padding: 0px 46px 6px 46px;
+  }
+  
+  @media screen and (max-width: 1200px) {
+    .containerPadding {
+      padding-left: 25px;
+      padding-right: 25px;
+      padding-bottom: 48px;
+    }
+    .breadPading {
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+  }
+  
+  @media screen and (max-width: 992px) {
+    .paddingDetails {
+      padding: 40px 15px;
+    }
+  
+    .paddingDetailsAbout {
+      padding: 0px 15px 40px 15px;
+    }
+  
+    .paddingDetailsInDefth {
+      padding: 0px 15px 6px 15px;
+    }
+  
+    .line {
+      padding: 0px 15px 6px 15px;
+    }
+
+    .finacialHightlightPadding{
+      padding: 0px 15px 40px 15px;
+  
+    }
+    .shareHoldingPadding{
+      padding: 0px 15px 40px 15px;
+  
+    }
+  }
+  @media screen and (max-width: 575px) {
+    .containerPadding {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+    .breadPading {
+      padding-left: 25px;
+      padding-right: 25px;
+    }
+  }
+  

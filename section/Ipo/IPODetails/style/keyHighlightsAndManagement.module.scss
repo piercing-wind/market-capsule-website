@@ -1,0 +1,29 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+    font-size: $fontSize;
+    font-weight: $fontWeight;
+    color: $color;
+  }
+.list{
+    list-style: none;
+    padding-left: 0px;
+    &>li{
+        margin-bottom: 22px;
+      background-image:   url("/assests/ipo-zone/square-star.svg");
+      background-repeat: no-repeat;
+      padding-left: 30px;
+      
+        @include basicFontSize(16px,400 ,#30373D );
+
+        strong{
+            @include basicFontSize(16px,600 ,#30373D );
+
+        }
+    }
+}
+
+  @media screen and (max-width: 768px) {
+   
+  }
+  
+  
+   

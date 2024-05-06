@@ -14,6 +14,11 @@
   border-radius: 8px 8px 0px 0px;
 }
 
+.ipoBanner{
+  background-image: url("/assests/ipo-zone/ipo-banner.png");
+
+}
+
 .leftDiv {
   h5 {
     @include basicFontSize(23px, bold, #ffffff);

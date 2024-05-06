@@ -23,7 +23,7 @@ const InDepthCard = dynamic(() => import("@/components/Module/UpgradeCard/InDept
 export default function CapsulePlusPage(props) {
     const { t } = useTranslation("common");
     const { prevClosePrice, marketCap, sectoralPERange, BSE, ttpmPE, peRemark, sector } = basicDetailsData?.data?.company_share_detail
-    const { about, compnay_timeline } = basicDetailsData?.data;
+    const { aboutTheCompany, compnay_timeline } = basicDetailsData?.data;
     const router = useRouter();
     router.locale = props?.language
         ? props?.language
@@ -98,6 +98,12 @@ export default function CapsulePlusPage(props) {
                     <Row className={clsx("mx-0", styles.row)}>
                         <Col xs={12} className={clsx("px-0")} >
                             <ScreenerSlugBanner
+                                companyName="Ratnaveer Precision engineering Ltd."
+                                sector="Steel Products"
+                                url="www. aegislogistics.com"
+                                companyLogo={`/assests/screener/logo.png`}
+                                alt={`banner`}
+
                             />
                         </Col>
                         <Col xs={12} className={clsx(styles.paddingDetails)} >
@@ -108,7 +114,7 @@ export default function CapsulePlusPage(props) {
                         </Col>
                         <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                             <AboutTheCompany
-                                aboutDescription={about}
+                                aboutDescription={aboutTheCompany}
                                 headingLabel={`screenerSlugPage.aboutTheCompany`}
                             />
                         </Col>

@@ -5,6 +5,7 @@ import { Trans, useTranslation } from 'next-i18next';
 import BlueRightArrow from '@/components/svg/BlueRightArrow';
 import dynamic from 'next/dynamic';
 import styles from "./style/ipoTable.module.scss"
+import Link from 'next/link';
 const LoadMoreBtn = dynamic(() => import("@/components/Module/Button/LoadMoreBtn"))
 
 const IpoTable = (props) => {
@@ -70,14 +71,17 @@ const IpoTable = (props) => {
                                             }
                                         </td>
                                         <td className={clsx('text-center', styles.readMore)}>
-                                            <p className={clsx('mb-0  d-flex align-items-center ')}>
-                                                <span style={{ marginRight: "5px" }}>
-                                                    <Trans i18nKey={"screenerIdPage.readMore"}>
-                                                        Read More
-                                                    </Trans>
-                                                </span>
-                                                <BlueRightArrow />
-                                            </p>
+                                            <Link href={`/ipo/abc`}>
+
+                                                <p className={clsx('mb-0  d-flex align-items-center ')}>
+                                                    <span style={{ marginRight: "5px" }}>
+                                                        <Trans i18nKey={"screenerIdPage.readMore"}>
+                                                            Read More
+                                                        </Trans>
+                                                    </span>
+                                                    <BlueRightArrow />
+                                                </p>
+                                            </Link>
 
                                         </td>
                                     </tr>

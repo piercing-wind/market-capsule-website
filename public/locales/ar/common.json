@@ -204,6 +204,52 @@
       "notValid":"This promo code is not valid"
     }
   },
+  "ipoPage": {
+    "ipoZone": "IPO Zone",
+    "exploreTheLatest": "Explore the latest IPO information for all companies, including offering price, Growth, and more",
+    "typeOfSme": "Type of SME",
+    "sme": "SME",
+    "nonSme": "Non SME",
+    "sector": "Sector",
+    "searchSector": "Search Sector",
+    "searchIndustry": "Search Industry",
+    "searchCompany": "Search Company",
+    "shomMorePlus": "Show More +",
+    "shoeLess": "Show Less -",
+    "Industry": "Industry",
+    "companyName": "Company Name",
+    "companyNameCaps": "COMPANY NAME",
+    "openDate": "OPEN DATE",
+    "offerPricePe": "OFFER PRICE PE",
+    "lySalesGrowth": "LY SALES GROWTH",
+    "industryCaps": "INDUSTRY",
+    "readMore": "Read More"
+  },
+  "ipoDetailPage":{
+    "ipoZone":"IPO Zone",
+    "keyMetrics":"Market Cap",
+    "currentPrice":"Current Price",
+    "peRatio":"PE Ratio",
+    "deRatio":"D/E Ratio",
+    "roce":"ROCE%",
+    "cwip":"CWIP",
+    "roic":"ROIC%",
+    "cashConversionCycle":"Cash Conversion Cycle",
+    "roe":"ROE%",
+    "pegRatio":"PEG Ratio",
+    "aboutTheCompany":"About the Company",
+    "bussinessSegment":"Business Segment",
+    "exclusiveContent":"Exclusive content",
+    "upgradeToCapsulePlus":"Upgrade to Capsule+ now to unlock exclusive content!",
+    "capsuleView":"Capsule’s View",
+    "keyHighlightsAndManagement":"Key Highlights & Management Guidance",
+    "industrialOutlook":"Industrial Outlook",
+    "financialHighlights":"Financial Highlights",
+    "shareholdingPattern":"Shareholding Pattern",
+    "particulars":"PARTICULARS"
+
+
+  },
   "capsulePlusPage": {
     "capsulePlus": "capsule+",
     "discover": "Discover premium capsule+ insights for expert stock guidance, enhancing your decision-making prowess.",

@@ -7,7 +7,26 @@ export const basicDetailsData = {
         "websiteUrl": "www.ratnaveerprecision.com",
         "productDetail": "Steel Products",
         "capsuleplus": false,
-        "about": "Company is engaged in manufacturing and supply of different Stainless-Steel Products. Company is India’s largest washer manufacturer producing around 6000MT per annum and is known for its Quality Assured Products, Timeless Deliveries World-Wide, Best Prices, Prompt Responses to the customers.",
+        "aboutTheCompany": [
+            {
+                "type": "paragraph",
+                "children": [
+                    {
+                        "text": "Phantom Digital Effects Limited (or Phantom) was formed in 2016. It is a Certified Trusted Partner Network (TPN) company, full-fledged creative studio, based in India with offices operating in US and Canada. TPN is acknowledged by Motion Pictures Association of America. This certification gives Phantom the validation to be a part of Marvel, Disney or Pixar movies. It provides high-end visual effects (VFX) solutions for commercials, feature films and television media globally. ",
+                        "type": "text"
+                    }
+                ]
+            },
+            {
+                "type": "paragraph",
+                "children": [
+                    {
+                        "text": "VFX or visual effects is the computer-based creation, manipulation or enhancement of a moving media shoot, that doesn’t actually take place during the live-action shooting. Either these worlds do not exist, or they are too risky to shoot, and hence comes VFX into play",
+                        "type": "text"
+                    }
+                ]
+            }
+        ],
         "id": 1,
         "compnay_timeline": [
             {
