@@ -271,5 +271,24 @@
     "upgradeNow": "Upgrade Now",
     "persentOff": "% OFF",
     "year": "YEAR"
+  },
+
+  "capsuleDetailPage":{
+    "capsulePlus":"CAPSULE+",
+    "businessOverview":"Business Overview",
+    "exclusiveContent":"Exclusive content",
+    "financialReport":"Financial Report",
+    "shareCapitalAndNumberOfEmployess":"Share Capital & Number of Employees",
+    "sharePriceAndVolume":"Share price and Volume (last 1 year):",
+    "prevClose":"Prev Close",
+    "sector":"Sector",
+    "marketCap":"Market Cap",
+    "ttmPe":"TTM PE",
+    "sectoralPeRange":"Sectoral PE Range",
+    "peRemark":"PE Remark",
+    "bse":"BSE",
+    "companyType":"COMPANY TYPE",
+    "everGreen":"EVERGREEN",
+    "inINRCR":"(IN INR CR)"
   }
 }

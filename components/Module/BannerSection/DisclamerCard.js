@@ -7,8 +7,10 @@ const DisclamerCard = ({ heading, para }) => {
     return (
         <div className={clsx(styles.paraDiv)} >
             <span className={clsx(styles.heading)}>
-                <Trans i18nKey={`screenerSlugPage.disclaimer`}></Trans>
-                {heading}
+                <Trans i18nKey={`screenerSlugPage.disclaimer`}>
+
+                    {heading}
+                </Trans>
             </span>
             <span>{para}</span>
         </div>

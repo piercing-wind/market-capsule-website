@@ -128,3 +128,54 @@ export const commaSeprater = (number) => {
     let formattedNumber = number.toLocaleString();
     return formattedNumber
 }
+
+export const getMonthAbbreviation = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleString('default', { month: 'short' });
+};
+
+export const isNewYear = (dateString) => {
+    const date = new Date(dateString);
+    const month = date.getMonth();
+    const newYeardate = date.getDate()
+    if (newYeardate === 1 && month === 0) {
+        return true
+    } else {
+        return false
+    }
+};
+
+export const getMonthAndYearAbbreviation = (dateString) => {
+    const date = new Date(dateString);
+    const month = date.toLocaleString('default', { month: 'short', locale: 'en-US' }); // Specify 'en-US' locale
+    const year = date.getFullYear().toString().slice(2);
+    return `${month}-${year}`;
+};
+
+
+
+
+export const last12MonthData = () => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1; // Month is 0-indexed
+
+    // Calculate the start date for the last 12 months
+    const startYear = currentMonth > 1 ? currentYear - 1 : currentYear - 2;
+    const startMonth = currentMonth > 1 ? currentMonth - 1 : 12;
+
+    // Generate an array of the last 12 months
+    const last12Months = [];
+    let month = startMonth;
+    let year = startYear;
+    for (let i = 0; i < 12; i++) {
+        last12Months.push(`${year}-${month.toString().padStart(2, '0')}`);
+        month--;
+        if (month === 0) {
+            month = 12;
+            year--;
+        }
+    }
+
+    return last12Months
+}

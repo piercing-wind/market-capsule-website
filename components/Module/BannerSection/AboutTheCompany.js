@@ -19,6 +19,7 @@ const AboutTheCompany = ({ aboutDescription = [], headingLabel = "" }) => {
                 }}
                 content={aboutDescription}
             />
+
         </div>
     )
 }

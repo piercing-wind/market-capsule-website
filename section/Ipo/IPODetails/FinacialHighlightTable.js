@@ -4,13 +4,14 @@ import styles from "./style/finacialHightlight.module.scss";
 import Table from 'react-bootstrap/Table';
 import { Trans, useTranslation } from 'next-i18next';
 
-const FinacialHighlightTable = ({ uniqueYears, finacialHightlightGroupedData, paricular = true }) => {
+const FinacialHighlightTable = ({ uniqueYears, finacialHightlightGroupedData, paricular = "" }) => {
+    const { t } = useTranslation("common")
     return (
         <Table responsive>
             <thead>
                 <tr>
                     <th className={clsx(styles.heading1)}>
-                        {paricular && `Perticulars`}
+                        {paricular && t(paricular)}
                     </th>
                     {
                         uniqueYears?.length > 0 ? (

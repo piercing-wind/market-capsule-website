@@ -7,7 +7,7 @@ import { useRouter } from 'next/router';
 import { LockIpo } from '@/components/svg/LockIpo';
 const IconPayNowButton = dynamic(() => import("../Button/IconPayNowButton"))
 
-const ExclusiveViewCard = () => {
+const ExclusiveViewCard = ({ line = true }) => {
     const { t } = useTranslation("common");
     const router = useRouter()
     const handleUpgradeNowFun = () => {
@@ -20,7 +20,7 @@ const ExclusiveViewCard = () => {
             <div className={clsx("d-flex justify-content-center", styles.lockDiv)}>
 
                 <IconPayNowButton
-                    label={"Exclusive content"}
+                    label={"ipoDetailPage.exclusiveContent"}
                     color={"#BCBCBC"}
                     fontSize={"16px"}
                     fontWeight={"500"}
@@ -74,10 +74,15 @@ const ExclusiveViewCard = () => {
                 </div>
 
             </div>
-            <div className={clsx(styles.hr)}>
 
-                <hr />
-            </div>
+            {
+                line && (
+                    <div className={clsx(styles.hr)}>
+                        <hr />
+                    </div>
+
+                )
+            }
         </div>
     )
 }

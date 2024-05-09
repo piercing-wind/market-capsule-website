@@ -6,7 +6,7 @@ export const ipoDetailsData = {
         "name": "Aegis Logistics Ltd.",
         "websiteUrl": "www. aegislogistics.com",
         "productDetail": null,
-        "capsuleplus": false,
+        "capsuleplus": true,
         "aboutTheCompany": [
             {
                 "type": "paragraph",

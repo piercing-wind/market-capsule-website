@@ -46,7 +46,6 @@ const SignupForm = () => {
         dispatch(setAuthType("login"))
     }
 
-    console.log("signupFormData", signupFormData)
 
     return (
         <div className={clsx(styles.loginFormDiv)}>

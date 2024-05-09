@@ -6,14 +6,19 @@ import { Col, Row } from 'react-bootstrap';
 import { useTranslation } from 'next-i18next';
 const HeadingCom = dynamic(() => import("@/components/Module/BannerSection/HeadingCom"))
 
-const BasicDetailsSection = ({ basicDetailArr, headingLabel }) => {
+const BasicDetailsSection = ({ basicDetailArr, headingLabel, heading = true }) => {
     const { t } = useTranslation("common")
 
     return (
         <div>
-            <HeadingCom
-                label={headingLabel}
-            />
+            {
+                heading && (
+                    <HeadingCom
+                        label={headingLabel}
+                    />
+
+                )
+            }
 
             <Row className={clsx("mx-0")}>
                 {

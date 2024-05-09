@@ -169,6 +169,20 @@ a {
 
 }
 
+.chart-container .chartjs-chart .tick {
+  font-style: normal !important;
+}
+
+.table{
+  th{
+    padding: 14px!important;
+  
+  }
+
+  td{
+    padding: 14px!important;
+  }
+}
 
 @media screen and (max-width: 575px) {
   .borderBottomGray {

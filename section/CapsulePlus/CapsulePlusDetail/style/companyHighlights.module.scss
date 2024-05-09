@@ -1,0 +1,17 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+    font-size: $fontSize;
+    font-weight: $fontWeight;
+    color: $color;
+  }
+  
+  .para {
+    @include basicFontSize(16px, 400, #30373d);
+    margin-bottom: 10px;
+    
+  }
+  
+  .hightLightDiv{
+    background: #FFFEE0 0% 0% no-repeat padding-box;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }

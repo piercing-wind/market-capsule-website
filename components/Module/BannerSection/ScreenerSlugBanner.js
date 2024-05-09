@@ -20,7 +20,7 @@ const ScreenerSlugBanner = ({ banner = "screener", companyName, sector, url, com
         console.log("hellow world")
     }
     return (
-        <div className={clsx("d-flex flex-md-row gap-3 flex-column justify-content-md-between justify-content-center align-items-center", styles.bannerDiv, banner === "ipo" ? styles.ipoBanner : "")}>
+        <div className={clsx("d-flex flex-md-row gap-3 flex-column justify-content-md-between justify-content-center align-items-center", styles.bannerDiv, banner === "ipo" ? styles.ipoBanner : banner === "capsulePlus" ? styles.capsulePlusBanner : "")}>
             {/* left div */}
             <div className={clsx("d-flex flex-sm-row flex-column justify-content-sm-start justify-content-center  column-gap-3 row-gap-2 align-items-center")}>
                 <div className={clsx(styles.image)}>
@@ -29,7 +29,7 @@ const ScreenerSlugBanner = ({ banner = "screener", companyName, sector, url, com
                 <div className={clsx(styles.leftDiv)}>
                     <h5>{companyName}</h5>
                     <div className={clsx("d-flex flex-sm-row flex-column column-gap-1 row-gap-2")}>
-                        <button>{sector}</button>
+                        <button style={{ cursor: "unset" }}>{sector}</button>
                         <button onClick={goToUrlFun}>{url} &nbsp;<ArrowUpRight /></button>
                     </div>
                 </div>
