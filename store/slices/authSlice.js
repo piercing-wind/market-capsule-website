@@ -3,7 +3,7 @@ import { HYDRATE } from 'next-redux-wrapper';
 
 const loginModalObj = {
     showForm: false,
-    authType: "otp"
+    authType: "login"
 
 }
 export const authSlice = createSlice({
