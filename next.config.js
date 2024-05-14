@@ -3,6 +3,15 @@ const { i18n } = require("./next-i18next.config");
 
 const nextConfig = {
   reactStrictMode: false,
+  env: {
+    MODE: process.env.MODE,
+    API: process.env.API,
+    IMG: process.env.IMG,
+    PORT: process.env.PORT,
+    IMGURL: process.env.IMGURL,
+
+
+  },
   i18n,
   images: {
     remotePatterns: [

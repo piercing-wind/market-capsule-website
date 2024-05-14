@@ -7,10 +7,10 @@ import { getMonthAndYearAbbreviation } from '@/utils/constants';
 
 const VolumeTable = (props) => {
 
-    const { dataTable } = props;
+    const { dataTable, currentDate: currentDateString } = props;
     const { t } = useTranslation("common")
+    const currentDate = new Date(currentDateString);
     // Get the current date
-    const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
     const currentMonth = currentDate.getMonth() + 1; // Month is 0-indexed
 

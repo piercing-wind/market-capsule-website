@@ -11,6 +11,9 @@ import { Col, Container, Row } from "react-bootstrap";
 import styles from "../../section/ManageSubscription/style/manageSubscription.module.scss"
 import clsx from "clsx";
 import dynamic from "next/dynamic";
+import { getFetchAuth } from "@/store/slices/authSlice";
+import { fetchCookie } from "@/utils/storageService";
+import { setAuthorizationToken } from "@/utils/apiServices";
 const LeftSidebar = dynamic(() => import("@/components/Module/Sidebar/LeftSidebar"))
 const ManageSubscription = dynamic(() => import("@/section/ManageSubscription/ManageSubscription"))
 
@@ -34,7 +37,7 @@ export default function ManageSubscriptionPage(props) {
                     <Row className={clsx("mx-0")}>
 
                         <Col className={clsx("px-0", styles.LeftSidebar)} lg={3} sm={12}>
-                            <LeftSidebar />
+                            <LeftSidebar userDetails={props?.userDetails} />
                         </Col>
                         <Col className="px-0" lg={9} sm={12}>
                             <ManageSubscription />
@@ -49,14 +52,18 @@ export default function ManageSubscriptionPage(props) {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale }) => {
-
+    let userActive = fetchCookie("_jwt", req.headers);
+    setAuthorizationToken(userActive);
     let fileList = getFileLangList();
+    await store.dispatch(getFetchAuth());
+    const { authSlice: { userDetails } } = store.getState();
     secureHeader(req, res, locale);
 
     return {
         props: {
             data: "",
             language: locale,
+            userDetails,
 
             ...(await serverSideTranslations(locale, fileList)),
         },

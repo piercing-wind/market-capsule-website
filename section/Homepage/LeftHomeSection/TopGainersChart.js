@@ -17,6 +17,7 @@ import { Bar } from 'react-chartjs-2';
 import { topGainerArr } from '../homePageData';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { getScreenHeight, getScreenWidth } from '@/utils/constants';
+import LoderModule from '@/components/Module/LoaderModule';
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -168,6 +169,7 @@ const TopGainersChart = () => {
     return (
         <div>
             <div className={clsx('d-flex column-gap-2', styles.topGainer)}>
+
                 <ChartLineUpGreen />
                 <h5>{t("homepage.leftSection.topGainers")}</h5>
             </div>

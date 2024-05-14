@@ -5,7 +5,7 @@ import { homePageFilterModalArr } from '../homePageData';
 import dynamic from 'next/dynamic';
 import { useTranslation } from 'next-i18next';
 import { numberToLocaleString } from '@/utils/constants';
-import { setShowFilterModalForm } from '@/store/slices/homepageSlice';
+import { setShowFilterModalForm } from '@/store/slices/homePageSlice';
 import { useDispatch } from 'react-redux';
 const HomepageFilterModal = dynamic(() => import('@/components/Module/Modal/HomepageFilterModal'))
 

@@ -1,18 +1,22 @@
-import React, { useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import clsx from "clsx"
 import styles from "./style/loginForm.module.scss"
-import { continueFromSocial, genderData, professionData } from './loginFormData';
+import { genderData } from './loginFormData';
 import dynamic from 'next/dynamic';
-import { setAuthType, setShowForm } from '@/store/slices/authSlice';
-import { useDispatch } from 'react-redux';
+import { getProfessionList, setAuthType, setShowForm } from '@/store/slices/authSlice';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Formik } from 'formik';
 const LoginButton = dynamic(() => import('../Button/LoginButton'))
 const NameInput = dynamic(() => import('../Input/NameInput'))
 const GenderDropdown = dynamic(() => import('../Dropdown/GenderDropdown'))
 const DobDatePikar = dynamic(() => import('../DatePikar/DobDatePikar'))
-
+import moment from 'moment';
 import * as Yup from "yup";
 import { Trans, useTranslation } from 'next-i18next';
+import { apiEndPoints } from '@/utils/apiEndPoints';
+import { putMethod } from '@/utils/apiServices';
+import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().required("* This field is mandatory"),
@@ -27,6 +31,16 @@ const signupFormData = {
 
 }
 const AccountCreatedSuccessForm = () => {
+    const [loader, setLoader] = useState(false);
+    const router = useRouter();
+
+    const { professionData } = useSelector((state) => (
+        {
+            professionData: state?.authSlice?.professionDataObj?.professionData
+        }
+    ), shallowEqual)
+    // console.log("professionData", professionData)
+
     const { t } = useTranslation("common");
     const dispatch = useDispatch()
 
@@ -56,6 +70,45 @@ const AccountCreatedSuccessForm = () => {
         });
     }
 
+    //create account
+    const handleCreateAccountFun = async (values, { setSubmitting, resetForm }) => {
+        const { name, gender, dob, profession } = values;
+        if (!name) {
+            toast.error("Name required!")
+            return false
+        }
+        // setLoader(true)
+        const submitData = ({
+            fullName: name ? name : '',
+            gender: gender ? gender : '',
+            dob: dob ? moment(dob).format('YYYY-MM-DD') : '',
+            profession: profession ? profession : '',
+
+        })
+        await putMethod(`${apiEndPoints?.updateUserDetail}`, submitData).then((response) => {
+            if (response?.error?.status && response?.error?.message) {
+                toast.error(response?.error?.message)
+                setLoader(false)
+            } else {
+                if (response?.success) {
+                    toast.success(response?.message)
+                    dispatch(setShowForm(false))
+                    dispatch(setAuthType("homePage"))
+                    router.push("/")
+                    resetForm()
+                    window.location.reload();
+
+                } else {
+                    setLoader(false)
+                }
+            }
+        })
+    }
+
+    useEffect(() => {
+        dispatch(getProfessionList())
+    }, [])
+
     return (
         <div className={clsx(styles.loginFormDiv)}>
             <Formik
@@ -64,14 +117,7 @@ const AccountCreatedSuccessForm = () => {
                     return validationSchema;
                 }}
                 enableReinitialize={true}
-                onSubmit={(values, { setSubmitting, resetForm }) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        console.log("values", values)
-                        setSubmitting(false);
-                        dispatch(setShowForm(false))
-                    }, 400);
-                }}
+                onSubmit={handleCreateAccountFun}
             >
                 {formik => (
 
@@ -112,7 +158,7 @@ const AccountCreatedSuccessForm = () => {
                         />
                         <div style={{ marginBottom: "21px" }}>
                             <GenderDropdown
-                                data={professionData}
+                                data={professionData?.data}
                                 defaultValue={"accountCreatedSuccessfullyModal.profession"}
                                 value={formik?.values?.profession}
                                 handleFun={handleProfessionFun}

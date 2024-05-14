@@ -10,7 +10,7 @@ import { navLinkData } from './navigationData';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { setShowForm } from '@/store/slices/authSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import dynamic from 'next/dynamic';
 const LoginModal = dynamic(() => import('../Modal/LoginModal'))
 const LoginForm = dynamic(() => import('../Modal/LoginForm'))
@@ -27,11 +27,12 @@ const NavbarLayout = () => {
     const router = useRouter()
     const { t } = useTranslation("common");
     const dispatch = useDispatch()
-    const { authType } = useSelector((state) => (
+    const { authType, userDetails } = useSelector((state) => (
         {
             authType: state?.authSlice?.loginModal?.authType,
+            userDetails: state?.authSlice?.userDetails
         }
-    ))
+    ), shallowEqual)
     const [expanded, setExpanded] = useState(false);
 
     const handleToggle = (newExpanded) => {
@@ -44,7 +45,6 @@ const NavbarLayout = () => {
 
     //create an account fun
     const createAnAccountFun = () => {
-        console.log("create an account function")
         handleLinkClick()
         dispatch(setShowForm(true))
     }
@@ -99,7 +99,7 @@ const NavbarLayout = () => {
                                 </ul>
 
                                 {
-                                    true ? (
+                                    userDetails?.fullName ? (
                                         <ProfileDropdown
 
                                         />

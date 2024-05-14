@@ -2,7 +2,7 @@ import React, { Children, useState } from 'react';
 import clsx from "clsx";
 import styles from "./style/promoCode.module.scss"
 import CrossCircle from '@/components/svg/CrossCircle';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import { setShowForm } from '@/store/slices/subscriptionSlice';
 import BadgeCheck from '@/components/svg/BadgeCheck';
@@ -19,7 +19,7 @@ const PromoCodeModal = () => {
         {
             showForm: state?.subscriptionSlice?.promoCodeModal?.showForm,
         }
-    ))
+    ), shallowEqual)
 
     const applyNowFun = () => {
         console.log("applyNowFun")

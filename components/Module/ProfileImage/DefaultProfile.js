@@ -6,14 +6,17 @@ import styles from "./styles/defaultProfile.module.scss"
 const DefaultProfile = ({ userName, src, width, height, firstCharWidth, firstCharHeight }) => {
 
     let firstChar = '';
-    if (typeof userName === 'string' && userName.length > 0) {
+    if (typeof userName === 'string' && userName?.length > 0) {
         firstChar = userName.charAt(0).toUpperCase();
     }
+    // console.log("IMGURL", process.env.IMGURL)
+    // console.log("src", src)
+
     return (
         <>
             {
                 src?.length > 0 ? (
-                    <Image className={styles.image} src={src} alt={userName} width={width} height={height} />
+                    <Image className={styles.image} src={`${src ? src : ""}`} alt={userName} width={width} height={height} />
 
                 ) : (
                     <div

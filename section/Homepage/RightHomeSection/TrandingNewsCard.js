@@ -4,6 +4,7 @@ import clsx from "clsx";
 import styles from '../style/trandingNewsCard.module.scss'
 import { truncateText } from '@/utils/constants';
 import { useTranslation } from 'next-i18next';
+import LoderModule from '@/components/Module/LoaderModule';
 
 
 const TrandingNewsCard = ({ data }) => {
@@ -17,6 +18,7 @@ const TrandingNewsCard = ({ data }) => {
 
     return (
         <div className={clsx(styles.trandingDiv, "marginTop12")}>
+
             {/* news heading div */}
             <div className={clsx("d-flex align-items-center column-gap-2 ps-3 pt-4 pb-3", styles.trandingHeadingDiv, styles.trandingBorder)}>
                 {

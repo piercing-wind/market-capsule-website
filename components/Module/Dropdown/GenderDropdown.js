@@ -10,7 +10,7 @@ const GenderDropdown = (props) => {
     const { t } = useTranslation("common")
 
     const setValueFun = (valueObj) => {
-        handleFun(formik, valueObj?.label)
+        handleFun(formik, valueObj?.attributes?.name)
     }
     return (
         <div className={clsx('mb-2', styles.genderDropdown)}>
@@ -28,7 +28,7 @@ const GenderDropdown = (props) => {
 
                                 <Dropdown.Item key={index} onClick={() => {
                                     setValueFun(el)
-                                }} >{el?.label}</Dropdown.Item>
+                                }} >{el?.attributes?.name}</Dropdown.Item>
                             )
                         })
                     }

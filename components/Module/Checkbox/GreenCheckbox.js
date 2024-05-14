@@ -7,6 +7,7 @@ const GreenCheckbox = ({ checkboxName, formik, value, touchedName, errorName }) 
     return (
 
         <div
+            type="checkbox"
             className={clsx(styles.checkboxStyle, value && styles.greenBg,
                 (touchedName &&
                     Boolean(errorName)) && "borderRed"

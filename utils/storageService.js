@@ -35,6 +35,17 @@ const getCookiesStorage = (key) => {
     return returnFlag;
 }
 
+export const fetchCookie = (key, headers) => {
+    var returnFlag = "";
+    var cookieArr = headers?.cookie?.split(";");
+    for (var i = 0; i < cookieArr?.length; i++) {
+        var cookiePair = cookieArr[i]?.split("=");
+        if (key === cookiePair[0].trim()) {
+            returnFlag = decodeURIComponent(cookiePair[1]);
+        }
+    }
+    return returnFlag;
+};
 const setCookiesStorage = (key, value) => {
     var days = 7;
     if (value === '') {

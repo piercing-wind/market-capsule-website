@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 import clsx from "clsx"
 import styles from "./style/loginForm.module.scss"
-import { EmailIcon } from '@/components/svg/EmailIcon';
 import { continueFromSocial } from './loginFormData';
 import dynamic from 'next/dynamic';
-import { setAuthType } from '@/store/slices/authSlice';
+import { setAuthType, } from '@/store/slices/authSlice';
 import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 const LoginButton = dynamic(() => import('../Button/LoginButton'))
 const EmailInput = dynamic(() => import('../Input/EmailInput'))
 import * as Yup from "yup";
 import { Trans, useTranslation } from 'next-i18next';
+import { apiEndPoints } from '@/utils/apiEndPoints';
+import { removeSessionStorage, setCookiesStorage, setSessionStorage } from '@/utils/storageService';
+import toast from 'react-hot-toast';
+import LoderModule from '../LoaderModule';
+import { postMethod } from '@/utils/apiServices';
 
 
 const validationSchema = Yup.object().shape({
@@ -23,8 +27,8 @@ const signupFormData = {
 }
 const LoginForm = () => {
     const { t } = useTranslation("common");
+    const [loader, setLoader] = useState(false);
 
-    const [emailValue, setEmailValue] = useState("");
     const dispatch = useDispatch()
 
     //handle login with social media
@@ -32,16 +36,43 @@ const LoginForm = () => {
         console.log("handle login with social media")
     }
 
-    //handle onchange email fun 
-    const handleEmailInputFun = (value) => {
-        console.log("value", value)
-        setEmailValue(value)
-    }
-
     //signup form btn 
     const goToSignupModal = () => {
         console.log("signup")
         dispatch(setAuthType("signup"))
+    }
+
+    //login form submit
+    const loginFormSubmit = async (values) => {
+        const { email } = values;
+        if (!email) {
+            toast.error("Email required!")
+            return false
+        }
+        setLoader(true)
+        const submitData = ({
+            email: email ? email : '',
+        })
+        await postMethod(`${apiEndPoints?.endPointSignIn}`, submitData).then((response) => {
+            if (response?.error?.status && response?.error?.message) {
+                toast.error(response?.error?.message)
+                setLoader(false)
+            } else {
+                if (response?.success) {
+                    if (response?.data?.token) {
+                        setSessionStorage("_verify", ({ email: submitData?.email, token: response?.data?.token, timestamp: new Date(), prevPath: "login" }))
+                        toast.success(response?.message)
+                        dispatch(setAuthType("otp"))
+                    }
+                    else {
+                        toast.error(response?.message)
+                        setLoader(false)
+                    }
+                } else {
+                    setLoader(false)
+                }
+            }
+        })
     }
     return (
         <div className={clsx(styles.loginFormDiv)}>
@@ -51,14 +82,7 @@ const LoginForm = () => {
                     return validationSchema;
                 }}
                 enableReinitialize={true}
-                onSubmit={(values, { setSubmitting, resetForm }) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        console.log("values", values)
-                        setSubmitting(false);
-
-                    }, 400);
-                }}
+                onSubmit={loginFormSubmit}
             >
                 {formik => (
 
@@ -147,6 +171,11 @@ const LoginForm = () => {
 
                             </button>
                         </div>
+                        {
+                            loader ?
+                                <LoderModule isAbsolute={true} />
+                                : null
+                        }
 
                     </form>
                 )}

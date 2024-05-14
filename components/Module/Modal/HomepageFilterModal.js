@@ -2,20 +2,22 @@ import React, { Children, useState } from 'react';
 import clsx from "clsx";
 import styles from "./style/homePageFilterModal.module.scss"
 import CrossCircle from '@/components/svg/CrossCircle';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import IconPayNowButton from '../Button/IconPayNowButton';
 import { Trans, useTranslation } from 'next-i18next';
-import { setShowFilterModalForm } from '@/store/slices/homepageSlice';
+// import { setShowFilterModalForm } from '@/store/slices/homePageSlice';
 import { homePageFilterModalArr } from '@/section/Homepage/homePageData';
+import { setShowFilterModalForm } from '@/store/slices/homePageSlice';
+// import { setShowFilterModalForm } from '@/store/slices/homePageSlice';
 const HomepageFilterModal = ({ filterActiveState, setFilterActiveState }) => {
     const { t } = useTranslation("common")
     const dispatch = useDispatch()
     const { showFilterModalForm } = useSelector((state) => (
         {
-            showFilterModalForm: state?.homepageSlice?.showFilterModal?.showFilterModalForm,
+            showFilterModalForm: state?.homePageSlice?.showFilterModal?.showFilterModalForm,
         }
-    ))
+    ), shallowEqual)
 
     const handleFilterBasedOnType = (type) => {
         setFilterActiveState(type)

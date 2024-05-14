@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from "clsx"
 import dynamic from 'next/dynamic';
 import { useDispatch } from 'react-redux';
@@ -7,40 +7,132 @@ import { Trans, useTranslation } from 'next-i18next';
 import PenCircle from '@/components/svg/PenCircle';
 import OtpInput from "react-otp-input";
 import styles from "./style/otpForm.module.scss";
-import { setAuthType } from '@/store/slices/authSlice';
+import { setAuthType, setShowForm, setUpdateJwtToken, setUpdateProfileDetails } from '@/store/slices/authSlice';
 import toast from 'react-hot-toast';
+import LoderModule from '../LoaderModule';
+import { getCookiesStorage, getSessionStorage, removeSessionStorage, setCookiesStorage, setSessionStorage } from '@/utils/storageService';
+import { apiEndPoints } from '@/utils/apiEndPoints';
+import { useRouter } from 'next/router';
+import { postMethod } from '@/utils/apiServices';
 const CountdownTimer = dynamic(() => import('../Timer/CountdownTimer'))
 
 
 const OtpForm = () => {
     const { t } = useTranslation("common");
     const [otp, setOtp] = useState("");
+    const [otpData, setOtpData] = useState(false);
     const [resetValue, setResetValue] = useState(false);
     const [trigger, setTrigger] = useState(false);
+    const [loader, setLoader] = useState(false);
+    const router = useRouter();
 
     const dispatch = useDispatch()
 
 
     //signup form btn 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log("otp", otp)
-        if (otp?.length !== 4) {
-            return
+        if (!otpData?.token) {
+            toast.error("Verification key missing!")
+            return false;
         }
-        dispatch(setAuthType("accountCreatedSuccessfully"))
+        if (!otp) {
+            toast.error("Please enter OTP!")
+            return false
+        }
+        if (otp?.length != 4) {
+            toast.error("Please enter correct 4 digits OTP!")
+            return false
+        }
+        setLoader(true);
+
+        await postMethod(`${apiEndPoints.endPointSignupOtpVerify}`, { verifyToken: otpData?.token, otp: otp }).then((response) => {
+            if (response?.error?.status && response?.error?.message) {
+                toast.error(response?.error?.message)
+                setLoader(false)
+            } else {
+                if (response?.success) {
+                    if (response?.data?.token) {
+                        setCookiesStorage("_jwt", response?.data?.token)
+                        dispatch(setUpdateJwtToken(response?.data?.token))
+                        dispatch(setUpdateProfileDetails(response?.data?.user))
+                        toast.success(response?.message);
+                        if (otpData?.prevPath === "login") {
+                            dispatch(setShowForm(false))
+                            dispatch(setAuthType("homePage"))
+                            router.push("/")
+
+                        } else {
+
+                            dispatch(setAuthType("accountCreatedSuccessfully"))
+                        }
+                        removeSessionStorage("_verify");
+
+                    } else {
+                        toast.error(response?.message)
+                        setLoader(false)
+                    }
+                } else {
+                    setLoader(false)
+                }
+            }
+        })
+
     }
 
     //go to signup modal
     const goToPrevModal = () => {
-        dispatch(setAuthType("signup"))
+        if (otpData?.prevPath === "login") {
+            dispatch(setAuthType("login"))
+
+        } else {
+            dispatch(setAuthType("signup"))
+
+        }
 
     }
 
     // resend otp timer
     const resendOtp = async () => {
-        setOtp("");
+        setLoader(true);
+        const submitData = ({
+            email: otpData?.email ? otpData?.email : '',
+        })
+
+        await postMethod(apiEndPoints.resendOtp, submitData).then((response) => {
+            if (response?.error?.status && response?.error?.message) {
+                toast.error(response?.error?.message)
+                setLoader(false)
+            } else {
+                if (response?.success) {
+                    if (response?.data?.token) {
+                        const updateData = ({ email: otpData?.email, token: response?.data?.token, timestamp: new Date(), prevPath: otpData?.prevPath })
+                        setOtpData(updateData)
+                        setSessionStorage("_verify", updateData)
+                        toast.success(response?.message)
+                        setLoader(false)
+                    } else {
+                        toast.error(response?.message)
+                        setLoader(false)
+                    }
+                } else {
+                    setLoader(false)
+                }
+            }
+        })
     };
+
+    useEffect(() => {
+        if (getSessionStorage("_verify")) {
+            const dataVerify = getSessionStorage("_verify");
+            setOtpData(dataVerify);
+        } else {
+            router.push("/")
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+
     return (
         <div className={clsx(styles.loginFormDiv)}>
             <form className={clsx(styles.form)} onSubmit={handleSubmit}>
@@ -55,7 +147,7 @@ const OtpForm = () => {
                             OTP sent to
                         </Trans>
                     </span>
-                    <span className={clsx("me-1", styles.blue)}>johndoe@gmail.com</span>
+                    <span className={clsx("me-1", styles.blue)}>{otpData?.email}</span>
                     <button onClick={goToPrevModal} className={clsx(styles.penBtn)}>
                         <PenCircle />
 
@@ -101,7 +193,7 @@ const OtpForm = () => {
                         </Trans></span>
                     <span style={{ display: !trigger ? "inline-block" : "none" }}>
                         <CountdownTimer
-                            minSecs={{ minutes: 0, seconds: 180 }}
+                            minSecs={{ minutes: 0, seconds: 5 }}
                             handleSubmit={resendOtp}
                             setResetValue={setResetValue}
                             resetValue={resetValue}
@@ -111,6 +203,11 @@ const OtpForm = () => {
                 </div>
 
             </form>
+            {
+                loader ?
+                    <LoderModule isAbsolute={true} />
+                    : null
+            }
 
 
         </div>

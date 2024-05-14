@@ -1,11 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import clsx from "clsx";
 import styles from "./style/accountSettings.module.scss";
 import Image from 'next/image';
 import PenCircle from '@/components/svg/PenCircle';
 import { Col, Row } from 'react-bootstrap';
 import dynamic from 'next/dynamic';
-import { genderData, professionData } from '@/components/Module/Modal/loginFormData';
+import { genderData } from '@/components/Module/Modal/loginFormData';
 import { Formik } from 'formik';
 const NameInput = dynamic(() => import('@/components/Module/Input/NameInput'))
 const GenderDropdown = dynamic(() => import('@/components/Module/Dropdown/GenderDropdown'))
@@ -18,16 +18,31 @@ import { useDropzone } from 'react-dropzone';
 import { RxCross2 } from "react-icons/rx";
 import CrossCircle from '@/components/svg/CrossCircle';
 import { Trans, useTranslation } from "next-i18next";
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { getProfessionList } from '@/store/slices/authSlice';
+import { postMethod, putMethod, updateMutipart } from '@/utils/apiServices';
+import { apiEndPoints } from '@/utils/apiEndPoints';
+import LoderModule from '@/components/Module/LoaderModule';
+import moment from 'moment';
+import toast from 'react-hot-toast';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email format").required("* This field is mandatory"),
     name: Yup.string().required("* This field is mandatory"),
 
 });
-const AccountSettingsSection = () => {
+const AccountSettingsSection = ({ userDetails }) => {
+    const dispatch = useDispatch();
     const [editForm, setEditForm] = useState(false);
-    const [profileURL, setProfileUrl] = useState("/assests/user-profile/user-img.png")
-    const onDrop = useCallback((acceptedFiles, fileRejections) => {
+    const [loader, setLoader] = useState(false);
+    const { professionData } = useSelector((state) => (
+        {
+            professionData: state?.authSlice?.professionDataObj?.professionData
+
+        }
+    ), shallowEqual)
+    const [profile, setProfile] = useState(userDetails?.image);
+    const onDrop = useCallback(async (acceptedFiles, fileRejections) => {
         fileRejections?.forEach((file) => {
             file?.errors?.forEach((err) => {
                 if (err?.code === "file-too-large") {
@@ -40,8 +55,26 @@ const AccountSettingsSection = () => {
         });
         // Set the profile image URL
         if (acceptedFiles.length > 0) {
-            const file = acceptedFiles[0];
-            setProfileUrl(URL.createObjectURL(file));
+            setLoader(true);
+            const formData = new FormData();
+            formData.append('files', acceptedFiles[0]);
+            updateMutipart(true)
+            await postMethod("upload", formData).then((response) => {
+                if (response?.error?.status && response?.error?.message) {
+                    toast.error(response?.error?.message)
+                    setLoader(false)
+                } else {
+                    if (response?.length) {
+                        setProfile(response[0]?.url)
+                        setLoader(false)
+                    } else {
+                        toast.error("Failed to Upload Image")
+                        setLoader(false)
+                    }
+
+                }
+            })
+
         }
     }, []);
     const { getRootProps, getInputProps } = useDropzone({
@@ -57,12 +90,12 @@ const AccountSettingsSection = () => {
     });
 
     const editProfileFormData = {
-        profile: "",
-        name: "John Doe",
-        gender: "Male",
-        dob: new Date(),
-        profession: "Professional stocker",
-        email: "johndoe@gmail.com"
+        profile: profile ? profile : "",
+        name: userDetails?.fullName ? userDetails?.fullName : '',
+        gender: userDetails?.gender ? userDetails?.gender : '',
+        dob: userDetails?.dob ? new Date(userDetails?.dob) : new Date(),
+        profession: userDetails?.profession ? userDetails?.profession : '',
+        email: userDetails?.email ? userDetails?.email : '',
 
     }
 
@@ -98,9 +131,65 @@ const AccountSettingsSection = () => {
     }
 
     //remove profile image
-    const removeProfileImage = () => {
-        setProfileUrl("")
+    const removeProfileImage = async () => {
+        setProfile("")
+        const submitData = ({
+            image: '',
+
+        })
+        await putMethod(`${apiEndPoints?.updateUserDetail}`, submitData).then((response) => {
+            if (response?.error?.status && response?.error?.message) {
+                toast.error(response?.error?.message)
+                setLoader(false)
+            } else {
+                if (response?.success) {
+                    toast.success(response?.message)
+                    window.location.reload();
+
+                } else {
+                    setLoader(false)
+                }
+            }
+        })
     }
+
+    //update profile function
+    const updateProfileFun = async (values) => {
+        const { name, gender, dob, profession, } = values;
+
+        const submitData = ({
+            fullName: name ? name : '',
+            gender: gender ? gender : '',
+            dob: dob ? moment(dob).format('YYYY-MM-DD') : '',
+            profession: profession ? profession : '',
+            image: profile ? profile : '',
+
+        })
+        await putMethod(`${apiEndPoints?.updateUserDetail}`, submitData).then((response) => {
+            if (response?.error?.status && response?.error?.message) {
+                toast.error(response?.error?.message)
+                setLoader(false)
+            } else {
+                if (response?.success) {
+                    toast.success(response?.message, {
+                        duration: 5000,
+                    })
+                    setEditForm(false)
+                    window.location.reload();
+
+                } else {
+                    setLoader(false)
+                }
+            }
+        })
+    }
+
+    useEffect(() => {
+        dispatch(getProfessionList())
+    }, [])
+
+
+
 
     return (
         <div className={clsx(styles.leftSidebarMaindDiv, "px-sm-4 px-3")}>
@@ -126,35 +215,31 @@ const AccountSettingsSection = () => {
                     return validationSchema;
                 }}
                 enableReinitialize={true}
-                onSubmit={(values, { setSubmitting, resetForm }) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        console.log("values", values)
-                        setEditForm(false)
-
-                        setSubmitting(false);
-
-                    }, 400);
-                }}
+                onSubmit={updateProfileFun}
             >
 
                 {formik => (
                     <form onSubmit={formik?.handleSubmit}>
                         <div className="d-flex align-items-start  column-gap-1">
-                            <div className={clsx(styles.userImage,)}
-                                {...getRootProps()}>
-                                <input
-                                    type="file"
-                                    multiple={false}
-                                    {...getInputProps()}
-                                />
-                                <DefaultProfile firstCharHeight={"75px"} firstCharWidth={"75px"} userName={formik?.values?.name} src={profileURL} width={75} height={75} />
+                            <div className={clsx(styles.userImage)} {...(editForm ? getRootProps() : {})}>
+                                {editForm && (
+                                    <input
+                                        type="file"
+                                        multiple={false}
+                                        {...getInputProps()}
+                                    />
+                                )}
+                                <DefaultProfile firstCharHeight={"75px"} firstCharWidth={"75px"} userName={formik?.values?.name} src={profile ? profile : ""} width={75} height={75} />
 
                             </div>
 
                             {
-                                profileURL && (
-                                    <button type="button" className={clsx(styles.crossBtn)} onClick={removeProfileImage}>
+                                profile && (
+                                    <button type="button" style={{ cursor: editForm ? "pointer" : "not-allowed" }} className={clsx(styles.crossBtn)} onClick={() => {
+                                        if (editForm) {
+                                            removeProfileImage()
+                                        }
+                                    }}>
                                         <CrossCircle width={"20"} height={"20"} />
                                     </button>
                                 )
@@ -197,7 +282,7 @@ const AccountSettingsSection = () => {
                             </Col>
                             <Col className='ps-lg-1 pe-lg-0 pb-1 px-sm-3 px-0' lg={6}>
                                 <GenderDropdown
-                                    data={professionData}
+                                    data={professionData?.data}
                                     defaultValue={formik?.values?.profession ? formik?.values?.profession : "accountCreatedSuccessfullyModal.profession"}
                                     value={formik?.values?.profession}
                                     handleFun={handleProfessionFun}
@@ -220,7 +305,7 @@ const AccountSettingsSection = () => {
                                     formik={formik}
                                     touchedName={formik.touched.email}
                                     errorName={formik.errors.email}
-                                    readOnly={!editForm ? true : false}
+                                    readOnly={true}
 
                                 />
                             </Col>
@@ -239,6 +324,11 @@ const AccountSettingsSection = () => {
                                 )
                             }
                         </Row>
+                        {
+                            loader && (
+                                <LoderModule />
+                            )
+                        }
                     </form>
                 )}
 

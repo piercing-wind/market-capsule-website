@@ -3,30 +3,38 @@ import clsx from "clsx";
 import styles from "./style/profileDropdown.module.scss"
 import { Dropdown } from 'react-bootstrap';
 import { userProfileNavData, userProfileNavData400 } from '../Navbar/navigationData';
-import Image from 'next/image';
 import { Trans, useTranslation } from 'next-i18next';
 import { DownArrow } from '@/components/svg/DownArrow';
 import Signout from '@/components/svg/Signout';
-import Link from 'next/link';
 import DefaultProfile from '../ProfileImage/DefaultProfile';
 import { useRouter } from 'next/router';
+import { setCookiesStorage } from '@/utils/storageService';
+import { setResetSlice } from '@/store/slices/authSlice';
+import { setAuthorizationToken } from '@/utils/apiServices';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 
 const ProfileDropdown = () => {
     const { t } = useTranslation("common")
     const router = useRouter("")
-    const [profileURL, setProfileUrl] = useState("/assests/user-profile/user-img.png")
-
-    let userName = "John"
-
+    const dispatch = useDispatch()
+    const { userDetails } = useSelector((state) => (
+        {
+            userDetails: state?.authSlice?.userDetails
+        }
+    ), shallowEqual)
     //logout fun
     const logoutFun = () => {
-        console.log("logout fun")
+        setCookiesStorage('_jwt', "");
+        dispatch(setResetSlice());
+        setAuthorizationToken("");
+        router.push("/")
+        window.location.reload();
     }
     return (
         <div className={clsx('mb-2', styles.genderDropdown)}>
             <Dropdown className={clsx("threeDotDropdown")}>
                 <Dropdown.Toggle >
-                    <DefaultProfile firstCharHeight={"40px"} firstCharWidth={"40px"} userName={`John Doe`} src={profileURL} width={40} height={40} />
+                    <DefaultProfile firstCharHeight={"40px"} firstCharWidth={"40px"} userName={userDetails?.fullName} src={userDetails?.image ? userDetails?.image : ""} width={40} height={40} />
 
                     <DownArrow />
                 </Dropdown.Toggle>
@@ -35,7 +43,7 @@ const ProfileDropdown = () => {
                     <Dropdown.Item >
                         <h5 className={clsx(styles.hi)}>
                             <Trans i18nKey={"userProfileDropdown.hi"}>Hi!</Trans>{" "}
-                            {userName}
+                            {userDetails?.fullName}
 
                         </h5>
                     </Dropdown.Item>

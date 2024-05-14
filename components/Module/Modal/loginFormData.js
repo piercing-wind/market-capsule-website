@@ -21,38 +21,241 @@ export const continueFromSocial = [
 
 export const genderData = [
     {
-        id: 1,
-        label: "Male",
-        type: "male",
+        "id": 1,
+        "attributes": {
+            "name": "Male",
+        }
     },
     {
-        id: 2,
-        label: "FeMale",
-        type: "female",
+        "id": 2,
+        "attributes": {
+            "name": "Female",
+        }
     },
     {
-        id: 3,
-        label: "Other",
-        type: "other",
-    }
+        "id": 3,
+        "attributes": {
+            "name": "Other",
 
+        }
+    }
 ]
 
 export const professionData = [
     {
-        id: 1,
-        label: "Web Developer",
-        type: "webDeveloper",
+        "id": 1,
+        "attributes": {
+            "name": "Web Developer"
+        }
     },
     {
-        id: 2,
-        label: "React Developer",
-        type: "reactDeveloper",
+        "id": 2,
+        "attributes": {
+            "name": "React Developer"
+        }
     },
     {
-        id: 3,
-        label: "Next.js Developer",
-        type: "nextJsDeveloper",
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
+    },
+    {
+        "id": 3,
+        "attributes": {
+            "name": "Next.js Developer"
+        }
     }
-
 ]

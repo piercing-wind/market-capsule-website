@@ -13,6 +13,11 @@ const EmailInput = dynamic(() => import('../Input/EmailInput'))
 const GreenCheckbox = dynamic(() => import('../Checkbox/GreenCheckbox'))
 import * as Yup from "yup";
 import { Trans, useTranslation } from 'next-i18next';
+import LoderModule from '../LoaderModule';
+import { postMethod } from '@/utils/apiServices';
+import toast from 'react-hot-toast';
+import { setSessionStorage } from '@/utils/storageService';
+import { apiEndPoints } from '@/utils/apiEndPoints';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email format").required("* This field is mandatory"),
@@ -32,8 +37,8 @@ const signupFormData = {
 }
 
 const SignupForm = () => {
-    const [emailValue, setEmailValue] = useState("");
     const dispatch = useDispatch()
+    const [loader, setLoader] = useState(false);
 
     //handle login with social media
     const handleLoginWithSocialMedia = () => {
@@ -46,6 +51,53 @@ const SignupForm = () => {
         dispatch(setAuthType("login"))
     }
 
+    //signup function
+    const signupFun = async (values, { setSubmitting, resetForm }) => {
+
+        const { email, termsAndCondition, newsletters } = values;
+        if (!email) {
+            toast.error("Email required!")
+            return false
+        }
+
+        if (!termsAndCondition) {
+            toast.error("Terms and Conditions required!")
+            return false
+        }
+
+
+        // setLoader(true)
+        const submitData = ({
+            email: email,
+            isTermAndConditionAccept: termsAndCondition,
+            newslettersSubscribed: newsletters
+        })
+        setSubmitting(false);
+        await postMethod(`${apiEndPoints.endPointSignUp}`, submitData).then((response) => {
+            if (response?.error?.status && response?.error?.message) {
+                toast.error(response?.error?.message)
+                setLoader(false)
+            } else {
+                if (response?.success) {
+                    if (response?.data?.token) {
+                        setSessionStorage("_verify", ({ email: submitData?.email, token: response?.data?.token, timestamp: new Date(), prevPath: "signup" }))
+                        toast.success(response?.message)
+                        // window.open("?q=verify", "_self");
+                        dispatch(setAuthType("otp"))
+                        resetForm()
+                    } else {
+                        toast.error(response?.message)
+                        setLoader(false)
+                        resetForm()
+                    }
+                } else {
+                    setLoader(false)
+                }
+            }
+        })
+
+    }
+
 
     return (
         <div className={clsx(styles.loginFormDiv)}>
@@ -55,15 +107,7 @@ const SignupForm = () => {
                     return validationSchema;
                 }}
                 enableReinitialize={true}
-                onSubmit={(values, { setSubmitting, resetForm }) => {
-                    setTimeout(() => {
-                        alert(JSON.stringify(values, null, 2));
-                        console.log("values", values)
-                        setSubmitting(false);
-                        dispatch(setAuthType("otp"))
-
-                    }, 400);
-                }}
+                onSubmit={signupFun}
             >
                 {formik => (
 
@@ -216,8 +260,12 @@ const SignupForm = () => {
                                     </Trans>
                                 </button>
                             </div>
-
                         </form>
+                        {
+                            loader ?
+                                <LoderModule isAbsolute={true} />
+                                : null
+                        }
                     </>
 
                 )}

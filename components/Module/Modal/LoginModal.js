@@ -2,7 +2,7 @@ import React, { Children } from 'react';
 import clsx from "clsx";
 import styles from "./style/loginModal.module.scss"
 import CrossCircle from '@/components/svg/CrossCircle';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { setShowForm } from '@/store/slices/authSlice';
 import { Col, Row } from 'react-bootstrap';
 import Image from 'next/image';
@@ -13,7 +13,7 @@ const LoginModal = ({ children }) => {
         {
             showForm: state?.authSlice?.loginModal?.showForm,
         }
-    ))
+    ), shallowEqual)
 
 
     return (

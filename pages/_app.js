@@ -1,14 +1,18 @@
 import "@/styles/globals.scss";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Provider } from "react-redux";
+import { Provider, useDispatch } from "react-redux";
 import { wrapper } from "@/store";
 import { appWithTranslation } from "next-i18next";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import clsx from "clsx";
 import toast from 'react-hot-toast';
 import dynamic from "next/dynamic";
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { useRouter } from "next/router";
+import MiddleWare from "@/components/MiddleWare";
+import { getCookiesStorage } from "@/utils/storageService";
+import { setAuthorizationToken } from "@/utils/apiServices";
+import { getFetchAuth, setResetSlice, setUpdateJwtToken } from "@/store/slices/authSlice";
 const NavbarLayout = dynamic(() => import('@/components/Module/Navbar/Navbar'))
 const Navbar404 = dynamic(() => import('@/components/Module/Navbar/Navbar404'))
 
@@ -23,32 +27,37 @@ const plus_Jakarta_Sans = Plus_Jakarta_Sans({
   display: 'swap',
 });
 
+
 const App = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pageProps } = props;
   const router = useRouter()
+
   return (
 
     <Provider store={store}>
+      <MiddleWare>
+        {/* <InnerComponent pageProps={pageProps} /> */}
+        <main className={clsx(`${plus_Jakarta_Sans.className}`, "gray-bg")}>
 
-      <main className={clsx(`${plus_Jakarta_Sans.className}`, "gray-bg")}>
+          {
+            router?.pathname !== "/404" ? (
+              <NavbarLayout />
 
-        {
-          router?.pathname !== "/404" ? (
-            <NavbarLayout />
+            ) : (
+              <Navbar404 />
 
-          ) : (
-            <Navbar404 />
+            )
+          }
+          <Component {...pageProps} />
+        </main>
+        <Toaster
+          position="bottom-center"
+          reverseOrder={true}
+          containerClassName="toasterCss"
+        />
+      </MiddleWare>
 
-          )
-        }
-        <Component {...pageProps} />
-      </main>
-      <Toaster
-        position="bottom-center"
-        reverseOrder={true}
-        containerClassName="toasterCss"
-      />
     </Provider>
 
   )

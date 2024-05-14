@@ -2,9 +2,7 @@
 export const DEFAULT_LOCALE = 'en';
 const TO_LOCALE_STRING = { en: "en-US", ar: "ar-EG" };
 
-export const apiEndPoints = {
 
-};
 
 export const isValidSlug = (slug) => {
     // Define a regular expression pattern for a valid slug
@@ -146,11 +144,11 @@ export const isNewYear = (dateString) => {
 };
 
 export const getMonthAndYearAbbreviation = (dateString) => {
-    const date = new Date(dateString);
-    const month = date.toLocaleString('default', { month: 'short', locale: 'en-US' }); // Specify 'en-US' locale
-    const year = date.getFullYear().toString().slice(2);
-    return `${month}-${year}`;
-};
+    const [year, month] = dateString.split('-');
+    const date = new Date(year, month - 1); // Month is 0-indexed
+    const monthAbbr = date.toLocaleString('en-US', { month: 'short' }); // Specify 'en-US' locale
+    return `${monthAbbr}-${year.slice(2)}`;
+}
 
 
 

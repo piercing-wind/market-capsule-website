@@ -180,6 +180,7 @@ export default function IpoDetails(props) {
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout, "pt-3")} >
                                         <VolumeTable
                                             dataTable={sensexChartData}
+                                            currentDate={props?.currentDate}
                                         />
                                     </Col>
 
@@ -249,11 +250,13 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
-
+    // Get the current date on the server
+    const currentDate = new Date().toISOString();
     return {
         props: {
             data: "",
             language: locale,
+            currentDate,
 
             ...(await serverSideTranslations(locale, fileList)),
         },

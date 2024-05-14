@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from "clsx";
 import styles from "./style/nav.module.scss";
 import Container from 'react-bootstrap/Container';
@@ -10,7 +10,7 @@ import { navLinkData, navLinkData404 } from './navigationData';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { setShowForm } from '@/store/slices/authSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import dynamic from 'next/dynamic';
 const LoginModal = dynamic(() => import('../Modal/LoginModal'))
 const LoginForm = dynamic(() => import('../Modal/LoginForm'))
@@ -27,16 +27,27 @@ const Navbar404 = () => {
     const router = useRouter()
     const { t } = useTranslation("common");
     const dispatch = useDispatch()
-    const { authType } = useSelector((state) => (
+    const { authType, userDetails } = useSelector((state) => (
         {
             authType: state?.authSlice?.loginModal?.authType,
-        }
-    ))
+            userDetails: state?.authSlice?.userDetails
 
+        }
+    ), shallowEqual)
+    const [expanded, setExpanded] = useState(false);
+
+    const handleToggle = (newExpanded) => {
+        setExpanded(newExpanded);
+    };
+
+    const handleLinkClick = () => {
+        setExpanded(false); // Close the navbar when a link is clicked
+    };
 
     //create an account fun
     const createAnAccountFun = () => {
-        console.log("create an account function")
+        handleLinkClick()
+
         dispatch(setShowForm(true))
     }
 
@@ -52,7 +63,7 @@ const Navbar404 = () => {
 
     return (
         <>
-            <Navbar sticky="top" expand="lg" className={clsx("white", styles.navBar)}>
+            <Navbar expanded={expanded} onToggle={handleToggle} sticky="top" expand="lg" className={clsx("white", styles.navBar)}>
                 <Container fluid className={clsx(styles.navContainer)}>
                     <Link className="navbar-brand d-lg-none d-block" href="/">
                         <Image priority={true} src="/assests/homepage/market-capsule-logo.svg" alt="market capsule logo" width="150" height="40" />
@@ -68,7 +79,7 @@ const Navbar404 = () => {
                                     {
                                         navLinkData404?.map((el, index) => {
                                             return (
-                                                <Link className={clsx(styles.grayColor, handleActiveNavFun(el?.slug, router?.pathname) ? styles.blackColor : "")} href={el?.slug} key={index} >
+                                                <Link className={clsx(styles.grayColor, handleActiveNavFun(el?.slug, router?.pathname) ? styles.blackColor : "")} href={el?.slug} key={index} onClick={handleLinkClick}>
                                                     <li className='d-flex align-items-center column-gap-1'>
                                                         {el?.slug === "/capsule-plus" && <Image src="/assests/capsule-plus/bolt.svg" alt="bolt" width={"19"} height={"26"} />}{t(el?.label)}
 
@@ -88,23 +99,8 @@ const Navbar404 = () => {
                                     }
 
                                 </ul>
+                                <div></div>
 
-                                {
-                                    false ? (
-                                        <ProfileDropdown
-
-                                        />
-                                    ) : (
-
-                                        <HomeBlueButton
-                                            color={"#FFFFFF"}
-                                            bg={"#3E63FF"}
-                                            label={`Create an Account`}
-                                            handlerFun={createAnAccountFun}
-                                        />
-                                    )
-
-                                }
                             </div>
 
                         </Nav>

@@ -9,21 +9,20 @@ import { userProfileNavData } from '../Navbar/navigationData';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import DefaultProfile from '../ProfileImage/DefaultProfile';
+import { useSelector, shallowEqual } from 'react-redux';
 
 
-const LeftSidebar = () => {
+const LeftSidebar = ({ userDetails }) => {
     const { t } = useTranslation("common");
     const router = useRouter()
-    const [profileURL, setProfileUrl] = useState("/assests/user-profile/user-img.png")
-
     return (
         <div className={clsx(styles.leftSidebarMaindDiv, "px-3 ")}>
             {/* upper div */}
             <div className={clsx(styles.upperDiv, "d-flex  column-gap-2  ")}>
-                <DefaultProfile firstCharHeight={"52px"} firstCharWidth={"52px"} userName={`John Doe`} src={profileURL} width={52} height={52} />
+                <DefaultProfile firstCharHeight={"52px"} firstCharWidth={"52px"} userName={userDetails?.fullName} src={userDetails?.image} width={52} height={52} />
 
                 <div>
-                    <span>John Doe</span>
+                    <span>{userDetails?.fullName}</span>
                     <p className={"mb-0 d-flex align-items-center column-gap-1 "}>
                         <Bolt />
                         <span>capsule+</span>
