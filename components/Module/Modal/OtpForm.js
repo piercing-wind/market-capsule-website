@@ -193,7 +193,7 @@ const OtpForm = () => {
                         </Trans></span>
                     <span style={{ display: !trigger ? "inline-block" : "none" }}>
                         <CountdownTimer
-                            minSecs={{ minutes: 0, seconds: 5 }}
+                            minSecs={{ minutes: 0, seconds: 180 }}
                             handleSubmit={resendOtp}
                             setResetValue={setResetValue}
                             resetValue={resetValue}

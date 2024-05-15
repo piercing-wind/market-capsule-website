@@ -1,26 +1,44 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import clsx from "clsx";
 import styles from "./style/notifications.module.scss";
 import dynamic from 'next/dynamic';
 import { Trans, useTranslation } from "next-i18next";
 import { Col, Row } from 'react-bootstrap';
-import { notificationsData } from './notificationsData';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { getNotificationList, setNotificationCurrentPage, setNotificationList, setNotificationTotalList } from '@/store/slices/notificationSlice';
+import moment from 'moment';
 const LoadMoreBtn = dynamic(() => import("@/components/Module/Button/LoadMoreBtn"))
 
+const Notifications = ({ notificationListServer, notificationTotalListServer }) => {
 
-const Notifications = () => {
-    const [itemPerPage, setItemPerPage] = useState(10);
     const { t } = useTranslation("common")
-    //load more btn 
-    const loadMoreFun = () => {
-        console.log("load more fun")
-        if (notificationsData?.length > itemPerPage) {
-
-            setItemPerPage(itemPerPage + 3)
+    const dispatch = useDispatch();
+    const { notificationListClient, notificationLoading, notificationCurrentPage, notificationTotalList } = useSelector((state) => ({
+        notificationLoading: state?.notificationSlice?.loader,
+        notificationListClient: state?.notificationSlice?.notificationList,
+        notificationCurrentPage: state?.notificationSlice?.notificationCurrentPage,
+        notificationTotalList: state?.notificationSlice?.notificationTotalList,
+    }), shallowEqual)
+    // load more btn 
+    const loadMoreFun = async () => {
+        let params = {
+            page: notificationCurrentPage,
+            limit: 2
         }
+        await dispatch(getNotificationList(params))
+        dispatch(setNotificationCurrentPage(notificationCurrentPage + 1))
+
     }
 
-    // notificationsData
+    useEffect(() => {
+        if (notificationListClient?.length === 0) {
+            dispatch(setNotificationList(notificationListServer));
+            dispatch(setNotificationTotalList(notificationTotalListServer));
+            dispatch(setNotificationCurrentPage(notificationCurrentPage + 1))
+
+        }
+    }, []);
+
     return (
         <div className={clsx(styles.leftSidebarMaindDiv)}>
             {/* heading section */}
@@ -33,15 +51,21 @@ const Notifications = () => {
             </div>
             <Row className='mx-0'>
                 {
-                    notificationsData?.slice(0, itemPerPage)?.map((el, index) => {
+                    notificationListClient?.map((el, index) => {
                         return (
 
                             <Col key={index} xs={12} className={clsx('px-sm-4 px-3  py-3', index === 0 && styles.blueBg)}>
-                                <div className={clsx("d-flex align-items-center column-gap-sm-5 column-gap-3", styles.notifcationDiv)}>
+                                <div className={clsx("d-flex align-items-center justify-content-between column-gap-sm-5 column-gap-3", styles.notifcationDiv)}>
                                     <div>
-                                        <h6 className={clsx(index === 0 && styles.blueColor)}>{t(el?.heading)}</h6>
-                                        <p className='mb-2'>{el?.para}</p>
-                                        <span>{el?.date}</span>
+                                        <h6 className={clsx(index === 0 && styles.blueColor)}>{el?.title}</h6>
+                                        <p className='mb-2'>{el?.message}</p>
+                                        <span>
+                                            {
+                                                moment().isSame(moment(el?.createdAt), 'day')
+                                                    ? 'TODAY'
+                                                    : moment(el?.createdAt).format('DD, MMM YYYY')
+                                            }
+                                        </span>
 
                                     </div>
                                     <div className={clsx(index === 0 && styles.blueDot)}>
@@ -54,12 +78,11 @@ const Notifications = () => {
                     })
 
                 }
-
-                {
-                    notificationsData?.length > 10 && (
-                        <LoadMoreBtn data={notificationsData} itemPerpage={itemPerPage} loadMoreFun={loadMoreFun} />
-                    )
-                }
+                <LoadMoreBtn
+                    totalList={notificationTotalList}
+                    loading={notificationLoading}
+                    data={notificationListClient}
+                    loadMoreFun={loadMoreFun} />
 
             </Row>
         </div>

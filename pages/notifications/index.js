@@ -14,6 +14,7 @@ import dynamic from "next/dynamic";
 import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
 import { getFetchAuth } from "@/store/slices/authSlice";
+import { getNotificationList } from "@/store/slices/notificationSlice";
 const LeftSidebar = dynamic(() => import("@/components/Module/Sidebar/LeftSidebar"))
 const Notifications = dynamic(() => import("@/section/Notifications/Notifications"))
 
@@ -40,7 +41,10 @@ export default function ManageSubscriptionPage(props) {
                             <LeftSidebar userDetails={props?.userDetails} />
                         </Col>
                         <Col className="px-0" lg={9} sm={12}>
-                            <Notifications />
+                            <Notifications
+                                notificationListServer={props?.notificationListServer}
+                                notificationTotalListServer={props?.notificationTotalListServer}
+                            />
                         </Col>
 
                     </Row>
@@ -56,8 +60,16 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     setAuthorizationToken(userActive);
     let fileList = getFileLangList();
     await store.dispatch(getFetchAuth());
-    const { authSlice: { userDetails } } = store.getState();
+    const params = {
+        page: 1,
+        limit: 2,
+    }
+    await store.dispatch(getNotificationList(params));
 
+    const {
+        authSlice: { userDetails },
+        notificationSlice: { notificationList, notificationTotalList, loader, error }
+    } = store.getState();
     secureHeader(req, res, locale);
 
     return {
@@ -65,6 +77,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             data: "",
             language: locale,
             userDetails,
+            notificationListServer: notificationList,
+            notificationTotalListServer: notificationTotalList,
 
             ...(await serverSideTranslations(locale, fileList)),
         },

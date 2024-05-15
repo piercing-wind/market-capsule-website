@@ -7,5 +7,6 @@ export const apiEndPoints = {
     authUserDetail: `users/me`,
     updateUserDetail: `user/me`,
     getProfessionList: `professions?fields[0]=name`,
-    resendOtp: `authentication/resendOtp`
+    resendOtp: `authentication/resendOtp`,
+    notificationList: `notification/list`
 };

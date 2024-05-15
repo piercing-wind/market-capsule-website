@@ -1,8 +1,39 @@
-.loadMoreBtn {
-  border: none;
-  background-color: transparent;
-  color: #464646;
-  font-size: 16px;
-  display: block;
-  width: 100%;
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize ;
+  font-weight: $fontWeight ;
+  color: $color ;
+}
+
+// .loadMoreBtn {
+//   border: none;
+//   background-color: transparent;
+//   color: #464646;
+//   font-size: 16px;
+//   display: block;
+//   width: 100%;
+
+//   span{
+//     @include basicFontSize(16px,500 , #000000)
+
+// }
+// }
+
+
+
+
+.loadMoreBtn{
+  button{
+      border: none;
+      background-color: transparent;
+        @include basicFontSize(16px,500 , #464646)
+  }
+
+  span{
+      @include basicFontSize(16px,500 , #000000)
+
+  }
+
+  .notClick{
+      cursor: not-allowed;
+  }
 }
