@@ -37,6 +37,11 @@ export const getFeedList = createAsyncThunk('homePageSlice/getFeedList', async (
     return (response)
 });
 
+export const getGlobalSearchList = createAsyncThunk('homePageSlice/getGlobalSearchList', async (params) => {
+    const response = await getMethod(`search/globalSearch?search=${params?.search}`);
+    return (response)
+});
+
 
 const filterBtnObj = {
     showFilterModalForm: false,
@@ -109,6 +114,13 @@ const feedListObj = {
     feedTotalList: 0,
 }
 
+const getGlobalSearchObj = {
+    loading: false,
+    error: false,
+    globalSearchList: {},
+    globalSearchTotalList: 0,
+}
+
 export const homePageSlice = createSlice({
     name: 'homePageSlice',
     initialState: {
@@ -118,7 +130,8 @@ export const homePageSlice = createSlice({
         trandingNewsObj,
         whatsNewInCapsulePlusObj,
         industriesObj,
-        feedListObj
+        feedListObj,
+        getGlobalSearchObj
 
     },
     reducers: {
@@ -251,6 +264,21 @@ export const homePageSlice = createSlice({
             .addCase(getFeedList.rejected, (state, action) => {
                 state.feedListObj.loading = false;
                 state.feedListObj.error = true;
+            })
+            .addCase(getGlobalSearchList.pending, (state, action) => {
+                state.getGlobalSearchObj.loading = true;
+                state.getGlobalSearchObj.error = false;
+            })
+            .addCase(getGlobalSearchList.fulfilled, (state, action) => {
+                state.getGlobalSearchObj.loading = false;
+                state.getGlobalSearchObj.error = false;
+                state.getGlobalSearchObj.globalSearchList = action?.payload?.data
+                state.getGlobalSearchObj.globalSearchTotalList = action?.payload?.count;
+
+            })
+            .addCase(getGlobalSearchList.rejected, (state, action) => {
+                state.getGlobalSearchObj.loading = false;
+                state.getGlobalSearchObj.error = true;
             })
     },
 });

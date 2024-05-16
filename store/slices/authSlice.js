@@ -39,6 +39,7 @@ export const authSlice = createSlice({
         loader: false,
         jwt: '',
         userDetails: {},
+        upgradeNow: false,
         userprofile: {
             isDisabled: true
         },
@@ -72,7 +73,9 @@ export const authSlice = createSlice({
         setAuthType(state, action) {
             state.loginModal.authType = action.payload
         },
-
+        setUpgradeNow(state, action) {
+            state.upgradeNow = action.payload
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -101,7 +104,7 @@ export const authSlice = createSlice({
     }
 });
 
-export const { setShowForm, setAuthType, setResetSlice, setUpdateJwtToken, setUpdateProfileDetails, setResetLoader, setIsUpdateProfile } = authSlice.actions
+export const { setUpgradeNow, setShowForm, setAuthType, setResetSlice, setUpdateJwtToken, setUpdateProfileDetails, setResetLoader, setIsUpdateProfile } = authSlice.actions
 
 export default authSlice.reducer
 

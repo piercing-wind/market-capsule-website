@@ -1,33 +1,56 @@
-import React, { useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import clsx from "clsx";
 import styles from "../style/searchBarArticalsAndCompany.module.scss"
 import Search from '@/components/svg/Search';
 import { useTranslation } from 'next-i18next';
 import IconPayNowButton from '@/components/Module/Button/IconPayNowButton';
-import { searchBarCompanyList } from '../homePageData';
 import Link from 'next/link';
 import { useDebounce } from 'use-debounce';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { getGlobalSearchList } from '@/store/slices/homePageSlice';
+import { useRouter } from 'next/router';
 
 const SearchBarArticalsAndCompany = () => {
   const { t } = useTranslation("common");
   const [text, setText] = useState('');
   const [value] = useDebounce(text, 1000);
+  const dispatch = useDispatch();
+  const router = useRouter()
+  const { globalSearchList, globalSearchTotalList } = useSelector((state) => ({
+    globalSearchList: state?.homePageSlice?.getGlobalSearchObj?.globalSearchList,
+    globalSearchTotalList: state?.homePageSlice?.globalSearchTotalList?.globalSearchTotalList,
 
+  }), shallowEqual)
   //handle search based on search button
-  const handleSearch = (e) => {
-    console.log("handle search")
+  const searchFun = async () => {
+    if (value === "") return
+    router.push(`/search-results/${value}`)
   }
 
-  const searchFun = () => {
-    console.log("search")
+  const searchTypeFun = async () => {
+    const params = {
+      search: value
+    }
+    await dispatch(getGlobalSearchList(params))
+
+
   }
+  useEffect(() => {
+    if (value) {
+      searchTypeFun()
+    }
+  }, [value])
+  console.log("value", value)
+
+  console.log("globalSearchList", globalSearchList)
+  console.log("globalSearchTotalList", globalSearchTotalList)
 
   return (
     <div className={clsx("p-3", styles.searchBarSection)}>
       <div className={clsx(styles.inputBlock, styles.typeahead)}>
 
         <div className={clsx("d-flex align-items-center column-gap-2 px-2 ", styles.searchBar, styles.div1)}>
-          <button className='' onClick={handleSearch}>
+          <button >
             <Search />
           </button>
           <input
@@ -53,6 +76,7 @@ const SearchBarArticalsAndCompany = () => {
               border={"none"}
               type={"button"}
               handleFun={searchFun}
+              disabled={value === "" ? true : false}
 
             />
           </div>
@@ -64,23 +88,65 @@ const SearchBarArticalsAndCompany = () => {
             display: "block",
           }}
         >
-          {searchBarCompanyList?.length
-            ? searchBarCompanyList
+          {globalSearchList?.capsuleplus?.length > 0
+            ? globalSearchList?.capsuleplus
               ?.filter((elId) => {
                 return value
-                  ? elId?.companyName?.toLowerCase()?.includes(value?.toLowerCase())
+                  ? elId?.name?.toLowerCase()?.includes(value?.toLowerCase())
                   : null;
               })
               ?.map((elId, typeIndex) => (
                 <div
-                  value={elId?.id}
+                  // value={elId?.id}
                   key={typeIndex}
                   className={clsx(styles.linkDiv)}
-
                 >
 
-                  <Link href={`/search-results/${elId?.id}`}>
-                    <p className={clsx(styles.label)}>{t(elId?.companyName)}</p>
+                  <Link href={`/search-results/${elId?.name}`}>
+                    <p className={clsx(styles.label)}>{t(elId?.name)}</p>
+                  </Link>
+
+                </div>
+              ))
+            : null}
+          {globalSearchList?.screener?.length > 0
+            ? globalSearchList?.screener
+              ?.filter((elId) => {
+                return elId?.name
+                  ? elId?.name?.toLowerCase()?.includes(value?.toLowerCase())
+                  : null;
+              })
+              ?.map((elId, typeIndex) => (
+                <div
+                  // value={elId?.id}
+                  key={typeIndex}
+                  className={clsx(styles.linkDiv)}
+                >
+
+                  <Link href={`/search-results/${elId?.name}`}>
+                    <p className={clsx(styles.label)}>{t(elId?.name)}</p>
+                  </Link>
+
+                </div>
+              ))
+            : null}
+
+          {globalSearchList?.ipoZone?.length > 0
+            ? globalSearchList?.ipoZone
+              ?.filter((elId) => {
+                return value
+                  ? elId?.name?.toLowerCase()?.includes(value?.toLowerCase())
+                  : null;
+              })
+              ?.map((elId, typeIndex) => (
+                <div
+                  // value={elId?.id}
+                  key={typeIndex}
+                  className={clsx(styles.linkDiv)}
+                >
+
+                  <Link href={`/search-results/${elId?.name}`}>
+                    <p className={clsx(styles.label)}>{t(elId?.name)}</p>
                   </Link>
 
                 </div>

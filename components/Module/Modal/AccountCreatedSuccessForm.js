@@ -3,7 +3,7 @@ import clsx from "clsx"
 import styles from "./style/loginForm.module.scss"
 import { genderData } from './loginFormData';
 import dynamic from 'next/dynamic';
-import { getProfessionList, setAuthType, setShowForm } from '@/store/slices/authSlice';
+import { getProfessionList, setAuthType, setShowForm, setUpgradeNow } from '@/store/slices/authSlice';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Formik } from 'formik';
 const LoginButton = dynamic(() => import('../Button/LoginButton'))
@@ -34,9 +34,11 @@ const AccountCreatedSuccessForm = () => {
     const [loader, setLoader] = useState(false);
     const router = useRouter();
 
-    const { professionData } = useSelector((state) => (
+    const { professionData, upgradeNow } = useSelector((state) => (
         {
-            professionData: state?.authSlice?.professionDataObj?.professionData
+            professionData: state?.authSlice?.professionDataObj?.professionData,
+            upgradeNow: state?.authSlice?.upgradeNow,
+
         }
     ), shallowEqual)
     // console.log("professionData", professionData)
@@ -94,9 +96,15 @@ const AccountCreatedSuccessForm = () => {
                     toast.success(response?.message)
                     dispatch(setShowForm(false))
                     dispatch(setAuthType("homePage"))
-                    router.push("/")
+                    if (upgradeNow) {
+                        router.push("/subscription")
+                        dispatch(setUpgradeNow(false))
+                        window.location.reload();
+                    } else {
+                        router.push("/")
+                        window.location.reload();
+                    }
                     resetForm()
-                    window.location.reload();
 
                 } else {
                     setLoader(false)

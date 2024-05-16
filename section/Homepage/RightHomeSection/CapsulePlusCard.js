@@ -6,15 +6,26 @@ import dynamic from 'next/dynamic';
 const HomeBlueButton = dynamic(() => import('@/components/Module/Button/HomeBlueButton'), { suspense: true })
 import { Trans, useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { setShowForm, setUpgradeNow } from '@/store/slices/authSlice';
 
 
 const CapsulePlusCard = () => {
     const { t } = useTranslation("common");
-    const router = useRouter()
+    const router = useRouter();
+    const dispatch = useDispatch();
+    const { jwt } = useSelector((state) => ({
+        jwt: state?.authSlice?.jwt,
 
+    }), shallowEqual)
     const upgradeNowFun = () => {
-        console.log("upgrade now ")
-        router.push("/subscription")
+        if (!jwt) {
+            dispatch(setShowForm(true))
+            dispatch(setUpgradeNow(true))
+
+        } else {
+            router.push("/subscription")
+        }
     }
     return (
         <div className={clsx("p-2", styles.trandingDiv)}>

@@ -33,7 +33,7 @@ const postMethod = async (endpoint, data, params = {}) => {        //post method
         AxiosInstance(config).then(response => {
             resolve(response.data);
         }, error => {
-            reject(error.response.data);
+            resolve(error.response.data);
         })
     });
 }
@@ -71,7 +71,7 @@ const putMethod = async (endpoint, data, params = {}) => {        //post method 
         AxiosInstance(config).then(response => {
             resolve(response.data);
         }, error => {
-            reject(error.response.data);
+            resolve(error.response.data);
         })
     });
 }

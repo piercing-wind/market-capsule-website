@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import clsx from "clsx"
 import dynamic from 'next/dynamic';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 const LoginButton = dynamic(() => import('../Button/LoginButton'))
 import { Trans, useTranslation } from 'next-i18next';
 import PenCircle from '@/components/svg/PenCircle';
 import OtpInput from "react-otp-input";
 import styles from "./style/otpForm.module.scss";
-import { setAuthType, setShowForm, setUpdateJwtToken, setUpdateProfileDetails } from '@/store/slices/authSlice';
+import { setAuthType, setShowForm, setUpdateJwtToken, setUpdateProfileDetails, setUpgradeNow } from '@/store/slices/authSlice';
 import toast from 'react-hot-toast';
 import LoderModule from '../LoaderModule';
 import { getCookiesStorage, getSessionStorage, removeSessionStorage, setCookiesStorage, setSessionStorage } from '@/utils/storageService';
@@ -27,7 +27,10 @@ const OtpForm = () => {
     const router = useRouter();
 
     const dispatch = useDispatch()
+    const { upgradeNow } = useSelector((state) => ({
+        upgradeNow: state?.authSlice?.upgradeNow,
 
+    }), shallowEqual)
 
     //signup form btn 
     const handleSubmit = async (e) => {
@@ -57,7 +60,13 @@ const OtpForm = () => {
                         dispatch(setUpdateJwtToken(response?.data?.token))
                         dispatch(setUpdateProfileDetails(response?.data?.user))
                         toast.success(response?.message);
-                        if (otpData?.prevPath === "login") {
+                        if (upgradeNow && otpData?.prevPath !== "signup") {
+                            dispatch(setShowForm(false))
+                            dispatch(setAuthType("homePage"))
+                            dispatch(setUpgradeNow(false))
+                            router.push("/subscription")
+                        }
+                        else if (otpData?.prevPath === "login") {
                             dispatch(setShowForm(false))
                             dispatch(setAuthType("homePage"))
                             router.push("/")
