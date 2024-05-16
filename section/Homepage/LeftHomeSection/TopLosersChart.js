@@ -17,6 +17,8 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { getScreenHeight, getScreenWidth } from '@/utils/constants';
 import ChartLineUpRed from '@/components/svg/ChartLineUpRed';
 import { Trans, useTranslation } from 'next-i18next';
+import NotFoundCard from '@/components/Module/NotFoundCard/NotFoundCard';
+import { shallowEqual, useSelector } from 'react-redux';
 
 ChartJS.register(
     CategoryScale,
@@ -29,38 +31,42 @@ ChartJS.register(
 );
 
 
-// Extract labels and data from topGainerArr
-const labels = topGainerArr.map((item) => item.companyName);
-const dataValues = topGainerArr.map((item) => item.topGainerNumber);
-export const data = {
-    labels,
-    datasets: [
-        {
-            label: '',
-            data: dataValues,
-            backgroundColor: (context) => {
-                const ctx = context.chart.ctx;
-                const gradient = ctx.createLinearGradient(0, 0, 0, 200);
-                gradient.addColorStop(0, "#FF4F55");
-                gradient.addColorStop(1, "#FFAFB2");
-                return gradient;
-            },
-            borderColor: [
-                'rgba(127, 253, 198,1)',
 
-            ],
-            borderRadius: 30,
-            barPercentage: 0.6, // Adjust as needed
-            // categoryPercentage: 0.8, //
-
-        },
-
-    ],
-};
 
 const TopLosersChart = () => {
     const { t } = useTranslation("common");
+    const { topLosersList } = useSelector((state) => ({
+        topLosersList: state?.homePageSlice?.topLosersObj?.topLosersList,
+    }), shallowEqual)
+    // Extract labels and data from topGainerArr
+    const labels = topLosersList.map((item) => item?.attributes?.company?.data?.attributes?.name);
+    const dataValues = topLosersList.map((item) => item?.attributes?.value);
 
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: '',
+                data: dataValues,
+                backgroundColor: (context) => {
+                    const ctx = context.chart.ctx;
+                    const gradient = ctx.createLinearGradient(0, 0, 0, 200);
+                    gradient.addColorStop(0, "#FF4F55");
+                    gradient.addColorStop(1, "#FFAFB2");
+                    return gradient;
+                },
+                borderColor: [
+                    'rgba(127, 253, 198,1)',
+
+                ],
+                borderRadius: 30,
+                barPercentage: 0.6, // Adjust as needed
+                // categoryPercentage: 0.8, //
+
+            },
+
+        ],
+    };
     const [screenWidth, setScreenWidth] = useState(getScreenWidth());
     const [screenHeight, serScreenHeight] = useState(getScreenHeight())
     function calculateAspectRatio() {
@@ -171,10 +177,16 @@ const TopLosersChart = () => {
                 <ChartLineUpRed />
                 <h5 className={clsx("mb-0")}>{t("homepage.leftSection.topLosers")}</h5>
             </div>
-            <div className={clsx(styles.barContainer)}>
-                <Bar options={options} data={data} />
-                <span>{t("homepage.leftSection.dayChange")}</span>
-            </div>
+            {
+                topLosersList?.length > 0 ? (
+                    <div className={clsx(styles.barContainer)}>
+                        <Bar options={options} data={data} />
+                        <span>{t("homepage.leftSection.dayChange")}</span>
+                    </div>
+                ) : (
+                    <NotFoundCard />
+                )
+            }
         </div>
     )
 }

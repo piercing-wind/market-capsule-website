@@ -7,10 +7,10 @@ import { Col, Row } from 'react-bootstrap';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { getNotificationList, setNotificationCurrentPage, setNotificationList, setNotificationTotalList } from '@/store/slices/notificationSlice';
 import moment from 'moment';
+import toast from 'react-hot-toast';
 const LoadMoreBtn = dynamic(() => import("@/components/Module/Button/LoadMoreBtn"))
 
-const Notifications = ({ notificationListServer, notificationTotalListServer }) => {
-
+const Notifications = ({ notificationListServer, notificationTotalListServer, notificationError }) => {
     const { t } = useTranslation("common")
     const dispatch = useDispatch();
     const { notificationListClient, notificationLoading, notificationCurrentPage, notificationTotalList } = useSelector((state) => ({
@@ -18,12 +18,13 @@ const Notifications = ({ notificationListServer, notificationTotalListServer }) 
         notificationListClient: state?.notificationSlice?.notificationList,
         notificationCurrentPage: state?.notificationSlice?.notificationCurrentPage,
         notificationTotalList: state?.notificationSlice?.notificationTotalList,
+
     }), shallowEqual)
     // load more btn 
     const loadMoreFun = async () => {
         let params = {
             page: notificationCurrentPage,
-            limit: 2
+            limit: 10
         }
         await dispatch(getNotificationList(params))
         dispatch(setNotificationCurrentPage(notificationCurrentPage + 1))
@@ -31,11 +32,15 @@ const Notifications = ({ notificationListServer, notificationTotalListServer }) 
     }
 
     useEffect(() => {
-        if (notificationListClient?.length === 0) {
+
+
+        if (notificationListClient?.length === 0 && !notificationError) {
             dispatch(setNotificationList(notificationListServer));
             dispatch(setNotificationTotalList(notificationTotalListServer));
             dispatch(setNotificationCurrentPage(notificationCurrentPage + 1))
-
+        } else if (notificationError) {
+            toast.error("Something went wrong!")
+            return
         }
     }, []);
 

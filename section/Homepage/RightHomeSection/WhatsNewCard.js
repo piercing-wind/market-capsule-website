@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next';
 import LoderModule from '@/components/Module/LoaderModule';
 
 
-const TrandingNewsCard = ({ data, logo, headingLabel }) => {
+const WhatsNewCard = ({ data, logo, headingLabel }) => {
     const { t } = useTranslation("common");
 
     const hideBorderInLastDiv = (trandingNewsArrLength, index) => {
@@ -36,28 +36,17 @@ const TrandingNewsCard = ({ data, logo, headingLabel }) => {
                                 <div key={index} className={clsx("d-flex flex-column column-gap-2 ", styles.trandingHeadlineDiv, hideBorderInLastDiv(data?.trandingNewsArr?.length, index))}>
                                     <div className={clsx("d-flex align-items-center column-gap-2 ",)}>
                                         <Image
-                                            src={el?.attributes?.image?.data?.attributes?.url}
-                                            alt={el?.attributes?.image?.data?.attributes?.alternativeText
-                                                ? el?.attributes?.image?.data?.attributes?.alternativeText
-                                                : "Tranding News"}
+                                            src={el?.attributes?.whatsNewInCapsulePlusImage?.data?.attributes?.url
+                                            }
+                                            alt={el?.attributes?.whatsNewInCapsulePlusImage?.data?.attributes?.alternativeText
+                                                ? el?.attributes?.whatsNewInCapsulePlusImage?.data?.attributes?.alternativeText
+                                                : "Whats New in Capsule Plus"}
                                             width={58}
                                             height={43} />
                                         <p className={styles.paragraph}>{truncateText(el?.attributes?.title, 25)}</p>
 
                                     </div>
-                                    {
-                                        el?.attributes?.source ? (
-                                            <p className={clsx("mb-0 mt-2", styles.sourcePara)}>
-                                                <span>
-                                                    {t("homepage.rightSection.source")}
-                                                </span>
-                                                {" "}
-                                                <span className={clsx("mb-0", styles.mediumItalic)}>
-                                                    {el?.attributes?.source}
-                                                </span>
-                                            </p>
-                                        ) : null
-                                    }
+
                                 </div>
                             )
                         })
@@ -68,4 +57,4 @@ const TrandingNewsCard = ({ data, logo, headingLabel }) => {
     )
 }
 
-export default TrandingNewsCard
+export default WhatsNewCard

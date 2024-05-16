@@ -5,7 +5,6 @@ import styles from "./style/loadMoreBtn.module.scss"
 
 const LoadMoreBtn = ({ data, totalList, loading, loadMoreFun }) => {
     const { t } = useTranslation("common")
-    console.log("data", data?.length)
     return (
         <div className={clsx("d-flex justify-content-center align-items-center mb-3 mt-3", styles.loadMoreBtn, "mt-3 ")} >
             {

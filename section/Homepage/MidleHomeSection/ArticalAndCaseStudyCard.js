@@ -7,15 +7,36 @@ import Image from 'next/image';
 import { CapsulePlus } from '@/components/svg/CapsulePlus';
 import dynamic from 'next/dynamic';
 import { getScreenWidth, truncateText } from '@/utils/constants';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
+import LoadMoreBtn from '@/components/Module/Button/LoadMoreBtn';
+import { getFeedList, setFeedCurrentPage } from '@/store/slices/homePageSlice';
+import LoderModule from '@/components/Module/LoaderModule';
 const HomeBlueButton = dynamic(() => import('@/components/Module/Button/HomeBlueButton'))
 
 const ArticalAndCaseStudyCard = () => {
     const [screenWidth, setScreenWidth] = useState(getScreenWidth());
+    const router = useRouter();
+    const dispatch = useDispatch()
+    const { feedList, feedTotalList, feedLoading, feedCurrentPage, industryId } = useSelector((state) => ({
+        feedLoading: state?.homePageSlice?.feedListObj?.loading,
+        feedList: state?.homePageSlice?.feedListObj?.feedList,
+        feedTotalList: state?.homePageSlice?.feedListObj?.feedTotalList,
+        feedCurrentPage: state?.homePageSlice?.feedListObj?.feedCurrentPage,
+        industryId: state?.homePageSlice?.industriesObj?.industryId,
+
+    }), shallowEqual)
+
     const { t } = useTranslation("common");
     const [itemPerPage, setItemPerPage] = useState(5)
     //READ NOW FUNCTION
-    const readNowFun = () => {
-        console.log("read now")
+    const readNowFun = (url) => {
+        if (url) {
+            router.push(url)
+        } else {
+            toast.error("Url not found")
+        }
     }
 
     //CASE STUdY FUNCTION
@@ -26,32 +47,23 @@ const ArticalAndCaseStudyCard = () => {
     //show cssbased on type
 
     const articalAndCaseStudyCardCss = (type) => {
-        if (type === "capsulePlus") {
+        if (type === "CAPSULE+") {
             return true
         } else {
             return false
         }
     }
 
-    const showHedingAndCssBaseOnType = (type) => {
-        if (type === "screener") {
-            return { dotColor: styles.purpleDot, label: "homepage.midleSection.screener" }
-        } else if (type === "capsulePlus") {
-            return { dotColor: styles.orangeDot, label: "homepage.midleSection.capsulePlus" }
-
-        } else {
-            return { dotColor: styles.greenDot, label: "homepage.midleSection.ipo" }
-
-        }
-    }
 
     //load more btn 
-    const loadMoreFun = () => {
-        console.log("load more fun")
-        if (midleSectionArr?.length !== itemPerPage) {
-
-            setItemPerPage(itemPerPage + 2)
+    const loadMoreFun = async () => {
+        const feedListParams = {
+            page: feedCurrentPage,
+            limit: 1,
+            industryId: industryId !== 0 ? industryId : ""
         }
+        await dispatch(getFeedList(feedListParams))
+        dispatch(setFeedCurrentPage(feedCurrentPage + 1))
     }
 
     useEffect(() => {
@@ -69,82 +81,83 @@ const ArticalAndCaseStudyCard = () => {
     }, []);
     return (
         <>
-            <div className=' mt-3 px12'>
-                {
-                    midleSectionArr?.length ? (
-                        midleSectionArr?.slice(0, itemPerPage)?.map((el, index) => {
-                            //  0  5
-                            // first 5 
+            {
+                feedLoading ? (
+                    <LoderModule isAbsolute={true} />
 
-                            return (
-                                <div key={index} className={clsx("  column-gap-3 d-flex  mb-2", styles.midleDiv, articalAndCaseStudyCardCss(el?.type) ? styles.orangeBackground : styles.grayBackground)}>
-                                    <div className='d-flex align-items-center'>
-                                        <Image priority={false} className={clsx(" h-100", styles.imgWidth)} src={el?.img} alt="artical img" width="197" height="158" />
-                                    </div>
-                                    <div className={clsx("pe-1 d-flex flex-column justify-content-evenly")}>
-                                        <div>
-                                            <p className={clsx("d-flex column-gap-1 align-items-center ", styles.statusPara)}>
-                                                <span className={clsx(showHedingAndCssBaseOnType(el?.type)?.dotColor)} ></span>
-                                                <span>{t(showHedingAndCssBaseOnType(el?.type)?.label)}</span>
-                                            </p>
-                                            <p className={clsx(styles.textPara)}>{truncateText(el?.para, screenWidth < 768 ? 5 : 13)}</p>
-                                        </div>
-                                        <div className={clsx("d-flex align-items-center column-gap-2 flex-wrap-reverse row-gap-2", styles.btnDiv)}>
-                                            {
-                                                el?.capsulePlus
-                                                    ? (
-                                                        <HomeBlueButton
-                                                            color={"#FFFFFF"}
-                                                            bg={"#0F0F0F"}
-                                                            handlerFun={upgradeNowFunction}
-                                                            label={"homepage.midleSection.upgradeNow"}
-                                                        />
+                ) : (
 
-                                                    ) : (
-                                                        <HomeBlueButton
-                                                            color={"#FFFFFF"}
-                                                            bg={"#3E63FF"}
-                                                            handlerFun={readNowFun}
-                                                            label={"homepage.midleSection.readNow"}
-                                                        />
-                                                    )
-                                            }
-                                            {
-                                                el?.capsulePlus && (
-                                                    <div className={clsx("d-flex flex-column column-gap-2 ", styles.exclusiveDiv)}>
-                                                        <p className='mb-0'>{t("homepage.midleSection.exclusiveFor")}</p>
-                                                        <CapsulePlus />
-                                                    </div>
-
-                                                )
-                                            }
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            )
-                        })
-                    ) : null
-                }
-
-                <button className={clsx(styles.loadMoreBtn, "mt-3")} onClick={loadMoreFun}>
-                    <span >
+                    <div className=' mt-3 px12'>
                         {
-                            midleSectionArr?.length === itemPerPage ? (
-                                t("homepage.midleSection.noMoreData")
-                            ) : (
-                                t("homepage.midleSection.loadMorePlus")
-                            )
+                            feedList?.length > 0 ? (
+                                feedList?.map((el, index) => {
+                                    return (
+                                        <div key={index} className={clsx("  column-gap-3 d-flex  mb-2", styles.midleDiv, articalAndCaseStudyCardCss(el?.type) ? styles.orangeBackground : styles.grayBackground)}>
+                                            <div className='d-flex align-items-center'>
+                                                <Image priority={false} className={clsx(" h-100", styles.imgWidth)} src={el?.featuredImage?.url} alt={el?.featuredImage?.alternativeText ? el?.featuredImage?.alternativeText : "feed list"} width="197" height="158" />
+                                            </div>
+                                            <div className={clsx("pe-1 d-flex flex-column justify-content-evenly")}>
+                                                <div>
+                                                    <p className={clsx("d-flex column-gap-1 align-items-center ", styles.statusPara)}>
+                                                        <span className={clsx(styles.dot)} style={{ background: el?.tag?.colorHash ? el?.tag?.colorHash : "#00F3BB" }} ></span>
+                                                        <span>{el?.type}</span>
+                                                    </p>
+                                                    <p className={clsx(styles.textPara)}>{truncateText(el?.title, screenWidth < 768 ? 5 : 13)}</p>
+                                                </div>
+                                                <div className={clsx("d-flex align-items-center column-gap-2 flex-wrap-reverse row-gap-2", styles.btnDiv)}>
+                                                    {
+                                                        el?.isPremium
+                                                            ? (
+                                                                <HomeBlueButton
+                                                                    color={"#FFFFFF"}
+                                                                    bg={"#0F0F0F"}
+                                                                    handlerFun={upgradeNowFunction}
+                                                                    label={"homepage.midleSection.upgradeNow"}
+                                                                />
+
+                                                            ) : (
+                                                                <HomeBlueButton
+                                                                    color={"#FFFFFF"}
+                                                                    bg={"#3E63FF"}
+                                                                    handlerFun={() => { readNowFun(el?.url) }}
+                                                                    label={"homepage.midleSection.readNow"}
+                                                                />
+                                                            )
+                                                    }
+                                                    {
+                                                        el?.isPremium && (
+                                                            <div className={clsx("d-flex flex-column column-gap-2 ", styles.exclusiveDiv)}>
+                                                                <p className='mb-0'>{t("homepage.midleSection.exclusiveFor")}</p>
+                                                                <CapsulePlus />
+                                                            </div>
+
+                                                        )
+                                                    }
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    )
+                                })
+                            ) : null
                         }
-                    </span>
+                        <div className={clsx(styles.loadMoreBtn, "mt-3")} >
 
 
+                            <LoadMoreBtn
+                                totalList={feedTotalList}
+                                loading={feedLoading}
+                                data={feedList}
+                                loadMoreFun={loadMoreFun} />
 
-                </button>
+
+                        </div>
 
 
-            </div>
+                    </div>
+                )
+            }
         </>
     )
 }

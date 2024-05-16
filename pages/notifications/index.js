@@ -44,6 +44,7 @@ export default function ManageSubscriptionPage(props) {
                             <Notifications
                                 notificationListServer={props?.notificationListServer}
                                 notificationTotalListServer={props?.notificationTotalListServer}
+                                notificationError={props?.notificationError}
                             />
                         </Col>
 
@@ -62,7 +63,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     await store.dispatch(getFetchAuth());
     const params = {
         page: 1,
-        limit: 2,
+        limit: 10,
     }
     await store.dispatch(getNotificationList(params));
 
@@ -72,6 +73,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     } = store.getState();
     secureHeader(req, res, locale);
 
+
     return {
         props: {
             data: "",
@@ -79,7 +81,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             userDetails,
             notificationListServer: notificationList,
             notificationTotalListServer: notificationTotalList,
-
+            notificationError: error,
             ...(await serverSideTranslations(locale, fileList)),
         },
     };

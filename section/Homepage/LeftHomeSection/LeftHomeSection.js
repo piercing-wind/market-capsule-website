@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Col } from 'react-bootstrap';
 import styles from "../style/leftHomeSection.module.scss"
 import clsx from 'clsx';
@@ -10,21 +10,52 @@ const TopLosersChart = dynamic(() => import('./TopLosersChart'))
 const LineChart = dynamic(() => import('./LineChart'))
 const DateBarChart = dynamic(() => import('./DateBarChart'))
 import { Trans, useTranslation } from 'next-i18next';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { getTopGainerList, getTopLosersList, setTopGainerList, setTopGainerTotalList, setTopLosersList, setTopLosersTotalList } from '@/store/slices/homePageSlice';
 
 
 
-const LeftHomeSection = () => {
+/**
+ * LeftHomeSection component displays the left section of the homepage.
+ *
+ * @component
+ * @param {Object} topGainerObj - The top gainer object.
+ * @param {Object} topLosersObj - The top losers object.
+ * @returns {JSX.Element} The JSX element representing the LeftHomeSection component.
+ */
+const LeftHomeSection = ({ topGainerObj, topLosersObj }) => {
   const { t } = useTranslation("common");
-
+  const dispatch = useDispatch()
   const [bse, setBse] = useState("bse")
   const [sensex, setSensex] = useState("sensex")
   const [todayMarketStatus, setTodayMarketStatus] = useState(-258.45)
+  const { topGainerList, topLosersList } = useSelector((state) => ({
+    topGainerList: state?.homePageSlice?.topGainerObj?.topGainerList,
+    topLosersList: state?.homePageSlice?.topLosersObj?.topLosersList,
+
+  }), shallowEqual)
+
   //topgainers and losers filter btn fun 
-  const bseAndNseButtonFun = (type) => {
+  const bseAndNseButtonFun = async (type) => {
+    const params = {
+      filter: type === "bse" ? "BSE" : "NSE",
+      page: 1,
+      limit: 10,
+      sort: `createdAt:desc`,
+      populate: `name`
+
+    }
     if (type === "bse") {
       setBse("bse")
+      await dispatch(getTopGainerList(params))
+      await dispatch(getTopLosersList(params))
+
     } else {
       setBse("nse")
+      await dispatch(getTopGainerList(params))
+      await dispatch(getTopLosersList(params))
+
+
     }
 
   }
@@ -38,6 +69,21 @@ const LeftHomeSection = () => {
     }
 
   }
+
+  useEffect(() => {
+    if (topGainerList?.length === 0) {
+      dispatch(setTopGainerList(topGainerObj?.topGainerList))
+      dispatch(setTopGainerTotalList(topGainerObj?.topGainerTotalList))
+    }
+
+    if (topLosersList?.length === 0) {
+      dispatch(setTopLosersList(topLosersObj?.topLosersList))
+      dispatch(setTopLosersTotalList(topLosersObj?.topLosersTotalList))
+    }
+
+
+
+  }, [dispatch]);
   return (
     <Col lg={3} className=' px-2 order-lg-0 order-1'>
       <div className='positionSticky'>
@@ -113,9 +159,7 @@ const LeftHomeSection = () => {
               <span>{t("homepage.leftSection.lastUpdatedOn")}{" "}</span>
               <span className={clsx(styles.semiboldSpan)}>Today, 12:00 PM</span>
             </p>
-            <button onClick={() => {
-              console.log("refresh")
-            }}>{t("homepage.leftSection.refresh")}</button>
+
           </div>
         </div>
       </div>

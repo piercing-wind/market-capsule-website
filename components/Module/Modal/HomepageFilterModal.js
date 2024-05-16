@@ -6,26 +6,35 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import IconPayNowButton from '../Button/IconPayNowButton';
 import { Trans, useTranslation } from 'next-i18next';
-// import { setShowFilterModalForm } from '@/store/slices/homePageSlice';
-import { homePageFilterModalArr } from '@/section/Homepage/homePageData';
-import { setShowFilterModalForm } from '@/store/slices/homePageSlice';
-// import { setShowFilterModalForm } from '@/store/slices/homePageSlice';
+import { getFeedList, setIndustryId, setShowFilterModalForm } from '@/store/slices/homePageSlice';
+
 const HomepageFilterModal = ({ filterActiveState, setFilterActiveState }) => {
     const { t } = useTranslation("common")
     const dispatch = useDispatch()
-    const { showFilterModalForm } = useSelector((state) => (
+
+    const { showFilterModalForm, industryList } = useSelector((state) => (
         {
             showFilterModalForm: state?.homePageSlice?.showFilterModal?.showFilterModalForm,
+            industryList: state?.homePageSlice?.industriesObj?.industryList,
+
         }
     ), shallowEqual)
 
-    const handleFilterBasedOnType = (type) => {
-        setFilterActiveState(type)
+    const handleFilterBasedOnType = async (industryId) => {
+        setFilterActiveState(industryId)
+        dispatch(setIndustryId(industryId))
+        dispatch(setFeedListEmpty())
+
+        const feedListParams = {
+            page: 1,
+            limit: 5,
+            industryId: industryId !== 0 ? industryId : ""
+        }
+        dispatch(setFeedCurrentPage(2))
+        await dispatch(getFeedList(feedListParams))
+
     }
 
-    const handleSubmit = () => {
-        console.log("handle submit fun")
-    }
 
 
     return (
@@ -67,17 +76,21 @@ const HomepageFilterModal = ({ filterActiveState, setFilterActiveState }) => {
                                                     Select any one the category
                                                 </Trans>
                                             </p>
-                                            <div className={clsx("pt-3 mx-sm-3 mx-0 d-flex gap-1 flex-wrap ")}>
+                                            <div className={clsx("pt-3 mx-sm-3 mx-0 d-flex gap-1 flex-wrap justify-content-center ")}>
                                                 {
-                                                    homePageFilterModalArr?.map((el, index) => {
+                                                    industryList?.map((el, index) => {
                                                         return (
                                                             <button key={index}
                                                                 onClick={() => {
-                                                                    handleFilterBasedOnType(el?.attributes?.slug)
+                                                                    if (el?.id !== filterActiveState) {
+                                                                        handleFilterBasedOnType(el?.id)
+                                                                    }
                                                                 }}
                                                                 style={{
-                                                                    color: el?.attributes?.slug === filterActiveState ? "white" : "black",
-                                                                    background: el?.attributes?.slug === filterActiveState ? "black" : el?.attributes?.tag?.data?.attributes?.name
+                                                                    color: el?.id === filterActiveState ? "white" : "black",
+                                                                    background: el?.id === filterActiveState ? "black" : el?.attributes?.tag?.data?.attributes?.colorHash,
+                                                                    cursor: el?.id === filterActiveState ? "not-allowed" : "pointer"
+
                                                                 }}
 
                                                                 className={clsx(styles.btn)}>{t(el?.attributes?.name)}</button>
@@ -87,21 +100,6 @@ const HomepageFilterModal = ({ filterActiveState, setFilterActiveState }) => {
 
                                             </div>
 
-                                            <div className={clsx('d-flex justify-content-center', styles.marginBtn)}>
-                                                <IconPayNowButton
-                                                    label={"homepage.filterBtnModal.submit"}
-                                                    color={`#FFFFFF`}
-                                                    fontSize={`16px`}
-                                                    fontWeight={`400`}
-                                                    borderRadius={`8px`}
-                                                    pAll={`10px 20px`}
-                                                    bg={`#000000`}
-                                                    border={"none"}
-                                                    type={"button"}
-                                                    handleFun={handleSubmit}
-                                                />
-
-                                            </div>
                                         </Col>
                                     </Row>
 

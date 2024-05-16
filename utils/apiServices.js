@@ -23,7 +23,7 @@ const setAuthorizationToken = (token) => {
 
 //post method function to use call post method
 const postMethod = async (endpoint, data, params = {}) => {        //post method create
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
         var config = {
             method: 'post',
             url: endpoint,
@@ -33,14 +33,14 @@ const postMethod = async (endpoint, data, params = {}) => {        //post method
         AxiosInstance(config).then(response => {
             resolve(response.data);
         }, error => {
-            resolve(error.response.data);
+            reject(error.response.data);
         })
     });
 }
 
 //get method function to use call get method
 const getMethod = async (endpoint, params = {}) => {       //get methods
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
         var config = {
             method: 'get',
             url: endpoint,
@@ -50,9 +50,9 @@ const getMethod = async (endpoint, params = {}) => {       //get methods
             resolve(response.data)
         }, error => {
             if (!error.response || error.code === 'ECONNABORTED') {
-                resolve({ status: false, message: 'error!', statusCode: 500 })
+                reject({ status: false, message: 'error!', statusCode: 500 })
             } else {
-                resolve(error.response.data)
+                reject(error.response.data)
             }
         })
     })
@@ -61,7 +61,7 @@ const getMethod = async (endpoint, params = {}) => {       //get methods
 
 //put method function to use call put  method
 const putMethod = async (endpoint, data, params = {}) => {        //post method create
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
         var config = {
             method: 'put',
             url: endpoint,
@@ -71,7 +71,7 @@ const putMethod = async (endpoint, data, params = {}) => {        //post method 
         AxiosInstance(config).then(response => {
             resolve(response.data);
         }, error => {
-            resolve(error.response.data);
+            reject(error.response.data);
         })
     });
 }
