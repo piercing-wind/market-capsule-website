@@ -29,7 +29,6 @@ const ArticalAndCaseStudyCard = () => {
     }), shallowEqual)
 
     const { t } = useTranslation("common");
-    const [itemPerPage, setItemPerPage] = useState(5)
     //READ NOW FUNCTION
     const readNowFun = (url) => {
         if (url) {
@@ -144,15 +143,11 @@ const ArticalAndCaseStudyCard = () => {
                             ) : null
                         }
                         <div className={clsx(styles.loadMoreBtn, "mt-3")} >
-
-
                             <LoadMoreBtn
                                 totalList={feedTotalList}
                                 loading={feedLoading}
                                 data={feedList}
                                 loadMoreFun={loadMoreFun} />
-
-
                         </div>
 
 

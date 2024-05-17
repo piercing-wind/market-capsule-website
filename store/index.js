@@ -5,12 +5,14 @@ import subscriptionSlice from './slices/subscriptionSlice';
 import homePageSlice from './slices/homePageSlice';
 import notificationSlice from './slices/notificationSlice';
 import searchResultsSlice from './slices/searchResultsSlice';
+import screenerSlice from './slices/screenerSlice';
 const rootReducer = combineReducers({
     authSlice: authSlice,
     subscriptionSlice: subscriptionSlice,
     homePageSlice,
     notificationSlice,
-    searchResultsSlice
+    searchResultsSlice,
+    screenerSlice
 });
 
 
