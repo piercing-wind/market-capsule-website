@@ -10,14 +10,18 @@ import LoderModule from "@/components/Module/LoaderModule";
 import React, { Suspense, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import styles from "../../../section/Screener/ScreenerDetailPage/style/screenerDetail.module.scss"
-import { searchResultData } from "@/section/SearchResult/searchResultData";
 import BackToHomeLink from "@/components/Module/Button/BackToHomeLink";
+import { getGlobalSearchList } from "@/store/slices/searchResultsSlice";
 const OneIdBreadcrumb = dynamic(() => import("@/components/Module/Breadcrumb/OneIdBreadcrumb"))
 const ScreeenerHeadingCom = dynamic(() => import("@/components/Module/HeadingComponent/ScreenerHeadingCom"))
 const IpoZoneSlider = dynamic(() => import("@/components/Module/Slider/IpoZoneSlider"))
 
 export default function SearchResults(props) {
     const { t } = useTranslation("common");
+    const { getGlobalSearchObj, search } = props;
+    const { globalSearchList, globalSearchTotalList } = getGlobalSearchObj;
+    console.log("props", props?.getGlobalSearchObj)
+    console.log("globalSearchList", globalSearchList)
     const router = useRouter();
     router.locale = props?.language
         ? props?.language
@@ -40,21 +44,34 @@ export default function SearchResults(props) {
                     {/* heading section */}
                     <Col xs={12} className='px-0'>
                         <ScreeenerHeadingCom
-                            heading={`${t(`searchResultPage.showingResultFor`)} 'Arko Industries pvt ltd'`}
-                            para={`54 ${t(`searchResultPage.searchResultFound`)}`}
+                            heading={`${t(`searchResultPage.showingResultFor`)} '${search}'`}
+                            para={`${globalSearchTotalList} ${t(`searchResultPage.searchResultFound`)}`}
                             backToHome={true}
                         />
                     </Col>
 
                     <Col xs={12} className='px-xl-4 py-xl-4 px-3 py-3 '>
-                        <IpoZoneSlider heading={`searchResultPage.capsulePlus`} sliderData={searchResultData?.capsulePlus} />
+                        <IpoZoneSlider
+                            heading={`searchResultPage.capsulePlus`}
+                            sliderData={globalSearchList?.capsuleplus
+                            }
+                            url={`capsule-plus`}
+                        />
                     </Col>
 
                     <Col xs={12} className='px-xl-4 py-xl-4 px-3 py-3 '>
-                        <IpoZoneSlider heading={`searchResultPage.ipoZone`} sliderData={searchResultData?.ipoZone} />
+                        <IpoZoneSlider
+                            heading={`searchResultPage.ipoZone`}
+                            sliderData={globalSearchList?.ipoZone}
+                            url={`ipo`}
+                        />
                     </Col>
                     <Col xs={12} className='px-xl-4 py-xl-4 px-3 py-3 '>
-                        <IpoZoneSlider heading={`searchResultPage.screener`} sliderData={searchResultData?.screener} />
+                        <IpoZoneSlider
+                            heading={`searchResultPage.screener`}
+                            sliderData={globalSearchList?.screener}
+                            url={`screener`}
+                        />
                     </Col>
                     <Col xs={12} className='px-xl-4 py-xl-4 px-3 py-3 mb-5 '>
                         <BackToHomeLink />
@@ -67,7 +84,16 @@ export default function SearchResults(props) {
     );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale }) => {
+export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale, query }) => {
+    const search = query?.id;
+    const params = {
+        search: search
+    }
+    await store.dispatch(getGlobalSearchList(params));
+
+    const {
+        searchResultsSlice: { getGlobalSearchObj }
+    } = store.getState();
 
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
@@ -76,6 +102,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         props: {
             data: "",
             language: locale,
+            getGlobalSearchObj,
+            search,
 
             ...(await serverSideTranslations(locale, fileList)),
         },

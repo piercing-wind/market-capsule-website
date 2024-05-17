@@ -36,9 +36,8 @@ export const getFeedList = createAsyncThunk('homePageSlice/getFeedList', async (
     const response = await getMethod(`feed/list?limit=${params?.limit}&page=${params?.page}&industryId=${params?.industryId}`);
     return (response)
 });
-
 export const getGlobalSearchList = createAsyncThunk('homePageSlice/getGlobalSearchList', async (params) => {
-    const response = await getMethod(`search/globalSearch?search=${params?.search}`);
+    const response = await getMethod(`company/search?search=${params?.search}`);
     return (response)
 });
 
@@ -273,7 +272,7 @@ export const homePageSlice = createSlice({
                 state.getGlobalSearchObj.loading = false;
                 state.getGlobalSearchObj.error = false;
                 state.getGlobalSearchObj.globalSearchList = action?.payload?.data
-                state.getGlobalSearchObj.globalSearchTotalList = action?.payload?.count;
+                state.getGlobalSearchObj.globalSearchTotalList = action?.payload?.data?.length;
 
             })
             .addCase(getGlobalSearchList.rejected, (state, action) => {

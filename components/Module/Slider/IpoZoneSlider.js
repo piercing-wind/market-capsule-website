@@ -9,7 +9,7 @@ import SliderRightIcon from '@/components/svg/SliderRightIcon';
 import { Trans, useTranslation } from 'next-i18next';
 const SearchResultCard = dynamic(() => import("../ScreenerCard/SearchResultCard"))
 
-const IpoZoneSlider = ({ heading, sliderData }) => {
+const IpoZoneSlider = ({ heading, sliderData, url }) => {
     const { t } = useTranslation("common")
     function SampleNextArrow(props) {
         const { className, style, onClick } = props;
@@ -95,6 +95,7 @@ const IpoZoneSlider = ({ heading, sliderData }) => {
 
                                     <SearchResultCard
                                         dataObj={el}
+                                        url={url}
                                     />
                                 </div>
 

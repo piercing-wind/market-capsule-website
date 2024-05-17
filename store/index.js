@@ -4,11 +4,13 @@ import authSlice from './slices/authSlice';
 import subscriptionSlice from './slices/subscriptionSlice';
 import homePageSlice from './slices/homePageSlice';
 import notificationSlice from './slices/notificationSlice';
+import searchResultsSlice from './slices/searchResultsSlice';
 const rootReducer = combineReducers({
     authSlice: authSlice,
     subscriptionSlice: subscriptionSlice,
     homePageSlice,
-    notificationSlice
+    notificationSlice,
+    searchResultsSlice
 });
 
 

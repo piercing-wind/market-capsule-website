@@ -81,6 +81,7 @@ const ArticalAndCaseStudyCard = () => {
     }, []);
     return (
         <>
+
             {
                 feedLoading ? (
                     <LoderModule isAbsolute={true} />

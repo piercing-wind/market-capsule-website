@@ -16,9 +16,8 @@ const SearchBarArticalsAndCompany = () => {
   const [value] = useDebounce(text, 1000);
   const dispatch = useDispatch();
   const router = useRouter()
-  const { globalSearchList, globalSearchTotalList } = useSelector((state) => ({
+  const { globalSearchList } = useSelector((state) => ({
     globalSearchList: state?.homePageSlice?.getGlobalSearchObj?.globalSearchList,
-    globalSearchTotalList: state?.homePageSlice?.globalSearchTotalList?.globalSearchTotalList,
 
   }), shallowEqual)
   //handle search based on search button
@@ -43,7 +42,7 @@ const SearchBarArticalsAndCompany = () => {
   console.log("value", value)
 
   console.log("globalSearchList", globalSearchList)
-  console.log("globalSearchTotalList", globalSearchTotalList)
+  // console.log("globalSearchTotalList", globalSearchTotalList)
 
   return (
     <div className={clsx("p-3", styles.searchBarSection)}>
@@ -85,11 +84,11 @@ const SearchBarArticalsAndCompany = () => {
         <div
           className={clsx(styles.inputSearchBox, 'px-2')}
           style={{
-            display: "block",
+            display: value ? "block" : "none",
           }}
         >
-          {globalSearchList?.capsuleplus?.length > 0
-            ? globalSearchList?.capsuleplus
+          {globalSearchList?.length > 0
+            ? globalSearchList
               ?.filter((elId) => {
                 return value
                   ? elId?.name?.toLowerCase()?.includes(value?.toLowerCase())
@@ -109,49 +108,7 @@ const SearchBarArticalsAndCompany = () => {
                 </div>
               ))
             : null}
-          {globalSearchList?.screener?.length > 0
-            ? globalSearchList?.screener
-              ?.filter((elId) => {
-                return elId?.name
-                  ? elId?.name?.toLowerCase()?.includes(value?.toLowerCase())
-                  : null;
-              })
-              ?.map((elId, typeIndex) => (
-                <div
-                  // value={elId?.id}
-                  key={typeIndex}
-                  className={clsx(styles.linkDiv)}
-                >
 
-                  <Link href={`/search-results/${elId?.name}`}>
-                    <p className={clsx(styles.label)}>{t(elId?.name)}</p>
-                  </Link>
-
-                </div>
-              ))
-            : null}
-
-          {globalSearchList?.ipoZone?.length > 0
-            ? globalSearchList?.ipoZone
-              ?.filter((elId) => {
-                return value
-                  ? elId?.name?.toLowerCase()?.includes(value?.toLowerCase())
-                  : null;
-              })
-              ?.map((elId, typeIndex) => (
-                <div
-                  // value={elId?.id}
-                  key={typeIndex}
-                  className={clsx(styles.linkDiv)}
-                >
-
-                  <Link href={`/search-results/${elId?.name}`}>
-                    <p className={clsx(styles.label)}>{t(elId?.name)}</p>
-                  </Link>
-
-                </div>
-              ))
-            : null}
         </div>
       </div>
     </div>
