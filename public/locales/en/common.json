@@ -7,6 +7,13 @@
     "watchlist": "Watchlist",
     "createAnAccount": "Create an Account"
   },
+  "message":{
+"allReadyInWatchlist":"All ready in watchlist",
+"addedToWatchlist":"Added to watchlist",
+"somethingWentWrong":"Something went wrong",
+"removedFromWatchlist":"Removed from watchlist"
+
+  },
 "searchResultPage":{
 "searchResult":"Search results",
 "showingResultFor":"Showing Results for",

@@ -30,6 +30,23 @@
   }
 }
 
+
+
+.menu a {
+  font-size: 16px;
+  font-weight: 400;
+  color: #606f7b;
+  padding-left: 12px;
+  padding-right: 12px;
+  &:active,
+  &:hover,
+  &:focus-visible {
+    color: #000000;
+    background: #ffffff 0% 0% no-repeat padding-box;
+    outline: none;
+  }
+}
+
 .threeDot {
   background-color: transparent;
   border: none;

@@ -3,10 +3,15 @@ import clsx from "clsx";
 import styles from "./style/filterCheckbox.module.scss";
 
 
-const FilterCheckbox = ({ handleCheckbox, type, status }) => {
+const FilterCheckbox = ({ handleCheckbox, type, status, showCheckBox = true }) => {
 
     const handleFun = () => {
-        handleCheckbox(type, status);
+        if (
+            showCheckBox
+        ) {
+            handleCheckbox(type, status);
+
+        }
     };
     return (
 

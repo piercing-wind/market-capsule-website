@@ -10,15 +10,30 @@ const SectorAutofillDropdown = dynamic(() => import("../Dropdown/SectorAutofillD
 
 const ScreenerFilterAccrodian = ({ initialFilterData }) => {
     const [filterData, setFilterData] = useState(initialFilterData);
+    const [selectedFilters, setSelectedFilters] = useState({});
+
     const [sector, setSector] = useState("");
     const [industry, setIndustry] = useState("");
     const [company, setCompany] = useState("");
     const { t } = useTranslation("common")
 
-    const handleCheckbox = (status, filterDataIndex, typeIndex) => {
-        const updatedFilterData = [...filterData];
-        updatedFilterData[filterDataIndex].typesArr[typeIndex].status = !status;
-        setFilterData(updatedFilterData);
+    const handleCheckbox = (filterName, name) => {
+        setSelectedFilters(prevSelectedFilters => {
+            const selectedIds = prevSelectedFilters[filterName] || [];
+            if (selectedIds.includes(name)) {
+                // If the name is already selected, remove it from the array
+                return {
+                    ...prevSelectedFilters,
+                    [filterName]: selectedIds.filter(selectedId => selectedId !== name)
+                };
+            } else {
+                // If the name is not selected, add it to the array
+                return {
+                    ...prevSelectedFilters,
+                    [filterName]: [...selectedIds, name]
+                };
+            }
+        });
     };
     return (
         <div>
@@ -40,10 +55,10 @@ const ScreenerFilterAccrodian = ({ initialFilterData }) => {
                         filterData?.map((el, filterIndex) => {
                             return (
                                 <Accordion.Item eventKey={`${filterIndex}`} key={filterIndex}>
-                                    <Accordion.Header className={clsx("accrodianBtn", styles.btn)} >{t(el?.heading)}</Accordion.Header>
+                                    <Accordion.Header className={clsx("accrodianBtn", styles.btn)} >{t(el?.filterName)}</Accordion.Header>
                                     <Accordion.Body className={clsx(styles.body)}>
                                         {
-                                            el?.typeValue === "sector" ? (
+                                            el?.typeValue === "sector" && false ? (
                                                 <SectorAutofillDropdown
                                                     name={"sector"}
                                                     placeholder={t("ipoPage.searchSector")}
@@ -56,7 +71,7 @@ const ScreenerFilterAccrodian = ({ initialFilterData }) => {
                                                     handleCheckbox={handleCheckbox}
                                                 />
 
-                                            ) : el?.typeValue === "industry" ? (
+                                            ) : el?.typeValue === "industry" && false ? (
                                                 <SectorAutofillDropdown
                                                     name={"industry"}
                                                     placeholder={t("ipoPage.searchIndustry")}
@@ -68,7 +83,7 @@ const ScreenerFilterAccrodian = ({ initialFilterData }) => {
                                                     filterIndex={filterIndex}
                                                     handleCheckbox={handleCheckbox}
                                                 />
-                                            ) : el?.typeValue === "companyName" ? (
+                                            ) : el?.typeValue === "companyName" && false ? (
                                                 <SectorAutofillDropdown
                                                     name={"companyName"}
                                                     placeholder={t("ipoPage.searchCompany")}
@@ -81,19 +96,20 @@ const ScreenerFilterAccrodian = ({ initialFilterData }) => {
                                                     handleCheckbox={handleCheckbox}
                                                 />
                                             ) : (
-                                                el?.typesArr?.map((elId, typeIndex) => {
+                                                el?.detail?.map((elId, typeIndex) => {
                                                     return (
                                                         <div
                                                             key={typeIndex}
                                                             className={clsx("d-flex align-items-center column-gap-2 mb-2", styles.checkDiv)}
-                                                            onClick={(type, status) => handleCheckbox(elId?.status, filterIndex, typeIndex)}
-                                                            value={elId?.type}
+                                                            onClick={(type, status) => handleCheckbox(el.filterName, elId?.name)}
+                                                            value={elId?.slug}
                                                         >
                                                             <FilterCheckbox
-                                                                status={elId?.status}
-                                                                type={elId?.type}
+                                                                status={selectedFilters[el.filterName]?.includes(elId?.name)}
+                                                                type={elId?.slug}
+                                                                showCheckBox={false}
                                                             />
-                                                            <span className={clsx(elId?.status && styles.medium)}>{t(elId?.label)}</span>
+                                                            <span className={clsx(elId?.status && styles.medium)}>{t(elId?.name)}</span>
                                                         </div>
 
                                                     )

@@ -66,28 +66,39 @@ export const companyData = [
 export const companyTableHeading = [
     {
         id: 1,
-        heading: "watchlist.companyName"
+        heading: "watchlist.companyName",
+        type: "companyName"
     },
     {
         id: 2,
-        heading: "watchlist.ltp"
+        heading: "watchlist.ltp",
+        type: "ltp"
+
     },
     ,
     {
         id: 3,
-        heading: "watchlist.prevClose"
+        heading: "watchlist.prevClose",
+        type: "prevClose"
+
     },
     {
         id: 4,
-        heading: "watchlist.change"
+        heading: "watchlist.change",
+        type: "change"
+
     },
     {
         id: 5,
-        heading: "watchlist.changePersent"
+        heading: "watchlist.changePersent",
+        type: "changePersent"
+
     },
     {
         id: 6,
-        heading: "watchlist.daysLowHigh"
+        heading: "watchlist.daysLowHigh",
+        type: "highLowDayLow"
+
     }
 
 ]

@@ -76,4 +76,29 @@ const putMethod = async (endpoint, data, params = {}) => {        //post method 
     });
 }
 
-export { postMethod, getMethod, putMethod, setAuthorizationToken, updateMutipart };
+async function deleteMethod(endpoint, data) {
+    return new Promise((resolve) => {
+        var config = {
+            method: "delete",
+            url: endpoint,
+        };
+        AxiosInstance(config).then(
+            (response) => {
+                resolve(response.data);
+            },
+            (error) => {
+                if (error?.response?.status === 401) {
+                    resolve({
+                        success: false,
+                        status: error?.response?.status,
+                        message: "failed!",
+                    });
+                }
+                resolve(error.response.data);
+            }
+        );
+    });
+}
+
+
+export { postMethod, getMethod, putMethod, setAuthorizationToken, updateMutipart, deleteMethod };

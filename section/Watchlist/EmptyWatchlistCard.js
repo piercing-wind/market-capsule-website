@@ -6,12 +6,15 @@ import dynamic from 'next/dynamic';
 const HomeBlueButton = dynamic(() => import('@/components/Module/Button/HomeBlueButton'))
 const Bookmark = dynamic(() => import('@/components/svg/Bookmark'))
 import { Trans, useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 
 const EmptyWatchlistCard = () => {
+    const router = useRouter()
 
     const addStockFun = () => {
         console.log("add stock fun")
+        router.push("/screener")
     }
     return (
         <div className={clsx("d-flex column-gap-4 justify-content-center", styles.mainDiv)}>

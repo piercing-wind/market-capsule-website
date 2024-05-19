@@ -6,13 +6,18 @@ import homePageSlice from './slices/homePageSlice';
 import notificationSlice from './slices/notificationSlice';
 import searchResultsSlice from './slices/searchResultsSlice';
 import screenerSlice from './slices/screenerSlice';
+import screenerIdSlice from './slices/screenerIdSlice';
+import watchListSlice from './slices/watchListSlice';
+// import  watchListSlice  from './slices/watchListSlice';
 const rootReducer = combineReducers({
     authSlice: authSlice,
     subscriptionSlice: subscriptionSlice,
     homePageSlice,
     notificationSlice,
     searchResultsSlice,
-    screenerSlice
+    screenerSlice,
+    screenerIdSlice,
+    watchListSlice
 });
 
 

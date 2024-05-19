@@ -171,8 +171,8 @@ export default function CapsulePlusPage(props) {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale }) => {
-    // let userActive = fetchCookie("_jwt", req.headers);
-    // setAuthorizationToken(userActive);
+    let userActive = fetchCookie("_jwt", req.headers);
+    setAuthorizationToken(userActive);
 
     const filterParams = {
         page: 1,
@@ -191,7 +191,6 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     const {
         screenerSlice: { getScreenerHeadingObj, getFilterObj, bucketObj },
     } = store.getState();
-
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
 

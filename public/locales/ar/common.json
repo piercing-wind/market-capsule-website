@@ -7,6 +7,12 @@
     "watchlist": "Watchlist1",
     "createAnAccount": "Create an Account1"
   },
+  "message":{
+    "allReadyInWatchlist":"All ready in watchlist",
+    "addedToWatchlist":"Added to watchlist",
+    "somethingWentWrong":"Something went wrong",
+    "removedFromWatchlist":"Removed from watchlist"
+      },
   "homepage": {
     "leftSection": {
       "sensex": "Sensex1",
