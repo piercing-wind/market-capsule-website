@@ -8,6 +8,7 @@ import searchResultsSlice from './slices/searchResultsSlice';
 import screenerSlice from './slices/screenerSlice';
 import screenerIdSlice from './slices/screenerIdSlice';
 import watchListSlice from './slices/watchListSlice';
+import manageSubscriptionSlice from './slices/manageSubscriptionSlice';
 // import  watchListSlice  from './slices/watchListSlice';
 const rootReducer = combineReducers({
     authSlice: authSlice,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     searchResultsSlice,
     screenerSlice,
     screenerIdSlice,
-    watchListSlice
+    watchListSlice,
+    manageSubscriptionSlice
 });
 
 

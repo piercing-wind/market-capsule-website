@@ -19,12 +19,13 @@ const getWatchListObj = {
     watchList: [],
     watchListCurrentPage: 1,
     watchListTotalList: 100,
+    sortWatchList: `highLowDayLow`
 
 }
 const getWatchListHeaderObj = {
     loading: false,
     error: false,
-    watchListHeading: `123`,
+    watchListHeading: ``,
     watchListDescription: ``
 
 }
@@ -50,6 +51,9 @@ export const watchListSlice = createSlice({
         },
         setError: (state, action) => {
             state.getWatchListObj.error = action.payload
+        },
+        setSortWatchList: (state, action) => {
+            state.getWatchListObj.sortWatchList = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -83,7 +87,7 @@ export const watchListSlice = createSlice({
     },
 });
 
-export const { setError, setWatchList, setWatchListCurrentPage, setWatchListTotalList, setWatchListEmpty } = watchListSlice.actions
+export const { setSortWatchList, setError, setWatchList, setWatchListCurrentPage, setWatchListTotalList, setWatchListEmpty } = watchListSlice.actions
 
 export default watchListSlice.reducer
 

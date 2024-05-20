@@ -1,10 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
+
 
 const promoCodeModalObj = {
     showForm: false,
 
 }
+
+
 export const subscriptionSlice = createSlice({
     name: 'subscriptionSlice',
     initialState: {
@@ -16,17 +19,16 @@ export const subscriptionSlice = createSlice({
         },
 
     },
-    // extraReducers: {
-    //     [HYDRATE]: (state, action) => {
-    //         return {
-    //             ...state,
-    //             ...action.payload.subscriptionSlice,
-    //         };
-    //     },
-    // }
+    extraReducers: (builder) => {
+
+    }
+
 });
 
-export const { setShowForm } = subscriptionSlice.actions
+export const {
+    setShowForm,
+
+} = subscriptionSlice.actions
 
 export default subscriptionSlice.reducer
 

@@ -3,20 +3,20 @@ import clsx from "clsx";
 import styles from "./style/manageSubscription.module.scss";
 import dynamic from 'next/dynamic';
 import { Trans, useTranslation } from "next-i18next";
-import { genderData } from '@/components/Module/Modal/loginFormData';
 import { Col, Row } from 'react-bootstrap';
-import { manageSubscriptionTable, manageSubscriptionTableHeading } from './manageSubscriptionData';
-const ChangeDropdown = dynamic(() => import('@/components/Module/Dropdown/ChangeDropdown'))
+import { manageSubscriptionTableHeading } from './manageSubscriptionData';
+import { shallowEqual, useSelector } from 'react-redux';
+import moment from 'moment';
 const ManageSubscriptionTable = dynamic(() => import('@/components/Module/Table/ManageSubscriptionTable'))
 
 
 const ManageSubscription = () => {
-    const [changeValue, setChangeValue] = useState("")
+    const { nextBillingDate } = useSelector((state) => ({
+        nextBillingDate: state?.manageSubscriptionSlice?.getSubscriptionObj?.nextBillingDate,
 
-    //handle change dropdown
-    const handleChangeFun = (value) => {
-        setChangeValue(value)
-    }
+    }), shallowEqual)
+
+
     return (
         <div className={clsx(styles.leftSidebarMaindDiv, "px-sm-4 px-3")}>
             {/* heading section */}
@@ -34,15 +34,10 @@ const ManageSubscription = () => {
                                 Next billing on:
                             </Trans>
                         </span>
-                        <span className={clsx(styles.mediumFont)}>21 Jul, 2025</span>
+                        <span className={clsx(styles.mediumFont)}>{nextBillingDate ? moment(nextBillingDate).format('MMMM D, YYYY') : nextBillingDate}</span>
 
                     </p>
-                    <ChangeDropdown
-                        defaultValue={"manageSubscription.change"}
-                        data={genderData}
-                        value={changeValue}
-                        handleFun={handleChangeFun}
-                    />
+
                 </div>
 
 
@@ -50,7 +45,6 @@ const ManageSubscription = () => {
             <Row className='mx-0'>
                 <Col xs={12} className='px-0 '>
                     <ManageSubscriptionTable
-                        dataTable={manageSubscriptionTable}
                         dataTableHeading={manageSubscriptionTableHeading} />
                 </Col>
 

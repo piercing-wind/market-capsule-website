@@ -37,8 +37,6 @@ export default function WatchlistPage(props) {
 
     }), shallowEqual)
 
-    console.log("getWatchListObj", getWatchListObj)
-    console.log("watchList", watchList)
 
     //set server data to client side
     useEffect(() => {

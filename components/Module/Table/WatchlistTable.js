@@ -7,7 +7,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useTranslation } from 'next-i18next';
 import LoadMoreBtn from '../Button/LoadMoreBtn';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { getWatchListData, getWatchListObjData, removeToWatchList, setWatchListCurrentPage, setWatchListEmpty } from '@/store/slices/watchListSlice';
+import { getWatchListData, getWatchListObjData, removeToWatchList, setSortWatchList, setWatchListCurrentPage, setWatchListEmpty } from '@/store/slices/watchListSlice';
 import { useState } from 'react';
 import LoderModule from '../LoaderModule';
 import toast from 'react-hot-toast';
@@ -15,48 +15,85 @@ import toast from 'react-hot-toast';
 function WatchlistTable(props) {
     const { companyTableHeading } = props;
     const { t } = useTranslation("common");
-    const [sort, setSort] = useState("highLowDayLow")
     const [loader, setLoader] = useState(false);
     const dispatch = useDispatch();
-    const { watchListLoading, watchList, watchListCurrentPage, watchListTotalList } = useSelector((state) => ({
+    const { watchListLoading, watchList, watchListCurrentPage, watchListTotalList, sortWatchList } = useSelector((state) => ({
         watchList: state?.watchListSlice?.getWatchListObj?.watchList,
         watchListCurrentPage: state?.watchListSlice?.getWatchListObj?.watchListCurrentPage,
         watchListTotalList: state?.watchListSlice?.getWatchListObj?.watchListTotalList,
         watchListLoading: state?.watchListSlice?.getWatchListObj?.loading,
-        watchListError: state?.watchListSlice?.getWatchListObj?.error,
+        sortWatchList: state?.watchListSlice?.getWatchListObj?.error,
+        sortWatchList: state?.watchListSlice?.getWatchListObj?.sortWatchList,
+
 
     }), shallowEqual)
 
 
     //sort by filter
     const soringFun = async (type) => {
-        let sort = "highLowDayLow"
+        let sort = "";
         if (type === "ltp") {
-            sort = "ltp"
+            console.log("sortWatchList", sortWatchList)
+            if (sortWatchList === "LowHighLtp") {
+                sort = "highLowLtp";
+                dispatch(setSortWatchList("highLowLtp"))
+            } else {
+                sort = "LowHighLtp";
+                dispatch(setSortWatchList("LowHighLtp"))
+            }
+
         } else if (type === "prevClose") {
-            sort = "prevClose"
+            if (sortWatchList === "lowHighPreClosePrice") {
+                sort = "highLowPreClosePrice";
+                dispatch(setSortWatchList("highLowPreClosePrice"))
+            } else {
+                sort = "lowHighPreClosePrice";
+                dispatch(setSortWatchList("lowHighPreClosePrice"))
+            }
         } else if (type === "change") {
-            sort = "change"
+            if (sortWatchList === "lowHighChange") {
+                sort = "highLowChange";
+                dispatch(setSortWatchList("highLowChange"))
+            } else {
+                sort = "lowHighChange";
+                dispatch(setSortWatchList("lowHighChange"))
+            }
         } else if (type === "changePersent") {
-            sort = "changePersent"
+            if (sortWatchList === "lowHighChange%") {
+                sort = "highLowChange%";
+                dispatch(setSortWatchList("highLowChange%"))
+            } else {
+                sort = "lowHighChange%";
+                dispatch(setSortWatchList("lowHighChange%"))
+            }
         } else {
-            sort = "highLowDayLow"
+            if (sortWatchList === "highLowDayHigh") {
+                sort = "highLowDayLow";
+                dispatch(setSortWatchList("highLowDayLow"))
+            } else {
+                sort = "highLowDayHigh";
+                dispatch(setSortWatchList("highLowDayHigh"))
+            }
         }
         const params = {
             page: 1,
             limit: 10,
             sort: sort,
         }
+
+        console.log("sortWatchListfian", sortWatchList)
+
         dispatch(setWatchListEmpty())
         await dispatch(getWatchListData(params))
         dispatch(setWatchListCurrentPage(watchListCurrentPage + 1))
     }
+
     //load more btn 
     const loadMoreFun = async () => {
         const params = {
             page: watchListCurrentPage,
             limit: 10,
-            sort: sort,
+            sort: sortWatchList,
         }
         await dispatch(getWatchListData(params))
         dispatch(setWatchListCurrentPage(watchListCurrentPage + 1))
@@ -69,7 +106,7 @@ function WatchlistTable(props) {
         const params = {
             page: 1,
             limit: 10,
-            sort: sort,
+            sort: sortWatchList,
         }
         setLoader(true)
 
@@ -126,7 +163,6 @@ function WatchlistTable(props) {
                                                                 index !== 0 && (
                                                                     <button className={clsx(styles.sortBtn)} onClick={() => {
                                                                         soringFun(el?.type)
-                                                                        setSort(el?.type)
                                                                     }}>
                                                                         <Sort />
 
@@ -185,15 +221,18 @@ function WatchlistTable(props) {
 
                             </tbody>
                         </Table>
-
-                        <div className={clsx(styles.loadMoreBtn, "mt-3")} >
-                            <LoadMoreBtn
-                                totalList={watchListTotalList}
-                                loading={watchListLoading}
-                                data={watchList}
-                                loadMoreFun={loadMoreFun} />
-                        </div>
-
+                        {
+                            watchList?.length > 10 && (
+                                <div className={clsx(styles.loadMoreBtn, "mt-3")} >
+                                    <LoadMoreBtn
+                                        totalList={watchListTotalList}
+                                        loading={watchListLoading}
+                                        data={watchList}
+                                        loadMoreFun={loadMoreFun}
+                                    />
+                                </div>
+                            )
+                        }
                     </>
                 )
             }
