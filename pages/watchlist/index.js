@@ -64,7 +64,7 @@ export default function WatchlistPage(props) {
                     {
                         watchList?.length > 0 ? (
                             <Col xs={12} className='ps-4 pe-0 '>
-                                <WatchlistTable companyData={companyData} companyTableHeading={companyTableHeading} />
+                                <WatchlistTable companyTableHeading={companyTableHeading} />
 
                             </Col>
 

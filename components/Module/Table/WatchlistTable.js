@@ -81,7 +81,6 @@ function WatchlistTable(props) {
             sort: sort,
         }
 
-        console.log("sortWatchListfian", sortWatchList)
 
         dispatch(setWatchListEmpty())
         await dispatch(getWatchListData(params))

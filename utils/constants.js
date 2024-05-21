@@ -177,3 +177,19 @@ export const last12MonthData = () => {
 
     return last12Months
 }
+
+
+export function formatString(str) {
+    const exceptions = ["IT", "CEO", "CFO"]; // Add other abbreviations as needed
+
+    return str
+        ?.split('-') // Split the string by hyphens
+        ?.map(word => {
+            let uppercasedWord = word?.toUpperCase();
+            if (exceptions?.includes(uppercasedWord)) {
+                return uppercasedWord; // Keep the word in uppercase if it's in the exceptions list
+            }
+            return word?.charAt(0)?.toUpperCase() + word?.slice(1); // Capitalize the first letter otherwise
+        })
+        ?.join(' '); // Join the words with spaces
+}

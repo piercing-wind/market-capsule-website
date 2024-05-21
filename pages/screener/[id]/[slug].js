@@ -12,26 +12,30 @@ import styles from "../../../section/Screener/ScreenerSlugDetailPage/style/scree
 import dynamic from "next/dynamic";
 import { basicDetailsData } from "@/section/Screener/ScreenerSlugDetailPage/screenerSlugDetailData";
 import DisclamerCard from "@/components/Module/BannerSection/DisclamerCard";
+import { fetchCookie } from "@/utils/storageService";
+import { setAuthorizationToken } from "@/utils/apiServices";
+import { getDisclaimerData, getScreenerCompanyData } from "@/store/slices/screenerSlugDetailSlice";
+import { formatString } from "@/utils/constants";
 const LoderModule = dynamic(() => import("@/components/Module/LoaderModule"))
 const TwoIdBreadcrumb = dynamic(() => import("@/components/Module/Breadcrumb/TwoIdBreadcrumb"))
 const ScreenerSlugBanner = dynamic(() => import("@/components/Module/BannerSection/ScreenerSlugBanner"))
 const BasicDetailsSection = dynamic(() => import("@/components/Module/BannerSection/BasicDetailsSection"))
-const AboutTheCompany = dynamic(() => import("@/components/Module/BannerSection/AboutTheCompany"))
+const AboutTheCompanySimple = dynamic(() => import("@/components/Module/BannerSection/AboutTheCompanySimple"))
 const TimelineSection = dynamic(() => import("@/section/Screener/ScreenerSlugDetailPage/TimelineSection"))
 const InDepthCard = dynamic(() => import("@/components/Module/UpgradeCard/InDepthCard"))
 
 export default function CapsulePlusPage(props) {
     const { t } = useTranslation("common");
-    const { prevClosePrice, marketCap, sectoralPERange, BSE, ttpmPE, peRemark, sector } = basicDetailsData?.data?.company_share_detail
-    const { aboutTheCompany, compnay_timeline } = basicDetailsData?.data;
+    const dispatch = useDispatch();
+    const { getScreenerCompanyDetailObj, getDisclaimerDataObj } = props;
+    const { prevClosePrice, marketCap, sectoralPERange, BSE, ttpmPE, peRemark, sector } = getScreenerCompanyDetailObj?.screenerCompanyDetailData?.company_share_detail
+    const { about, compnay_timelines } = getScreenerCompanyDetailObj?.screenerCompanyDetailData;
     const router = useRouter();
     router.locale = props?.language
         ? props?.language
         : "en";
 
     router.defaultLocale = "en";
-
-
 
     // basic detailsobj
     const basicDetailArr = [
@@ -89,8 +93,8 @@ export default function CapsulePlusPage(props) {
                         linkSlug1={`/screener`}
                         linkLable1={t(`screenerSlugPage.screener`)}
                         linkSlug2={`/screener/${router?.query?.id}`}
-                        linkLable2={t(`Capacity Expansions & New Product Launches`)}
-                        idLable={basicDetailsData?.data?.name}
+                        linkLable2={formatString(router?.query?.id)}
+                        idLable={getScreenerCompanyDetailObj?.screenerCompanyDetailData?.name}
                     />
 
                 </div>
@@ -98,12 +102,12 @@ export default function CapsulePlusPage(props) {
                     <Row className={clsx("mx-0", styles.row)}>
                         <Col xs={12} className={clsx("px-0")} >
                             <ScreenerSlugBanner
-                                companyName="Ratnaveer Precision engineering Ltd."
-                                sector="Steel Products"
-                                url="www. aegislogistics.com"
-                                companyLogo={`/assests/screener/logo.png`}
-                                alt={`banner`}
-
+                                companyName={getScreenerCompanyDetailObj?.screenerCompanyDetailData?.name || ""}
+                                sector={getScreenerCompanyDetailObj?.screenerCompanyDetailData?.sector?.name || ""}
+                                url={getScreenerCompanyDetailObj?.screenerCompanyDetailData?.websiteUrl || ""}
+                                companyLogo={getScreenerCompanyDetailObj?.screenerCompanyDetailData?.logo?.url || ""}
+                                alt={getScreenerCompanyDetailObj?.screenerCompanyDetailData?.logo?.alternativeText || ""}
+                                companyId={getScreenerCompanyDetailObj?.screenerCompanyDetailData?.id || ""}
                             />
                         </Col>
                         <Col xs={12} className={clsx(styles.paddingDetails)} >
@@ -113,21 +117,26 @@ export default function CapsulePlusPage(props) {
                             />
                         </Col>
                         <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
-                            <AboutTheCompany
-                                aboutDescription={aboutTheCompany}
+                            <AboutTheCompanySimple
+                                aboutDescription={about}
                                 headingLabel={`screenerSlugPage.aboutTheCompany`}
                             />
                         </Col>
 
                         <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                             <TimelineSection
-                                compnayTimelineList={compnay_timeline}
+                                compnayTimelineList={compnay_timelines}
                                 headingLabel={`screenerSlugPage.timeline`}
                             />
                         </Col>
-                        <Col xs={12} className={clsx(styles.paddingDetailsInDefth)} >
-                            <InDepthCard />
-                        </Col>
+                        {
+                            !getScreenerCompanyDetailObj?.capsulePlus && (
+                                <Col xs={12} className={clsx(styles.paddingDetailsInDefth)} >
+                                    <InDepthCard />
+                                </Col>
+
+                            )
+                        }
 
                         <Col xs={12} className={clsx(styles.line)} >
                             <hr />
@@ -135,8 +144,10 @@ export default function CapsulePlusPage(props) {
 
                         <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                             <DisclamerCard
-                                heading={`screenerSlugPage.disclaimer`}
-                                para={`: This document is created for educational and informational purposes only and should not be construed as a Buy/Sell recommendation, investment advice or a research report. Although the document accurately reflects the personal views of the authors,there may be manual/ human errors in the document. The authors may also have equity shares in the companies mentioned in this report. Investor is advised to consult his/her investment advisor and undertake further due diligence before making any investment decision in the companies mentioned. Authors are not liable for any financial gains or losses due to investments made as per the information written in this document.`}
+                                heading={`screenerSlugPage.disclaimer `}
+                                para={getDisclaimerDataObj?.
+                                    description
+                                    ?.attributes?.description || ""}
 
                             />
                         </Col>
@@ -148,7 +159,21 @@ export default function CapsulePlusPage(props) {
     );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale }) => {
+export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale, query }) => {
+    let userActive = fetchCookie("_jwt", req.headers);
+    setAuthorizationToken(userActive);
+
+    const slug = query?.slug;
+    const params = {
+        slug: slug,
+        pageName: "bucket-company-detail"
+    }
+    await store.dispatch(getScreenerCompanyData(params));
+    await store.dispatch(getDisclaimerData(params));
+
+    const {
+        screenerSlugDetailSlice: { getScreenerCompanyDetailObj, getDisclaimerDataObj }
+    } = store.getState();
 
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
@@ -157,6 +182,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         props: {
             data: "",
             language: locale,
+            getScreenerCompanyDetailObj,
+            getDisclaimerDataObj,
 
             ...(await serverSideTranslations(locale, fileList)),
         },

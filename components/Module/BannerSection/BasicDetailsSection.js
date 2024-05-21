@@ -37,7 +37,7 @@ const BasicDetailsSection = ({ basicDetailArr, headingLabel, heading = true }) =
                                             }
                                         </span>
                                         {
-                                            el?.updated && (
+                                            el?.updatedAt && (
                                                 <span className={clsx(styles.updated)}>
                                                     Updated
                                                 </span>

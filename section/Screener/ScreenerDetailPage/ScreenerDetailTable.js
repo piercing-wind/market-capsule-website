@@ -11,30 +11,100 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import LoderModule from '@/components/Module/LoaderModule';
 import toast from 'react-hot-toast';
-import { addToWatchList } from '@/store/slices/watchListSlice';
-// import { addToWatchList } from '@/store/slices/watchlistSlice';
+import { addToWatchList, setSortWatchList } from '@/store/slices/watchListSlice';
+import moment from 'moment';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { getScreenerIdData, setCompanyListCurrentPage, setCompanyListEmpty, setCompanySorting } from '@/store/slices/screenerIdSlice';
 const LoadMoreBtn = dynamic(() => import("@/components/Module/Button/LoadMoreBtn"))
 
 const ScreenerDetailTable = (props) => {
-    const [itemPerPage, setItemPerPage] = useState(10);
     const router = useRouter()
     const [loader, setLoader] = useState(false)
-    const { dataTable, dataTableHeading } = props;
-    console.log("dataTable", dataTable)
+    const { dataTableHeading } = props;
     const { t } = useTranslation("common")
+    const dispatch = useDispatch()
+    const { loading, companyList, companyListCurrentPage, companyTotalList, sortCompany } = useSelector((state) => ({
+        companyList: state?.screenerIdSlice?.getScreenerIdDataObj?.companyList,
+        companyListCurrentPage: state?.screenerIdSlice?.getScreenerIdDataObj?.companyListCurrentPage,
+        companyTotalList: state?.screenerIdSlice?.getScreenerIdDataObj?.companyTotalList,
+        loading: state?.screenerIdSlice?.getScreenerIdDataObj?.loading,
+        sortCompany: state?.screenerIdSlice?.getScreenerIdDataObj?.sortCompany,
+    }), shallowEqual)
+
+
 
     //load more btn 
-    const loadMoreFun = () => {
-        console.log("load more fun")
-        if (dataTable?.length > itemPerPage) {
+    const loadMoreFun = async () => {
+        // const params = {
+        //     page: 1,
+        //     limit: 10,
+        //     slug: router?.query?.id,
+        //     companyTypeId: "",
+        //     peGte: "",
+        //     peLte: "",
+        //     marketCapLte: "",
+        //     marketCapGte: "",
+        //     sort: sortCompany ? sortCompany : ""
 
-            setItemPerPage(itemPerPage + 5)
+        // }
+        const params = {
+            page: 1,
+            limit: 10,
+            slug: router?.query?.id,
+            companyTypeId: "",
+            pe: {
+                gte: "",
+                lte: ""
+            },
+            marketCap: {
+                gte: "",
+                lte: ""
+            },
+            sort: sortCompany ? sortCompany : ""
+
         }
+        await dispatch(getScreenerIdData(params))
+        dispatch(setCompanyListCurrentPage(companyListCurrentPage + 1))
     }
 
     //sort by filter
-    const soringFun = () => {
-        console.log("sort fun")
+    const soringFun = async (type) => {
+        let sort = "";
+        if (type === "marketCapInCrore") {
+            if (sortCompany === "lowHighMarketCap") {
+                sort = "highLowMarketCap";
+                dispatch(setCompanySorting("highLowMarketCap"))
+            } else {
+                sort = "lowHighMarketCap";
+                dispatch(setCompanySorting("lowHighMarketCap"))
+            }
+
+        } else {
+            if (sortCompany === "lowHighTTMPE") {
+                sort = "highLowTTMPE";
+                dispatch(setCompanySorting("highLowTTMPE"))
+            } else {
+                sort = "lowHighTTMPE";
+                dispatch(setCompanySorting("lowHighTTMPE"))
+            }
+        }
+        const params = {
+            page: 1,
+            limit: 10,
+            slug: router?.query?.id,
+            companyTypeId: "",
+            peGte: "",
+            peLte: "",
+            marketCapLte: "",
+            marketCapGte: "",
+            sort: sort
+
+        }
+
+
+        dispatch(setCompanyListEmpty())
+        await dispatch(getScreenerIdData(params))
+        dispatch(setCompanyListCurrentPage(companyListCurrentPage + 1))
     }
 
     //add to watchlist
@@ -88,7 +158,11 @@ const ScreenerDetailTable = (props) => {
                                                             </span>
                                                             {
                                                                 index !== 0 && index !== dataTableHeading?.length - 1 && (
-                                                                    <button className={clsx(styles.sortBtn)} onClick={soringFun}>
+                                                                    <button className={clsx(styles.sortBtn)} onClick={() => {
+                                                                        if (el?.type) {
+                                                                            soringFun(el?.type)
+                                                                        }
+                                                                    }}>
                                                                         <Sort />
 
                                                                     </button>
@@ -108,18 +182,17 @@ const ScreenerDetailTable = (props) => {
                             </thead>
                             <tbody>
                                 {
-                                    dataTable?.length > 0 ? (
-                                        dataTable?.slice(0, itemPerPage)?.map((el, index) => {
-
+                                    companyList?.length > 0 ? (
+                                        companyList?.map((el, index) => {
                                             return (
                                                 <tr key={index} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
                                                     <td >{el?.name}</td>
                                                     <td className='text-center'>
-                                                        {el?.marketCapInCr?.marketCap ? el?.marketCapInCr?.marketCap : "N/A"}
+                                                        {el?.company_share_detail?.marketCap ? el?.company_share_detail?.marketCap : "N/A"}
                                                     </td>
-                                                    <td className='text-center'>{el?.marketCapInCr?.ttpmPE ? el?.marketCapInCr?.ttpmPE : "N/A"}</td>
-                                                    <td className='text-center' >{el?.marketCapInCr?.createdAt
-                                                        ? moment(el?.marketCapInCr?.createdAt).format('MMM D, YYYY')
+                                                    <td className='text-center'>{el?.company_share_detail?.ttpmPE ? el?.company_share_detail?.ttpmPE : "N/A"}</td>
+                                                    <td className='text-center' >{el?.createdAt
+                                                        ? moment(el?.createdAt).format('MMM D, YYYY')
                                                         : "N/A"}</td>
                                                     <td className='text-center'>
                                                         <p className={clsx(' d-flex align-items-center  mb-0', styles.addTo)} onClick={() => {
@@ -134,7 +207,7 @@ const ScreenerDetailTable = (props) => {
                                                         </p>
                                                     </td>
                                                     <td className={clsx('text-center', styles.readMore)}>
-                                                        <Link href={`/screener/${router?.query?.id}/${el?.id}`}>
+                                                        <Link href={`/screener/${router?.query?.id}/${el?.slug}`}>
                                                             <p className={clsx('mb-0  d-flex align-items-center ')}>
                                                                 <span style={{ marginRight: "5px" }}>
                                                                     <Trans i18nKey={"screenerIdPage.readMore"}>
@@ -156,8 +229,17 @@ const ScreenerDetailTable = (props) => {
                             </tbody>
                         </Table>
                         {
-                            dataTable?.length > 10 && (
-                                <LoadMoreBtn data={dataTable} itemPerpage={itemPerPage} loadMoreFun={loadMoreFun} />
+                            companyList?.length > 10 &&
+
+                            (
+                                <div className={clsx(styles.loadMoreBtn, "mt-3")} >
+                                    <LoadMoreBtn
+                                        totalList={companyTotalList}
+                                        loading={loading}
+                                        data={companyList}
+                                        loadMoreFun={loadMoreFun}
+                                    />
+                                </div>
                             )
                         }
                     </>

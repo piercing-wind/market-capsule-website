@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 import styles from "./style/screenerSlugBanner.module.scss";
 import clsx from "clsx";
 import Image from 'next/image';
@@ -7,17 +7,43 @@ import ArrowUpRight from '@/components/svg/ArrowUpRight';
 import Bookmark from '@/components/svg/Bookmark';
 import { useTranslation, Trans } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { addToWatchList } from '@/store/slices/watchListSlice';
+import toast from 'react-hot-toast';
 
 
-const ScreenerSlugBanner = ({ banner = "screener", companyName, sector, url, companyLogo, alt }) => {
+const ScreenerSlugBanner = ({ banner = "screener", companyName, sector, url, companyLogo, alt, companyId }) => {
     const { t } = useTranslation("common");
-    const router = useRouter()
+    const router = useRouter();
+    const [loder, setLoader] = useState(false)
 
-    const handleAddToWatchlist = () => {
+    const handleAddToWatchlist = async () => {
         console.log("add to watchlist")
+        const submitData = {
+            companyId: companyId
+        }
+        setLoader(true)
+
+        await addToWatchList(submitData,
+            (res) => {
+                if (res?.success) {
+                    toast.success(t(res?.message));
+                    setLoader(false)
+
+                } else {
+                    toast.error(res?.message);
+                    setLoader(false);
+                }
+            },
+            (err) => {
+                if (!err?.success) {
+                    toast.error(err?.message);
+                    setLoader(false)
+                }
+            }
+        );
     }
     const goToUrlFun = () => {
-        console.log("hellow world")
+        router.push(url)
     }
     return (
         <div className={clsx("d-flex flex-md-row gap-3 flex-column justify-content-md-between justify-content-center align-items-center", styles.bannerDiv, banner === "ipo" ? styles.ipoBanner : banner === "capsulePlus" ? styles.capsulePlusBanner : "")}>
@@ -53,7 +79,9 @@ const ScreenerSlugBanner = ({ banner = "screener", companyName, sector, url, com
                             icon={<Bookmark
                                 width='15'
                                 height='15'
-                            />}
+                            />
+                            }
+                            disabled={loder ? true : false}
                         />
                     </div>
                 )

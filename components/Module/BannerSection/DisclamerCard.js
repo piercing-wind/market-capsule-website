@@ -12,7 +12,7 @@ const DisclamerCard = ({ heading, para }) => {
                     {heading}
                 </Trans>
             </span>
-            <span>{para}</span>
+            <span>{`:`}{para}</span>
         </div>
     )
 }

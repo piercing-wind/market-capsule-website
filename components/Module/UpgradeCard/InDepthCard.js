@@ -12,7 +12,7 @@ const InDepthCard = () => {
     const { t } = useTranslation("common");
     const router = useRouter()
     const handleUpgradeNowFun = () => {
-        router.push("/subscription")
+        router.push("/capsule-plus")
     }
 
     return (
