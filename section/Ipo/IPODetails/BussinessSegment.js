@@ -37,7 +37,7 @@ const BussinessSegment = ({ headingLabel, bussinessSegmentData = [], capsuleplus
                 })
             }
             {
-                !capsuleplus && (
+                capsuleplus && (
                     <ExclusiveViewCard />
 
                 )

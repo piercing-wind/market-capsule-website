@@ -6,7 +6,7 @@ import { Col, Row } from 'react-bootstrap';
 const HeadingCom = dynamic(() => import("@/components/Module/BannerSection/HeadingCom"))
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 
-const AboutTheCompanySimpal = ({ aboutDescription = ``, headingLabel = "" }) => {
+const AboutTheCompanySimple = ({ aboutDescription = ``, headingLabel = "" }) => {
     return (
         <div >
             <HeadingCom
@@ -17,4 +17,4 @@ const AboutTheCompanySimpal = ({ aboutDescription = ``, headingLabel = "" }) => 
     )
 }
 
-export default AboutTheCompanySimpal
+export default AboutTheCompanySimple

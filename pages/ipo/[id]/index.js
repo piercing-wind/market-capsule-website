@@ -12,6 +12,9 @@ import styles from "../../../section/Ipo/IPODetails/style/ipoDetails.module.scss
 import dynamic from "next/dynamic";
 import { ipoDetailsData } from "@/section/Ipo/IPODetails/ipoDetailsData";
 import { commaSeprater, numberToLocaleString } from "@/utils/constants";
+import { fetchCookie } from "@/utils/storageService";
+import { setAuthorizationToken } from "@/utils/apiServices";
+import { getIpoCompanyDetailData } from "@/store/slices/ipoDetailSlice";
 const LoderModule = dynamic(() => import("@/components/Module/LoaderModule"))
 const OneIdBreadcrumb = dynamic(() => import("@/components/Module/Breadcrumb/OneIdBreadcrumb"))
 const ScreenerSlugBanner = dynamic(() => import("@/components/Module/BannerSection/ScreenerSlugBanner"))
@@ -27,9 +30,11 @@ const HeadingCom = dynamic(() => import("@/components/Module/BannerSection/Headi
 
 export default function IpoDetails(props) {
     const { t } = useTranslation("common");
-    const { marketCap = null, peRatio = null, rociPercent = null, roePercent = null, currentPrice = null, deRatio = null, cwip = null, cashConversionCycle = null, pegRatio = null } = ipoDetailsData?.data?.company_share_detail
-    const { capsuleView, aboutTheCompany, business_segments, keyHighlights, industry, share_holdings, financial_highlights } = ipoDetailsData?.data;
-    const { capsuleplus } = ipoDetailsData
+    const { getIpoCompanyDetailObj } = props;
+    console.log("getIpoCompanyDetailObj", getIpoCompanyDetailObj)
+    const { rocePercent = null, marketCap = null, peRatio = null, roicPercent = null, roePercent = null, currentPrice = null, deRatio = null, cwip = null, cashConversionCycle = null, pegRatio = null } = getIpoCompanyDetailObj?.ipoCompanyDetailData?.company_share_detail
+    const { capsuleView, aboutTheCompany, business_segments, keyHighlights, industry, share_holdings, financial_highlights } = getIpoCompanyDetailObj?.ipoCompanyDetailData;
+    const { capsulePlus } = getIpoCompanyDetailObj
 
     const router = useRouter();
     router.locale = props?.language
@@ -67,7 +72,7 @@ export default function IpoDetails(props) {
         {
             id: 5,
             label: "ipoDetailPage.roce",
-            value: `${15}%`,
+            value: `${rocePercent}%`,
             bg: true,
             updated: false,
         },
@@ -80,7 +85,7 @@ export default function IpoDetails(props) {
         {
             id: 7,
             label: "ipoDetailPage.roic",
-            value: `${rociPercent}%`,
+            value: `${roicPercent}%`,
             bg: false
         },
         {
@@ -134,7 +139,7 @@ export default function IpoDetails(props) {
                     <OneIdBreadcrumb
                         linkSlug={`/ipo`}
                         linkLable={t(`ipoDetailPage.ipoZone`)}
-                        idLable={`Aegis Logistics Ltd.`}
+                        idLable={getIpoCompanyDetailObj?.ipoCompanyDetailData?.name}
                     />
 
                 </div>
@@ -143,11 +148,11 @@ export default function IpoDetails(props) {
                         <Col xs={12} className={clsx("px-0")} >
                             <ScreenerSlugBanner
                                 banner="ipo"
-                                companyName="Aegis Logistics Ltd."
-                                sector="Trading-Gas"
-                                url="www. aegislogistics.com"
-                                companyLogo={`/assests/screener/logo.png`}
-                                alt={`banner`}
+                                companyName={getIpoCompanyDetailObj?.ipoCompanyDetailData?.name}
+                                sector={getIpoCompanyDetailObj?.ipoCompanyDetailData?.industry?.name}
+                                url={getIpoCompanyDetailObj?.ipoCompanyDetailData?.websiteUrl}
+                                companyLogo={getIpoCompanyDetailObj?.ipoCompanyDetailData?.logo?.url}
+                                alt={getIpoCompanyDetailObj?.ipoCompanyDetailData?.logo?.alternativeText}
 
                             />
                         </Col>
@@ -169,13 +174,13 @@ export default function IpoDetails(props) {
                             <BussinessSegment
                                 headingLabel={`ipoDetailPage.bussinessSegment`}
                                 bussinessSegmentData={business_segments}
-                                capsuleplus={capsuleplus}
+                                capsuleplus={capsulePlus}
                             />
                         </Col>
 
                         {/* capsulePluse */}
                         {
-                            capsuleplus ? (
+                            !capsulePlus ? (
                                 <>
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                                         <KeyHighlightsAndManagementGuidance
@@ -237,7 +242,18 @@ export default function IpoDetails(props) {
     );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale }) => {
+export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale, query }) => {
+    let userActive = fetchCookie("_jwt", req.headers);
+    setAuthorizationToken(userActive);
+    const slug = query?.id;
+    const params = {
+        slug: slug,
+        pageName: "ipo-company-detail"
+    }
+    await store.dispatch(getIpoCompanyDetailData(params));
+    const {
+        ipoDetailSlice: { getIpoCompanyDetailObj }
+    } = store.getState();
 
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
@@ -246,6 +262,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         props: {
             data: "",
             language: locale,
+            getIpoCompanyDetailObj,
 
             ...(await serverSideTranslations(locale, fileList)),
         },

@@ -5,13 +5,26 @@ import dynamic from 'next/dynamic';
 import { Trans, useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { LockIpo } from '@/components/svg/LockIpo';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { setShowForm, setUpgradeNow } from '@/store/slices/authSlice';
 const IconPayNowButton = dynamic(() => import("../Button/IconPayNowButton"))
 
 const ExclusiveViewCard = ({ line = true }) => {
     const { t } = useTranslation("common");
     const router = useRouter()
+    const dispatch = useDispatch()
+    const { jwt } = useSelector((state) => ({
+        jwt: state?.authSlice?.jwt,
+    }), shallowEqual)
+
     const handleUpgradeNowFun = () => {
-        router.push("/subscription")
+        if (!jwt) {
+            dispatch(setShowForm(true))
+            dispatch(setUpgradeNow(true))
+
+        } else {
+            router.push("/subscription")
+        }
     }
     return (
         <div className={clsx(styles.mainDiv)}>

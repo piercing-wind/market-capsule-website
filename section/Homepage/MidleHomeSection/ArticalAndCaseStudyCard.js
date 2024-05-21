@@ -13,18 +13,21 @@ import toast from 'react-hot-toast';
 import LoadMoreBtn from '@/components/Module/Button/LoadMoreBtn';
 import { getFeedList, setFeedCurrentPage } from '@/store/slices/homePageSlice';
 import LoderModule from '@/components/Module/LoaderModule';
+import { setShowForm, setUpgradeNow } from '@/store/slices/authSlice';
 const HomeBlueButton = dynamic(() => import('@/components/Module/Button/HomeBlueButton'))
 
 const ArticalAndCaseStudyCard = () => {
     const [screenWidth, setScreenWidth] = useState(getScreenWidth());
     const router = useRouter();
     const dispatch = useDispatch()
-    const { feedList, feedTotalList, feedLoading, feedCurrentPage, industryId } = useSelector((state) => ({
+    const { jwt, feedList, feedTotalList, feedLoading, feedCurrentPage, industryId } = useSelector((state) => ({
         feedLoading: state?.homePageSlice?.feedListObj?.loading,
         feedList: state?.homePageSlice?.feedListObj?.feedList,
         feedTotalList: state?.homePageSlice?.feedListObj?.feedTotalList,
         feedCurrentPage: state?.homePageSlice?.feedListObj?.feedCurrentPage,
         industryId: state?.homePageSlice?.industriesObj?.industryId,
+        jwt: state?.authSlice?.jwt,
+
 
     }), shallowEqual)
 
@@ -40,7 +43,13 @@ const ArticalAndCaseStudyCard = () => {
 
     //CASE STUdY FUNCTION
     const upgradeNowFunction = () => {
-        console.log("upgrade function")
+        if (!jwt) {
+            dispatch(setShowForm(true))
+            dispatch(setUpgradeNow(true))
+
+        } else {
+            router.push("/subscription")
+        }
     }
 
     //show cssbased on type

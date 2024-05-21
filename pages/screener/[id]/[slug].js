@@ -130,7 +130,7 @@ export default function CapsulePlusPage(props) {
                             />
                         </Col>
                         {
-                            !getScreenerCompanyDetailObj?.capsulePlus && (
+                            getScreenerCompanyDetailObj?.capsulePlus && (
                                 <Col xs={12} className={clsx(styles.paddingDetailsInDefth)} >
                                     <InDepthCard />
                                 </Col>

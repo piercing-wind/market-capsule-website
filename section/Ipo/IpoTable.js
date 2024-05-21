@@ -71,7 +71,7 @@ const IpoTable = (props) => {
                                             }
                                         </td>
                                         <td className={clsx('text-center', styles.readMore)}>
-                                            <Link href={`/ipo/abc`}>
+                                            <Link href={`/ipo/aegis-logistics-ltd`}>
 
                                                 <p className={clsx('mb-0  d-flex align-items-center ')}>
                                                     <span style={{ marginRight: "5px" }}>
