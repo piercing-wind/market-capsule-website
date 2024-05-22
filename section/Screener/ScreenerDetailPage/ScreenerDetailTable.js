@@ -23,44 +23,35 @@ const ScreenerDetailTable = (props) => {
     const { dataTableHeading } = props;
     const { t } = useTranslation("common")
     const dispatch = useDispatch()
-    const { loading, companyList, companyListCurrentPage, companyTotalList, sortCompany } = useSelector((state) => ({
+    const { companyTypeId, peLte, peGte, marketCapLte, marketCapGte, loading, companyList, companyListCurrentPage, companyTotalList, sortCompany } = useSelector((state) => ({
         companyList: state?.screenerIdSlice?.getScreenerIdDataObj?.companyList,
         companyListCurrentPage: state?.screenerIdSlice?.getScreenerIdDataObj?.companyListCurrentPage,
         companyTotalList: state?.screenerIdSlice?.getScreenerIdDataObj?.companyTotalList,
         loading: state?.screenerIdSlice?.getScreenerIdDataObj?.loading,
         sortCompany: state?.screenerIdSlice?.getScreenerIdDataObj?.sortCompany,
+        companyTypeId: state?.screenerIdSlice?.getScreenerIdDataObj?.companyTypeId,
+        peLte: state?.screenerIdSlice?.getScreenerIdDataObj?.peLte,
+        peGte: state?.screenerIdSlice?.getScreenerIdDataObj?.peGte,
+        marketCapLte: state?.screenerIdSlice?.getScreenerIdDataObj?.marketCapLte,
+        marketCapGte: state?.screenerIdSlice?.getScreenerIdDataObj?.marketCapGte,
+
     }), shallowEqual)
 
 
 
     //load more btn 
     const loadMoreFun = async () => {
-        // const params = {
-        //     page: 1,
-        //     limit: 10,
-        //     slug: router?.query?.id,
-        //     companyTypeId: "",
-        //     peGte: "",
-        //     peLte: "",
-        //     marketCapLte: "",
-        //     marketCapGte: "",
-        //     sort: sortCompany ? sortCompany : ""
 
-        // }
         const params = {
-            page: 1,
-            limit: 10,
-            slug: router?.query?.id,
-            companyTypeId: "",
-            pe: {
-                gte: "",
-                lte: ""
-            },
-            marketCap: {
-                gte: "",
-                lte: ""
-            },
-            sort: sortCompany ? sortCompany : ""
+            page: companyListCurrentPage,
+            limit: 2,
+            bucketSlug: router?.query?.id,
+            companyTypeId: companyTypeId || '',
+            peGte: peGte || "",
+            peLte: peLte || "",
+            marketCapLte: marketCapLte || "",
+            marketCapGte: marketCapGte || "",
+            sort: sortCompany || "lowHighMarketCap"
 
         }
         await dispatch(getScreenerIdData(params))
@@ -90,21 +81,21 @@ const ScreenerDetailTable = (props) => {
         }
         const params = {
             page: 1,
-            limit: 10,
-            slug: router?.query?.id,
-            companyTypeId: "",
-            peGte: "",
-            peLte: "",
-            marketCapLte: "",
-            marketCapGte: "",
+            limit: 2,
+            bucketSlug: router?.query?.id,
+            companyTypeId: companyTypeId || '',
+            peGte: peGte || "",
+            peLte: peLte || "",
+            marketCapLte: marketCapLte || "",
+            marketCapGte: marketCapGte || "",
             sort: sort
 
         }
 
-
+        console.log("params", params)
         dispatch(setCompanyListEmpty())
         await dispatch(getScreenerIdData(params))
-        dispatch(setCompanyListCurrentPage(companyListCurrentPage + 1))
+        dispatch(setCompanyListCurrentPage(2))
     }
 
     //add to watchlist
@@ -183,45 +174,59 @@ const ScreenerDetailTable = (props) => {
                             <tbody>
                                 {
                                     companyList?.length > 0 ? (
-                                        companyList?.map((el, index) => {
-                                            return (
-                                                <tr key={index} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
-                                                    <td >{el?.name}</td>
-                                                    <td className='text-center'>
-                                                        {el?.company_share_detail?.marketCap ? el?.company_share_detail?.marketCap : "N/A"}
-                                                    </td>
-                                                    <td className='text-center'>{el?.company_share_detail?.ttpmPE ? el?.company_share_detail?.ttpmPE : "N/A"}</td>
-                                                    <td className='text-center' >{el?.createdAt
-                                                        ? moment(el?.createdAt).format('MMM D, YYYY')
-                                                        : "N/A"}</td>
-                                                    <td className='text-center'>
-                                                        <p className={clsx(' d-flex align-items-center  mb-0', styles.addTo)} onClick={() => {
-                                                            addToWatchlist(el?.id)
-                                                        }}>
-                                                            <AddToWatchlistBookmark />
-                                                            <span style={{ marginLeft: "5px" }}>
-                                                                <Trans i18nKey={"screenerIdPage.addToWatchlist"}>
-                                                                    Add to Watchlist
-                                                                </Trans>
-                                                            </span>
-                                                        </p>
-                                                    </td>
-                                                    <td className={clsx('text-center', styles.readMore)}>
-                                                        <Link href={`/screener/${router?.query?.id}/${el?.slug}`}>
-                                                            <p className={clsx('mb-0  d-flex align-items-center ')}>
-                                                                <span style={{ marginRight: "5px" }}>
-                                                                    <Trans i18nKey={"screenerIdPage.readMore"}>
-                                                                        Read More
+                                        [...companyList]?.sort((a, b) => {
+                                            switch (sortCompany) {
+                                                case 'lowHighMarketCap':
+                                                    return a?.company_share_detail?.marketCap - b?.company_share_detail?.marketCap;
+                                                case 'highLowMarketCap':
+                                                    return b?.company_share_detail?.marketCap - a?.company_share_detail?.marketCap;
+                                                case 'highLowTTMPE':
+                                                    return b?.company_share_detail?.ttpmPE - a?.company_share_detail?.ttpmPE;
+                                                case 'lowHighTTMPE':
+                                                    return a?.company_share_detail?.ttpmPE - b?.company_share_detail?.ttpmPE;
+                                                default:
+                                                    return 0;
+                                            }
+                                        })
+                                            ?.map((el, index) => {
+                                                return (
+                                                    <tr key={index} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
+                                                        <td >{el?.name}</td>
+                                                        <td className='text-center'>
+                                                            {el?.company_share_detail?.marketCap ? el?.company_share_detail?.marketCap : "N/A"}
+                                                        </td>
+                                                        <td className='text-center'>{el?.company_share_detail?.ttpmPE ? el?.company_share_detail?.ttpmPE : "N/A"}</td>
+                                                        <td className='text-center' >{el?.createdAt
+                                                            ? moment(el?.createdAt).format('MMM D, YYYY')
+                                                            : "N/A"}</td>
+                                                        <td className='text-center'>
+                                                            <p className={clsx(' d-flex align-items-center  mb-0', styles.addTo)} onClick={() => {
+                                                                addToWatchlist(el?.id)
+                                                            }}>
+                                                                <AddToWatchlistBookmark />
+                                                                <span style={{ marginLeft: "5px" }}>
+                                                                    <Trans i18nKey={"screenerIdPage.addToWatchlist"}>
+                                                                        Add to Watchlist
                                                                     </Trans>
                                                                 </span>
-                                                                <BlueRightArrow />
                                                             </p>
-                                                        </Link>
+                                                        </td>
+                                                        <td className={clsx('text-center', styles.readMore)}>
+                                                            <Link href={`/screener/${router?.query?.id}/${el?.slug}`}>
+                                                                <p className={clsx('mb-0  d-flex align-items-center ')}>
+                                                                    <span style={{ marginRight: "5px" }}>
+                                                                        <Trans i18nKey={"screenerIdPage.readMore"}>
+                                                                            Read More
+                                                                        </Trans>
+                                                                    </span>
+                                                                    <BlueRightArrow />
+                                                                </p>
+                                                            </Link>
 
-                                                    </td>
-                                                </tr>
-                                            )
-                                        })
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
                                     ) : null
                                 }
 
@@ -229,7 +234,7 @@ const ScreenerDetailTable = (props) => {
                             </tbody>
                         </Table>
                         {
-                            companyList?.length > 10 &&
+                            companyList?.length > 1 &&
 
                             (
                                 <div className={clsx(styles.loadMoreBtn, "mt-3")} >

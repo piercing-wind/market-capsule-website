@@ -123,7 +123,7 @@ export function getScreenHeight() {
 
 
 export const commaSeprater = (number) => {
-    let formattedNumber = number.toLocaleString();
+    let formattedNumber = number?.toLocaleString();
     return formattedNumber
 }
 

@@ -66,7 +66,7 @@ const CapsulePlusCompanyCard = (props) => {
             </div>
             <h5 className={clsx('mt-2 mb-1', styles.hight)}>{truncateText(heading, 7)}</h5>
 
-            <Link className={clsx(styles.readNow)} href={`/capsule-plus/${slug}`}>
+            <Link className={clsx(styles.readNow)} href={`/capsule-plus/phantom-digital-effects-limited`}>
                 <Trans i18nKey={"screener.readNow"}>
                     Read Now
                 </Trans>  <RightArrow />

@@ -11,9 +11,10 @@ import React, { Suspense, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import styles from "../../../section/Screener/ScreenerDetailPage/style/screenerDetail.module.scss"
 import { screenerDetailTableHeading } from "@/section/Screener/ScreenerDetailPage/screenerDetailPageData";
-import { getFilterSectionList, getScreenerIdData, setCompanyList, setCompanyListCurrentPage, setCompanyListEmpty, setCompanyListTotalList } from "@/store/slices/screenerIdSlice";
+import { getFilterSectionList, getScreenerCompanyData, getScreenerIdData, setCompanyList, setCompanyListCurrentPage, setCompanyListEmpty, setCompanyListTotalList } from "@/store/slices/screenerIdSlice";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { ScreenerFilter } from "@/components/Module/Accrodian/ScreenerFilter";
 const OneIdBreadcrumb = dynamic(() => import("@/components/Module/Breadcrumb/OneIdBreadcrumb"))
 const ScreeenerHeadingCom = dynamic(() => import("@/components/Module/HeadingComponent/ScreenerHeadingCom"))
 const ScreenerFilterAccrodian = dynamic(() => import("@/components/Module/Accrodian/ScreenerFilterAccrodian"))
@@ -21,86 +22,6 @@ const ScreenerDetailTable = dynamic(() => import("@/section/Screener/ScreenerDet
 
 
 
-const DynamicFilter = ({ filters }) => {
-    const [filterState, setFilterState] = useState({});
-    const router = useRouter();
-    const dispatch = useDispatch();
-    const applyFilters = async () => {
-        const params = {
-            page: 1,
-            limit: 10,
-            slug: router?.query?.id,
-            sort: "",
-        };
-        Object.entries(filterState).forEach(([key, value]) => {
-            if (key === 'pe') {
-                value.forEach(v => {
-                    const [val, operator] = v.split('+');
-                    params[`pe${operator.charAt(0).toUpperCase() + operator.slice(1)}`] = val;
-
-                });
-            } else if (key === 'marketCap') {
-                value.forEach(v => {
-                    const [val, operator] = v.split('+');
-                    params[`marketCap${operator.charAt(0).toUpperCase() + operator.slice(1)}`] = val;
-                });
-            } else {
-                params[key] = value[value?.length - 1] ? value[value?.length - 1] : "";
-            }
-        });
-        console.log("params", params)
-        dispatch(setCompanyListEmpty());
-        await dispatch(getScreenerIdData(params));
-        dispatch(setCompanyListCurrentPage(2));
-    };
-
-    const handleFilterChange = async (e, filterName) => {
-        const { name, value, type, checked } = e.target;
-        setFilterState(prevState => {
-            const newState = { ...prevState };
-
-            if (checked) {
-                if (!newState[filterName]) {
-                    newState[filterName] = [];
-                }
-                newState[filterName].push(value);
-            } else {
-                newState[filterName] = newState[filterName].filter(val => val !== value);
-            }
-
-            return newState;
-        });
-    };
-
-
-
-
-    useEffect(() => {
-        if (Object.keys(filterState).length > 0) {
-            applyFilters()
-        }
-    }, [filterState])
-    return (
-        <div className="filter-container">
-            {filters.map(filter => (
-                <div className="form-group" key={filter.filterName}>
-                    <label>{filter.name}</label>
-                    {filter.detail.map(option => (
-                        <div key={option.id || option.name}>
-                            <input
-                                type="checkbox"
-                                name={option.name}
-                                value={option.id || (option.lte ? + option.lte + '+lte' : option.gte + '+gte')}
-                                onChange={(e) => handleFilterChange(e, filter.filterName)}
-                                id={option.name + filter.filterName}
-                            /> <label htmlFor={option.name + filter.filterName}>{option.name}</label>
-                        </div>
-                    ))}
-                </div>
-            ))}
-        </div>
-    );
-};
 
 
 export default function Home(props) {
@@ -112,13 +33,12 @@ export default function Home(props) {
 
     router.defaultLocale = "en";
     const dispatch = useDispatch();
-    const { getScreenerIdDataObj, getFilterSectionObj } = props;
+    const { getScreenerIdDataObj, getFilterSectionObj, getScreenerCompanyDataObj } = props;
     const { companyList, companyListCurrentPage } = useSelector((state) => ({
         companyList: state?.screenerIdSlice?.getScreenerIdDataObj?.companyList,
         companyListCurrentPage: state?.screenerIdSlice?.getScreenerIdDataObj?.companyListCurrentPage,
 
     }), shallowEqual)
-    // console.log("getFilterSectionObj", getFilterSectionObj)
     //set server data to client side
     useEffect(() => {
         if (companyList?.length === 0 && getScreenerIdDataObj?.error === false) {
@@ -138,14 +58,14 @@ export default function Home(props) {
             <OneIdBreadcrumb
                 linkSlug={`/screener`}
                 linkLable={t(`Screener`)}
-                idLable={getScreenerIdDataObj?.screenerIdData?.name}
+                idLable={getScreenerCompanyDataObj?.screenerIdData?.name}
             />
             <Row className={clsx("mx-0 ", styles.row)}>
                 {/* heading section */}
                 <Col xs={12} className='px-0'>
                     <ScreeenerHeadingCom
-                        heading={getScreenerIdDataObj?.screenerIdData?.name}
-                        para={getScreenerIdDataObj?.screenerIdData?.description ? getScreenerIdDataObj?.screenerIdData?.description : "Curated selection of company data using our powerful screener, tailored to your specified criteria."}
+                        heading={getScreenerCompanyDataObj?.screenerIdData?.name}
+                        para={getScreenerCompanyDataObj?.screenerIdData?.description ? getScreenerIdDataObj?.screenerIdData?.description : "Curated selection of company data using our powerful screener, tailored to your specified criteria."}
                     />
                 </Col>
 
@@ -154,7 +74,7 @@ export default function Home(props) {
                         initialFilterData={getFilterSectionObj?.filterSectionList}
                     /> */}
 
-                    <DynamicFilter filters={getFilterSectionObj?.filterSectionList} />
+                    <ScreenerFilter filters={getFilterSectionObj?.filterSectionList} />
 
                 </Col>
                 <Col lg={9} className={clsx('px-0 ps-lg-4 mt-lg-0 mt-3 pb-5', styles.borderLeft)}>
@@ -176,20 +96,17 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
     const params = {
         page: 1,
-        limit: 10,
-        slug: slug,
-        sort: "",
-        companyTypeId: "",
-        peGte: "",
-        peLte: "",
-        marketCapLte: "",
-        marketCapGte: ""
+        limit: 2,
+        bucketSlug: slug,
     }
     await store.dispatch(getScreenerIdData(params));
     await store.dispatch(getFilterSectionList());
+    await store.dispatch(getScreenerCompanyData({
+        slug: slug
+    }));
 
     const {
-        screenerIdSlice: { getScreenerIdDataObj, getFilterSectionObj }
+        screenerIdSlice: { getScreenerIdDataObj, getFilterSectionObj, getScreenerCompanyDataObj }
     } = store.getState();
 
 
@@ -202,6 +119,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             data: "",
             getScreenerIdDataObj,
             getFilterSectionObj,
+            getScreenerCompanyDataObj,
             language: locale,
 
             ...(await serverSideTranslations(locale, fileList)),

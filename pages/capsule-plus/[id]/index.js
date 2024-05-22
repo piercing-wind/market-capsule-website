@@ -12,6 +12,10 @@ import styles from "../../../section/CapsulePlus/CapsulePlusDetail/style/capsule
 import dynamic from "next/dynamic";
 import { commaSeprater, numberToLocaleString } from "@/utils/constants";
 import { capsulePluseDetailsData, companyDetailHeading, sensexChartBarData, sensexChartData } from "@/section/CapsulePlus/CapsulePlusDetail/capsulePlusDetailData";
+import { fetchCookie } from "@/utils/storageService";
+import { setAuthorizationToken } from "@/utils/apiServices";
+import { getCapsuleCompanyDetailData } from "@/store/slices/capsuleDetailSlice";
+import { getDisclaimerData } from "@/store/slices/screenerSlugDetailSlice";
 const LoderModule = dynamic(() => import("@/components/Module/LoaderModule"))
 const OneIdBreadcrumb = dynamic(() => import("@/components/Module/Breadcrumb/OneIdBreadcrumb"))
 const ScreenerSlugBanner = dynamic(() => import("@/components/Module/BannerSection/ScreenerSlugBanner"))
@@ -28,8 +32,13 @@ const VolumeTable = dynamic(() => import("@/section/CapsulePlus/CapsulePlusDetai
 
 export default function IpoDetails(props) {
     const { t } = useTranslation("common");
-    const { marketCap = null, prevClose = null, sector = null, ttmPe = null, sectoralPeRange = null, peRemark = null, bse = null } = capsulePluseDetailsData?.data?.company_share_detail
-    const { aboutTheCompany, monthlyArr, yearArr, companyTypeDetails, capsuleHighlights } = capsulePluseDetailsData?.data;
+    const { getCapsuleCompanyDetailObj, getDisclaimerDataObj } = props;
+    console.log("getCapsuleCompanyDetailObj", getCapsuleCompanyDetailObj)
+    const { capsulePlus } = getCapsuleCompanyDetailObj;
+    const { marketCap = null, prevClosePrice = null, sector = null, ttpmPE = null, sectoralPERange = null, peRemark = null, BSE = null } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData?.company_share_detail
+    const {
+        businessOverview
+        , monthlyArr = [], yearArr = [], companyTypeDetails, capsuleHighlights, name, logo, industry, operation_details, prices, websiteUrl } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData;
     const { capsuleplus } = capsulePluseDetailsData
 
     const router = useRouter();
@@ -44,44 +53,44 @@ export default function IpoDetails(props) {
         {
             id: 1,
             label: "capsuleDetailPage.prevClose",
-            value: `₹${commaSeprater(prevClose)}Cr.`,
+            value: `${prevClosePrice ? `₹${commaSeprater(prevClosePrice)}Cr.` : "N/A"}`,
             bg: true
         },
         {
             id: 2,
             label: "capsuleDetailPage.sector",
-            value: sector,
+            value: sector ? sector : "N/A",
             bg: true
         },
         {
             id: 3,
             label: "capsuleDetailPage.marketCap",
-            value: `₹${marketCap}Cr.`,
+            value: `${marketCap ? `₹${marketCap}Cr.` : "N/A"}`,
             bg: false
         },
         {
             id: 4,
             label: "capsuleDetailPage.ttmPe",
-            value: `${ttmPe}X`,
+            value: `${ttpmPE ? `${ttpmPE}X` : "N/A"}`,
             bg: false,
         },
         {
             id: 5,
             label: "capsuleDetailPage.sectoralPeRange",
-            value: `${sectoralPeRange}`,
+            value: `${sectoralPERange ? sectoralPERange : "N/A"}`,
             bg: true,
             updated: false,
         },
         {
             id: 6,
             label: "capsuleDetailPage.peRemark",
-            value: `${commaSeprater(peRemark)}`,
+            value: `${peRemark ? commaSeprater(peRemark) : "N/A"}`,
             bg: true
         },
         {
             id: 7,
             label: "capsuleDetailPage.bse",
-            value: `${bse}`,
+            value: `${BSE ? BSE : "N/A"}`,
             bg: false
         }
 
@@ -116,7 +125,7 @@ export default function IpoDetails(props) {
                     <OneIdBreadcrumb
                         linkSlug={`/capsule-plus`}
                         linkLable={t(`capsuleDetailPage.capsulePlus`)}
-                        idLable={`Phantom-digital-effects-limited`}
+                        idLable={name}
                     />
 
                 </div>
@@ -125,24 +134,24 @@ export default function IpoDetails(props) {
                         <Col xs={12} className={clsx("px-0")} >
                             <ScreenerSlugBanner
                                 banner="capsulePlus"
-                                companyName="PHANTOM DIGITAL EFFECTS LIMITED"
-                                sector="VFX - Media"
-                                url="www. phantomdigital.com"
-                                companyLogo={`/assests/capsule-plus/company-logo.png`}
-                                alt={`banner`}
+                                companyName={name}
+                                sector={industry?.name}
+                                url={websiteUrl}
+                                companyLogo={logo?.url || `/assests/capsule-plus/company-logo.png`}
+                                alt={logo?.alternativeText || "company logo"}
 
                             />
                         </Col>
 
                         <Col xs={12} className={clsx(styles.paddingDetails)} >
                             <AboutTheCompany
-                                aboutDescription={aboutTheCompany}
+                                aboutDescription={businessOverview}
                                 headingLabel={`capsuleDetailPage.businessOverview`}
 
                             />
                             <div className={clsx(styles.mainDiv)}>
                                 {
-                                    !capsuleplus && (
+                                    capsulePlus && (
                                         <ExclusiveViewCard
                                             line={false}
                                         />
@@ -153,20 +162,20 @@ export default function IpoDetails(props) {
                         </Col>
 
                         {
-                            capsuleplus && (
+                            !capsulePlus && (
                                 <>
 
 
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                                         <AboutTheCompany
-                                            aboutDescription={aboutTheCompany}
+                                            aboutDescription={businessOverview}
                                             headingLabel={`capsuleDetailPage.financialReport`}
                                         />
                                     </Col>
 
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                                         <AboutTheCompany
-                                            aboutDescription={aboutTheCompany}
+                                            aboutDescription={businessOverview}
                                             headingLabel={`capsuleDetailPage.shareCapitalAndNumberOfEmployess`}
                                         />
                                     </Col>
@@ -174,12 +183,13 @@ export default function IpoDetails(props) {
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                                         <SharePriceAndVolume
                                             headingLabel={`capsuleDetailPage.sharePriceAndVolume`}
+                                            prices={prices}
                                         />
                                     </Col>
 
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout, "pt-3")} >
                                         <VolumeTable
-                                            dataTable={sensexChartData}
+                                            dataTable={prices}
                                             currentDate={props?.currentDate}
                                         />
                                     </Col>
@@ -230,7 +240,9 @@ export default function IpoDetails(props) {
                                         <hr />
                                         <DisclamerCard
                                             heading={`DISCLAIMER: `}
-                                            para={`: This document is created for educational and informational purposes only and should not be construed as a Buy/Sell recommendation, investment advice or a research report. Although the document accurately reflects the personal views of the authors,there may be manual/ human errors in the document. The authors may also have equity shares in the companies mentioned in this report. Investor is advised to consult his/her investment advisor and undertake further due diligence before making any investment decision in the companies mentioned. Authors are not liable for any financial gains or losses due to investments made as per the information written in this document.`}
+                                            para={getDisclaimerDataObj?.
+                                                description
+                                                ?.attributes?.description || ""}
 
                                         />
                                     </Col>
@@ -246,7 +258,22 @@ export default function IpoDetails(props) {
     );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale }) => {
+export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale, query }) => {
+    let userActive = fetchCookie("_jwt", req.headers);
+    setAuthorizationToken(userActive);
+    const slug = query?.id;
+    const params = {
+        slug: slug,
+        pageName: "capsuleplus-company-detail"
+    }
+    await store.dispatch(getCapsuleCompanyDetailData(params));
+    await store.dispatch(getDisclaimerData());
+
+    const {
+        capsuleDetailSlice: { getCapsuleCompanyDetailObj },
+        screenerSlugDetailSlice: { getDisclaimerDataObj }
+
+    } = store.getState();
 
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
@@ -257,7 +284,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             data: "",
             language: locale,
             currentDate,
-
+            getCapsuleCompanyDetailObj,
+            getDisclaimerDataObj,
             ...(await serverSideTranslations(locale, fileList)),
         },
     };

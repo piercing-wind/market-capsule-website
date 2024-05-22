@@ -5,14 +5,18 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 // Action
 
-export const getScreenerIdData = createAsyncThunk('screenerIdSlice/getScreenerIdData', async (params) => {
-    let { companyTypeId = "", peGte = "", peLte = "", marketCapLte = "", marketCapGte = "" } = params;
-    const response = await getMethod(`company/list?bucketSlug=${params?.slug}&page=${params?.page}&limit=${params?.limit}&companyTypeId=${companyTypeId}&pe[gte]=${peGte}&pe[lte]=${peLte}&marketCap[lte]=${marketCapLte}&marketCap[gte]=${marketCapGte}&sort=${params?.sort}`,);
+export const getScreenerIdData = createAsyncThunk('screenerIdSlice/getScreenerIdData', async (params = {}) => {
+    const response = await getMethod(`company/list`, params);
     return (response)
 });
 
 export const getFilterSectionList = createAsyncThunk('screenerIdSlice/getFilterSectionList', async (params) => {
     const response = await getMethod(`bucket/filter/top-it-company`);
+    return (response)
+});
+
+export const getScreenerCompanyData = createAsyncThunk('screenerIdSlice/getScreenerCompanyData', async (params) => {
+    const response = await getMethod(`bucket/detail`, params);
     return (response)
 });
 
@@ -25,9 +29,15 @@ const getScreenerIdDataObj = {
     companyList: [],
     companyListCurrentPage: 1,
     companyTotalList: 100,
-    sortCompany: `lowHighMarketCap`
+    sortCompany: `highLowMarketCap`,
+    companyTypeId: '',
+    peLte: '',
+    peGte: '',
+    marketCapLte: ``,
+    marketCapGte: ``
 
 }
+
 
 const getFilterSectionObj = {
     loading: false,
@@ -35,11 +45,19 @@ const getFilterSectionObj = {
     filterSectionList: []
 }
 
+const getScreenerCompanyDataObj = {
+    loading: false,
+    error: false,
+    screenerIdData: {},
+
+}
+
 export const screenerIdSlice = createSlice({
     name: 'screenerIdSlice',
     initialState: {
         getScreenerIdDataObj,
-        getFilterSectionObj
+        getFilterSectionObj,
+        getScreenerCompanyDataObj
     },
     reducers: {
         setCompanyList: (state, action) => {
@@ -57,6 +75,21 @@ export const screenerIdSlice = createSlice({
 
         setCompanySorting: (state, action) => {
             state.getScreenerIdDataObj.sortCompany = action.payload
+        },
+        setCompanyTypeId: (state, action) => {
+            state.getScreenerIdDataObj.companyTypeId = action.payload
+        },
+        setCompanyPeLte: (state, action) => {
+            state.getScreenerIdDataObj.peLte = action.payload
+        },
+        setCompanyPeGte: (state, action) => {
+            state.getScreenerIdDataObj.peGte = action.payload
+        },
+        setCompanyMarketCapLte: (state, action) => {
+            state.getScreenerIdDataObj.marketCapLte = action.payload
+        },
+        setCompanyMarketCapGte: (state, action) => {
+            state.getScreenerIdDataObj.marketCapGte = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -66,7 +99,6 @@ export const screenerIdSlice = createSlice({
             })
             .addCase(getScreenerIdData.fulfilled, (state, action) => {
                 state.getScreenerIdDataObj.loading = false;
-                // state.getScreenerIdDataObj.screenerIdData = action?.payload?.data
                 state.getScreenerIdDataObj.companyList = [...state?.getScreenerIdDataObj?.companyList, ...action?.payload?.data];
                 state.getScreenerIdDataObj.companyTotalList = action?.payload?.count
 
@@ -75,6 +107,7 @@ export const screenerIdSlice = createSlice({
                 state.getScreenerIdDataObj.loading = false;
                 state.getScreenerIdDataObj.error = true;
             })
+
             .addCase(getFilterSectionList.pending, (state, action) => {
                 state.getFilterSectionObj.loading = true;
             })
@@ -87,10 +120,22 @@ export const screenerIdSlice = createSlice({
                 state.getFilterSectionObj.loading = false;
                 state.getFilterSectionObj.error = true;
             })
+            .addCase(getScreenerCompanyData.pending, (state, action) => {
+                state.getScreenerCompanyDataObj.loading = true;
+            })
+            .addCase(getScreenerCompanyData.fulfilled, (state, action) => {
+                state.getScreenerCompanyDataObj.loading = false;
+                state.getScreenerCompanyDataObj.screenerIdData = action?.payload?.data
+
+            })
+            .addCase(getScreenerCompanyData.rejected, (state, action) => {
+                state.getScreenerCompanyDataObj.loading = false;
+                state.getScreenerCompanyDataObj.error = true;
+            })
     },
 });
 
-export const { setCompanySorting, setCompanyListEmpty, setCompanyList, setCompanyListCurrentPage, setCompanyListTotalList } = screenerIdSlice.actions
+export const { setCompanyTypeId, setCompanyMarketCapLte, setCompanyMarketCapGte, setCompanyPeLte, setCompanyPeGte, setCompanySorting, setCompanyListEmpty, setCompanyList, setCompanyListCurrentPage, setCompanyListTotalList } = screenerIdSlice.actions
 
 export default screenerIdSlice.reducer
 

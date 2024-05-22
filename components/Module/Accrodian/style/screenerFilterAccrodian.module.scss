@@ -45,3 +45,10 @@
     @include basicFontSize(14px, 500, #000000);
   }
 }
+
+.span {
+  @include basicFontSize(14px, 400, #606f7b);
+}
+.medium {
+  @include basicFontSize(14px, 500, #000000);
+}

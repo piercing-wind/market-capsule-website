@@ -41,7 +41,6 @@ const AccountCreatedSuccessForm = () => {
 
         }
     ), shallowEqual)
-    // console.log("professionData", professionData)
 
     const { t } = useTranslation("common");
     const dispatch = useDispatch()

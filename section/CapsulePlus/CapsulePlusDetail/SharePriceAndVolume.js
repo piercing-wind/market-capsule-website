@@ -3,19 +3,19 @@ import clsx from "clsx";
 import styles from "./style/sharePriceAndVolumne.module.scss";
 import dynamic from 'next/dynamic';
 import NseLineChart from './NseLineChart';
-import VloumeBarChart from './VolumeBarChart';
+import VolumeBarChart from './VolumeBarChart';
 const HeadingCom = dynamic(() => import("@/components/Module/BannerSection/HeadingCom"))
-const TradingViewWidget = dynamic(() => import("./TradingViewWidget"))
+// const TradingViewWidget = dynamic(() => import("./TradingViewWidget"))
 
-const SharePriceAndVolume = ({ headingLabel = "" }) => {
+const SharePriceAndVolume = ({ headingLabel = "", prices = [] }) => {
     return (
         <div >
             <HeadingCom
                 label={headingLabel}
             />
             {/* <TradingViewWidget /> */}
-            <NseLineChart />
-            <VloumeBarChart />
+            <NseLineChart prices={prices} />
+            <VolumeBarChart prices={prices} />
 
         </div>
 

@@ -26,88 +26,89 @@ ChartJS.register(
     Filler
 );
 
-export const options = {
-
-    responsive: true,
-    plugins: {
-        legend: {
-            display: false
-        },
-        title: {
-            display: false,
-        },
-        datalabels: {
-            display: false,
-        }
-    },
-    scales: {
-        y: {
-            grid: {
-                display: true, // Hide the grid lines on the y-axis
-            },
-            border: {
-                display: true
-            },
-            ticks: {
-                display: true,
-                stepSize: 200,
-                color: '#000000',
-                font: {
-                    size: 12,
-                    weight: "normal"
-                },
-                beginAtZero: false,
-
-            },
 
 
-            drawBorder: true
-        },
-        x: {
-            grid: {
-                display: false, // Hide the grid lines on the y-axis
-            },
-            border: {
+const NseLineChart = ({ prices }) => {
+    const options = {
+
+        responsive: true,
+        plugins: {
+            legend: {
                 display: false
             },
-            ticks: {
+            title: {
                 display: false,
-
+            },
+            datalabels: {
+                display: false,
             }
-
         },
+        scales: {
+            y: {
+                grid: {
+                    display: true, // Hide the grid lines on the y-axis
+                },
+                border: {
+                    display: true
+                },
+                ticks: {
+                    display: true,
+                    stepSize: 200,
+                    color: '#000000',
+                    font: {
+                        size: 12,
+                        weight: "normal"
+                    },
+                    beginAtZero: false,
 
-    }
-};
+                },
 
-const labels = sensexChartData.map((item) => item.date);
-const dataValues = sensexChartData.map((item) => item.price);
 
-export const data = {
-    labels,
-    datasets: [
-        {
-            label: '',
-            data: dataValues,
-            borderColor: '#3E63FF',
-            backgroundColor: (context) => {
-                const ctx = context.chart.ctx;
-                const gradient = ctx.createLinearGradient(0, 0, 0, 600);
-                gradient.addColorStop(0, "rgba(123, 178, 255, 1)"); // Adjusted color stop with opacity
-                gradient.addColorStop(1, "rgba(62, 99, 255, 0)");
-                return gradient;
+                drawBorder: true
+            },
+            x: {
+                grid: {
+                    display: false, // Hide the grid lines on the y-axis
+                },
+                border: {
+                    display: false
+                },
+                ticks: {
+                    display: false,
+
+                }
+
             },
 
-            pointStyle: 'circle',
-            pointRadius: 2,
-            pointHoverRadius: 5,
-            fill: true,
-        },
+        }
+    };
 
-    ],
-};
+    const labels = prices.map((item) => item.date);
+    const dataValues = prices.map((item) => item.price);
 
-const NseLineChart = () => {
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: '',
+                data: dataValues,
+                borderColor: '#3E63FF',
+                backgroundColor: (context) => {
+                    const ctx = context.chart.ctx;
+                    const gradient = ctx.createLinearGradient(0, 0, 0, 600);
+                    gradient.addColorStop(0, "rgba(123, 178, 255, 1)"); // Adjusted color stop with opacity
+                    gradient.addColorStop(1, "rgba(62, 99, 255, 0)");
+                    return gradient;
+                },
+
+                pointStyle: 'circle',
+                pointRadius: 2,
+                pointHoverRadius: 5,
+                fill: true,
+            },
+
+        ],
+    };
     return (
         <div>
             <Line options={options} data={data} />

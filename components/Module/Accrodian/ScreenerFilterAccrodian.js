@@ -10,42 +10,11 @@ const SectorAutofillDropdown = dynamic(() => import("../Dropdown/SectorAutofillD
 
 const ScreenerFilterAccrodian = ({ initialFilterData }) => {
     const [filterData, setFilterData] = useState(initialFilterData);
-    const [selectedFilters, setSelectedFilters] = useState({});
-    console.log("filterData", filterData)
     const [sector, setSector] = useState("");
     const [industry, setIndustry] = useState("");
     const [company, setCompany] = useState("");
     const { t } = useTranslation("common")
 
-    const handleCheckbox = (filterName, name) => {
-        console.log("value======.", name, filterName)
-        setSelectedFilters(prevSelectedFilters => {
-            const selectedIds = prevSelectedFilters[filterName] || [];
-            if (selectedIds.includes(name)) {
-                // If the name is already selected, remove it from the array
-                return {
-                    ...prevSelectedFilters,
-                    [filterName]: selectedIds.filter(selectedId => selectedId !== name),
-                    // [value]: selectedIds.filter(selectedId => selectedId !== name)
-                };
-            } else {
-                // If the name is not selected, add it to the array
-                return {
-                    ...prevSelectedFilters,
-                    [filterName]: [...selectedIds, name],
-                    // [value]: selectedIds.filter(selectedId => selectedId !== name)
-
-                };
-            }
-        });
-
-        console.log(setSelectedFilters, "setSelectedFilters")
-
-
-
-
-    };
-    console.log("selectedFilters", selectedFilters)
 
     return (
         <div>
