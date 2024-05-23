@@ -70,9 +70,6 @@ export default function Home(props) {
                 </Col>
 
                 <Col lg={3} className='px-0 '>
-                    {/* <ScreenerFilterAccrodian
-                        initialFilterData={getFilterSectionObj?.filterSectionList}
-                    /> */}
 
                     <ScreenerFilter filters={getFilterSectionObj?.filterSectionList} />
 
@@ -96,7 +93,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
     const params = {
         page: 1,
-        limit: 2,
+        limit: 10,
         bucketSlug: slug,
     }
     await store.dispatch(getScreenerIdData(params));

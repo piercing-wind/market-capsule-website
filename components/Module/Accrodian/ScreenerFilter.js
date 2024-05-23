@@ -8,8 +8,6 @@ import clsx from 'clsx';
 import styles from "./style/screenerFilterAccrodian.module.scss"
 import dynamic from 'next/dynamic';
 import { Trans, useTranslation } from 'next-i18next';
-const SectorAutofillDropdown = dynamic(() => import("../Dropdown/SectorAutofillDropdown"))
-import * as Icon from "react-icons/fi";
 import BlueCheckbox from "@/components/svg/blueCheckbox";
 
 
@@ -19,9 +17,6 @@ export const ScreenerFilter = ({ filters }) => {
     const [filterState, setFilterState] = useState({});
     const router = useRouter();
     const dispatch = useDispatch();
-    const [sector, setSector] = useState("");
-    const [industry, setIndustry] = useState("");
-    const [company, setCompany] = useState("");
     const { t } = useTranslation("common")
     const { sortCompany } = useSelector((state) => ({
         sortCompany: state?.screenerIdSlice?.getScreenerIdDataObj?.sortCompany,
@@ -30,7 +25,7 @@ export const ScreenerFilter = ({ filters }) => {
     const applyFilters = async () => {
         const params = {
             page: 1,
-            limit: 2,
+            limit: 10,
             bucketSlug: router?.query?.id,
             sort: sortCompany || "",
         };
@@ -95,6 +90,7 @@ export const ScreenerFilter = ({ filters }) => {
         if (params?.marketCapGte) {
             dispatch(setCompanyMarketCapGte(params?.marketCapGte));
         }
+
         dispatch(setCompanyListEmpty());
         await dispatch(getScreenerIdData(params));
         dispatch(setCompanyListCurrentPage(2));
@@ -115,15 +111,17 @@ export const ScreenerFilter = ({ filters }) => {
                 if (!newState[filterName]) {
                     newState[filterName] = [];
                 }
-                newState[filterName].push(value);
+                newState[filterName] = [...newState[filterName], value];
+
             } else {
-                newState[filterName] = newState[filterName].filter(val => val !== value);
+                newState[filterName] = newState[filterName]?.filter(val => val !== value);
+
             }
 
             return newState;
         });
     };
-
+    console.log("filterState", filterState)
 
 
 
@@ -154,72 +152,35 @@ export const ScreenerFilter = ({ filters }) => {
                                     <Accordion.Header className={clsx("accrodianBtn", styles.btn)} >{t(el?.filterName)}</Accordion.Header>
                                     <Accordion.Body className={clsx(styles.body)}>
                                         {
-                                            el?.typeValue === "sector" && false ? (
-                                                <SectorAutofillDropdown
-                                                    name={"sector"}
-                                                    placeholder={t("ipoPage.searchSector")}
-                                                    value={sector}
-                                                    onChange={(value) => {
-                                                        setSector(value)
-                                                    }}
-                                                    sectorArr={el?.typesArr}
-                                                    filterIndex={filterIndex}
-                                                    handleCheckbox={handleCheckbox}
-                                                />
 
-                                            ) : el?.typeValue === "industry" && false ? (
-                                                <SectorAutofillDropdown
-                                                    name={"industry"}
-                                                    placeholder={t("ipoPage.searchIndustry")}
-                                                    value={industry}
-                                                    onChange={(value) => {
-                                                        setIndustry(value)
-                                                    }}
-                                                    sectorArr={el?.typesArr}
-                                                    filterIndex={filterIndex}
-                                                    handleCheckbox={handleCheckbox}
-                                                />
-                                            ) : el?.typeValue === "companyName" && false ? (
-                                                <SectorAutofillDropdown
-                                                    name={"companyName"}
-                                                    placeholder={t("ipoPage.searchCompany")}
-                                                    value={company}
-                                                    onChange={(value) => {
-                                                        setCompany(value)
-                                                    }}
-                                                    sectorArr={el?.typesArr}
-                                                    filterIndex={filterIndex}
-                                                    handleCheckbox={handleCheckbox}
-                                                />
-                                            ) : (
-                                                el?.detail?.map((option, typeIndex) => {
-                                                    return (
+                                            el?.detail?.map((option, typeIndex) => {
+                                                return (
 
-                                                        <div className="custom-checkbox-container" key={option.name + el?.filterName}>
-                                                            <input
-                                                                type="checkbox"
-                                                                name={option.name}
-                                                                id={option.name + el?.filterName}
-                                                                value={option.id || (option.lte ? `${option.lte}+lte` : `${option.gte}+gte`)}
-                                                                checked={checkedState[option.name] || false}
-                                                                onChange={(e) => handleFilterChange(e, el?.filterName)}
-                                                                className="custom-checkbox-input"
-                                                            />
-                                                            <label htmlFor={option.name + el?.filterName} className={clsx("custom-checkbox-label mb-2", styles.span, checkedState[option.name] && styles.medium)}>
+                                                    <div className="custom-checkbox-container" key={option.name + el?.filterName}>
+                                                        <input
+                                                            type="checkbox"
+                                                            name={option.name}
+                                                            id={option.name + el?.filterName}
+                                                            value={option.id || (option.lte ? `${option.lte}+lte` : `${option.gte}+gte`)}
+                                                            checked={checkedState[option.name] || false}
+                                                            onChange={(e) => handleFilterChange(e, el?.filterName)}
+                                                            className="custom-checkbox-input"
+                                                        />
+                                                        <label htmlFor={option.name + el?.filterName} className={clsx("custom-checkbox-label mb-2", styles.span, checkedState[option.name] && styles.medium)}>
 
-                                                                <span className="custom-checkbox-icon">
-                                                                    {checkedState[option.name] && (
-                                                                        <BlueCheckbox />
-                                                                    )}
-                                                                </span>
-                                                                {option.name}
-                                                            </label>
-                                                        </div>
+                                                            <span className="custom-checkbox-icon">
+                                                                {checkedState[option.name] && (
+                                                                    <BlueCheckbox />
+                                                                )}
+                                                            </span>
+                                                            {option.name}
+                                                        </label>
+                                                    </div>
 
 
-                                                    )
-                                                })
-                                            )
+                                                )
+                                            })
+
                                         }
 
 

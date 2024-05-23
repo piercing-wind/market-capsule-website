@@ -7,63 +7,97 @@ import { wrapper } from "@/store";
 import { Col, Container, Row } from "react-bootstrap";
 import clsx from "clsx";
 import LoderModule from "@/components/Module/LoaderModule";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import styles from "../../section/Ipo/style/ipo.module.scss"
 import { filterData, ipoTableData, ipoTableHeading } from "@/section/Ipo/ipoData";
 import SectorAutofillDropdown from "@/components/Module/Dropdown/SectorAutofillDropdown";
+import { getFilterSectionList, getIpoCompanyData, getIpoCompanyHeadingData, setCompanyList, setCompanyListCurrentPage, setCompanyListTotalList } from "@/store/slices/ipoSlice";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { fetchCookie } from "@/utils/storageService";
+import { setAuthorizationToken } from "@/utils/apiServices";
 const ScreeenerHeadingCom = dynamic(() => import("@/components/Module/HeadingComponent/ScreenerHeadingCom"))
-const ScreenerFilterAccrodian = dynamic(() => import("@/components/Module/Accrodian/ScreenerFilterAccrodian"))
 const IpoTable = dynamic(() => import("@/section/Ipo/IpoTable"))
+const IpoFilter = dynamic(() => import("@/components/Module/Accrodian/IpoFilter"))
 
 export default function CapsulePlusPage(props) {
+    const { getIpoCompanyDataObj, getFilterSectionObj, getIpoCompanyHeadingObj } = props;
+
     const { t } = useTranslation("common");
-    const [coachValue, setCoachValue] = useState("")
     const router = useRouter();
     router.locale = props?.language
         ? props?.language
         : "en";
 
     router.defaultLocale = "en";
+    const dispatch = useDispatch();
+    const { companyList, companyListCurrentPage } = useSelector((state) => ({
+        companyList: state?.ipoSlice?.getIpoCompanyDataObj?.companyList,
+        companyListCurrentPage: state?.ipoSlice?.getIpoCompanyDataObj?.companyListCurrentPage,
+
+    }), shallowEqual)
+
+    //set server data to client side
+    useEffect(() => {
+        if (companyList?.length === 0 && getIpoCompanyDataObj?.error === false) {
+            dispatch(setCompanyList(getIpoCompanyDataObj?.companyList))
+            dispatch(setCompanyListTotalList(getIpoCompanyDataObj?.companyTotalList))
+            dispatch(setCompanyListCurrentPage(companyListCurrentPage + 1))
+        } else if (getIpoCompanyDataObj?.error) {
+            toast.error(`something went wrong`)
+        }
+    }, [dispatch]);
 
 
     return (
         <>
 
-            <Suspense fallback={<LoderModule />}>
-                <Container fluid className={clsx(styles.containerPadding, "mt-4 pb-5 ")}>
+            <Container fluid className={clsx(styles.containerPadding, "mt-4 pb-5 ")}>
 
-                    <Row className={clsx("mx-0 ", styles.row)}>
-                        {/* heading section */}
-                        <Col xs={12} className='px-0'>
-                            <ScreeenerHeadingCom
-                                heading={"ipoPage.ipoZone"}
-                                para={"ipoPage.exploreTheLatest"}
-                            />
-                        </Col>
+                <Row className={clsx("mx-0 ", styles.row)}>
+                    {/* heading section */}
+                    <Col xs={12} className='px-0'>
+                        <ScreeenerHeadingCom
+                            heading={getIpoCompanyHeadingObj?.ipoHeadingData?.attributes?.title || "ipoPage.ipoZone"}
+                            para={getIpoCompanyHeadingObj?.ipoHeadingData?.attributes?.description || "ipoPage.exploreTheLatest"}
+                        />
+                    </Col>
 
-                        <Col lg={3} className='px-0 '>
-                            <ScreenerFilterAccrodian
-                                initialFilterData={filterData}
-                            />
+                    <Col lg={3} className='px-0 '>
 
-                        </Col>
-                        <Col lg={9} className={clsx('px-0 ps-lg-4 mt-lg-0 mt-3 pb-5', styles.borderLeft)}>
-                            <IpoTable
-                                dataTable={ipoTableData}
-                                dataTableHeading={ipoTableHeading} />
-                        </Col>
+                        <IpoFilter filters={getFilterSectionObj?.filterSectionList} />
 
-                    </Row>
+                    </Col>
+                    <Col lg={9} className={clsx('px-0 ps-lg-4 mt-lg-0 mt-3 pb-5', styles.borderLeft)}>
+                        <IpoTable
+                            dataTableHeading={ipoTableHeading} />
+                    </Col>
 
-                </Container>
+                </Row>
 
-            </Suspense>
+            </Container>
+
         </>
     );
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale }) => {
+    let userActive = fetchCookie("_jwt", req.headers);
+    setAuthorizationToken(userActive);
+
+    const params = {
+        page: 1,
+        limit: 10,
+    }
+    await store.dispatch(getIpoCompanyData(params));
+    await store.dispatch(getFilterSectionList());
+    await store.dispatch(getIpoCompanyHeadingData());
+
+    const {
+        ipoSlice: { getIpoCompanyDataObj, getFilterSectionObj, getIpoCompanyHeadingObj }
+    } = store.getState();
+
 
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
@@ -71,6 +105,9 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     return {
         props: {
             data: "",
+            getIpoCompanyDataObj,
+            getFilterSectionObj,
+            getIpoCompanyHeadingObj,
             language: locale,
 
             ...(await serverSideTranslations(locale, fileList)),

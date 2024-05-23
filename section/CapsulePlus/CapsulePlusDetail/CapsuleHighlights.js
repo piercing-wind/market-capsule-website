@@ -5,13 +5,17 @@ import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 const CapsuleHightlights = ({ aboutDescription = [], headingLabel = "" }) => {
     return (
         <div className={clsx("px-3", styles.hightLightDiv)}>
+            {
+                aboutDescription?.length > 0 && (
+                    <BlocksRenderer
+                        blocks={{
+                            paragraph: ({ children }) => <p className={clsx(styles.para)}>{children}</p>,
+                        }}
+                        content={aboutDescription}
+                    />
 
-            <BlocksRenderer
-                blocks={{
-                    paragraph: ({ children }) => <p className={clsx(styles.para)}>{children}</p>,
-                }}
-                content={aboutDescription}
-            />
+                )
+            }
 
         </div>
     )

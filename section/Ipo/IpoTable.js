@@ -6,20 +6,43 @@ import BlueRightArrow from '@/components/svg/BlueRightArrow';
 import dynamic from 'next/dynamic';
 import styles from "./style/ipoTable.module.scss"
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { getIpoCompanyData, setCompanyListCurrentPage } from '@/store/slices/ipoSlice';
 const LoadMoreBtn = dynamic(() => import("@/components/Module/Button/LoadMoreBtn"))
 
 const IpoTable = (props) => {
-    const [itemPerPage, setItemPerPage] = useState(10)
 
-    const { dataTable, dataTableHeading } = props;
+    const router = useRouter()
+    const { dataTableHeading } = props;
     const { t } = useTranslation("common")
+    const dispatch = useDispatch()
+    const { companyTypeId, sectorId, industryId, companyName, loading, companyList, companyListCurrentPage, companyTotalList } = useSelector((state) => ({
+        companyList: state?.ipoSlice?.getIpoCompanyDataObj?.companyList,
+        companyListCurrentPage: state?.ipoSlice?.getIpoCompanyDataObj?.companyListCurrentPage,
+        companyTotalList: state?.ipoSlice?.getIpoCompanyDataObj?.companyTotalList,
+        loading: state?.ipoSlice?.getIpoCompanyDataObj?.loading,
+        companyTypeId: state?.ipoSlice?.getIpoCompanyDataObj?.companyTypeId,
+        sectorId: state?.ipoSlice?.getIpoCompanyDataObj?.sectorId,
+        industryId: state?.ipoSlice?.getIpoCompanyDataObj?.industryId,
+        companyName: state?.ipoSlice?.getIpoCompanyDataObj?.companyName,
+
+    }), shallowEqual)
 
     //load more btn 
-    const loadMoreFun = () => {
-        console.log("load more fun")
-        if (dataTable?.length > itemPerPage) {
-            setItemPerPage(itemPerPage + 5)
+    const loadMoreFun = async () => {
+        // /ipo/list?companyTypeId=[2]&sectorId=[1,2,3,4]&industryId=[1,2]&companyName=["Mahindra"]
+        const params = {
+            page: companyListCurrentPage,
+            limit: 10,
+            companyTypeId: companyTypeId || '',
+            sectorId: sectorId || "",
+            industryId: industryId || "",
+            companyName: companyName || "",
+
         }
+        await dispatch(getIpoCompanyData(params))
+        dispatch(setCompanyListCurrentPage(companyListCurrentPage + 1))
     }
 
 
@@ -54,8 +77,8 @@ const IpoTable = (props) => {
                 </thead>
                 <tbody>
                     {
-                        dataTable?.length > 0 ? (
-                            dataTable?.slice(0, itemPerPage)?.map((el, index) => {
+                        companyList?.length > 0 ? (
+                            companyList?.map((el, index) => {
 
                                 return (
                                     <tr key={index} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
@@ -71,7 +94,7 @@ const IpoTable = (props) => {
                                             }
                                         </td>
                                         <td className={clsx('text-center', styles.readMore)}>
-                                            <Link href={`/ipo/aegis-logistics-ltd`}>
+                                            <Link href={`/ipo/${el?.slug}`}>
 
                                                 <p className={clsx('mb-0  d-flex align-items-center ')}>
                                                     <span style={{ marginRight: "5px" }}>
@@ -94,8 +117,13 @@ const IpoTable = (props) => {
                 </tbody>
             </Table>
             {
-                dataTable?.length > 10 && (
-                    <LoadMoreBtn data={dataTable} itemPerpage={itemPerPage} loadMoreFun={loadMoreFun} />
+                companyList?.length > 10 && (
+                    <LoadMoreBtn
+                        totalList={companyTotalList}
+                        loading={loading}
+                        data={companyList}
+                        loadMoreFun={loadMoreFun}
+                    />
                 )
             }
         </>

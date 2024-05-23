@@ -30,7 +30,7 @@ const getScreenerIdDataObj = {
     companyListCurrentPage: 1,
     companyTotalList: 100,
     sortCompany: `highLowMarketCap`,
-    companyTypeId: '',
+    companyTypeId: [],
     peLte: '',
     peGte: '',
     marketCapLte: ``,
@@ -74,22 +74,22 @@ export const screenerIdSlice = createSlice({
         },
 
         setCompanySorting: (state, action) => {
-            state.getScreenerIdDataObj.sortCompany = action.payload
+            state.getScreenerIdDataObj.sortCompany = action?.payload
         },
         setCompanyTypeId: (state, action) => {
-            state.getScreenerIdDataObj.companyTypeId = action.payload
+            state.getScreenerIdDataObj.companyTypeId = action?.payload
         },
         setCompanyPeLte: (state, action) => {
-            state.getScreenerIdDataObj.peLte = action.payload
+            state.getScreenerIdDataObj.peLte = action?.payload
         },
         setCompanyPeGte: (state, action) => {
-            state.getScreenerIdDataObj.peGte = action.payload
+            state.getScreenerIdDataObj.peGte = action?.payload
         },
         setCompanyMarketCapLte: (state, action) => {
-            state.getScreenerIdDataObj.marketCapLte = action.payload
+            state.getScreenerIdDataObj.marketCapLte = action?.payload
         },
         setCompanyMarketCapGte: (state, action) => {
-            state.getScreenerIdDataObj.marketCapGte = action.payload
+            state.getScreenerIdDataObj.marketCapGte = action?.payload
         }
     },
     extraReducers: (builder) => {

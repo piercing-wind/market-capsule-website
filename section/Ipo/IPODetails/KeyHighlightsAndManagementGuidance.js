@@ -13,12 +13,17 @@ const KeyHighlightsAndManagementGuidance = ({ headingLabel, keyHightlightData = 
             <HeadingCom
                 label={headingLabel}
             />
-            <BlocksRenderer
-                blocks={{
-                    list: ({ children }) => <ul className={clsx(styles.list)}>{children}</ul>
-                }}
-                content={keyHightlightData}
-            />
+            {
+                keyHightlightData?.length > 0 && (
+                    <BlocksRenderer
+                        blocks={{
+                            list: ({ children }) => <ul className={clsx(styles.list)}>{children}</ul>
+                        }}
+                        content={keyHightlightData}
+                    />
+
+                )
+            }
 
 
         </div>

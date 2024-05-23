@@ -6,128 +6,172 @@ import { useRouter } from "next/router";
 import { wrapper } from "@/store";
 import { Col, Container, Row } from "react-bootstrap";
 import clsx from "clsx";
-import LoderModule from "@/components/Module/LoaderModule";
-import React, { Suspense, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import styles from "../../section/CapsulePlus/style/capsulePlus.module.scss"
-import FilterButton from "@/components/Module/Button/FilterButton";
 import LoadMoreBtn from "@/components/Module/Button/LoadMoreBtn";
-import { capsulePlusCompanyCard, filterButtonData, filterData } from "@/section/CapsulePlus/capsulePlusData";
 import UpgradeCard from "@/components/Module/UpgradeCard/UpgradeCard";
+import { fetchCookie } from "@/utils/storageService";
+import { setAuthorizationToken } from "@/utils/apiServices";
+import { getCapsulePlusCompanyData, getCapsulePlusHeadingData, getFilterSectionList, setCompanyList, setCompanyListCurrentPage, setCompanyListTotalList } from "@/store/slices/capsulePlusSlice";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import toast from "react-hot-toast";
 const ScreeenerHeadingCom = dynamic(() => import("@/components/Module/HeadingComponent/ScreenerHeadingCom"))
-const ScreenerFilterAccrodian = dynamic(() => import("@/components/Module/Accrodian/ScreenerFilterAccrodian"))
+const CapsulePlusFilter = dynamic(() => import("@/components/Module/Accrodian/CapsulePlusFilter"))
 const CapsulePlusCompanyCard = dynamic(() => import("@/components/Module/ScreenerCard/CapsulePlusCompanyCard"))
 
 export default function CapsulePlusPage(props) {
     const { t } = useTranslation("common");
-    const [screenerFilter, setScreenerFilter] = useState("primeArticles")
-    const [itemPerPage, setItemPerPage] = useState(9)
-    const [upgradeNow, setUpgradeNow] = useState(true)
-    //filter based on type and section
-    const functionalSectorialBucketsFilter = (type) => {
-        if (type === "primeArticles") {
-            setScreenerFilter("primeArticles")
-        } else {
-            setScreenerFilter("promoterInterview")
-        }
-
-    }
-
-    //load more btn 
-    const loadMoreFun = () => {
-        console.log("load more fun")
-        if (capsulePlusCompanyCard?.length > itemPerPage) {
-
-            setItemPerPage(itemPerPage + 3)
-        }
-    }
-
     const router = useRouter();
     router.locale = props?.language
         ? props?.language
         : "en";
 
     router.defaultLocale = "en";
+    const { getCapsulePlusCompanyDataObj, getFilterSectionObj, getCapsulePlusCompanyHeadingObj } = props;
+    const { capsulePlus } = getCapsulePlusCompanyDataObj;
+    const { capsulePlusHeadingData } = getCapsulePlusCompanyHeadingObj;
+    console.log("getCapsulePlusCompanyDataObj", getCapsulePlusCompanyDataObj)
+    console.log("getFilterSectionObj", getFilterSectionObj)
+
+    const dispatch = useDispatch();
+    const { loading, companyTypeId, sectorId, industryId, companyName, companyList, companyListCurrentPage, companyTotalList } = useSelector((state) => ({
+        companyList: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.companyList,
+        companyListCurrentPage: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.companyListCurrentPage,
+        companyTotalList: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.companyTotalList,
+        loading: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.loading,
+        companyTypeId: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.companyTypeId,
+        sectorId: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.sectorId,
+        industryId: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.industryId,
+        companyName: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.companyName,
+
+    }), shallowEqual)
+
+
+
+
+    //load more btn 
+    const loadMoreFun = async () => {
+        const params = {
+            page: companyListCurrentPage,
+            limit: 9,
+            companyTypeId: companyTypeId || '',
+            sectorId: sectorId || "",
+            industryId: industryId || "",
+            companyName: companyName || "",
+
+        }
+        await dispatch(getCapsulePlusCompanyData(params))
+        dispatch(setCompanyListCurrentPage(companyListCurrentPage + 1))
+    }
+
+    //set server data to client side
+    useEffect(() => {
+        if (companyList?.length === 0 && getCapsulePlusCompanyDataObj?.error === false) {
+            dispatch(setCompanyList(getCapsulePlusCompanyDataObj?.companyList))
+            dispatch(setCompanyListTotalList(getCapsulePlusCompanyDataObj?.companyTotalList))
+            dispatch(setCompanyListCurrentPage(companyListCurrentPage + 1))
+        } else if (getCapsulePlusCompanyDataObj?.error) {
+            toast.error(`something went wrong`)
+        }
+    }, [dispatch]);
 
 
     return (
         <>
 
-            <Suspense fallback={<LoderModule />}>
-                <Container fluid className={clsx(styles.containerPadding, "mt-4 pb-5 ")}>
+            <Container fluid className={clsx(styles.containerPadding, "mt-4 pb-5 ")}>
 
-                    <Row className={clsx("mx-0 ", styles.row)}>
-                        {/* heading section */}
-                        <Col xs={12} className='px-0'>
-                            <ScreeenerHeadingCom
-                                icon={true}
-                                heading={`capsulePlusPage.capsulePlus`}
-                                para={`capsulePlusPage.discover`}
-                            />
-                        </Col>
+                <Row className={clsx("mx-0 ", styles.row)}>
+                    {/* heading section */}
+                    <Col xs={12} className='px-0'>
+                        <ScreeenerHeadingCom
+                            icon={true}
+                            heading={capsulePlusHeadingData?.attributes?.title || `capsulePlusPage.capsulePlus`}
+                            para={capsulePlusHeadingData?.attributes?.description || `capsulePlusPage.discover`}
+                        />
+                    </Col>
 
-                        <Col lg={3} className='px-0 '>
-                            <ScreenerFilterAccrodian
-                                initialFilterData={filterData}
-                            />
+                    <Col lg={3} className='px-0 '>
+                        <CapsulePlusFilter
+                            filters={getFilterSectionObj?.filterSectionList}
+                        />
 
-                        </Col>
+                    </Col>
 
 
-                        <Col lg={9} className={clsx('px-0 ', styles.borderLeft)}>
-                            <Row className={clsx("mx-0", styles.rowDiv)}>
+                    <Col lg={9} className={clsx('px-0 ', styles.borderLeft)}>
+                        <Row className={clsx("mx-0", styles.rowDiv)}>
 
-                                <Col xs={12}
-                                    className={clsx("px-0", styles.cardSection)}
-                                >
-                                    <Row className={clsx("mx-0")}>
-                                        {
-                                            capsulePlusCompanyCard?.length > 0 ? (
-                                                capsulePlusCompanyCard?.slice(0, itemPerPage)?.map((el, index) => {
-                                                    return (
-                                                        <Col
-                                                            key={index}
-                                                            lg={4} md={6}
-                                                            className={clsx('ps-md-2 ps-0 pe-0 pe-md-2  pb-0 ')}
+                            <Col xs={12}
+                                className={clsx("px-0", styles.cardSection)}
+                            >
+                                <Row className={clsx("mx-0")}>
+                                    {
+                                        companyList?.length > 0 ? (
+                                            companyList?.map((el, index) => {
+                                                return (
+                                                    <Col
+                                                        key={index}
+                                                        lg={4} md={6}
+                                                        className={clsx('ps-md-2 ps-0 pe-0 pe-md-2  pb-0 ')}
 
-                                                        >
-                                                            <CapsulePlusCompanyCard
-                                                                dataObj={el}
-                                                            />
+                                                    >
+                                                        <CapsulePlusCompanyCard
+                                                            dataObj={el}
+                                                        />
 
-                                                        </Col>
-                                                    )
-                                                })
+                                                    </Col>
+                                                )
+                                            })
 
-                                            ) : null
-                                        }
+                                        ) : null
+                                    }
 
-                                        {
-                                            capsulePlusCompanyCard?.length > 10 && (
-                                                <LoadMoreBtn data={capsulePlusCompanyCard} itemPerpage={itemPerPage} loadMoreFun={loadMoreFun} />
-                                            )
-                                        }
+                                    {
+                                        companyList?.length > 10 && (
+                                            <LoadMoreBtn
+                                                totalList={companyTotalList}
+                                                loading={loading}
+                                                data={companyList}
+                                                loadMoreFun={loadMoreFun}
+                                            />
+                                        )
+                                    }
 
-                                    </Row>
-                                </Col>
-                            </Row>
+                                </Row>
+                            </Col>
+                        </Row>
 
-                        </Col>
+                    </Col>
 
-                    </Row>
+                </Row>
 
-                </Container>
-                {
-                    upgradeNow && (
-                        <UpgradeCard />
-                    )
-                }
-            </Suspense>
+            </Container>
+            {
+                capsulePlus && (
+                    <UpgradeCard />
+                )
+            }
         </>
     );
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale }) => {
+    let userActive = fetchCookie("_jwt", req.headers);
+    setAuthorizationToken(userActive);
+
+
+    const params = {
+        page: 1,
+        limit: 9,
+    }
+    await store.dispatch(getCapsulePlusCompanyData(params));
+    await store.dispatch(getFilterSectionList());
+    await store.dispatch(getCapsulePlusHeadingData());
+    const {
+        capsulePlusSlice: { getCapsulePlusCompanyDataObj, getFilterSectionObj, getCapsulePlusCompanyHeadingObj }
+    } = store.getState();
 
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
@@ -136,6 +180,9 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         props: {
             data: "",
             language: locale,
+            getCapsulePlusCompanyDataObj,
+            getFilterSectionObj,
+            getCapsulePlusCompanyHeadingObj,
 
             ...(await serverSideTranslations(locale, fileList)),
         },

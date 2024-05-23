@@ -44,7 +44,7 @@ const ScreenerDetailTable = (props) => {
 
         const params = {
             page: companyListCurrentPage,
-            limit: 2,
+            limit: 10,
             bucketSlug: router?.query?.id,
             companyTypeId: companyTypeId || '',
             peGte: peGte || "",
@@ -81,7 +81,7 @@ const ScreenerDetailTable = (props) => {
         }
         const params = {
             page: 1,
-            limit: 2,
+            limit: 10,
             bucketSlug: router?.query?.id,
             companyTypeId: companyTypeId || '',
             peGte: peGte || "",
@@ -92,7 +92,6 @@ const ScreenerDetailTable = (props) => {
 
         }
 
-        console.log("params", params)
         dispatch(setCompanyListEmpty())
         await dispatch(getScreenerIdData(params))
         dispatch(setCompanyListCurrentPage(2))

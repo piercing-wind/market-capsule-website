@@ -13,12 +13,17 @@ const AboutTheCompany = ({ aboutDescription = [], headingLabel = "" }) => {
             <HeadingCom
                 label={headingLabel}
             />
-            <BlocksRenderer
-                blocks={{
-                    paragraph: ({ children }) => <p className={clsx(styles.para)}>{children}</p>,
-                }}
-                content={aboutDescription}
-            />
+            {
+                aboutDescription && aboutDescription?.length > 0 && (
+                    <BlocksRenderer
+                        blocks={{
+                            paragraph: ({ children }) => <p className={clsx(styles.para)}>{children}</p>,
+                        }}
+                        content={aboutDescription}
+                    />
+
+                )
+            }
 
         </div>
     )

@@ -12,7 +12,9 @@ import manageSubscriptionSlice from './slices/manageSubscriptionSlice';
 import screenerSlugDetailSlice from './slices/screenerSlugDetailSlice';
 import ipoDetailSlice from './slices/ipoDetailSlice';
 import capsuleDetailSlice from './slices/capsuleDetailSlice';
-// import  watchListSlice  from './slices/watchListSlice';
+import ipoSlice from './slices/ipoSlice';
+import capsulePlusSlice from './slices/capsulePlusSlice';
+
 const rootReducer = combineReducers({
     authSlice: authSlice,
     subscriptionSlice: subscriptionSlice,
@@ -25,7 +27,9 @@ const rootReducer = combineReducers({
     manageSubscriptionSlice,
     screenerSlugDetailSlice,
     ipoDetailSlice,
-    capsuleDetailSlice
+    capsuleDetailSlice,
+    ipoSlice,
+    capsulePlusSlice
 });
 
 

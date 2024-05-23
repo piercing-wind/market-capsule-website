@@ -4,13 +4,25 @@ import styles from "./style/upgradeCard.module.scss"
 import { Trans, useTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { shallowEqual, useSelector } from 'react-redux';
+import { setShowForm, setUpgradeNow } from '@/store/slices/authSlice';
 const IconPayNowButton = dynamic(() => import("../Button/IconPayNowButton"))
 
 const UpgradeCard = () => {
     const { t } = useTranslation("common");
+    const { jwt } = useSelector((state) => ({
+        jwt: state?.authSlice?.jwt,
+    }), shallowEqual)
+
     const router = useRouter()
     const handleUpgradeNowFun = () => {
-        router.push("/subscription")
+        if (!jwt) {
+            dispatch(setShowForm(true))
+            dispatch(setUpgradeNow(true))
+
+        } else {
+            router.push("/subscription")
+        }
     }
 
     return (

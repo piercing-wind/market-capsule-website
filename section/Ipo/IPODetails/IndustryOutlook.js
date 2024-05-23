@@ -13,12 +13,18 @@ const IndustryOutlook = ({ headingLabel, industryOutlookData = [] }) => {
             <HeadingCom
                 label={headingLabel}
             />
-            <BlocksRenderer
-                blocks={{
-                    list: ({ children }) => <ul className={clsx(styles.list)}>{children}</ul>
-                }}
-                content={industryOutlookData}
-            />
+
+            {
+                industryOutlookData?.length > 0 && (
+                    <BlocksRenderer
+                        blocks={{
+                            list: ({ children }) => <ul className={clsx(styles.list)}>{children}</ul>
+                        }}
+                        content={industryOutlookData}
+                    />
+
+                )
+            }
 
 
         </div>

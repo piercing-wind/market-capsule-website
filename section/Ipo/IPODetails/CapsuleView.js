@@ -13,12 +13,18 @@ const CapsuleView = ({ headingLabel, capsuleViewData = [] }) => {
             <HeadingCom
                 label={headingLabel}
             />
-            <BlocksRenderer
-                blocks={{
-                    list: ({ children }) => <ul className={clsx(styles.list)}>{children}</ul>
-                }}
-                content={capsuleViewData}
-            />
+
+            {
+                capsuleViewData?.length > 0 && (
+                    <BlocksRenderer
+                        blocks={{
+                            list: ({ children }) => <ul className={clsx(styles.list)}>{children}</ul>
+                        }}
+                        content={capsuleViewData}
+                    />
+
+                )
+            }
 
 
         </div>

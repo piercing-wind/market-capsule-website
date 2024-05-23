@@ -37,8 +37,8 @@ export default function IpoDetails(props) {
     const { capsulePlus } = getCapsuleCompanyDetailObj;
     const { marketCap = null, prevClosePrice = null, sector = null, ttpmPE = null, sectoralPERange = null, peRemark = null, BSE = null } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData?.company_share_detail
     const {
-        businessOverview
-        , monthlyArr = [], yearArr = [], companyTypeDetails, capsuleHighlights, name, logo, industry, operation_details, prices, websiteUrl } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData;
+        businessOverview, financialReport, shareCapitalAndEmployees,
+        monthlyArr = [], yearArr = [], companyTypeDetails, capsuleHighlights, name, logo, industry, operation_details, prices, websiteUrl } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData;
     const { capsuleplus } = capsulePluseDetailsData
 
     const router = useRouter();
@@ -168,14 +168,14 @@ export default function IpoDetails(props) {
 
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                                         <AboutTheCompany
-                                            aboutDescription={businessOverview}
+                                            aboutDescription={financialReport}
                                             headingLabel={`capsuleDetailPage.financialReport`}
                                         />
                                     </Col>
 
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                                         <AboutTheCompany
-                                            aboutDescription={businessOverview}
+                                            aboutDescription={shareCapitalAndEmployees}
                                             headingLabel={`capsuleDetailPage.shareCapitalAndNumberOfEmployess`}
                                         />
                                     </Col>
@@ -219,6 +219,7 @@ export default function IpoDetails(props) {
                                         />
 
                                     </Col>
+
                                     <Col lg={12} className={clsx(styles.shareHoldingPadding, "pb-3")} >
                                         <FinacialHighlightTable
                                             uniqueYears={uniqueMonths}

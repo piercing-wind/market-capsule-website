@@ -4,14 +4,16 @@ import clsx from "clsx";
 import styles from "./style/sectorAutofillDropdown.module.scss"
 import { Trans, useTranslation } from 'next-i18next';
 import Search from "@/components/svg/Search";
+import BlueCheckbox from "@/components/svg/BlueCheckbox";
 const SectorAutofillDropdown = ({
     name,
     value,
     placeholder,
     onChange,
     sectorArr,
-    filterIndex,
-    handleCheckbox
+    handleFilterChange,
+    el,
+    checkedState
 }) => {
 
     const [list, setList] = React.useState(sectorArr);
@@ -50,30 +52,32 @@ const SectorAutofillDropdown = ({
                             ? list
                                 ?.filter((elId) => {
                                     return value
-                                        ? elId?.label?.toLowerCase()?.includes(value?.toLowerCase())
+                                        ? elId?.name?.toLowerCase()?.includes(value?.toLowerCase())
                                         : elId;
                                 })
-                                ?.map((elId, typeIndex) => (
-                                    <div
-                                        value={elId?.id}
-                                        key={typeIndex}
+                                ?.map((option, typeIndex) => (
+                                    <div className="custom-checkbox-container" key={typeIndex}>
+                                        <input
+                                            type="checkbox"
+                                            name={option?.name}
+                                            id={option?.name + el?.filterName}
+                                            value={el?.filterName !== "companyName" ? option?.id : option?.name}
+                                            checked={checkedState[option?.name] || false}
+                                            onChange={(e) => handleFilterChange(e, el?.filterName)}
+                                            className="custom-checkbox-input"
+                                        />
+                                        <label htmlFor={option.name + el?.filterName} className={clsx("custom-checkbox-label mb-2", styles.span, checkedState[option?.name] && styles.medium)}>
 
-                                    >
-
-                                        <div key={typeIndex}
-                                            onClick={(type, status) => handleCheckbox(elId.status, filterIndex, typeIndex)}
-                                            className={clsx("d-flex align-items-center column-gap-2 mb-2", styles.checkDiv)}
-                                        >
-                                            <FilterCheckbox
-                                                value={elId?.type}
-                                                status={elId.status}
-                                                type={elId.type}
-                                                handleCheckbox={(type, status) => handleCheckbox(status, filterIndex, typeIndex)}
-                                            />
-                                            <span className={clsx(elId?.status && styles.medium)}>{t(elId?.label)}</span>
-                                        </div>
-
+                                            <span className="custom-checkbox-icon">
+                                                {checkedState[option?.name] && (
+                                                    <BlueCheckbox />
+                                                )}
+                                            </span>
+                                            {option?.name}
+                                        </label>
                                     </div>
+
+
                                 ))
                             : null}
                     </div>
