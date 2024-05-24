@@ -9,7 +9,8 @@ const nextConfig = {
     IMG: process.env.IMG,
     PORT: process.env.PORT,
     IMGURL: process.env.IMGURL,
-
+    RAZORPAY_KEY: process.env.RAZORPAY_KEY,
+    CURRENCY: process.env.CURRENCY,
 
   },
   i18n,

@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 import { Trans, useTranslation } from 'next-i18next';
 const SectorAutofillDropdown = dynamic(() => import("../Dropdown/SectorAutofillDropdown"))
 import * as Icon from "react-icons/fi";
-import BlueCheckbox from "@/components/svg/blueCheckbox";
+import BlueCheckbox from "@/components/svg/BlueCheckbox";
 import { getIpoCompanyData, setCompanyIndustryId, setCompanyListCurrentPage, setCompanyListEmpty, setCompanyName, setCompanySectorId, setCompanyTypeId } from "@/store/slices/ipoSlice";
 
 

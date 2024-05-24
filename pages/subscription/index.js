@@ -5,14 +5,17 @@ import { secureHeader } from "@/middleware/securityHeader";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { wrapper } from "@/store";
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import LoderModule from "@/components/Module/LoaderModule";
 import { Col, Container, Row } from "react-bootstrap";
 import styles from "../../section/Subscription/style/subscription.module.scss"
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import { setShowForm } from "@/store/slices/subscriptionSlice";
+import { getPlanData, setShowForm } from "@/store/slices/subscriptionSlice";
+import { fetchCookie } from "@/utils/storageService";
+import { setAuthorizationToken } from "@/utils/apiServices";
+import toast from "react-hot-toast";
 const PlanCard = dynamic(() => import("@/section/Subscription/PlanCard"))
 const OrderSummaryCard = dynamic(() => import("@/section/Subscription/OrderSummaryCard"))
 const PromoCodeModal = dynamic(() => import("@/components/Module/Modal/PromoCodeModal"))
@@ -20,7 +23,6 @@ const PromoCodeModal = dynamic(() => import("@/components/Module/Modal/PromoCode
 
 export default function SubscriptionPage(props) {
     const { t } = useTranslation("common");
-
     const dispatch = useDispatch()
     const router = useRouter();
     router.locale = props?.language
@@ -28,12 +30,18 @@ export default function SubscriptionPage(props) {
         : "en";
 
     router.defaultLocale = "en";
-
+    const { getPlanDataObj } = props;
     const addPromoCodeFun = () => {
         console.log('coli')
         dispatch(setShowForm(true))
 
     }
+
+    useEffect(() => {
+        if (getPlanDataObj?.error) {
+            toast.error(t(`message.somethingWentWrong`))
+        }
+    }, [])
     return (
         <>
 
@@ -47,7 +55,9 @@ export default function SubscriptionPage(props) {
                                 </Trans>
                             </p>
                             <hr />
-                            <PlanCard />
+                            <PlanCard
+                                planCardData={getPlanDataObj?.data}
+                            />
                             <div style={{ marginTop: "20px" }}>
                                 <Image className="w-100 h-auto" src="/assests/subscription/payment-logo.png" alt="payment-image" width="390" height="32" />
                             </div>
@@ -83,6 +93,14 @@ export default function SubscriptionPage(props) {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale }) => {
+    let userActive = fetchCookie("_jwt", req.headers);
+    setAuthorizationToken(userActive);
+
+    await store.dispatch(getPlanData());
+
+    const {
+        subscriptionSlice: { getPlanDataObj }
+    } = store.getState();
 
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
@@ -91,6 +109,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         props: {
             data: "",
             language: locale,
+            getPlanDataObj,
 
             ...(await serverSideTranslations(locale, fileList)),
         },

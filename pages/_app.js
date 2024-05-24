@@ -32,13 +32,21 @@ const App = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pageProps } = props;
   const router = useRouter()
+  console.log("router", router)
+  const validPaths = [
+    "/subscription/payment-successfull",
+    "/subscription/payment-failure",
+
+    // ... add other paths ...
+  ];
+  const isSpecialPath = validPaths.includes(router.asPath);
 
   return (
 
     <Provider store={store}>
       <MiddleWare>
         {/* <InnerComponent pageProps={pageProps} /> */}
-        <main className={clsx(`${plus_Jakarta_Sans.className}`, "gray-bg")}>
+        <main className={clsx(`${plus_Jakarta_Sans.className}`, !isSpecialPath ? "gray-bg" : "")}>
 
           {
             router?.pathname !== "/404" ? (

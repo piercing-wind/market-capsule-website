@@ -8,7 +8,7 @@ import clsx from 'clsx';
 import styles from "./style/screenerFilterAccrodian.module.scss"
 import dynamic from 'next/dynamic';
 import { Trans, useTranslation } from 'next-i18next';
-import BlueCheckbox from "@/components/svg/blueCheckbox";
+import BlueCheckbox from "@/components/svg/BlueCheckbox";
 
 
 export const ScreenerFilter = ({ filters }) => {
