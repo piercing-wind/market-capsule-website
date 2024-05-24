@@ -12,7 +12,8 @@ const PaymentSuccess = ({ icon, heading, description }) => {
 
     const router = useRouter()
     const backToHomeFun = () => {
-        router.push("/")
+        window.open("/", "_self");
+
     }
     return (
         <div className={clsx(styles.mainDiv)}>

@@ -55,6 +55,8 @@ export default function CapsulePlusPage(props) {
         const params = {
             page: companyListCurrentPage,
             limit: 9,
+            capsuleplus: true,
+
             companyTypeId: companyTypeId || '',
             sectorId: sectorId || "",
             industryId: industryId || "",
@@ -79,6 +81,7 @@ export default function CapsulePlusPage(props) {
 
     return (
         <>
+
 
             <Container fluid className={clsx(styles.containerPadding, "mt-4 pb-5 ")}>
 
@@ -129,7 +132,7 @@ export default function CapsulePlusPage(props) {
                                     }
 
                                     {
-                                        companyList?.length > 10 && (
+                                        companyList?.length > 9 && (
                                             <LoadMoreBtn
                                                 totalList={companyTotalList}
                                                 loading={loading}
@@ -165,6 +168,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     const params = {
         page: 1,
         limit: 9,
+        capsuleplus: true
     }
     await store.dispatch(getCapsulePlusCompanyData(params));
     await store.dispatch(getFilterSectionList());

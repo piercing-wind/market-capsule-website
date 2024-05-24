@@ -11,7 +11,7 @@ import styles from "../section/Homepage/style/home.module.scss"
 import LoderModule from "@/components/Module/LoaderModule";
 import React, { Suspense, startTransition, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { getCategoriesList, getFeedList, getIndustriesList, getTopGainerList, getTopLosersList, getTrandingNewsList, getWhatsNewInCapsulePlusList, setTopGainerList, setTopGainerTotalList } from "@/store/slices/homePageSlice";
+import { getCategoriesList, getFeedList, getHomePageMetaData, getIndustriesList, getTopGainerList, getTopLosersList, getTrandingNewsList, getWhatsNewInCapsulePlusList, setTopGainerList, setTopGainerTotalList } from "@/store/slices/homePageSlice";
 const LeftHomeSection = dynamic(() => import('@/section/Homepage/LeftHomeSection/LeftHomeSection'), { suspense: true, loading: () => <LoderModule /> })
 const MidleHomeSection = dynamic(() => import('@/section/Homepage/MidleHomeSection/MidleHomeSection'), { suspense: true, loading: () => <LoderModule /> })
 const RightHomeSection = dynamic(() => import('@/section/Homepage/RightHomeSection/RightHomeSection'), { suspense: true, loading: () => <LoderModule /> })
@@ -82,7 +82,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     limit: 5,
     industryId: ``
   }
-
+  await store.dispatch(getHomePageMetaData());
+  await store.dispatch(getTopGainerList(params));
   await store.dispatch(getTopGainerList(params));
   await store.dispatch(getTopLosersList(params));
   await store.dispatch(getTrandingNewsList(trandingNewsParams));
@@ -91,9 +92,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
   await store.dispatch(getFeedList(feedListParams));
 
   const {
-    homePageSlice: { topGainerObj, topLosersObj, trandingNewsObj, whatsNewInCapsulePlusObj, industriesObj, feedListObj }
+    homePageSlice: { seoObj, topGainerObj, topLosersObj, trandingNewsObj, whatsNewInCapsulePlusObj, industriesObj, feedListObj }
   } = store.getState();
-
   let fileList = getFileLangList();
   secureHeader(req, res, locale);
   return {
@@ -105,6 +105,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
       whatsNewInCapsulePlusObj,
       industriesObj,
       feedListObj,
+      seo: seoObj?.seo,
       language: locale,
 
       ...(await serverSideTranslations(locale, fileList)),

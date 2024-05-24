@@ -13,6 +13,7 @@ import MiddleWare from "@/components/MiddleWare";
 import { getCookiesStorage } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
 import { getFetchAuth, setResetSlice, setUpdateJwtToken } from "@/store/slices/authSlice";
+import SeoHeader from "@/seo/SeoHeader";
 const NavbarLayout = dynamic(() => import('@/components/Module/Navbar/Navbar'))
 const Navbar404 = dynamic(() => import('@/components/Module/Navbar/Navbar404'))
 
@@ -40,21 +41,21 @@ const App = ({ Component, ...rest }) => {
     // ... add other paths ...
   ];
   const isSpecialPath = validPaths.includes(router.asPath);
-
   return (
 
     <Provider store={store}>
       <MiddleWare>
-        {/* <InnerComponent pageProps={pageProps} /> */}
-        <main className={clsx(`${plus_Jakarta_Sans.className}`, !isSpecialPath ? "gray-bg" : "")}>
+        <SeoHeader
+          {...(pageProps?.seo ? pageProps?.seo : "")}
+          backUrl={rest?.router?.pathname ? ((rest?.router?.pathname)) : "/"}
 
+        />
+        <main className={clsx(`${plus_Jakarta_Sans.className}`, !isSpecialPath ? "gray-bg" : "")}>
           {
             router?.pathname !== "/404" ? (
               <NavbarLayout />
-
             ) : (
               <Navbar404 />
-
             )
           }
           <Component {...pageProps} />
@@ -65,7 +66,6 @@ const App = ({ Component, ...rest }) => {
           containerClassName="toasterCss"
         />
       </MiddleWare>
-
     </Provider>
 
   )

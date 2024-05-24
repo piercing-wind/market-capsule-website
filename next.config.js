@@ -11,7 +11,7 @@ const nextConfig = {
     IMGURL: process.env.IMGURL,
     RAZORPAY_KEY: process.env.RAZORPAY_KEY,
     CURRENCY: process.env.CURRENCY,
-
+    WEB: process.env.WEB
   },
   i18n,
   images: {

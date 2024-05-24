@@ -4,6 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getCapsulePlusCompanyData = createAsyncThunk('capsulePlusSlice/getCapsulePlusCompanyData', async (params = {}) => {
     const response = await getMethod(`company/list`, params);
+    console.log("response", response)
     return (response)
 });
 

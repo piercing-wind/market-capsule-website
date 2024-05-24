@@ -6,7 +6,10 @@ import { HYDRATE } from 'next-redux-wrapper';
 
 
 // Action
-
+export const getHomePageMetaData = createAsyncThunk('homePageSlice/getHomePageMetaData', async (params) => {
+    const response = await getMethod(`homepage?fields[0]=metaTitle&fields[1]=metaDescription`);
+    return (response)
+});
 export const getTopGainerList = createAsyncThunk('homePageSlice/getTopGainerList', async (params) => {
     const response = await getMethod(`${apiEndPoints.getTopGainerList}?filters[exchangeType][$eq]=${params.filter}&pagination[page]=${params.page}&pagination[pageSize]=${params.limit}&sort=${params.sort}&populate[company][fields][0]=${params.populate}`);
     return (response)
@@ -120,6 +123,12 @@ const getGlobalSearchObj = {
     globalSearchTotalList: 0,
 }
 
+const seoObj = {
+    loading: false,
+    error: false,
+    seo: ""
+}
+
 export const homePageSlice = createSlice({
     name: 'homePageSlice',
     initialState: {
@@ -130,7 +139,8 @@ export const homePageSlice = createSlice({
         whatsNewInCapsulePlusObj,
         industriesObj,
         feedListObj,
-        getGlobalSearchObj
+        getGlobalSearchObj,
+        seoObj
 
     },
     reducers: {
@@ -172,6 +182,25 @@ export const homePageSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(getHomePageMetaData.pending, (state, action) => {
+                state.seoObj.loading = true;
+                state.seoObj.error = false;
+            })
+            .addCase(getHomePageMetaData.fulfilled, (state, action) => {
+                state.seoObj.loading = false;
+                state.seoObj.error = false;
+                const seo = (action?.payload?.data?.attributes ? ({
+                    title: action?.payload?.data?.attributes?.metaTitle ? action?.payload?.data?.attributes?.metaTitle : '',
+                    description: action?.payload?.data?.attributes?.metaDescription ? action?.payload?.data?.attributes?.metaDescription : '',
+                }) : null)
+                state.seoObj.seo = seo;
+
+
+            })
+            .addCase(getHomePageMetaData.rejected, (state, action) => {
+                state.seoObj.loading = false;
+                state.seoObj.error = true;
+            })
             .addCase(getTopGainerList.pending, (state, action) => {
                 state.topGainerObj.loading = true;
                 state.topGainerObj.error = false;

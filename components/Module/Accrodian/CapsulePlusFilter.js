@@ -28,6 +28,8 @@ const CapsulePlusFilter = ({ filters }) => {
         const params = {
             page: 1,
             limit: 9,
+            capsuleplus: true
+
         };
 
         Object?.entries(filterState)?.forEach(([key, value]) => {

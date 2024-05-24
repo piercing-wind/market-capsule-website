@@ -8,8 +8,14 @@ const WhatsNewCard = dynamic(() => import('./WhatsNewCard'))
 import { caseStudyDataObj, trandingNewsDataObj } from '../homePageData';
 import NewsPaperOpen from '@/components/svg/NewsPaperOpen'
 import Bulb from '@/components/svg/Bulb'
+import { shallowEqual, useSelector } from 'react-redux'
 
 const RightHomeSection = ({ trandingNewsObj, whatsNewInCapsulePlusObj }) => {
+  const { userDetails } = useSelector((state) => ({
+    userDetails: state?.authSlice?.userDetails,
+
+  }), shallowEqual)
+  console.log(userDetails)
   return (
 
     <Col lg={3} className='order-2 ps-2 pe-2 pe-lg-0' >
@@ -26,8 +32,11 @@ const RightHomeSection = ({ trandingNewsObj, whatsNewInCapsulePlusObj }) => {
           logo={<Bulb />}
           headingLabel={`homepage.rightSection.whatNewInCapsulePlus`}
         />
-
-        <CapsulePlusCard />
+        {
+          !userDetails?.capsuleplus && (
+            <CapsulePlusCard />
+          )
+        }
       </div>
     </Col>
   )

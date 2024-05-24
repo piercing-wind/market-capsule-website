@@ -25,7 +25,6 @@ const OrderSummaryCard = () => {
         }
     ), shallowEqual)
 
-    console.log("userDetails", userDetails)
     const dispatch = useDispatch()
 
     const panyNowFun = async () => {
