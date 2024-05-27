@@ -6,6 +6,7 @@ import { Trans, useTranslation } from 'next-i18next';
 
 const FinacialHighlightTable = ({ uniqueYears, finacialHightlightGroupedData, paricular = "" }) => {
     const { t } = useTranslation("common")
+    console.log("finacialHightlightGroupedData", finacialHightlightGroupedData)
     return (
         <div className={clsx("tableScroll")}>
             <Table responsive>
@@ -21,7 +22,7 @@ const FinacialHighlightTable = ({ uniqueYears, finacialHightlightGroupedData, pa
                                         <th key={index} className={clsx(styles.heading)} >
                                             <div className={clsx('d-flex column-gap-2 align-items-center justify-content-center ', index !== 0 && "justify-content-center")}>
                                                 <span className='text-center'>
-                                                    {el}
+                                                    {`${el?.month}-${el?.year}`}
 
                                                 </span>
 
@@ -37,14 +38,14 @@ const FinacialHighlightTable = ({ uniqueYears, finacialHightlightGroupedData, pa
                     </tr>
                 </thead>
                 <tbody>
-                    {Object.keys(finacialHightlightGroupedData).map((title, index) => (
+                    {Object?.keys(finacialHightlightGroupedData)?.map((title, index) => (
                         <tr key={title} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
                             <td>{title}</td>
-                            {uniqueYears.map((year) => {
-                                const item = finacialHightlightGroupedData[title].find(
-                                    (dataItem) => dataItem.year === year
+                            {uniqueYears?.map((el, index) => {
+                                const item = finacialHightlightGroupedData[title]?.find(
+                                    (dataItem) => dataItem?.year === el?.year
                                 );
-                                return <td key={year} className={clsx('text-center', styles.regular)}>{item ? item.value : ""}</td>;
+                                return <td key={index} className={clsx('text-center', styles.regular)}>{item ? item?.value : ""}</td>;
                             })}
                         </tr>
                     ))}

@@ -7,11 +7,35 @@ export const getCapsuleCompanyDetailData = createAsyncThunk('capsuleDetailSlice/
     return (response)
 });
 
+export const getOperationDetailQuetarly = createAsyncThunk('capsuleDetailSlice/getOperationDetailQuetarly', async (params) => {
+    const response = await getMethod(`operation-detail/list`, params);
+    return (response)
+});
+
+export const getOperationDetailYearly = createAsyncThunk('capsuleDetailSlice/getOperationDetailYearly', async (params) => {
+    const response = await getMethod(`operation-detail/list`, params);
+    return (response)
+});
+
 const getCapsuleCompanyDetailObj = {
     loading: false,
     error: false,
     capsuleCompanyDetailData: {},
     capsulePlus: false
+
+}
+
+const getOperationDetailQuetarlyObj = {
+    loading: false,
+    error: false,
+    quetarlyData: [],
+
+}
+
+const getOperationDetailYearlyObj = {
+    loading: false,
+    error: false,
+    yearlyData: [],
 
 }
 
@@ -25,7 +49,9 @@ export const capsuleDetailSlice = createSlice({
     name: 'capsuleDetailSlice',
     initialState: {
         getCapsuleCompanyDetailObj,
-        seoObj
+        seoObj,
+        getOperationDetailQuetarlyObj,
+        getOperationDetailYearlyObj
     },
     reducers: {
 
@@ -49,6 +75,31 @@ export const capsuleDetailSlice = createSlice({
             .addCase(getCapsuleCompanyDetailData.rejected, (state, action) => {
                 state.getCapsuleCompanyDetailObj.loading = false;
                 state.getCapsuleCompanyDetailObj.error = true;
+            })
+            .addCase(getOperationDetailQuetarly.pending, (state, action) => {
+                state.getOperationDetailQuetarlyObj.loading = true;
+            })
+            .addCase(getOperationDetailQuetarly.fulfilled, (state, action) => {
+                state.getOperationDetailQuetarlyObj.loading = false;
+                state.getOperationDetailQuetarlyObj.quetarlyData = action?.payload?.data
+
+            })
+            .addCase(getOperationDetailQuetarly.rejected, (state, action) => {
+                state.getOperationDetailQuetarlyObj.loading = false;
+                state.getOperationDetailQuetarlyObj.error = true;
+            })
+
+            .addCase(getOperationDetailYearly.pending, (state, action) => {
+                state.getOperationDetailYearlyObj.loading = true;
+            })
+            .addCase(getOperationDetailYearly.fulfilled, (state, action) => {
+                state.getOperationDetailYearlyObj.loading = false;
+                state.getOperationDetailYearlyObj.yearlyData = action?.payload?.data
+
+            })
+            .addCase(getOperationDetailYearly.rejected, (state, action) => {
+                state.getOperationDetailYearlyObj.loading = false;
+                state.getOperationDetailYearlyObj.error = true;
             })
     },
 });
