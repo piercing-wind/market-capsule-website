@@ -64,7 +64,11 @@ const OtpForm = () => {
                             dispatch(setShowForm(false))
                             dispatch(setAuthType("homePage"))
                             dispatch(setUpgradeNow(false))
-                            router.push("/subscription")
+                            if (response?.data?.user?.capsuleplus) {
+                                window.open(window.location.pathname, "_self")
+                            } else {
+                                router.push("/subscription")
+                            }
                         }
                         else if (otpData?.prevPath === "login") {
                             dispatch(setShowForm(false))

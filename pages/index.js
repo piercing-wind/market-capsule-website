@@ -12,6 +12,8 @@ import LoderModule from "@/components/Module/LoaderModule";
 import React, { Suspense, startTransition, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { getCategoriesList, getFeedList, getHomePageMetaData, getIndustriesList, getTopGainerList, getTopLosersList, getTrandingNewsList, getWhatsNewInCapsulePlusList, setTopGainerList, setTopGainerTotalList } from "@/store/slices/homePageSlice";
+import { fetchCookie } from "@/utils/storageService";
+import { setAuthorizationToken } from "@/utils/apiServices";
 const LeftHomeSection = dynamic(() => import('@/section/Homepage/LeftHomeSection/LeftHomeSection'), { suspense: true, loading: () => <LoderModule /> })
 const MidleHomeSection = dynamic(() => import('@/section/Homepage/MidleHomeSection/MidleHomeSection'), { suspense: true, loading: () => <LoderModule /> })
 const RightHomeSection = dynamic(() => import('@/section/Homepage/RightHomeSection/RightHomeSection'), { suspense: true, loading: () => <LoderModule /> })
@@ -52,6 +54,11 @@ export default function Home(props) {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale }) => {
+  let userActive = fetchCookie("_jwt", req.headers);
+  setAuthorizationToken(userActive);
+
+
+
   const params = {
     filter: "BSE",
     page: 1,

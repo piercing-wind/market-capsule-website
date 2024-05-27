@@ -12,7 +12,7 @@ import styles from "../../section/AccountSettings/style/accountSettings.module.s
 import clsx from "clsx";
 import dynamic from "next/dynamic";
 import { fetchTodos } from "@/store/slices/homePageSlice";
-import { getFetchAuth, getProfessionList, getProfile } from "@/store/slices/authSlice";
+import { getFetchAuth } from "@/store/slices/authSlice";
 import { fetchCookie, getCookiesStorage } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
 const LeftSidebar = dynamic(() => import("@/components/Module/Sidebar/LeftSidebar"))

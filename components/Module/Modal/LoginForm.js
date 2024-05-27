@@ -3,7 +3,7 @@ import clsx from "clsx"
 import styles from "./style/loginForm.module.scss"
 import { continueFromSocial } from './loginFormData';
 import dynamic from 'next/dynamic';
-import { setAuthType, } from '@/store/slices/authSlice';
+import { getGoogleConnect, setAuthType, } from '@/store/slices/authSlice';
 import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 const LoginButton = dynamic(() => import('../Button/LoginButton'))
@@ -15,6 +15,7 @@ import { removeSessionStorage, setCookiesStorage, setSessionStorage } from '@/ut
 import toast from 'react-hot-toast';
 import LoderModule from '../LoaderModule';
 import { postMethod } from '@/utils/apiServices';
+import Image from 'next/image';
 
 
 const validationSchema = Yup.object().shape({
@@ -28,12 +29,15 @@ const signupFormData = {
 const LoginForm = () => {
     const { t } = useTranslation("common");
     const [loader, setLoader] = useState(false);
-
+    const google = `${process.env.API}/api/connect/google`
+    const googleText = "Sign in with Google"
     const dispatch = useDispatch()
 
     //handle login with social media
-    const handleLoginWithSocialMedia = () => {
+    const handleLoginWithSocialMedia = async () => {
         console.log("handle login with social media")
+        await dispatch(getGoogleConnect())
+
     }
 
     //signup form btn 
@@ -130,7 +134,23 @@ const LoginForm = () => {
 
                         </p>
                         <div className={clsx("d-flex flex-column", styles.socialLoginBtnDiv)}>
-                            {
+                            <a
+                                href={google}
+                                rel="nofollow"
+                                className={clsx("", styles.signupBtn, styles.cyan)}
+                                style={{
+                                    textTransform: "Uppercase",
+                                }}
+                            >
+                                <Image
+                                    src="/assets/images/signup/google-img.svg"
+                                    alt="google-img"
+                                    width={32}
+                                    height={32}
+                                />
+                                <span>{googleText || "Sign in with google"}</span>
+                            </a>
+                            {/* {
                                 continueFromSocial?.length > 0 ? (
                                     continueFromSocial?.map((el, index) => {
                                         return (
@@ -153,7 +173,7 @@ const LoginForm = () => {
                                     })
                                 ) : null
 
-                            }
+                            } */}
 
                         </div>
 

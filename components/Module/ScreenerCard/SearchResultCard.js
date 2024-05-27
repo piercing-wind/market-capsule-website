@@ -54,7 +54,7 @@ const SearchResultCard = (props) => {
                 truncateText(dataObj?.name, 7)
             }</h5>
 
-            <Link className={clsx(styles.readNow)} href={`/${url}/${dataObj?.slug}`}>
+            <Link className={clsx(styles.readNow)} href={url !== "screener" ? `/${url}/${dataObj?.slug}` : `/${url}/${dataObj?.url}`}>
                 <Trans i18nKey={"screener.readNow"}>
                     Read Now
                 </Trans>  <RightArrow />

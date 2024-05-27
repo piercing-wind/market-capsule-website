@@ -41,7 +41,9 @@ export default function Home(props) {
     }), shallowEqual)
     //set server data to client side
     useEffect(() => {
-        if (companyList?.length === 0 && getScreenerIdDataObj?.error === false) {
+        if (getScreenerIdDataObj?.error === false) {
+            console.log("inside")
+            dispatch(setCompanyListEmpty())
             dispatch(setCompanyList(getScreenerIdDataObj?.companyList))
             dispatch(setCompanyListTotalList(getScreenerIdDataObj?.companyTotalList))
             dispatch(setCompanyListCurrentPage(companyListCurrentPage + 1))
@@ -90,7 +92,7 @@ export default function Home(props) {
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale, query }) => {
     const slug = query?.id;
-
+    console.log("query", query)
     const params = {
         page: 1,
         limit: 10,
@@ -106,7 +108,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         screenerIdSlice: { getScreenerIdDataObj, getFilterSectionObj, getScreenerCompanyDataObj }
     } = store.getState();
 
-
+    console.log("getScreenerIdDataObj", getScreenerIdDataObj)
 
     let fileList = getFileLangList();
     secureHeader(req, res, locale);

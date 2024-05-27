@@ -4,7 +4,7 @@ import styles from "./style/homeBlueButton.module.scss";
 import { useTranslation } from 'next-i18next';
 
 const HomeBlueButton = (props) => {
-    const { color, bg, handlerFun = false, label, type = "button" } = props;
+    const { color, bg, handlerFun = false, label, type = "button", disable = false } = props;
     const { t } = useTranslation("common");
 
     //handle home btn function
@@ -16,7 +16,12 @@ const HomeBlueButton = (props) => {
         }
     }
     return (
-        <button type={type} style={{ color: color, background: bg }} onClick={btnFun} className={clsx(styles.btn)}>{t(label)}</button>
+        <button
+            disabled={disable}
+            type={type}
+            style={{ color: color, background: bg, cursor: disable ? "not-allowed" : "pointer" }}
+            onClick={btnFun} className={clsx(styles.btn)}
+        >{t(label)}</button>
     )
 }
 

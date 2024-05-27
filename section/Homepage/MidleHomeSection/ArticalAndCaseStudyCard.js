@@ -132,6 +132,7 @@ const ArticalAndCaseStudyCard = () => {
                                                                     bg={"#3E63FF"}
                                                                     handlerFun={() => { readNowFun(el?.url) }}
                                                                     label={"homepage.midleSection.readNow"}
+                                                                    disable={!el?.url ? true : false}
                                                                 />
                                                             )
                                                     }

@@ -32,8 +32,8 @@ export default function IpoDetails(props) {
     const { t } = useTranslation("common");
     const { getIpoCompanyDetailObj } = props;
     console.log("getIpoCompanyDetailObj", getIpoCompanyDetailObj)
-    const { rocePercent = null, marketCap = null, peRatio = null, roicPercent = null, roePercent = null, currentPrice = null, deRatio = null, cwip = null, cashConversionCycle = null, pegRatio = null } = getIpoCompanyDetailObj?.ipoCompanyDetailData?.company_share_detail
-    const { capsuleView, aboutTheCompany, business_segments, keyHighlights, industry, share_holdings, financial_highlights } = getIpoCompanyDetailObj?.ipoCompanyDetailData;
+    const { rocePercent = null, marketCap = null, peRatio = null, roicPercent = null, roePercent = null, currentPrice = null, deRatio = null, cwip = null, cashConversionCycle = null, pegRatio = null } = getIpoCompanyDetailObj?.ipoCompanyDetailData?.company_share_detail || {}
+    const { capsuleView, aboutTheCompany, business_segments, keyHighlights, industry, share_holdings, financial_highlights } = getIpoCompanyDetailObj?.ipoCompanyDetailData || {};
     const { capsulePlus } = getIpoCompanyDetailObj
 
     const router = useRouter();
@@ -48,62 +48,62 @@ export default function IpoDetails(props) {
         {
             id: 1,
             label: "ipoDetailPage.marketCap",
-            value: `₹${commaSeprater(marketCap)}Cr.`,
+            value: `${marketCap ? `₹${commaSeprater(marketCap)}Cr.` : "N/A"}`,
             bg: true
         },
         {
             id: 2,
             label: "ipoDetailPage.currentPrice",
-            value: `₹${commaSeprater(currentPrice)}`,
+            value: `${currentPrice ? `₹${commaSeprater(currentPrice)}` : "N/A"}`,
             bg: true
         },
         {
             id: 3,
             label: "ipoDetailPage.peRatio",
-            value: `${peRatio}`,
+            value: `${peRatio || "N/A"}`,
             bg: false
         },
         {
             id: 4,
             label: "ipoDetailPage.deRatio",
-            value: `${deRatio}`,
+            value: `${deRatio || "N/A"}`,
             bg: false,
         },
         {
             id: 5,
             label: "ipoDetailPage.roce",
-            value: `${rocePercent}%`,
+            value: `${rocePercent ? `${rocePercent}%` : "N/A"}`,
             bg: true,
             updated: false,
         },
         {
             id: 6,
             label: "ipoDetailPage.cwip",
-            value: `₹${commaSeprater(cwip)}Cr.`,
+            value: `${cwip ? `₹${commaSeprater(cwip)}Cr.` : "N/A"}`,
             bg: true
         },
         {
             id: 7,
             label: "ipoDetailPage.roic",
-            value: `${roicPercent}%`,
+            value: `${roicPercent ? `${roicPercent}%` : "N/A"}`,
             bg: false
         },
         {
             id: 8,
             label: "ipoDetailPage.cashConversionCycle",
-            value: `${cashConversionCycle} day`,
+            value: `${cashConversionCycle ? `${cashConversionCycle} day` : "N/A"}`,
             bg: false
         },
         {
             id: 9,
             label: "ipoDetailPage.roe",
-            value: `${roePercent}%`,
+            value: `${roePercent ? `${roePercent}%` : "N/A"}`,
             bg: true
         },
         {
             id: 10,
             label: "ipoDetailPage.pegRatio",
-            value: `${pegRatio}`,
+            value: `${pegRatio || "N/A"}`,
 
             bg: true
         }

@@ -40,6 +40,7 @@ const FilterButton = () => {
     const showAllListType = () => {
         dispatch(setShowFilterModalForm(true))
     }
+    console.log("industryList", industryList)
     return (
         <>
             {

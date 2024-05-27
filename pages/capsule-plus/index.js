@@ -13,7 +13,7 @@ import LoadMoreBtn from "@/components/Module/Button/LoadMoreBtn";
 import UpgradeCard from "@/components/Module/UpgradeCard/UpgradeCard";
 import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
-import { getCapsulePlusCompanyData, getCapsulePlusHeadingData, getFilterSectionList, setCompanyList, setCompanyListCurrentPage, setCompanyListTotalList } from "@/store/slices/capsulePlusSlice";
+import { getCapsulePlusCompanyData, getCapsulePlusHeadingData, getFilterSectionList, setCompanyList, setCompanyListCurrentPage, setCompanyListEmpty, setCompanyListTotalList } from "@/store/slices/capsulePlusSlice";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 const ScreeenerHeadingCom = dynamic(() => import("@/components/Module/HeadingComponent/ScreenerHeadingCom"))
@@ -69,7 +69,8 @@ export default function CapsulePlusPage(props) {
 
     //set server data to client side
     useEffect(() => {
-        if (companyList?.length === 0 && getCapsulePlusCompanyDataObj?.error === false) {
+        if (getCapsulePlusCompanyDataObj?.error === false) {
+            dispatch(setCompanyListEmpty())
             dispatch(setCompanyList(getCapsulePlusCompanyDataObj?.companyList))
             dispatch(setCompanyListTotalList(getCapsulePlusCompanyDataObj?.companyTotalList))
             dispatch(setCompanyListCurrentPage(companyListCurrentPage + 1))

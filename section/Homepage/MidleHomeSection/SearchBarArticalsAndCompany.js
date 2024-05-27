@@ -39,19 +39,13 @@ const SearchBarArticalsAndCompany = () => {
       searchTypeFun()
     }
   }, [value])
-  console.log("value", value)
-
-  console.log("globalSearchList", globalSearchList)
-  // console.log("globalSearchTotalList", globalSearchTotalList)
 
   return (
     <div className={clsx("p-3", styles.searchBarSection)}>
       <div className={clsx(styles.inputBlock, styles.typeahead)}>
 
         <div className={clsx("d-flex align-items-center column-gap-2 px-2 ", styles.searchBar, styles.div1)}>
-          <button >
-            <Search />
-          </button>
+          <Search />
           <input
             value={text}
             type={"text"}

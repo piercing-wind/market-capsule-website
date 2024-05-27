@@ -266,6 +266,9 @@ export default function IpoDetails(props) {
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale, query }) => {
     let userActive = fetchCookie("_jwt", req.headers);
     setAuthorizationToken(userActive);
+    console.log("query", query)
+    console.log("userActive", userActive)
+
     const slug = query?.id;
     const params = {
         slug: slug,
@@ -289,7 +292,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         screenerSlugDetailSlice: { getDisclaimerDataObj }
 
     } = store.getState();
-
+    console.log("")
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
     // Get the current date on the server

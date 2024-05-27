@@ -29,8 +29,6 @@ export default function CapsulePlusPage(props) {
         bucketObj,
         getFilterObj,
         getScreenerHeadingObj } = props;
-    console.log("bucketObj", bucketObj)
-    console.log("getFilterObj", getFilterObj)
 
     const { bucketLoading, bucketList, bucketCurrentPage, bucketTotalList } = useSelector((state) => ({
         bucketList: state?.screenerSlice?.bucketObj?.bucketList,

@@ -6,7 +6,7 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Col, Row } from 'react-bootstrap';
 import IconPayNowButton from '../Button/IconPayNowButton';
 import { Trans, useTranslation } from 'next-i18next';
-import { getFeedList, setIndustryId, setShowFilterModalForm } from '@/store/slices/homePageSlice';
+import { getFeedList, setFeedCurrentPage, setFeedListEmpty, setIndustryId, setShowFilterModalForm } from '@/store/slices/homePageSlice';
 
 const HomepageFilterModal = ({ filterActiveState, setFilterActiveState }) => {
     const { t } = useTranslation("common")

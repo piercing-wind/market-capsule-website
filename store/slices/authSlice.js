@@ -9,14 +9,18 @@ export const getFetchAuth = createAsyncThunk('authSlice/getFetchAuth', async () 
     return (response)
 });
 
-export const getProfile = async () => {
-    let response = await getMethod(`${apiEndPoints.authUserDetail}`);
-    return response;
-};
+
 
 export const getProfessionList = createAsyncThunk('authSlice/getProfeessionList', async () => {
     const response = await getMethod(`${apiEndPoints.getProfessionList}`);
     return (response)
+});
+
+export const getGoogleConnect = createAsyncThunk('authSlice/getGoogleConnect', async () => {
+    const response = await getMethod(`connect/google`);
+    console.log("response", response)
+    return (response)
+
 });
 
 // "login" 

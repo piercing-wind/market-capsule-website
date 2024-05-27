@@ -12,7 +12,7 @@ import dynamic from "next/dynamic";
 import styles from "../../section/Ipo/style/ipo.module.scss"
 import { filterData, ipoTableData, ipoTableHeading } from "@/section/Ipo/ipoData";
 import SectorAutofillDropdown from "@/components/Module/Dropdown/SectorAutofillDropdown";
-import { getFilterSectionList, getIpoCompanyData, getIpoCompanyHeadingData, setCompanyList, setCompanyListCurrentPage, setCompanyListTotalList } from "@/store/slices/ipoSlice";
+import { getFilterSectionList, getIpoCompanyData, getIpoCompanyHeadingData, setCompanyList, setCompanyListCurrentPage, setCompanyListEmpty, setCompanyListTotalList } from "@/store/slices/ipoSlice";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { fetchCookie } from "@/utils/storageService";
@@ -40,7 +40,9 @@ export default function CapsulePlusPage(props) {
 
     //set server data to client side
     useEffect(() => {
-        if (companyList?.length === 0 && getIpoCompanyDataObj?.error === false) {
+        if (getIpoCompanyDataObj?.error === false) {
+            dispatch(setCompanyListEmpty())
+
             dispatch(setCompanyList(getIpoCompanyDataObj?.companyList))
             dispatch(setCompanyListTotalList(getIpoCompanyDataObj?.companyTotalList))
             dispatch(setCompanyListCurrentPage(companyListCurrentPage + 1))

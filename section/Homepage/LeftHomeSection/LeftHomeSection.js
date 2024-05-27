@@ -46,15 +46,19 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj }) => {
 
     }
     if (type === "bse") {
+      if (bse !== type) {
+        await dispatch(getTopGainerList(params))
+        await dispatch(getTopLosersList(params))
+      }
       setBse("bse")
-      await dispatch(getTopGainerList(params))
-      await dispatch(getTopLosersList(params))
 
     } else {
-      setBse("nse")
-      await dispatch(getTopGainerList(params))
-      await dispatch(getTopLosersList(params))
+      if (bse !== type) {
+        await dispatch(getTopGainerList(params))
+        await dispatch(getTopLosersList(params))
+      }
 
+      setBse("nse")
 
     }
 
@@ -97,6 +101,8 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj }) => {
               handlerFun={sensexAndNiftyFun}
               label={t("homepage.leftSection.sensex")}
               type={"sensex"}
+              disable={sensex === "sensex" ? true : false}
+
             />
             <FilterButton
               color={sensex === "nifty" ? "#FFFFFF" : "#606F7B"}
@@ -104,6 +110,8 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj }) => {
               handlerFun={sensexAndNiftyFun}
               label={t("homepage.leftSection.nifty")}
               type={"nifty"}
+              disable={sensex === "nifty" ? true : false}
+
             />
           </div>
           <div className={clsx("d-flex column-gap-2 mt-2", styles.numberDiv)}>
@@ -141,6 +149,7 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj }) => {
               handlerFun={bseAndNseButtonFun}
               label={t("homepage.leftSection.bse")}
               type={"bse"}
+              disable={bse === "bse" ? true : false}
             />
             <FilterButton
               color={bse === "nse" ? "#FFFFFF" : "#606F7B"}
@@ -148,6 +157,8 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj }) => {
               handlerFun={bseAndNseButtonFun}
               label={t("homepage.leftSection.nse")}
               type={"nse"}
+              disable={bse === "nse" ? true : false}
+
             />
           </div>
 

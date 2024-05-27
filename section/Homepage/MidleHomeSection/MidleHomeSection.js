@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import clsx from 'clsx'
 import dynamic from 'next/dynamic'
 import { Col } from 'react-bootstrap'
-import { setFeedCurrentPage, setFeedList, setFeedTotalList, setIndustryList } from '@/store/slices/homePageSlice'
+import { setFeedCurrentPage, setFeedList, setFeedListEmpty, setFeedTotalList, setIndustryList } from '@/store/slices/homePageSlice'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 const SearchBarArticalsAndCompany = dynamic(() => import('./SearchBarArticalsAndCompany'))
 const ArticalAndCaseStudyCard = dynamic(() => import('./ArticalAndCaseStudyCard'))
@@ -23,12 +23,12 @@ const MidleHomeSection = ({ industriesObj, feedListObj }) => {
     if (industryList?.length === 1) {
       dispatch(setIndustryList(industriesObj?.industryList))
     }
-    if (feedList?.length === 0) {
-      dispatch(setFeedList(feedListObj?.feedList))
-      dispatch(setFeedTotalList(feedListObj?.feedTotalList))
-      dispatch(setFeedCurrentPage(feedCurrentPage + 1))
 
-    }
+    dispatch(setFeedListEmpty())
+    dispatch(setFeedList(feedListObj?.feedList))
+    dispatch(setFeedTotalList(feedListObj?.feedTotalList))
+    dispatch(setFeedCurrentPage(feedCurrentPage + 1))
+
   }, [dispatch]);
   return (
     <Col lg={6} className='order-lg-1 order-0 px-2'>
