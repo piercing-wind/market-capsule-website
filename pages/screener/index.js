@@ -189,7 +189,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     await store.dispatch(getBucketList(bucketParams));
 
     const {
-        screenerSlice: { getScreenerHeadingObj, getFilterObj, bucketObj },
+        screenerSlice: { getScreenerHeadingObj, getFilterObj, bucketObj, seoObj },
     } = store.getState();
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
@@ -201,7 +201,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             getScreenerHeadingObj,
             getFilterObj,
             language: locale,
-
+            seo: seoObj?.seo,
             ...(await serverSideTranslations(locale, fileList)),
         },
     };

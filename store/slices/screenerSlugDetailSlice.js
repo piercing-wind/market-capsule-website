@@ -29,11 +29,19 @@ const getDisclaimerDataObj = {
 
 }
 
+
+const seoObj = {
+    loading: false,
+    error: false,
+    seo: ""
+}
+
 export const screenerSlugDetailSlice = createSlice({
     name: 'screenerSlugDetailSlice',
     initialState: {
         getScreenerCompanyDetailObj,
-        getDisclaimerDataObj
+        getDisclaimerDataObj,
+        seoObj
     },
     reducers: {
 
@@ -47,6 +55,11 @@ export const screenerSlugDetailSlice = createSlice({
                 state.getScreenerCompanyDetailObj.loading = false;
                 state.getScreenerCompanyDetailObj.screenerCompanyDetailData = action?.payload?.data
                 state.getScreenerCompanyDetailObj.capsulePlus = action?.payload?.capsuleplus
+                const seo = (action?.payload?.data ? ({
+                    title: action?.payload?.data?.metaTitle ? action?.payload?.data?.metaTitle : '',
+                    description: action?.payload?.data?.metaDescription ? action?.payload?.data?.metaDescription : '',
+                }) : null)
+                state.seoObj.seo = seo;
 
             })
             .addCase(getScreenerCompanyData.rejected, (state, action) => {

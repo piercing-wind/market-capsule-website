@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 // Action
 
 export const getWatchListHeader = createAsyncThunk('watchListSlice/getWatchListHeader', async (params) => {
-    const response = await getMethod(`wachlist?fields[0]=title&fields[1]=description`);
+    const response = await getMethod(`wachlist?fields[0]=title&fields[1]=description&fields[2]=metaTitle&fields[3]=metaDescription`);
     return (response)
 })
 
@@ -26,15 +26,23 @@ const getWatchListHeaderObj = {
     loading: false,
     error: false,
     watchListHeading: ``,
-    watchListDescription: ``
+    watchListDescription: ``,
 
+
+}
+
+const seoObj = {
+    loading: false,
+    error: false,
+    seo: ""
 }
 
 export const watchListSlice = createSlice({
     name: 'watchListSlice',
     initialState: {
         getWatchListObj,
-        getWatchListHeaderObj
+        getWatchListHeaderObj,
+        seoObj
     },
     reducers: {
         setWatchList: (state, action) => {
@@ -78,6 +86,11 @@ export const watchListSlice = createSlice({
                 state.getWatchListHeaderObj.loading = false;
                 state.getWatchListHeaderObj.watchListHeading = action?.payload?.data?.attributes?.title;
                 state.getWatchListHeaderObj.watchListDescription = action?.payload?.data?.attributes?.description;
+                const seo = (action?.payload?.data?.attributes ? ({
+                    title: action?.payload?.data?.attributes?.metaTitle ? action?.payload?.data?.attributes?.metaTitle : '',
+                    description: action?.payload?.data?.attributes?.metaDescription ? action?.payload?.data?.attributes?.metaDescription : '',
+                }) : null)
+                state.seoObj.seo = seo;
 
             })
             .addCase(getWatchListHeader.rejected, (state, action) => {

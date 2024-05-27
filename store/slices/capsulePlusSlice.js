@@ -14,7 +14,7 @@ export const getFilterSectionList = createAsyncThunk('capsulePlusSlice/getFilter
 });
 
 export const getCapsulePlusHeadingData = createAsyncThunk('capsulePlusSlice/getCapsulePlusHeadingData', async (params) => {
-    const response = await getMethod(`capsuleplus?fields[0]=title&fields[1]=description`);
+    const response = await getMethod(`capsuleplus?fields[0]=title&fields[1]=description&fields[2]=metaTitle&fields[3]=metaDescription`);
     return (response)
 });
 
@@ -47,12 +47,19 @@ const getCapsulePlusCompanyHeadingObj = {
 
 }
 
+const seoObj = {
+    loading: false,
+    error: false,
+    seo: ""
+}
+
 export const capsulePlusSlice = createSlice({
     name: 'capsulePlusSlice',
     initialState: {
         getCapsulePlusCompanyDataObj,
         getFilterSectionObj,
-        getCapsulePlusCompanyHeadingObj
+        getCapsulePlusCompanyHeadingObj,
+        seoObj
     },
     reducers: {
         setCompanyList: (state, action) => {
@@ -117,6 +124,12 @@ export const capsulePlusSlice = createSlice({
             .addCase(getCapsulePlusHeadingData.fulfilled, (state, action) => {
                 state.getCapsulePlusCompanyHeadingObj.loading = false;
                 state.getCapsulePlusCompanyHeadingObj.capsulePlusHeadingData = action?.payload?.data
+                const seo = (action?.payload?.data?.attributes ? ({
+                    title: action?.payload?.data?.attributes?.metaTitle ? action?.payload?.data?.attributes?.metaTitle : '',
+                    description: action?.payload?.data?.attributes?.metaDescription ? action?.payload?.data?.attributes?.metaDescription : '',
+                }) : null)
+                state.seoObj.seo = seo;
+
 
             })
             .addCase(getCapsulePlusHeadingData.rejected, (state, action) => {

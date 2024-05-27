@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+  <g id="Group_5479" data-name="Group 5479" transform="translate(-314 -395)">
+    <rect id="Rectangle_807" data-name="Rectangle 807" width="32" height="32" transform="translate(314 395)" fill="none"/>
+    <g id="Group_5476" data-name="Group 5476" transform="translate(20639 -5574.39)">
+      <path id="Path_14" data-name="Path 14" d="M10.33,14.634H0V6.6a6.6,6.6,0,0,1,13.2,0v5.165a2.869,2.869,0,0,1-2.869,2.869" transform="translate(-20316 5971.39)" fill="#00f3bb"/>
+      <path id="Path_15" data-name="Path 15" d="M31.035,34.262H28.808V19.628h1.623a.6.6,0,0,1,.6.6Z" transform="translate(-20336.543 5957.394)" fill="#f5f8ff"/>
+      <path id="Path_16" data-name="Path 16" d="M25.645,34.262H24.373V20.9l1.273-1.273Z" transform="translate(-20333.379 5957.394)" fill="#000f3b"/>
+      <path id="Path_17" data-name="Path 17" d="M21.056,41.958H18.829V30.824h1.709a.517.517,0,0,1,.518.517Z" transform="translate(-20329.426 5949.41)" fill="#f5f8ff"/>
+      <path id="Path_18" data-name="Path 18" d="M15.667,41.958H14.395V32.1l1.273-1.272Z" transform="translate(-20326.264 5949.41)" fill="#000f3b"/>
+      <path id="Path_19" data-name="Path 19" d="M11.078,32.654H8.851V25.019h1.832a.4.4,0,0,1,.395.395Z" transform="translate(-20322.311 5953.549)" fill="#f5f8ff"/>
+      <path id="Path_20" data-name="Path 20" d="M5.686,25.016v7.635H4.412V26.29Z" transform="translate(-20319.146 5953.551)" fill="#000f3b"/>
+      <path id="Path_21" data-name="Path 21" d="M13.2,40.471v9.756a6.6,6.6,0,1,1-13.2,0V43.34H10.33A2.87,2.87,0,0,0,13.2,40.471" transform="translate(-20316 5942.531)" fill="#3e63ff"/>
+      <path id="Path_22" data-name="Path 22" d="M12.592,13l-3.3,3.013-3.443-.574-.287.287L4.414,16.874" transform="translate(-20319.146 5962.12)" fill="none" stroke="#000f3b" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path id="Path_23" data-name="Path 23" d="M30.414,12.5h.861v.861" transform="translate(-20337.688 5962.476)" fill="none" stroke="#000f3b" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+    </g>
+  </g>
+</svg>

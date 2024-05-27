@@ -93,7 +93,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     await store.dispatch(getWatchListHeader());
     await store.dispatch(getWatchListData(params));
     const {
-        watchListSlice: { getWatchListObj, getWatchListHeaderObj }
+        watchListSlice: { getWatchListObj, getWatchListHeaderObj, seoObj }
     } = store.getState();
 
     let fileList = getFileLangList();
@@ -105,7 +105,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             getWatchListObj,
             getWatchListHeaderObj,
             language: locale,
-
+            seo: seoObj?.seo,
             ...(await serverSideTranslations(locale, fileList)),
         },
     };

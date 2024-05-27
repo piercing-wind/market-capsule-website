@@ -42,44 +42,44 @@ export default function CapsulePlusPage(props) {
         {
             id: 1,
             label: "screenerSlugPage.prevClose",
-            value: `₹${prevClosePrice}`,
+            value: `${prevClosePrice ? `₹${prevClosePrice}` : "N/A"}`,
             bg: true
         },
         {
             id: 2,
             label: "screenerSlugPage.sector",
-            value: `${sector}`,
+            value: `${sector ? sector : "N/A"}`,
             bg: true
         },
         {
             id: 3,
             label: "screenerSlugPage.marketCap",
-            value: `₹${marketCap}Cr`,
+            value: `${marketCap ? `₹${marketCap}Cr` : "N/A"}`,
             bg: false
         },
         {
             id: 4,
             label: "screenerSlugPage.ttmPe",
-            value: `${ttpmPE}x`,
+            value: `${ttpmPE ? `${ttpmPE}x` : "N/A"}`,
             bg: false,
         },
         {
             id: 5,
             label: "screenerSlugPage.sectoralPeRange",
-            value: `${sectoralPERange}`,
+            value: `${sectoralPERange ? sectoralPERange : "N/A"}`,
             bg: true,
             updated: true,
         },
         {
             id: 6,
             label: "screenerSlugPage.peRemark",
-            value: `${peRemark}`,
+            value: `${peRemark ? peRemark : "N/A"}`,
             bg: true
         },
         {
             id: 7,
             label: "screenerSlugPage.bse",
-            value: `${BSE}`,
+            value: `${BSE ? BSE : "N/A"}`,
             bg: false
         }
     ]
@@ -172,7 +172,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     await store.dispatch(getDisclaimerData(params));
 
     const {
-        screenerSlugDetailSlice: { getScreenerCompanyDetailObj, getDisclaimerDataObj }
+        screenerSlugDetailSlice: { getScreenerCompanyDetailObj, getDisclaimerDataObj, seoObj }
     } = store.getState();
 
     let fileList = getFileLangList();
@@ -184,7 +184,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             language: locale,
             getScreenerCompanyDetailObj,
             getDisclaimerDataObj,
-
+            seo: seoObj?.seo,
             ...(await serverSideTranslations(locale, fileList)),
         },
     };

@@ -174,7 +174,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     await store.dispatch(getFilterSectionList());
     await store.dispatch(getCapsulePlusHeadingData());
     const {
-        capsulePlusSlice: { getCapsulePlusCompanyDataObj, getFilterSectionObj, getCapsulePlusCompanyHeadingObj }
+        capsulePlusSlice: { getCapsulePlusCompanyDataObj, getFilterSectionObj, getCapsulePlusCompanyHeadingObj, seoObj }
     } = store.getState();
 
     let fileList = getFileLangList();
@@ -187,6 +187,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             getCapsulePlusCompanyDataObj,
             getFilterSectionObj,
             getCapsulePlusCompanyHeadingObj,
+            seo: seoObj?.seo,
 
             ...(await serverSideTranslations(locale, fileList)),
         },

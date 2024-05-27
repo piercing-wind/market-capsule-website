@@ -15,10 +15,17 @@ const getCapsuleCompanyDetailObj = {
 
 }
 
+const seoObj = {
+    loading: false,
+    error: false,
+    seo: ""
+}
+
 export const capsuleDetailSlice = createSlice({
     name: 'capsuleDetailSlice',
     initialState: {
         getCapsuleCompanyDetailObj,
+        seoObj
     },
     reducers: {
 
@@ -32,6 +39,12 @@ export const capsuleDetailSlice = createSlice({
                 state.getCapsuleCompanyDetailObj.loading = false;
                 state.getCapsuleCompanyDetailObj.capsuleCompanyDetailData = action?.payload?.data
                 state.getCapsuleCompanyDetailObj.capsulePlus = action?.payload?.capsuleplus
+                const seo = (action?.payload?.data ? ({
+                    title: action?.payload?.data?.metaTitle ? action?.payload?.data?.metaTitle : '',
+                    description: action?.payload?.data?.metaDescription ? action?.payload?.data?.metaDescription : '',
+                }) : null)
+                state.seoObj.seo = seo;
+
             })
             .addCase(getCapsuleCompanyDetailData.rejected, (state, action) => {
                 state.getCapsuleCompanyDetailObj.loading = false;

@@ -29,24 +29,25 @@ export default function Home(props) {
   router.defaultLocale = "en";
 
   return (
-    <Suspense fallback={<LoderModule />}>
-      <Container fluid className={clsx(styles.containerPadding, "mt-3 pb-5 ")}>
-        <Row className="mx-0 app">
-          <LeftHomeSection topGainerObj={props?.topGainerObj} topLosersObj={props?.topLosersObj} />
-          <MidleHomeSection
-            industriesObj={props.industriesObj}
-            feedListObj={props.feedListObj}
-          />
-          <RightHomeSection
-            trandingNewsObj={props.trandingNewsObj}
-            whatsNewInCapsulePlusObj={props.whatsNewInCapsulePlusObj}
-          />
-        </Row>
+    // <Suspense fallback={<LoderModule />}>
+    <Container fluid className={clsx(styles.containerPadding, "mt-3 pb-5 ")}>
+      <Row className="mx-0 app">
+        <LeftHomeSection topGainerObj={props?.topGainerObj} topLosersObj={props?.topLosersObj} />
+        <MidleHomeSection
+          industriesObj={props.industriesObj}
+          feedListObj={props.feedListObj}
+        />
 
-      </Container>
+        <RightHomeSection
+          trandingNewsObj={props.trandingNewsObj}
+          whatsNewInCapsulePlusObj={props.whatsNewInCapsulePlusObj}
+        />
+      </Row>
+
+    </Container>
 
 
-    </Suspense>
+    // </Suspense>
   );
 }
 

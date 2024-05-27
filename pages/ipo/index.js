@@ -95,19 +95,18 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     await store.dispatch(getIpoCompanyHeadingData());
 
     const {
-        ipoSlice: { getIpoCompanyDataObj, getFilterSectionObj, getIpoCompanyHeadingObj }
+        ipoSlice: { getIpoCompanyDataObj, getFilterSectionObj, getIpoCompanyHeadingObj, seoObj }
     } = store.getState();
-
 
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
-
     return {
         props: {
             data: "",
             getIpoCompanyDataObj,
             getFilterSectionObj,
             getIpoCompanyHeadingObj,
+            seo: seoObj?.seo,
             language: locale,
 
             ...(await serverSideTranslations(locale, fileList)),

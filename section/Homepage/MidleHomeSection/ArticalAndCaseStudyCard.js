@@ -87,6 +87,8 @@ const ArticalAndCaseStudyCard = () => {
             window.removeEventListener("resize", resizeListener);
         };
     }, []);
+
+    console.log("feedList", feedList)
     return (
         <>
 

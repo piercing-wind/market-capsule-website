@@ -271,7 +271,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     await store.dispatch(getDisclaimerData());
 
     const {
-        capsuleDetailSlice: { getCapsuleCompanyDetailObj },
+        capsuleDetailSlice: { getCapsuleCompanyDetailObj, seoObj },
         screenerSlugDetailSlice: { getDisclaimerDataObj }
 
     } = store.getState();
@@ -287,6 +287,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             currentDate,
             getCapsuleCompanyDetailObj,
             getDisclaimerDataObj,
+            seo: seoObj?.seo,
             ...(await serverSideTranslations(locale, fileList)),
         },
     };

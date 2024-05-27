@@ -15,10 +15,17 @@ const getIpoCompanyDetailObj = {
 
 }
 
+const seoObj = {
+    loading: false,
+    error: false,
+    seo: ""
+}
+
 export const ipoDetailSlice = createSlice({
     name: 'ipoDetailSlice',
     initialState: {
         getIpoCompanyDetailObj,
+        seoObj
     },
     reducers: {
 
@@ -32,6 +39,12 @@ export const ipoDetailSlice = createSlice({
                 state.getIpoCompanyDetailObj.loading = false;
                 state.getIpoCompanyDetailObj.ipoCompanyDetailData = action?.payload?.data
                 state.getIpoCompanyDetailObj.capsulePlus = action?.payload?.capsuleplus
+                const seo = (action?.payload?.data ? ({
+                    title: action?.payload?.data?.metaTitle ? action?.payload?.data?.metaTitle : '',
+                    description: action?.payload?.data?.metaDescription ? action?.payload?.data?.metaDescription : '',
+                }) : null)
+                state.seoObj.seo = seo;
+
             })
             .addCase(getIpoCompanyDetailData.rejected, (state, action) => {
                 state.getIpoCompanyDetailObj.loading = false;

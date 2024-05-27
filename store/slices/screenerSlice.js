@@ -6,7 +6,7 @@ import { HYDRATE } from 'next-redux-wrapper';
 // Action
 
 export const getScreenerHeading = createAsyncThunk('screenerSlice/getScreenerHeading', async (params) => {
-    const response = await getMethod(`screener?fields[0]=title&fields[1]=description`);
+    const response = await getMethod(`screener?fields[0]=title&fields[1]=description&fields[2]=metaTitle&fields[3]=metaDescription`);
     return (response)
 });
 
@@ -55,12 +55,19 @@ const bucketObj = {
     bucketTotalList: 100,
     error: false,
 }
+
+const seoObj = {
+    loading: false,
+    error: false,
+    seo: ""
+}
 export const screenerSlice = createSlice({
     name: 'screenerSlice',
     initialState: {
         getScreenerHeadingObj,
         getFilterObj,
-        bucketObj
+        bucketObj,
+        seoObj
     },
     reducers: {
         setFilterList: (state, action) => {
@@ -92,6 +99,11 @@ export const screenerSlice = createSlice({
                 state.getScreenerHeadingObj.loading = false;
                 state.getScreenerHeadingObj.error = false;
                 state.getScreenerHeadingObj.screenerHeadingData = action?.payload?.data
+                const seo = (action?.payload?.data?.attributes ? ({
+                    title: action?.payload?.data?.attributes?.metaTitle ? action?.payload?.data?.attributes?.metaTitle : '',
+                    description: action?.payload?.data?.attributes?.metaDescription ? action?.payload?.data?.attributes?.metaDescription : '',
+                }) : null)
+                state.seoObj.seo = seo;
 
             })
             .addCase(getScreenerHeading.rejected, (state, action) => {

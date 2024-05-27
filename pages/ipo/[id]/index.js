@@ -252,7 +252,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     }
     await store.dispatch(getIpoCompanyDetailData(params));
     const {
-        ipoDetailSlice: { getIpoCompanyDetailObj }
+        ipoDetailSlice: { getIpoCompanyDetailObj, seoObj }
     } = store.getState();
 
     let fileList = getFileLangList();
@@ -263,7 +263,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             data: "",
             language: locale,
             getIpoCompanyDetailObj,
-
+            seo: seoObj?.seo,
             ...(await serverSideTranslations(locale, fileList)),
         },
     };

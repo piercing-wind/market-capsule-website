@@ -13,7 +13,7 @@ export const getFilterSectionList = createAsyncThunk('ipoSlice/getFilterSectionL
 });
 
 export const getIpoCompanyHeadingData = createAsyncThunk('ipoSlice/getIpoCompanyHeadingData', async (params) => {
-    const response = await getMethod(`ipo-zone`);
+    const response = await getMethod(`ipo-zone?fields[0]=title&fields[1]=description&fields[2]=metaTitle&fields[3]=metaDescription`);
     return (response)
 });
 
@@ -44,13 +44,18 @@ const getIpoCompanyHeadingObj = {
     ipoHeadingData: {},
 
 }
-
+const seoObj = {
+    loading: false,
+    error: false,
+    seo: ""
+}
 export const ipoSlice = createSlice({
     name: 'ipoSlice',
     initialState: {
         getIpoCompanyDataObj,
         getFilterSectionObj,
-        getIpoCompanyHeadingObj
+        getIpoCompanyHeadingObj,
+        seoObj
     },
     reducers: {
         setCompanyList: (state, action) => {
@@ -114,6 +119,11 @@ export const ipoSlice = createSlice({
             .addCase(getIpoCompanyHeadingData.fulfilled, (state, action) => {
                 state.getIpoCompanyHeadingObj.loading = false;
                 state.getIpoCompanyHeadingObj.ipoHeadingData = action?.payload?.data
+                const seo = (action?.payload?.data?.attributes ? ({
+                    title: action?.payload?.data?.attributes?.metaTitle ? action?.payload?.data?.attributes?.metaTitle : '',
+                    description: action?.payload?.data?.attributes?.metaDescription ? action?.payload?.data?.attributes?.metaDescription : '',
+                }) : null)
+                state.seoObj.seo = seo;
 
             })
             .addCase(getIpoCompanyHeadingData.rejected, (state, action) => {
