@@ -144,108 +144,114 @@ function WatchlistTable(props) {
                 ) : (
 
                     <>
+                        <div className={clsx("tableScroll")}>
 
-                        <Table responsive>
-                            <thead>
-                                <tr>
+                            <Table responsive>
+                                <thead>
+                                    <tr>
+                                        {
+                                            companyTableHeading?.length > 0 ? (
+                                                companyTableHeading?.map((el, index) => {
+                                                    return (
+                                                        <th key={index} className={clsx(styles.heading)} >
+                                                            <div className={clsx('d-flex column-gap-2 align-items-center ', index !== 0 && "justify-content-center")}>
+                                                                <span  >
+                                                                    {t(el?.heading)}
+
+                                                                </span>
+                                                                {
+                                                                    index !== 0 && (
+                                                                        <button
+                                                                            style={{ cursor: watchList?.length > 0 ? "pointer" : "not-allowed" }}
+                                                                            className={clsx(styles.sortBtn)} onClick={() => {
+                                                                                if (watchList?.length > 0) {
+                                                                                    soringFun(el?.type)
+                                                                                }
+                                                                            }}>
+                                                                            <Sort />
+
+                                                                        </button>
+                                                                    )
+                                                                }
+
+                                                            </div>
+
+                                                        </th>
+                                                    )
+                                                })
+                                            ) : null
+                                        }
+                                        <th style={{ visibility: "hidden" }} className={clsx(styles.heading)}>{`...`}</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
                                     {
-                                        companyTableHeading?.length > 0 ? (
-                                            companyTableHeading?.map((el, index) => {
-                                                return (
-                                                    <th key={index} className={clsx(styles.heading)} >
-                                                        <div className={clsx('d-flex column-gap-2 align-items-center ', index !== 0 && "justify-content-center")}>
-                                                            <span  >
-                                                                {t(el?.heading)}
-
-                                                            </span>
-                                                            {
-                                                                index !== 0 && (
-                                                                    <button className={clsx(styles.sortBtn)} onClick={() => {
-                                                                        soringFun(el?.type)
-                                                                    }}>
-                                                                        <Sort />
-
-                                                                    </button>
-                                                                )
-                                                            }
-
-                                                        </div>
-
-                                                    </th>
-                                                )
+                                        watchList?.length > 0 ? (
+                                            [...watchList]?.sort((a, b) => {
+                                                switch (sortWatchList) {
+                                                    case 'LowHighLtp':
+                                                        return a?.companyId?.company_share_detail?.ltp - b?.companyId?.company_share_detail?.ltp;
+                                                    case 'highLowLtp':
+                                                        return b?.companyId?.company_share_detail?.ltp - a?.companyId?.company_share_detail?.ltp;
+                                                    case 'lowHighPreClosePrice':
+                                                        return a?.companyId?.company_share_detail?.prevClosePrice - b?.companyId?.company_share_detail?.prevClosePrice;
+                                                    case 'highLowPreClosePrice':
+                                                        return b?.companyId?.company_share_detail?.prevClosePrice - a?.companyId?.company_share_detail?.prevClosePrice;
+                                                    case 'lowHighChange':
+                                                        return a?.companyId?.company_share_detail?.change - b?.companyId?.company_share_detail?.change;
+                                                    case 'highLowChange':
+                                                        return b?.companyId?.company_share_detail?.change - a?.companyId?.company_share_detail?.change;
+                                                    case 'lowHighChange%':
+                                                        return a?.companyId?.company_share_detail?.changeInPercent - b?.companyId?.company_share_detail?.changeInPercent;
+                                                    case 'highLowChange%':
+                                                        return b?.companyId?.company_share_detail?.changeInPercent - a?.companyId?.company_share_detail?.changeInPercent;
+                                                    case 'highLowDayLow':
+                                                        return b?.companyId?.company_share_detail?.dayLow - a?.companyId?.company_share_detail?.dayLow;
+                                                    case 'highLowDayHigh':
+                                                        return b?.companyId?.company_share_detail?.dayHigh - a?.companyId?.company_share_detail?.dayHigh;
+                                                    default:
+                                                        return 0;
+                                                }
                                             })
+                                                ?.map((el, index) => {
+
+                                                    return (
+                                                        <tr key={index} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
+                                                            <td >{el?.companyId?.name ? el?.companyId?.name : "N/A"}</td>
+                                                            <td className='text-center'>
+                                                                {el?.companyId?.company_share_detail?.ltp ? el?.companyId?.company_share_detail?.ltp : "N/A"}
+                                                            </td>
+                                                            <td className='text-center'>{el?.companyId?.company_share_detail?.prevClosePrice ? el?.companyId?.company_share_detail?.prevClosePrice : "N/A"}</td>
+                                                            <td className='text-center' >{el?.companyId?.company_share_detail?.change ? el?.companyId?.company_share_detail?.change : "N/A"}</td>
+                                                            <td className='text-center'>{el?.companyId?.company_share_detail?.changeInPercent ? el?.companyId?.company_share_detail?.changeInPercent : "N/A"}</td>
+                                                            <td className='text-center'>{`${el?.companyId?.company_share_detail?.dayLow
+                                                                ? el?.companyId?.company_share_detail?.dayLow
+                                                                : "N/A"}-${el?.companyId?.company_share_detail?.dayHigh ? el?.companyId?.company_share_detail?.dayHigh : "N/A"}`}</td>
+                                                            <td >
+                                                                <Dropdown className={clsx("threeDotDropdown")}>
+                                                                    <Dropdown.Toggle id="dropdown-basic" className={clsx(styles.threeDot)}>
+                                                                        <BsThreeDotsVertical />
+                                                                    </Dropdown.Toggle>
+
+                                                                    <Dropdown.Menu className={clsx(styles.menu)}>
+                                                                        <Dropdown.Item onClick={() => {
+                                                                            removeFromWatchlist(el?.companyId?.id)
+                                                                        }}>Remove </Dropdown.Item>
+                                                                    </Dropdown.Menu>
+                                                                </Dropdown>
+
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })
                                         ) : null
                                     }
-                                    <th style={{ visibility: "hidden" }} className={clsx(styles.heading)}>{`...`}</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    watchList?.length > 0 ? (
-                                        [...watchList]?.sort((a, b) => {
-                                            switch (sortWatchList) {
-                                                case 'LowHighLtp':
-                                                    return a?.companyId?.company_share_detail?.ltp - b?.companyId?.company_share_detail?.ltp;
-                                                case 'highLowLtp':
-                                                    return b?.companyId?.company_share_detail?.ltp - a?.companyId?.company_share_detail?.ltp;
-                                                case 'lowHighPreClosePrice':
-                                                    return a?.companyId?.company_share_detail?.prevClosePrice - b?.companyId?.company_share_detail?.prevClosePrice;
-                                                case 'highLowPreClosePrice':
-                                                    return b?.companyId?.company_share_detail?.prevClosePrice - a?.companyId?.company_share_detail?.prevClosePrice;
-                                                case 'lowHighChange':
-                                                    return a?.companyId?.company_share_detail?.change - b?.companyId?.company_share_detail?.change;
-                                                case 'highLowChange':
-                                                    return b?.companyId?.company_share_detail?.change - a?.companyId?.company_share_detail?.change;
-                                                case 'lowHighChange%':
-                                                    return a?.companyId?.company_share_detail?.changeInPercent - b?.companyId?.company_share_detail?.changeInPercent;
-                                                case 'highLowChange%':
-                                                    return b?.companyId?.company_share_detail?.changeInPercent - a?.companyId?.company_share_detail?.changeInPercent;
-                                                case 'highLowDayLow':
-                                                    return b?.companyId?.company_share_detail?.dayLow - a?.companyId?.company_share_detail?.dayLow;
-                                                case 'highLowDayHigh':
-                                                    return b?.companyId?.company_share_detail?.dayHigh - a?.companyId?.company_share_detail?.dayHigh;
-                                                default:
-                                                    return 0;
-                                            }
-                                        })
-                                            ?.map((el, index) => {
-
-                                                return (
-                                                    <tr key={index} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
-                                                        <td >{el?.companyId?.name ? el?.companyId?.name : "N/A"}</td>
-                                                        <td className='text-center'>
-                                                            {el?.companyId?.company_share_detail?.ltp ? el?.companyId?.company_share_detail?.ltp : "N/A"}
-                                                        </td>
-                                                        <td className='text-center'>{el?.companyId?.company_share_detail?.prevClosePrice ? el?.companyId?.company_share_detail?.prevClosePrice : "N/A"}</td>
-                                                        <td className='text-center' >{el?.companyId?.company_share_detail?.change ? el?.companyId?.company_share_detail?.change : "N/A"}</td>
-                                                        <td className='text-center'>{el?.companyId?.company_share_detail?.changeInPercent ? el?.companyId?.company_share_detail?.changeInPercent : "N/A"}</td>
-                                                        <td className='text-center'>{`${el?.companyId?.company_share_detail?.dayLow
-                                                            ? el?.companyId?.company_share_detail?.dayLow
-                                                            : "N/A"}-${el?.companyId?.company_share_detail?.dayHigh ? el?.companyId?.company_share_detail?.dayHigh : "N/A"}`}</td>
-                                                        <td >
-                                                            <Dropdown className={clsx("threeDotDropdown")}>
-                                                                <Dropdown.Toggle id="dropdown-basic" className={clsx(styles.threeDot)}>
-                                                                    <BsThreeDotsVertical />
-                                                                </Dropdown.Toggle>
-
-                                                                <Dropdown.Menu className={clsx(styles.menu)}>
-                                                                    <Dropdown.Item onClick={() => {
-                                                                        removeFromWatchlist(el?.companyId?.id)
-                                                                    }}>Remove </Dropdown.Item>
-                                                                </Dropdown.Menu>
-                                                            </Dropdown>
-
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })
-                                    ) : null
-                                }
 
 
-                            </tbody>
-                        </Table>
+                                </tbody>
+                            </Table>
+                        </div>
                         {
                             watchList?.length > 9 && (
                                 <div className={clsx(styles.loadMoreBtn, "mt-3")} >

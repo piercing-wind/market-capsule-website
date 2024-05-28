@@ -28,6 +28,8 @@ export const manageSubscriptionSlice = createSlice({
         setSubscriptionList: (state, action) => {
             state.getSubscriptionObj.subscriptionList = [...state?.getSubscriptionObj?.subscriptionList, ...action?.payload]
         },
+
+
         setSubscriptionListCurrentPage: (state, action) => {
             state.getSubscriptionObj.subscriptionListCurrentPage = action.payload
         },
@@ -36,6 +38,9 @@ export const manageSubscriptionSlice = createSlice({
         },
         setSubscriptionListEmpty: (state, action) => {
             state.getSubscriptionObj.subscriptionList = []
+        },
+        setNextBillingData: (state, action) => {
+            state.getSubscriptionObj.nextBilingDate = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -64,7 +69,8 @@ export const {
     setSubscriptionList,
     setSubscriptionListCurrentPage,
     setSubscriptionListTotalList,
-    setSubscriptionListEmpty
+    setSubscriptionListEmpty,
+    setNextBillingData
 } = manageSubscriptionSlice.actions
 
 export default manageSubscriptionSlice.reducer

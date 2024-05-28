@@ -35,7 +35,7 @@ export default function CapsulePlusPage(props) {
     console.log("getFilterSectionObj", getFilterSectionObj)
 
     const dispatch = useDispatch();
-    const { loading, companyTypeId, sectorId, industryId, companyName, companyList, companyListCurrentPage, companyTotalList } = useSelector((state) => ({
+    const { loading, userDetails, companyTypeId, sectorId, industryId, companyName, companyList, companyListCurrentPage, companyTotalList } = useSelector((state) => ({
         companyList: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.companyList,
         companyListCurrentPage: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.companyListCurrentPage,
         companyTotalList: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.companyTotalList,
@@ -44,6 +44,7 @@ export default function CapsulePlusPage(props) {
         sectorId: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.sectorId,
         industryId: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.industryId,
         companyName: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.companyName,
+        userDetails: state?.authSlice?.userDetails
 
     }), shallowEqual)
 
@@ -91,7 +92,7 @@ export default function CapsulePlusPage(props) {
                     <Col xs={12} className='px-0'>
                         <ScreeenerHeadingCom
                             icon={true}
-                            heading={capsulePlusHeadingData?.attributes?.title || `capsulePlusPage.capsulePlus`}
+                            heading={capsulePlus ? capsulePlusHeadingData?.attributes?.title : `Hi! ${userDetails?.fullName}`}
                             para={capsulePlusHeadingData?.attributes?.description || `capsulePlusPage.discover`}
                         />
                     </Col>

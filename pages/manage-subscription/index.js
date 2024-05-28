@@ -13,7 +13,7 @@ import dynamic from "next/dynamic";
 import { getFetchAuth } from "@/store/slices/authSlice";
 import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
-import { getSubscriptionList, setSubscriptionList, setSubscriptionListCurrentPage, setSubscriptionListTotalList } from "@/store/slices/manageSubscriptionSlice";
+import { getSubscriptionList, setNextBillingData, setSubscriptionList, setSubscriptionListCurrentPage, setSubscriptionListEmpty, setSubscriptionListTotalList } from "@/store/slices/manageSubscriptionSlice";
 import toast from "react-hot-toast";
 const LeftSidebar = dynamic(() => import("@/components/Module/Sidebar/LeftSidebar"))
 const ManageSubscription = dynamic(() => import("@/section/ManageSubscription/ManageSubscription"))
@@ -30,7 +30,7 @@ export default function ManageSubscriptionPage(props) {
 
     router.defaultLocale = "en";
     const { getSubscriptionObj } = props;
-    const { subscriptionList, subscriptionListCurrentPage } = useSelector((state) => ({
+    const { subscriptionListCurrentPage } = useSelector((state) => ({
         subscriptionList: state?.manageSubscriptionSlice?.getSubscriptionObj?.subscriptionList,
         subscriptionListCurrentPage: state?.manageSubscriptionSlice?.getSubscriptionObj?.subscriptionListCurrentPage,
 
@@ -38,10 +38,13 @@ export default function ManageSubscriptionPage(props) {
 
     //set server data to client side
     useEffect(() => {
-        if (subscriptionList?.length === 0 && getSubscriptionObj?.error === false) {
+        if (getSubscriptionObj?.error === false) {
+            dispatch(setSubscriptionListEmpty())
             dispatch(setSubscriptionList(getSubscriptionObj?.subscriptionList))
             dispatch(setSubscriptionListTotalList(getSubscriptionObj?.subscriptionTotalList))
             dispatch(setSubscriptionListCurrentPage(subscriptionListCurrentPage + 1))
+            dispatch(setNextBillingData(getSubscriptionObj?.nextBilingDate))
+
         } else if (getSubscriptionObj?.error) {
             toast.error(`something went wrong`)
 
@@ -84,7 +87,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         manageSubscriptionSlice: { getSubscriptionObj }
     } = store.getState();
     secureHeader(req, res, locale);
-
+    console.log("getSubscriptionObj", getSubscriptionObj)
     return {
         props: {
             data: "",

@@ -1,12 +1,12 @@
 import React from "react";
 
-const BlueRightArrow = () => {
+const BlueRightArrow = ({width="5.518"}) => {
   return (
     <svg
       id="_01_align_center"
       data-name="01 align center"
       xmlns="http://www.w3.org/2000/svg"
-      width="5.518"
+      width={width}
       height="10.16"
       viewBox="0 0 5.518 10.16"
     >

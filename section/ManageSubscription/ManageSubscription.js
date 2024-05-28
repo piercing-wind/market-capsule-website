@@ -12,10 +12,10 @@ const ManageSubscriptionTable = dynamic(() => import('@/components/Module/Table/
 
 const ManageSubscription = () => {
     const { nextBillingDate } = useSelector((state) => ({
-        nextBillingDate: state?.manageSubscriptionSlice?.getSubscriptionObj?.nextBillingDate,
+        nextBillingDate: state?.manageSubscriptionSlice?.getSubscriptionObj?.nextBilingDate,
 
     }), shallowEqual)
-
+    console.log("nextBillingDate", nextBillingDate)
 
     return (
         <div className={clsx(styles.leftSidebarMaindDiv, "px-sm-4 px-3")}>
@@ -34,7 +34,7 @@ const ManageSubscription = () => {
                                 Next billing on:
                             </Trans>
                         </span>
-                        <span className={clsx(styles.mediumFont)}>{nextBillingDate ? moment(nextBillingDate).format('MMMM D, YYYY') : nextBillingDate}</span>
+                        <span className={clsx(styles.mediumFont)}>{nextBillingDate ? moment(nextBillingDate).format('DD MMM, YYYY') : nextBillingDate}</span>
 
                     </p>
 

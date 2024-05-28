@@ -59,64 +59,67 @@ function ManageSubscriptionTable(props) {
     return (
 
         <>
-            <Table responsive>
-                <thead>
-                    <tr>
+            <div className={clsx("tableScroll")}>
+
+                <Table responsive>
+                    <thead>
+                        <tr>
+                            {
+                                dataTableHeading?.length > 0 ? (
+                                    dataTableHeading?.map((el, index) => {
+                                        return (
+                                            <th key={index} className={clsx(styles.heading)} >
+                                                <div className={clsx('d-flex column-gap-2 align-items-center ', index !== 0 && "justify-content-center")}>
+                                                    <span  >
+                                                        {t(el?.heading)}
+                                                    </span>
+                                                </div>
+                                            </th>
+                                        )
+                                    })
+                                ) : null
+                            }
+                            <th className={clsx(styles.heading)}></th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {
-                            dataTableHeading?.length > 0 ? (
-                                dataTableHeading?.map((el, index) => {
+                            subscriptionList?.length > 0 ? (
+                                subscriptionList?.map((el, index) => {
                                     return (
-                                        <th key={index} className={clsx(styles.heading)} >
-                                            <div className={clsx('d-flex column-gap-2 align-items-center ', index !== 0 && "justify-content-center")}>
-                                                <span  >
-                                                    {t(el?.heading)}
-                                                </span>
-                                            </div>
-                                        </th>
+                                        <tr key={index} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
+                                            <td >
+                                                {el?.expiryDate ? moment(el?.expiryDate).format('MMMM D, YYYY') : "-"}
+                                            </td>
+                                            <td className='text-center'>
+                                                {el?.orderId ? el?.orderId : "-"}
+                                            </td>
+                                            <td className='text-center'>{`${el?.plan?.name} (${el?.plan?.planType})`}</td>
+                                            <td className='text-center'>{`₹${el?.amount ? el?.amount : "-"}`}</td>
+                                            <td className='text-center'>
+                                                <button
+                                                    onClick={() => {
+                                                        if (el?.invoiceUrl) {
+                                                            downloadInvoice(el?.invoiceUrl)
+                                                        } else {
+                                                            toast.error(t(`message.invoiceNotAvailable`))
+                                                        }
+                                                    }}
+                                                    style={{ cursor: el?.invoiceUrl ? "pointer" : "not-allowed" }}
+                                                    className={clsx("d-flex align-items-center column-gap-2", styles.btn)}>
+                                                    <LuDownload />
+                                                    {t("manageSubscription.downloadInvoice")}
+                                                </button>
+                                            </td>
+                                        </tr>
                                     )
                                 })
                             ) : null
                         }
-                        <th className={clsx(styles.heading)}></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        subscriptionList?.length > 0 ? (
-                            subscriptionList?.map((el, index) => {
-                                return (
-                                    <tr key={index} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
-                                        <td >
-                                            {el?.expiryDate ? moment(el?.expiryDate).format('MMMM D, YYYY') : "-"}
-                                        </td>
-                                        <td className='text-center'>
-                                            {el?.orderId ? el?.orderId : "-"}
-                                        </td>
-                                        <td className='text-center'>{`${el?.plan?.name} (${el?.plan?.planType})`}</td>
-                                        <td className='text-center'>{`₹${el?.amount ? el?.amount : "-"}`}</td>
-                                        <td className='text-center'>
-                                            <button
-                                                onClick={() => {
-                                                    if (el?.invoiceUrl) {
-                                                        downloadInvoice(el?.invoiceUrl)
-                                                    } else {
-                                                        toast.error(t(`message.invoiceNotAvailable`))
-                                                    }
-                                                }}
-                                                style={{ cursor: el?.invoiceUrl ? "pointer" : "not-allowed" }}
-                                                className={clsx("d-flex align-items-center column-gap-2", styles.btn)}>
-                                                <LuDownload />
-                                                {t("manageSubscription.downloadInvoice")}
-                                            </button>
-                                        </td>
-                                    </tr>
-                                )
-                            })
-                        ) : null
-                    }
 
-                </tbody>
-            </Table>
+                    </tbody>
+                </Table>
+            </div>
             {
                 subscriptionList?.length > 4
 
