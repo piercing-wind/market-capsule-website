@@ -20,10 +20,6 @@ const ScreeenerHeadingCom = dynamic(() => import("@/components/Module/HeadingCom
 const ScreenerFilterAccrodian = dynamic(() => import("@/components/Module/Accrodian/ScreenerFilterAccrodian"))
 const ScreenerDetailTable = dynamic(() => import("@/section/Screener/ScreenerDetailPage/ScreenerDetailTable"))
 
-
-
-
-
 export default function Home(props) {
     const { t } = useTranslation("common");
     const router = useRouter();
@@ -42,7 +38,6 @@ export default function Home(props) {
     //set server data to client side
     useEffect(() => {
         if (getScreenerIdDataObj?.error === false) {
-            console.log("inside")
             dispatch(setCompanyListEmpty())
             dispatch(setCompanyList(getScreenerIdDataObj?.companyList))
             dispatch(setCompanyListTotalList(getScreenerIdDataObj?.companyTotalList))

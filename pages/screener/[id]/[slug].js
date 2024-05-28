@@ -129,14 +129,9 @@ export default function CapsulePlusPage(props) {
                                 headingLabel={`screenerSlugPage.timeline`}
                             />
                         </Col>
-                        {
-                            getScreenerCompanyDetailObj?.capsulePlus && (
-                                <Col xs={12} className={clsx(styles.paddingDetailsInDefth)} >
-                                    <InDepthCard />
-                                </Col>
-
-                            )
-                        }
+                        <Col xs={12} className={clsx(styles.paddingDetailsInDefth)} >
+                            <InDepthCard />
+                        </Col>
 
                         <Col xs={12} className={clsx(styles.line)} >
                             <hr />

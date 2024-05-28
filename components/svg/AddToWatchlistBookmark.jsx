@@ -1,10 +1,10 @@
 import React from "react";
 
-const AddToWatchlistBookmark = () => {
+const AddToWatchlistBookmark = ({width="11px"}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="11"
+      width={width}
       height="12.001"
       viewBox="0 0 11 12.001"
     >

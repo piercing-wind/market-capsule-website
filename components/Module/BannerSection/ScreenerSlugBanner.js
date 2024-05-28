@@ -43,7 +43,9 @@ const ScreenerSlugBanner = ({ banner = "screener", companyName, sector, url, com
         );
     }
     const goToUrlFun = () => {
-        router.push(url)
+        if (url) {
+            window.open(url, '_blank');
+        }
     }
     return (
         <div className={clsx("d-flex flex-md-row gap-3 flex-column justify-content-md-between justify-content-center align-items-center", styles.bannerDiv, banner === "ipo" ? styles.ipoBanner : banner === "capsulePlus" ? styles.capsulePlusBanner : "")}>
@@ -56,7 +58,8 @@ const ScreenerSlugBanner = ({ banner = "screener", companyName, sector, url, com
                     <h5>{companyName}</h5>
                     <div className={clsx("d-flex flex-sm-row flex-column column-gap-1 row-gap-2")}>
                         <button style={{ cursor: "unset" }}>{sector}</button>
-                        <button onClick={goToUrlFun}>{url} &nbsp;<ArrowUpRight /></button>
+                        <button style={{ cursor: url ? "cursor" : "not-allowed" }} disabled={!url ? true : false} onClick={goToUrlFun}>{url} &nbsp;<ArrowUpRight /></button>
+
                     </div>
                 </div>
 

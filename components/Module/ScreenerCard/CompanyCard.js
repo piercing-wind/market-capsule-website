@@ -18,7 +18,7 @@ const CompanyCard = (props) => {
     const upgradeNowFun = () => {
         console.log("upgrade now ")
     }
-
+    console.log("dataObj", dataObj)
 
     return (
         <div className={clsx("px-2 pt-2 pb-4", styles.trandingDiv)}>
@@ -40,7 +40,11 @@ const CompanyCard = (props) => {
             </div>
 
             <div className={clsx("mt-3 d-flex column-gap-1 flex-wrap row-gap-1", styles.labelDiv)}>
-                <span className={clsx("px-2 py-1", styles.greenBgColor)}>{`Free`}</span>
+                {
+                    !capsuleplus && (
+                        <span className={clsx("px-2 py-1", styles.greenBgColor)}>{`Free`}</span>
+                    )
+                }
                 <span className={clsx("px-2 py-1", styles.skyBgColor)}>{`${count} Companies`}</span>
                 <span className={clsx("px-2 py-1", styles.lightYellowBgColor)}>{`Recently updated`}</span>
             </div>

@@ -151,11 +151,15 @@ export default function CapsulePlusPage(props) {
                             }
 
                             <div className={clsx(styles.loadMoreBtn, "mt-3")} >
-                                <LoadMoreBtn
-                                    totalList={bucketTotalList}
-                                    loading={bucketLoading}
-                                    data={bucketList}
-                                    loadMoreFun={loadMoreFun} />
+                                {bucketList?.length > 8 && (
+                                    <LoadMoreBtn
+                                        totalList={bucketTotalList}
+                                        loading={bucketLoading}
+                                        data={bucketList}
+                                        loadMoreFun={loadMoreFun} />
+
+                                )
+                                }
                             </div>
 
                         </Row>
@@ -174,7 +178,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
     const filterParams = {
         page: 1,
-        limit: 10,
+        limit: 9,
         sort: "createdAt:desc",
     }
     const bucketParams = {

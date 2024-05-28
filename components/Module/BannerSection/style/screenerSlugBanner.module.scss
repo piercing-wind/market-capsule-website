@@ -28,13 +28,23 @@
     @include basicFontSize(23px, bold, #ffffff);
   }
   & > div {
-    button {
+    button  {
       border: none;
       padding: 4px 8px;
       @include basicFontSize(10px, 500, #ffffff);
       background: #000000 0% 0% no-repeat padding-box;
       border-radius: 17px;
     }
+
+    a{
+      border: none;
+      padding: 4px 8px;
+      @include basicFontSize(10px, 500, #ffffff);
+      background: #000000 0% 0% no-repeat padding-box;
+      border-radius: 17px;
+      text-decoration: none;
+    }
+    
   }
 }
 

@@ -247,7 +247,7 @@ function WatchlistTable(props) {
                             </tbody>
                         </Table>
                         {
-                            watchList?.length > 10 && (
+                            watchList?.length > 9 && (
                                 <div className={clsx(styles.loadMoreBtn, "mt-3")} >
                                     <LoadMoreBtn
                                         totalList={watchListTotalList}

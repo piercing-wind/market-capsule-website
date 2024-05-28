@@ -133,107 +133,110 @@ const ScreenerDetailTable = (props) => {
                     <LoderModule />
                 ) : (
                     <>
-                        <Table responsive>
-                            <thead>
-                                <tr>
-                                    {
-                                        dataTableHeading?.length > 0 ? (
-                                            dataTableHeading?.map((el, index) => {
-                                                return (
-                                                    <th key={index} className={clsx(styles.heading)} >
-                                                        <div className={clsx('d-flex column-gap-2 align-items-center ', index !== 0 && "justify-content-center")}>
-                                                            <span  >
-                                                                {t(el?.heading)}
+                        <div className={clsx("tableScroll")}>
 
-                                                            </span>
-                                                            {
-                                                                index !== 0 && index !== dataTableHeading?.length - 1 && (
-                                                                    <button className={clsx(styles.sortBtn)} onClick={() => {
-                                                                        if (el?.type) {
-                                                                            soringFun(el?.type)
-                                                                        }
-                                                                    }}>
-                                                                        <Sort />
+                            <Table responsive>
+                                <thead>
+                                    <tr>
+                                        {
+                                            dataTableHeading?.length > 0 ? (
+                                                dataTableHeading?.map((el, index) => {
+                                                    return (
+                                                        <th key={index} className={clsx(styles.heading)} >
+                                                            <div className={clsx('d-flex column-gap-2 align-items-center ', index !== 0 && "justify-content-center")}>
+                                                                <span  >
+                                                                    {t(el?.heading)}
 
-                                                                    </button>
-                                                                )
-                                                            }
-
-                                                        </div>
-
-                                                    </th>
-                                                )
-                                            })
-                                        ) : null
-                                    }
-                                    <th style={{ visibility: "hidden" }} className={clsx(styles.heading)}>{`...`}</th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    companyList?.length > 0 ? (
-                                        [...companyList]?.sort((a, b) => {
-                                            switch (sortCompany) {
-                                                case 'lowHighMarketCap':
-                                                    return a?.company_share_detail?.marketCap - b?.company_share_detail?.marketCap;
-                                                case 'highLowMarketCap':
-                                                    return b?.company_share_detail?.marketCap - a?.company_share_detail?.marketCap;
-                                                case 'highLowTTMPE':
-                                                    return b?.company_share_detail?.ttpmPE - a?.company_share_detail?.ttpmPE;
-                                                case 'lowHighTTMPE':
-                                                    return a?.company_share_detail?.ttpmPE - b?.company_share_detail?.ttpmPE;
-                                                default:
-                                                    return 0;
-                                            }
-                                        })
-                                            ?.map((el, index) => {
-                                                return (
-                                                    <tr key={index} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
-                                                        <td >{el?.name}</td>
-                                                        <td className='text-center'>
-                                                            {el?.company_share_detail?.marketCap ? el?.company_share_detail?.marketCap : "N/A"}
-                                                        </td>
-                                                        <td className='text-center'>{el?.company_share_detail?.ttpmPE ? el?.company_share_detail?.ttpmPE : "N/A"}</td>
-                                                        <td className='text-center' >{el?.createdAt
-                                                            ? moment(el?.createdAt).format('MMM D, YYYY')
-                                                            : "N/A"}</td>
-                                                        <td className='text-center'>
-                                                            <p className={clsx(' d-flex align-items-center  mb-0', styles.addTo)} onClick={() => {
-                                                                addToWatchlist(el?.id)
-                                                            }}>
-                                                                <AddToWatchlistBookmark />
-                                                                <span style={{ marginLeft: "5px" }}>
-                                                                    <Trans i18nKey={"screenerIdPage.addToWatchlist"}>
-                                                                        Add to Watchlist
-                                                                    </Trans>
                                                                 </span>
-                                                            </p>
-                                                        </td>
-                                                        <td className={clsx('text-center', styles.readMore)}>
-                                                            <Link href={`/screener/${router?.query?.id}/${el?.slug}`}>
-                                                                <p className={clsx('mb-0  d-flex align-items-center ')}>
-                                                                    <span style={{ marginRight: "5px" }}>
-                                                                        <Trans i18nKey={"screenerIdPage.readMore"}>
-                                                                            Read More
+                                                                {
+                                                                    index !== 0 && index !== dataTableHeading?.length - 1 && (
+                                                                        <button style={{ cursor: companyList?.length > 0 ? "pointer" : "not-allowed" }} className={clsx(styles.sortBtn)} onClick={() => {
+                                                                            if (el?.type && companyList?.length > 0) {
+                                                                                soringFun(el?.type)
+                                                                            }
+                                                                        }}>
+                                                                            <Sort />
+
+                                                                        </button>
+                                                                    )
+                                                                }
+
+                                                            </div>
+
+                                                        </th>
+                                                    )
+                                                })
+                                            ) : null
+                                        }
+                                        <th style={{ visibility: "hidden" }} className={clsx(styles.heading)}>{`...`}</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        companyList?.length > 0 ? (
+                                            [...companyList]?.sort((a, b) => {
+                                                switch (sortCompany) {
+                                                    case 'lowHighMarketCap':
+                                                        return a?.company_share_detail?.marketCap - b?.company_share_detail?.marketCap;
+                                                    case 'highLowMarketCap':
+                                                        return b?.company_share_detail?.marketCap - a?.company_share_detail?.marketCap;
+                                                    case 'highLowTTMPE':
+                                                        return b?.company_share_detail?.ttpmPE - a?.company_share_detail?.ttpmPE;
+                                                    case 'lowHighTTMPE':
+                                                        return a?.company_share_detail?.ttpmPE - b?.company_share_detail?.ttpmPE;
+                                                    default:
+                                                        return 0;
+                                                }
+                                            })
+                                                ?.map((el, index) => {
+                                                    return (
+                                                        <tr key={index} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
+                                                            <td >{el?.name}</td>
+                                                            <td className='text-center'>
+                                                                {el?.company_share_detail?.marketCap ? el?.company_share_detail?.marketCap : "N/A"}
+                                                            </td>
+                                                            <td className='text-center'>{el?.company_share_detail?.ttpmPE ? el?.company_share_detail?.ttpmPE : "N/A"}</td>
+                                                            <td className='text-center' >{el?.createdAt
+                                                                ? moment(el?.createdAt).format('MMM D, YYYY')
+                                                                : "N/A"}</td>
+                                                            <td className='text-center'>
+                                                                <p className={clsx(' d-flex align-items-center  mb-0', styles.addTo)} onClick={() => {
+                                                                    addToWatchlist(el?.id)
+                                                                }}>
+                                                                    <AddToWatchlistBookmark width={`100%`} />
+                                                                    <span style={{ marginLeft: "5px" }}>
+                                                                        <Trans i18nKey={"screenerIdPage.addToWatchlist"}>
+                                                                            Add to Watchlist
                                                                         </Trans>
                                                                     </span>
-                                                                    <BlueRightArrow />
                                                                 </p>
-                                                            </Link>
+                                                            </td>
+                                                            <td className={clsx('text-center', styles.readMore)}>
+                                                                <Link href={`/screener/${router?.query?.id}/${el?.slug}`}>
+                                                                    <p className={clsx('mb-0  d-flex align-items-center ')}>
+                                                                        <span style={{ marginRight: "5px" }}>
+                                                                            <Trans i18nKey={"screenerIdPage.readMore"}>
+                                                                                Read More
+                                                                            </Trans>
+                                                                        </span>
+                                                                        <BlueRightArrow />
+                                                                    </p>
+                                                                </Link>
 
-                                                        </td>
-                                                    </tr>
-                                                )
-                                            })
-                                    ) : null
-                                }
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })
+                                        ) : null
+                                    }
 
 
-                            </tbody>
-                        </Table>
+                                </tbody>
+                            </Table>
+                        </div>
                         {
-                            companyList?.length > 1 &&
+                            companyList?.length > 9 &&
 
                             (
                                 <div className={clsx(styles.loadMoreBtn, "mt-3")} >

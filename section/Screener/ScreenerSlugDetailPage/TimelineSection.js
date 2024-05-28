@@ -27,7 +27,7 @@ const TimelineSection = ({ headingLabel, compnayTimelineList }) => {
 
             {/* timelinesection */}
             <div className={styles.verticalStepper}>
-                {compnayTimelineList.map((el, index) => (
+                {compnayTimelineList?.map((el, index) => (
                     <div key={index} className={styles.step}>
                         <div className=" d-flex flex-column align-items-center">
                             <div className={clsx(styles.circle, findFirstCircle(compnayTimelineList, index))}
