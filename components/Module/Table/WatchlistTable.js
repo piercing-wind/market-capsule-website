@@ -33,7 +33,6 @@ function WatchlistTable(props) {
     const soringFun = async (type) => {
         let sort = "";
         if (type === "ltp") {
-            console.log("sortWatchList", sortWatchList)
             if (sortWatchList === "LowHighLtp") {
                 sort = "highLowLtp";
                 dispatch(setSortWatchList("highLowLtp"))

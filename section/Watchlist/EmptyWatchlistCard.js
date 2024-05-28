@@ -13,7 +13,6 @@ const EmptyWatchlistCard = () => {
     const router = useRouter()
 
     const addStockFun = () => {
-        console.log("add stock fun")
         router.push("/screener")
     }
     return (

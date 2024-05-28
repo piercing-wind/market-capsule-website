@@ -42,7 +42,6 @@ const LoginForm = () => {
 
     //signup form btn 
     const goToSignupModal = () => {
-        console.log("signup")
         dispatch(setAuthType("signup"))
     }
 

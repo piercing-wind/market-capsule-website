@@ -15,10 +15,6 @@ const CompanyCard = (props) => {
         id, name, slug, capsuleplus, description, image, count } = dataObj;
     const { t } = useTranslation("common");
 
-    const upgradeNowFun = () => {
-        console.log("upgrade now ")
-    }
-    console.log("dataObj", dataObj)
 
     return (
         <div className={clsx("px-2 pt-2 pb-4", styles.trandingDiv)}>

@@ -87,7 +87,6 @@ export default function Home(props) {
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale, query }) => {
     const slug = query?.id;
-    console.log("query", query)
     const params = {
         page: 1,
         limit: 10,
@@ -103,7 +102,6 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         screenerIdSlice: { getScreenerIdDataObj, getFilterSectionObj, getScreenerCompanyDataObj }
     } = store.getState();
 
-    console.log("getScreenerIdDataObj", getScreenerIdDataObj)
 
     let fileList = getFileLangList();
     secureHeader(req, res, locale);

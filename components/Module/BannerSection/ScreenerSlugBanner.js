@@ -17,7 +17,6 @@ const ScreenerSlugBanner = ({ banner = "screener", companyName, sector, url, com
     const [loder, setLoader] = useState(false)
 
     const handleAddToWatchlist = async () => {
-        console.log("add to watchlist")
         const submitData = {
             companyId: companyId
         }

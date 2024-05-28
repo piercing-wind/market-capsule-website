@@ -15,7 +15,6 @@ const ManageSubscription = () => {
         nextBillingDate: state?.manageSubscriptionSlice?.getSubscriptionObj?.nextBilingDate,
 
     }), shallowEqual)
-    console.log("nextBillingDate", nextBillingDate)
 
     return (
         <div className={clsx(styles.leftSidebarMaindDiv, "px-sm-4 px-3")}>

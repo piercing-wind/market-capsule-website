@@ -121,9 +121,6 @@ export const ScreenerFilter = ({ filters }) => {
             return newState;
         });
     };
-    console.log("filterState", filterState)
-
-
 
     useEffect(() => {
         if (Object.keys(filterState).length > 0) {

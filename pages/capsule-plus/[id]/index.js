@@ -38,7 +38,6 @@ export default function IpoDetails(props) {
     const {
         businessOverview, financialReport, shareCapitalAndEmployees,
         companyTypeDetails, capsuleHighlights, name, logo, industry, operation_details, prices, websiteUrl } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData || {};
-    console.log("getCapsuleCompanyDetailObj", getCapsuleCompanyDetailObj)
     const router = useRouter();
     router.locale = props?.language
         ? props?.language
@@ -260,8 +259,6 @@ export default function IpoDetails(props) {
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale, query }) => {
     let userActive = fetchCookie("_jwt", req.headers);
     setAuthorizationToken(userActive);
-    console.log("query", query)
-    console.log("userActive", userActive)
 
     const slug = query?.id;
     const params = {

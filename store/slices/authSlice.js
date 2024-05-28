@@ -18,14 +18,10 @@ export const getProfessionList = createAsyncThunk('authSlice/getProfeessionList'
 
 export const getGoogleConnect = createAsyncThunk('authSlice/getGoogleConnect', async () => {
     const response = await getMethod(`connect/google`);
-    console.log("response", response)
     return (response)
 
 });
 
-// "login" 
-// "signup" 
-//  "otp" 
 const loginModalObj = {
     showForm: false,
     authType: "login"

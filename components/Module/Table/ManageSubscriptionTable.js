@@ -38,7 +38,6 @@ function ManageSubscriptionTable(props) {
     //download invoice
     const downloadInvoice = async () => {
         let url = `https://www.clickdimensions.com/links/TestPDFfile.pdf`
-        console.log("downloadInvoice")
         try {
             const response = await fetch(url);
             const blob = await response.blob();

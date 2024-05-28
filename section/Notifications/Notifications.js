@@ -84,11 +84,15 @@ const Notifications = ({ notificationListServer, notificationTotalListServer, no
                     })
 
                 }
-                <LoadMoreBtn
-                    totalList={notificationTotalList}
-                    loading={notificationLoading}
-                    data={notificationListClient}
-                    loadMoreFun={loadMoreFun} />
+                {
+                    notificationListClient?.length > 9 && (
+                        <LoadMoreBtn
+                            totalList={notificationTotalList}
+                            loading={notificationLoading}
+                            data={notificationListClient}
+                            loadMoreFun={loadMoreFun} />
+                    )
+                }
 
             </Row>
         </div>

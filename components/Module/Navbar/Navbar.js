@@ -58,7 +58,6 @@ const NavbarLayout = () => {
         }
 
     }
-    console.log("userDetails", userDetails)
     return (
         <>
             <Navbar expanded={expanded} onToggle={handleToggle} sticky="top" expand="lg" className={clsx("white", styles.navBar)}>

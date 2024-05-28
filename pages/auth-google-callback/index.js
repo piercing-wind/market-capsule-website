@@ -6,7 +6,6 @@ import { setCookiesStorage } from '@/utils/storageService';
 const AuthGoogleCallback = () => {
     const [auth, setAuth] = useState("");
     const router = useRouter()
-    console.log("router", router)
     // useEffect(() => {
     //     if (router?.query?.id_token) {
     //         setCookiesStorage("_jwt", router?.query?.id_token)

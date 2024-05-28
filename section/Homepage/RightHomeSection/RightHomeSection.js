@@ -15,7 +15,6 @@ const RightHomeSection = ({ trandingNewsObj, whatsNewInCapsulePlusObj }) => {
     userDetails: state?.authSlice?.userDetails,
 
   }), shallowEqual)
-  console.log(userDetails)
   return (
 
     <Col lg={3} className='order-2 ps-2 pe-2 pe-lg-0' >

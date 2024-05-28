@@ -87,7 +87,6 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         manageSubscriptionSlice: { getSubscriptionObj }
     } = store.getState();
     secureHeader(req, res, locale);
-    console.log("getSubscriptionObj", getSubscriptionObj)
     return {
         props: {
             data: "",

@@ -9,8 +9,6 @@ const DefaultProfile = ({ userName, src, width, height, firstCharWidth, firstCha
     if (typeof userName === 'string' && userName?.length > 0) {
         firstChar = userName.charAt(0).toUpperCase();
     }
-    // console.log("IMGURL", process.env.IMGURL)
-    // console.log("src", src)
 
     return (
         <>

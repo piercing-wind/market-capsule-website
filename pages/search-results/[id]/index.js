@@ -20,8 +20,6 @@ export default function SearchResults(props) {
     const { t } = useTranslation("common");
     const { getGlobalSearchObj, search } = props;
     const { globalSearchList, globalSearchTotalList } = getGlobalSearchObj;
-    console.log("props", props?.getGlobalSearchObj)
-    console.log("globalSearchList", globalSearchList)
     const router = useRouter();
     router.locale = props?.language
         ? props?.language

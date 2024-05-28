@@ -11,7 +11,7 @@ import LoderModule from "@/components/Module/LoaderModule";
 import React, { Suspense, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { companyData, companyTableHeading } from "@/section/Watchlist/watchlistData";
-import { getWatchListData, getWatchListHeader, setError, setWatchList, setWatchListCurrentPage, setWatchListTotalList } from "@/store/slices/watchListSlice";
+import { getWatchListData, getWatchListHeader, setError, setWatchList, setWatchListCurrentPage, setWatchListEmpty, setWatchListTotalList } from "@/store/slices/watchListSlice";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { fetchCookie } from "@/utils/storageService";
@@ -40,7 +40,8 @@ export default function WatchlistPage(props) {
 
     //set server data to client side
     useEffect(() => {
-        if (watchList?.length === 0 && getWatchListObj?.error === false) {
+        if (getWatchListObj?.error === false) {
+            dispatch(setWatchListEmpty())
             dispatch(setWatchList(getWatchListObj?.watchList))
             dispatch(setWatchListTotalList(getWatchListObj?.watchListTotalList))
             dispatch(setWatchListCurrentPage(watchListCurrentPage + 1))

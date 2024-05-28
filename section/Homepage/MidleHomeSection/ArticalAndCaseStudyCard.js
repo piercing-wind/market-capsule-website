@@ -88,7 +88,6 @@ const ArticalAndCaseStudyCard = () => {
         };
     }, []);
 
-    console.log("feedList", feedList)
     return (
         <>
 

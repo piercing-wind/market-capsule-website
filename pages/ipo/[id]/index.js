@@ -31,7 +31,6 @@ const HeadingCom = dynamic(() => import("@/components/Module/BannerSection/Headi
 export default function IpoDetails(props) {
     const { t } = useTranslation("common");
     const { getIpoCompanyDetailObj } = props;
-    console.log("getIpoCompanyDetailObj", getIpoCompanyDetailObj)
     const { rocePercent = null, marketCap = null, peRatio = null, roicPercent = null, roePercent = null, currentPrice = null, deRatio = null, cwip = null, cashConversionCycle = null, pegRatio = null } = getIpoCompanyDetailObj?.ipoCompanyDetailData?.company_share_detail || {}
     const { capsuleView, aboutTheCompany, business_segments, keyHighlights, industry, share_holdings, financial_highlights } = getIpoCompanyDetailObj?.ipoCompanyDetailData || {};
     const { capsulePlus } = getIpoCompanyDetailObj

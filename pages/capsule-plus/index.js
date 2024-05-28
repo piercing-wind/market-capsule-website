@@ -32,8 +32,6 @@ export default function CapsulePlusPage(props) {
     const { getCapsulePlusCompanyDataObj, getFilterSectionObj, getCapsulePlusCompanyHeadingObj } = props;
     const { capsulePlus } = getCapsulePlusCompanyDataObj;
     const { capsulePlusHeadingData } = getCapsulePlusCompanyHeadingObj;
-    console.log("getCapsulePlusCompanyDataObj", getCapsulePlusCompanyDataObj)
-    console.log("getFilterSectionObj", getFilterSectionObj)
 
     const dispatch = useDispatch();
     const { loading, userDetails, companyTypeId, sectorId, industryId, companyName, companyList, companyListCurrentPage, companyTotalList } = useSelector((state) => ({

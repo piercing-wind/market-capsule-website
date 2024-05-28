@@ -32,7 +32,6 @@ export default function SubscriptionPage(props) {
     router.defaultLocale = "en";
     const { getPlanDataObj } = props;
     const addPromoCodeFun = () => {
-        console.log('coli')
         dispatch(setShowForm(true))
 
     }

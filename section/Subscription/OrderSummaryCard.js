@@ -96,7 +96,6 @@ const OrderSummaryCard = () => {
 
                 try {
                     const data = await paymentVerify();
-                    console.log(data);
                     if (data?.success) {
                         toast.success(data?.message);
                         router?.push("/subscription/payment-successfull")

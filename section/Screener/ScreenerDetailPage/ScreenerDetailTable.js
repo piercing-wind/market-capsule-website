@@ -99,7 +99,6 @@ const ScreenerDetailTable = (props) => {
 
     //add to watchlist
     const addToWatchlist = async (id) => {
-        console.log("add to watchlist", id)
         const submitData = {
             companyId: id
         }
