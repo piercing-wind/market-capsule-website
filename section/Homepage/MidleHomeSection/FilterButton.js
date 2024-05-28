@@ -13,7 +13,6 @@ const FilterButton = () => {
     const dispatch = useDispatch()
     const { industryList } = useSelector((state) => ({
         industryList: state?.homePageSlice?.industriesObj?.industryList,
-
     }), shallowEqual)
     const [filterActiveState, setFilterActiveState] = useState(industryList?.[0]?.id)
 

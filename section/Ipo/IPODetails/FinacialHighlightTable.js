@@ -6,7 +6,6 @@ import { Trans, useTranslation } from 'next-i18next';
 
 const FinacialHighlightTable = ({ uniqueYears, finacialHightlightGroupedData, paricular = "" }) => {
     const { t } = useTranslation("common")
-    console.log("finacialHightlightGroupedData", finacialHightlightGroupedData)
     return (
         <div className={clsx("tableScroll")}>
             <Table responsive>

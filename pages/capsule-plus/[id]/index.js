@@ -14,7 +14,7 @@ import { commaSeprater, numberToLocaleString } from "@/utils/constants";
 import { capsulePluseDetailsData, companyDetailHeading, sensexChartBarData, sensexChartData } from "@/section/CapsulePlus/CapsulePlusDetail/capsulePlusDetailData";
 import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
-import { getCapsuleCompanyDetailData, getOperationDetailQuetarly, getOperationDetailYearly } from "@/store/slices/capsuleDetailSlice";
+import { getCapsuleCompanyDetailData, getOperationDetailQuetarly, getOperationDetailYearly, getSharePriceAndVolume } from "@/store/slices/capsuleDetailSlice";
 import { getDisclaimerData } from "@/store/slices/screenerSlugDetailSlice";
 const LoderModule = dynamic(() => import("@/components/Module/LoaderModule"))
 const OneIdBreadcrumb = dynamic(() => import("@/components/Module/Breadcrumb/OneIdBreadcrumb"))
@@ -32,14 +32,13 @@ const VolumeTable = dynamic(() => import("@/section/CapsulePlus/CapsulePlusDetai
 
 export default function IpoDetails(props) {
     const { t } = useTranslation("common");
-    const { getCapsuleCompanyDetailObj, getDisclaimerDataObj, getOperationDetailQuetarlyObj, getOperationDetailYearlyObj } = props;
+    const { getCapsuleCompanyDetailObj, getDisclaimerDataObj, getOperationDetailQuetarlyObj, getOperationDetailYearlyObj, getSharePriceAndVolumeObj } = props;
     const { capsulePlus } = getCapsuleCompanyDetailObj;
-    const { marketCap = null, prevClosePrice = null, sector = null, ttpmPE = null, sectoralPERange = null, peRemark = null, BSE = null } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData?.company_share_detail
+    const { marketCap = null, prevClosePrice = null, sector = null, ttpmPE = null, sectoralPERange = null, peRemark = null, BSE = null } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData?.company_share_detail || {}
     const {
         businessOverview, financialReport, shareCapitalAndEmployees,
-        companyTypeDetails, capsuleHighlights, name, logo, industry, operation_details, prices, websiteUrl } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData;
-    const { capsuleplus } = capsulePluseDetailsData
-
+        companyTypeDetails, capsuleHighlights, name, logo, industry, operation_details, prices, websiteUrl } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData || {};
+    console.log("getCapsuleCompanyDetailObj", getCapsuleCompanyDetailObj)
     const router = useRouter();
     router.locale = props?.language
         ? props?.language
@@ -114,11 +113,6 @@ export default function IpoDetails(props) {
         return acc;
     }, {});
     const uniqueYears = [...new Set(getOperationDetailYearlyObj?.yearlyData?.map((item) => ({ month: item?.month, year: item?.year })))];
-    // console.log("getOperationDetailQuetarlyObj?.quetarlyData", getOperationDetailQuetarlyObj?.quetarlyData)
-    console.log("getOperationDetailYearlyObj?.yearlyData", getOperationDetailYearlyObj?.yearlyData)
-    // console.log("uniqueMonths", uniqueMonths)
-    console.log("uniqueYears", uniqueYears)
-    console.log("yearsData", yearsData)
 
     return (
         <>
@@ -187,13 +181,13 @@ export default function IpoDetails(props) {
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                                         <SharePriceAndVolume
                                             headingLabel={`capsuleDetailPage.sharePriceAndVolume`}
-                                            prices={prices}
+                                            prices={getSharePriceAndVolumeObj?.sharePriceAndVolume || []}
                                         />
                                     </Col>
 
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout, "pt-3")} >
                                         <VolumeTable
-                                            dataTable={prices}
+                                            dataTable={getSharePriceAndVolumeObj?.sharePriceAndVolume || []}
                                             currentDate={props?.currentDate}
                                         />
                                     </Col>
@@ -274,6 +268,9 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         slug: slug,
         pageName: "capsuleplus-company-detail"
     }
+    const shareParams = {
+        companySlug: slug,
+    }
     const quetarlySlug = {
         companySlug: slug,
         duration: "quarterly"
@@ -284,15 +281,15 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     }
     await store.dispatch(getCapsuleCompanyDetailData(params));
     await store.dispatch(getDisclaimerData());
+    await store.dispatch(getSharePriceAndVolume(shareParams));
     await store.dispatch(getOperationDetailQuetarly(quetarlySlug));
     await store.dispatch(getOperationDetailYearly(yearlySlug));
 
     const {
-        capsuleDetailSlice: { getCapsuleCompanyDetailObj, seoObj, getOperationDetailQuetarlyObj, getOperationDetailYearlyObj },
+        capsuleDetailSlice: { getCapsuleCompanyDetailObj, seoObj, getOperationDetailQuetarlyObj, getOperationDetailYearlyObj, getSharePriceAndVolumeObj },
         screenerSlugDetailSlice: { getDisclaimerDataObj }
 
     } = store.getState();
-    console.log("")
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
     // Get the current date on the server
@@ -307,6 +304,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             seo: seoObj?.seo,
             getOperationDetailQuetarlyObj,
             getOperationDetailYearlyObj,
+            getSharePriceAndVolumeObj,
             ...(await serverSideTranslations(locale, fileList)),
         },
     };

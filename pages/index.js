@@ -9,11 +9,13 @@ import { Container, Row } from "react-bootstrap";
 import clsx from "clsx";
 import styles from "../section/Homepage/style/home.module.scss"
 import LoderModule from "@/components/Module/LoaderModule";
-import React, { Suspense, startTransition, useEffect } from "react";
+import React, { Suspense, startTransition, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { getCategoriesList, getFeedList, getHomePageMetaData, getIndustriesList, getTopGainerList, getTopLosersList, getTrandingNewsList, getWhatsNewInCapsulePlusList, setTopGainerList, setTopGainerTotalList } from "@/store/slices/homePageSlice";
 import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
+import { GoogleLogin, googleLogout, useGoogleLogin } from "@react-oauth/google";
+import axios from "axios";
 const LeftHomeSection = dynamic(() => import('@/section/Homepage/LeftHomeSection/LeftHomeSection'), { suspense: true, loading: () => <LoderModule /> })
 const MidleHomeSection = dynamic(() => import('@/section/Homepage/MidleHomeSection/MidleHomeSection'), { suspense: true, loading: () => <LoderModule /> })
 const RightHomeSection = dynamic(() => import('@/section/Homepage/RightHomeSection/RightHomeSection'), { suspense: true, loading: () => <LoderModule /> })
@@ -29,35 +31,32 @@ export default function Home(props) {
     : "en";
 
   router.defaultLocale = "en";
+  const [user, setUser] = useState('');
+  const [profile, setProfile] = useState('');
+
 
   return (
-    // <Suspense fallback={<LoderModule />}>
     <Container fluid className={clsx(styles.containerPadding, "mt-3 pb-5 ")}>
       <Row className="mx-0 app">
         <LeftHomeSection topGainerObj={props?.topGainerObj} topLosersObj={props?.topLosersObj} />
         <MidleHomeSection
-          industriesObj={props.industriesObj}
-          feedListObj={props.feedListObj}
+          industriesObj={props?.industriesObj}
+          feedListObj={props?.feedListObj}
         />
 
         <RightHomeSection
-          trandingNewsObj={props.trandingNewsObj}
-          whatsNewInCapsulePlusObj={props.whatsNewInCapsulePlusObj}
+          trandingNewsObj={props?.trandingNewsObj}
+          whatsNewInCapsulePlusObj={props?.whatsNewInCapsulePlusObj}
         />
       </Row>
 
     </Container>
-
-
-    // </Suspense>
   );
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale }) => {
   let userActive = fetchCookie("_jwt", req.headers);
   setAuthorizationToken(userActive);
-
-
 
   const params = {
     filter: "BSE",

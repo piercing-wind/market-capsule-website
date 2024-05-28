@@ -26,6 +26,9 @@ export const notificationSlice = createSlice({
         setNotificationList: (state, action) => {
             state.notificationList = action.payload
         },
+        setNotificationListEmpty: (state, action) => {
+            state.notificationList = []
+        },
         setNotificationCurrentPage: (state, action) => {
             state.notificationCurrentPage = action.payload
         },
@@ -52,7 +55,7 @@ export const notificationSlice = createSlice({
     }
 });
 
-export const { setNotificationList, setNotificationCurrentPage, setNotificationTotalList } = notificationSlice.actions
+export const { setNotificationListEmpty, setNotificationList, setNotificationCurrentPage, setNotificationTotalList } = notificationSlice.actions
 
 export default notificationSlice.reducer
 

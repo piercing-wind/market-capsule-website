@@ -16,6 +16,7 @@ import { setAuthorizationToken } from "@/utils/apiServices";
 import { getCapsulePlusCompanyData, getCapsulePlusHeadingData, getFilterSectionList, setCompanyList, setCompanyListCurrentPage, setCompanyListEmpty, setCompanyListTotalList } from "@/store/slices/capsulePlusSlice";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { getSharePriceAndVolume } from "@/store/slices/capsuleDetailSlice";
 const ScreeenerHeadingCom = dynamic(() => import("@/components/Module/HeadingComponent/ScreenerHeadingCom"))
 const CapsulePlusFilter = dynamic(() => import("@/components/Module/Accrodian/CapsulePlusFilter"))
 const CapsulePlusCompanyCard = dynamic(() => import("@/components/Module/ScreenerCard/CapsulePlusCompanyCard"))
@@ -165,16 +166,17 @@ export default function CapsulePlusPage(props) {
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale }) => {
     let userActive = fetchCookie("_jwt", req.headers);
     setAuthorizationToken(userActive);
-
-
     const params = {
         page: 1,
         limit: 9,
         capsuleplus: true
     }
+
+
     await store.dispatch(getCapsulePlusCompanyData(params));
     await store.dispatch(getFilterSectionList());
     await store.dispatch(getCapsulePlusHeadingData());
+
     const {
         capsulePlusSlice: { getCapsulePlusCompanyDataObj, getFilterSectionObj, getCapsulePlusCompanyHeadingObj, seoObj }
     } = store.getState();

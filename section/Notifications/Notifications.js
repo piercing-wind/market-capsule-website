@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { Trans, useTranslation } from "next-i18next";
 import { Col, Row } from 'react-bootstrap';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { getNotificationList, setNotificationCurrentPage, setNotificationList, setNotificationTotalList } from '@/store/slices/notificationSlice';
+import { getNotificationList, setNotificationCurrentPage, setNotificationList, setNotificationListEmpty, setNotificationTotalList } from '@/store/slices/notificationSlice';
 import moment from 'moment';
 import toast from 'react-hot-toast';
 const LoadMoreBtn = dynamic(() => import("@/components/Module/Button/LoadMoreBtn"))
@@ -34,7 +34,8 @@ const Notifications = ({ notificationListServer, notificationTotalListServer, no
     useEffect(() => {
 
 
-        if (notificationListClient?.length === 0 && !notificationError) {
+        if (!notificationError) {
+            dispatch(setNotificationListEmpty());
             dispatch(setNotificationList(notificationListServer));
             dispatch(setNotificationTotalList(notificationTotalListServer));
             dispatch(setNotificationCurrentPage(notificationCurrentPage + 1))

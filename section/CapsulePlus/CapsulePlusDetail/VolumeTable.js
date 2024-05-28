@@ -11,8 +11,8 @@ const VolumeTable = (props) => {
     const { t } = useTranslation("common")
     const currentDate = new Date(currentDateString);
     // Get the current date
-    const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1; // Month is 0-indexed
+    const currentYear = currentDate?.getFullYear();
+    const currentMonth = currentDate?.getMonth() + 1; // Month is 0-indexed
 
     // Calculate the start and end dates for the last 12 months
     const last12Months = [];
@@ -28,14 +28,14 @@ const VolumeTable = (props) => {
     }
 
     // Filter dataTable to include only entries within the last 12 months
-    const filteredData = dataTable.filter(item => last12Months.includes(item.date));
+    const filteredData = dataTable?.filter(item => last12Months?.includes(item.date));
 
     // Extract unique dates from the filtered data
-    const uniqueDates = [...new Set(filteredData.map(item => item.date))];
+    const uniqueDates = [...new Set(filteredData?.map(item => item?.date))];
 
     // Function to get volume data for a specific date
     const getVolumeForDate = (date) => {
-        return filteredData.find(item => item.date === date)?.volume || "";
+        return filteredData?.find(item => item?.date === date)?.volume || "";
     };
     return (
         <>

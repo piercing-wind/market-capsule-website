@@ -39,8 +39,8 @@ const TopLosersChart = () => {
         topLosersList: state?.homePageSlice?.topLosersObj?.topLosersList,
     }), shallowEqual)
     // Extract labels and data from topGainerArr
-    const labels = topLosersList.map((item) => item?.attributes?.company?.data?.attributes?.name);
-    const dataValues = topLosersList.map((item) => item?.attributes?.value);
+    const labels = topLosersList?.map((item) => item?.attributes?.company?.data?.attributes?.name);
+    const dataValues = topLosersList?.map((item) => item?.attributes?.value);
 
     const data = {
         labels,
@@ -116,7 +116,7 @@ const TopLosersChart = () => {
                     weight: '600', // Set the font weight if needed
                 },
                 formatter: (value, context) => { // Customize label format
-                    return value.toFixed(2); // Format the value to two decimal places
+                    return value?.toFixed(2); // Format the value to two decimal places
                 }
             }
 

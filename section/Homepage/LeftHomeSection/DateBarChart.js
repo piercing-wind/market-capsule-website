@@ -25,10 +25,10 @@ ChartJS.register(
 
 
 const labels = ['21', '22', '23', '24', '25', '26', '27', "28", "29", "01"];
-const dataValues = sensexChartBarData.map((item) => ({
-    value: item.value,
-    backgroundColor: item.value > 0 ? '#2EDC90' : '#FF4F55',
-    align: item.value > 0 ? 'start' : 'end'
+const dataValues = sensexChartBarData?.map((item) => ({
+    value: item?.value,
+    backgroundColor: item?.value > 0 ? '#2EDC90' : '#FF4F55',
+    align: item?.value > 0 ? 'start' : 'end'
 }));
 export const options = {
     plugins: {
@@ -40,15 +40,15 @@ export const options = {
         },
         datalabels: {
             display: true,
-            anchor: dataValues.map(item => item.align),
-            align: dataValues.map(item => item.align),
+            anchor: dataValues.map(item => item?.align),
+            align: dataValues.map(item => item?.align),
             color: '#868686', // Set the font color of the labels
             font: {
                 size: 10, // Set the font size
                 weight: '500', // Set the font weight if needed
             },
             formatter: (value, context) => { // Customize label format
-                return sensexChartBarData[context.dataIndex].date; // Format the label to display date
+                return sensexChartBarData[context.dataIndex]?.date; // Format the label to display date
             }
         }
     },
@@ -90,8 +90,8 @@ export const data = {
     datasets: [
         {
             label: '',
-            data: dataValues.map(item => item.value),
-            backgroundColor: dataValues.map(item => item.backgroundColor),
+            data: dataValues?.map(item => item.value),
+            backgroundColor: dataValues.map(item => item?.backgroundColor),
             stack: 'Stack 0',
         },
 

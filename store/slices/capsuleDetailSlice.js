@@ -7,6 +7,11 @@ export const getCapsuleCompanyDetailData = createAsyncThunk('capsuleDetailSlice/
     return (response)
 });
 
+export const getSharePriceAndVolume = createAsyncThunk('capsuleDetailSlice/getSharePriceAndVolume', async (params) => {
+    const response = await getMethod(`company-share-price/list`, params);
+    return (response)
+});
+
 export const getOperationDetailQuetarly = createAsyncThunk('capsuleDetailSlice/getOperationDetailQuetarly', async (params) => {
     const response = await getMethod(`operation-detail/list`, params);
     return (response)
@@ -25,6 +30,12 @@ const getCapsuleCompanyDetailObj = {
 
 }
 
+const getSharePriceAndVolumeObj = {
+    loading: false,
+    error: false,
+    sharePriceAndVolume: [],
+
+}
 const getOperationDetailQuetarlyObj = {
     loading: false,
     error: false,
@@ -51,7 +62,8 @@ export const capsuleDetailSlice = createSlice({
         getCapsuleCompanyDetailObj,
         seoObj,
         getOperationDetailQuetarlyObj,
-        getOperationDetailYearlyObj
+        getOperationDetailYearlyObj,
+        getSharePriceAndVolumeObj
     },
     reducers: {
 
@@ -100,6 +112,18 @@ export const capsuleDetailSlice = createSlice({
             .addCase(getOperationDetailYearly.rejected, (state, action) => {
                 state.getOperationDetailYearlyObj.loading = false;
                 state.getOperationDetailYearlyObj.error = true;
+            })
+            .addCase(getSharePriceAndVolume.pending, (state, action) => {
+                state.getSharePriceAndVolumeObj.loading = true;
+            })
+            .addCase(getSharePriceAndVolume.fulfilled, (state, action) => {
+                state.getSharePriceAndVolumeObj.loading = false;
+                state.getSharePriceAndVolumeObj.sharePriceAndVolume = action?.payload?.data
+
+            })
+            .addCase(getSharePriceAndVolume.rejected, (state, action) => {
+                state.getSharePriceAndVolumeObj.loading = false;
+                state.getSharePriceAndVolumeObj.error = true;
             })
     },
 });

@@ -14,6 +14,7 @@ import { getCookiesStorage } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
 import { getFetchAuth, setResetSlice, setUpdateJwtToken } from "@/store/slices/authSlice";
 import SeoHeader from "@/seo/SeoHeader";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 const NavbarLayout = dynamic(() => import('@/components/Module/Navbar/Navbar'))
 const Navbar404 = dynamic(() => import('@/components/Module/Navbar/Navbar404'))
 
@@ -43,28 +44,30 @@ const App = ({ Component, ...rest }) => {
   return (
 
     <Provider store={store}>
-      <MiddleWare>
-        <SeoHeader
-          {...(pageProps?.seo ? pageProps?.seo : "")}
-          backUrl={rest?.router?.pathname ? ((rest?.router?.asPath)) : "/"}
+      <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID}>
+        <MiddleWare>
+          <SeoHeader
+            {...(pageProps?.seo ? pageProps?.seo : "")}
+            backUrl={rest?.router?.pathname ? ((rest?.router?.asPath)) : "/"}
 
-        />
-        <main className={clsx(`${plus_Jakarta_Sans.className}`, !isSpecialPath ? "gray-bg" : "")}>
-          {
-            router?.pathname !== "/404" ? (
-              <NavbarLayout />
-            ) : (
-              <Navbar404 />
-            )
-          }
-          <Component {...pageProps} />
-        </main>
-        <Toaster
-          position="bottom-center"
-          reverseOrder={true}
-          containerClassName="toasterCss"
-        />
-      </MiddleWare>
+          />
+          <main className={clsx(`${plus_Jakarta_Sans.className}`, !isSpecialPath ? "gray-bg" : "")}>
+            {
+              router?.pathname !== "/404" ? (
+                <NavbarLayout />
+              ) : (
+                <Navbar404 />
+              )
+            }
+            <Component {...pageProps} />
+          </main>
+          <Toaster
+            position="bottom-center"
+            reverseOrder={true}
+            containerClassName="toasterCss"
+          />
+        </MiddleWare>
+      </GoogleOAuthProvider>
     </Provider>
 
   )

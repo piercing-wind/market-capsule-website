@@ -70,8 +70,8 @@ export const options = {
     }
 };
 
-const labels = sensexChartData.map((item) => item.date);
-const dataValues = sensexChartData.map((item) => item.value);
+const labels = sensexChartData?.map((item) => item?.date);
+const dataValues = sensexChartData?.map((item) => item?.value);
 
 export const data = {
     labels,

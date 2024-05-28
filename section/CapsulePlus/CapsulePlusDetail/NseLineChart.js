@@ -83,8 +83,8 @@ const NseLineChart = ({ prices }) => {
         }
     };
 
-    const labels = prices.map((item) => item.date);
-    const dataValues = prices.map((item) => item.price);
+    const labels = prices?.map((item) => item?.date);
+    const dataValues = prices?.map((item) => item?.price);
 
     const data = {
         labels,

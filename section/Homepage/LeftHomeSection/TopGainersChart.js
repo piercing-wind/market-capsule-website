@@ -30,9 +30,6 @@ ChartJS.register(
     ChartDataLabels
 );
 
-
-
-
 const TopGainersChart = () => {
     const { t } = useTranslation("common");
     const { topGainerList } = useSelector((state) => ({
@@ -41,8 +38,8 @@ const TopGainersChart = () => {
     }), shallowEqual)
 
     // Extract labels and data from topGainerArr
-    const labels = topGainerList.map((item) => item?.attributes?.company?.data?.attributes?.name);
-    const dataValues = topGainerList.map((item) => item?.attributes?.value);
+    const labels = topGainerList?.map((item) => item?.attributes?.company?.data?.attributes?.name);
+    const dataValues = topGainerList?.map((item) => item?.attributes?.value);
     const data = {
         labels,
         datasets: [
@@ -118,7 +115,7 @@ const TopGainersChart = () => {
                     weight: '600', // Set the font weight if needed
                 },
                 formatter: (value, context) => { // Customize label format
-                    return value.toFixed(2); // Format the value to two decimal places
+                    return value?.toFixed(2); // Format the value to two decimal places
                 }
             }
 

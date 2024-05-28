@@ -84,9 +84,6 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj }) => {
       dispatch(setTopLosersList(topLosersObj?.topLosersList))
       dispatch(setTopLosersTotalList(topLosersObj?.topLosersTotalList))
     }
-
-
-
   }, [dispatch]);
   return (
     <Col lg={3} className=' px-2 order-lg-0 order-1'>
