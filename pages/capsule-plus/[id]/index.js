@@ -14,7 +14,7 @@ import { commaSeprater, numberToLocaleString } from "@/utils/constants";
 import { capsulePluseDetailsData, companyDetailHeading, sensexChartBarData, sensexChartData } from "@/section/CapsulePlus/CapsulePlusDetail/capsulePlusDetailData";
 import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
-import { getCapsuleCompanyDetailData, getOperationDetailQuetarly, getOperationDetailYearly, getSharePriceAndVolume } from "@/store/slices/capsuleDetailSlice";
+import { getCapsuleCompanyDetailData, getOperationDetailQuetarly, getOperationDetailYearly, getPriceAndVolume, getSharePriceAndVolume } from "@/store/slices/capsuleDetailSlice";
 import { getDisclaimerData } from "@/store/slices/screenerSlugDetailSlice";
 const LoderModule = dynamic(() => import("@/components/Module/LoaderModule"))
 const OneIdBreadcrumb = dynamic(() => import("@/components/Module/Breadcrumb/OneIdBreadcrumb"))
@@ -32,7 +32,8 @@ const VolumeTable = dynamic(() => import("@/section/CapsulePlus/CapsulePlusDetai
 
 export default function IpoDetails(props) {
     const { t } = useTranslation("common");
-    const { getCapsuleCompanyDetailObj, getDisclaimerDataObj, getOperationDetailQuetarlyObj, getOperationDetailYearlyObj, getSharePriceAndVolumeObj } = props;
+    const { getCapsuleCompanyDetailObj, getDisclaimerDataObj, getOperationDetailQuetarlyObj, getOperationDetailYearlyObj, getSharePriceAndVolumeObj, getPriceAndVolumeObj } = props;
+    console.log("getPriceAndVolumeObj", getPriceAndVolumeObj)
     const { capsulePlus } = getCapsuleCompanyDetailObj;
     const { marketCap = null, prevClosePrice = null, sector = null, ttpmPE = null, sectoralPERange = null, peRemark = null, BSE = null } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData?.company_share_detail || {}
     const {
@@ -112,7 +113,6 @@ export default function IpoDetails(props) {
         return acc;
     }, {});
     const uniqueYears = [...new Set(getOperationDetailYearlyObj?.yearlyData?.map((item) => ({ month: item?.month, year: item?.year })))];
-
     return (
         <>
 
@@ -186,7 +186,7 @@ export default function IpoDetails(props) {
 
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout, "pt-3")} >
                                         <VolumeTable
-                                            dataTable={getSharePriceAndVolumeObj?.sharePriceAndVolume || []}
+                                            dataTable={getPriceAndVolumeObj?.priceAndVolumeData || []}
                                             currentDate={props?.currentDate}
                                         />
                                     </Col>
@@ -281,9 +281,10 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     await store.dispatch(getSharePriceAndVolume(shareParams));
     await store.dispatch(getOperationDetailQuetarly(quetarlySlug));
     await store.dispatch(getOperationDetailYearly(yearlySlug));
+    await store.dispatch(getPriceAndVolume(shareParams));
 
     const {
-        capsuleDetailSlice: { getCapsuleCompanyDetailObj, seoObj, getOperationDetailQuetarlyObj, getOperationDetailYearlyObj, getSharePriceAndVolumeObj },
+        capsuleDetailSlice: { getCapsuleCompanyDetailObj, seoObj, getOperationDetailQuetarlyObj, getOperationDetailYearlyObj, getSharePriceAndVolumeObj, getPriceAndVolumeObj },
         screenerSlugDetailSlice: { getDisclaimerDataObj }
 
     } = store.getState();
@@ -302,6 +303,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             getOperationDetailQuetarlyObj,
             getOperationDetailYearlyObj,
             getSharePriceAndVolumeObj,
+            getPriceAndVolumeObj,
             ...(await serverSideTranslations(locale, fileList)),
         },
     };

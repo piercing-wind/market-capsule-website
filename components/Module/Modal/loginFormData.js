@@ -7,14 +7,14 @@ export const continueFromSocial = [
         id: 1,
         icon: <GoogleIcon />,
         label: "loginAndSignupModal.continueWithGoogle",
-        socialType: "googleType"
+        provider: "google"
     },
-    {
-        id: 2,
-        icon: <FacebookIcon />,
-        label: "loginAndSignupModal.continueWithFacebook",
-        socialType: "facebookType"
-    },
+    // {
+    //     id: 2,
+    //     icon: <FacebookIcon />,
+    //     label: "loginAndSignupModal.continueWithFacebook",
+    //     provider: "facebook"
+    // },
 
 ]
 

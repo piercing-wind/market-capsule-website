@@ -12,7 +12,8 @@ const nextConfig = {
     RAZORPAY_KEY: process.env.RAZORPAY_KEY,
     CURRENCY: process.env.CURRENCY,
     WEB: process.env.WEB,
-    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID
+    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+    Facebook_APP_ID: process.env.Facebook_APP_ID,
 
   },
   i18n,
@@ -21,6 +22,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'cdn.marketcapsule.in',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
       },
     ],
   },

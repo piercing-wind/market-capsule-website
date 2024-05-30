@@ -12,8 +12,7 @@ const DateBarChart = dynamic(() => import('./DateBarChart'))
 import { Trans, useTranslation } from 'next-i18next';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { getTopGainerList, getTopLosersList, setTopGainerList, setTopGainerTotalList, setTopLosersList, setTopLosersTotalList } from '@/store/slices/homePageSlice';
-
-
+import { getUpdatedDate } from '@/utils/constants';
 
 /**
  * LeftHomeSection component displays the left section of the homepage.
@@ -29,6 +28,7 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj }) => {
   const [bse, setBse] = useState("bse")
   const [sensex, setSensex] = useState("sensex")
   const [todayMarketStatus, setTodayMarketStatus] = useState(-258.45)
+  const [lastUpdatedOn, setLastUpdatedOn] = useState("")
   const { topGainerList, topLosersList } = useSelector((state) => ({
     topGainerList: state?.homePageSlice?.topGainerObj?.topGainerList,
     topLosersList: state?.homePageSlice?.topLosersObj?.topLosersList,
@@ -84,6 +84,14 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj }) => {
       dispatch(setTopLosersList(topLosersObj?.topLosersList))
       dispatch(setTopLosersTotalList(topLosersObj?.topLosersTotalList))
     }
+    if (topLosersObj?.topLosersList?.length > 0) {
+      console.log("topLosersObj", topLosersObj)
+      let data = [...topLosersObj?.topLosersList]?.sort((a, b) => new Date(b?.attributes?.updatedAt) - new Date(a?.attributes?.updatedAt));
+      // Get the updatedAt value of the first element (the latest date)
+      const latestUpdateDate = topLosersObj?.topLosersList[0].attributes.updatedAt;
+      setLastUpdatedOn(latestUpdateDate);
+
+    }
   }, [dispatch]);
   return (
     <Col lg={3} className=' px-2 order-lg-0 order-1'>
@@ -131,7 +139,7 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj }) => {
           <div className={clsx("mt-3 d-flex justify-content-between align-items-center", styles.refreshDiv)}>
             <p className='mb-0 '>
               <span>{t("homepage.leftSection.lastUpdatedOn")}{" "}</span>
-              <span className={clsx(styles.semiboldSpan)}>Today, 12:00 PM</span>
+              <span className={clsx(styles.semiboldSpan)}>{getUpdatedDate(lastUpdatedOn)}</span>
             </p>
 
           </div>
@@ -165,7 +173,7 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj }) => {
           <div className={clsx("mt-3 d-flex justify-content-between align-items-center", styles.refreshDiv)}>
             <p className='mb-0'>
               <span>{t("homepage.leftSection.lastUpdatedOn")}{" "}</span>
-              <span className={clsx(styles.semiboldSpan)}>Today, 12:00 PM</span>
+              <span className={clsx(styles.semiboldSpan)}>{getUpdatedDate(lastUpdatedOn)}</span>
             </p>
 
           </div>

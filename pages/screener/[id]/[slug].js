@@ -83,7 +83,6 @@ export default function CapsulePlusPage(props) {
             bg: false
         }
     ]
-    console.log("getScreenerCompanyDetailObj", getScreenerCompanyDetailObj)
     return (
         <>
 

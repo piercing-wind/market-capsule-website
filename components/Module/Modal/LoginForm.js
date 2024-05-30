@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from "clsx"
 import styles from "./style/loginForm.module.scss"
 import { continueFromSocial } from './loginFormData';
 import dynamic from 'next/dynamic';
-import { getGoogleConnect, setAuthType, } from '@/store/slices/authSlice';
+import { getGoogleConnect, setAuthType, setShowForm, setUpdateJwtToken, setUpdateProfileDetails, setUpgradeNow, socialLoginApi, } from '@/store/slices/authSlice';
 import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 const LoginButton = dynamic(() => import('../Button/LoginButton'))
@@ -16,7 +16,11 @@ import toast from 'react-hot-toast';
 import LoderModule from '../LoaderModule';
 import { postMethod } from '@/utils/apiServices';
 import Image from 'next/image';
-
+import { useGoogleLogin } from '@react-oauth/google';
+import axios from 'axios';
+// import FacebookLogin from 'react-facebook-login';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import { FacebookIcon } from '@/components/svg/FacebookIcon';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email format").required("* This field is mandatory"),
@@ -29,16 +33,22 @@ const signupFormData = {
 const LoginForm = () => {
     const { t } = useTranslation("common");
     const [loader, setLoader] = useState(false);
-    const google = `${process.env.API}/api/connect/google`
-    const googleText = "Sign in with Google"
     const dispatch = useDispatch()
-
+    const [googleLogin, setGoogleLogin] = useState('');
+    const [provider, setProvider] = useState('');
+    const [profile, setProfile] = useState("");
     //handle login with social media
-    const handleLoginWithSocialMedia = async () => {
-        console.log("handle login with social media")
-        await dispatch(getGoogleConnect())
-
+    const handleLoginWithGoogle = useGoogleLogin({
+        onSuccess: (codeResponse) => setGoogleLogin(codeResponse),
+        onError: (error) => console.log('Login Failed:', error)
+    });
+    const responseFacebook = (response) => {
+        console.log("responseFacebook", response);
     }
+
+    const componentClicked = () => {
+        console.log("Facebook login button clicked");
+    };
 
     //signup form btn 
     const goToSignupModal = () => {
@@ -77,6 +87,49 @@ const LoginForm = () => {
             }
         })
     }
+
+    const loginWithSocial = async () => {
+        if (googleLogin && provider === "google") {
+            let data = {
+                token: googleLogin?.access_token,
+                provider: provider,
+            }
+            console.log("googleLogin", googleLogin)
+            await socialLoginApi(data,
+                (res) => {
+                    if (res?.success) {
+                        setCookiesStorage("_jwt", res?.data?.token)
+                        dispatch(setUpdateJwtToken(res?.data?.token))
+                        dispatch(setUpdateProfileDetails(res?.data?.user))
+                        toast.success(res?.message)
+                        setLoader(false)
+                        dispatch(setShowForm(false))
+                        dispatch(setAuthType("homePage"))
+                        dispatch(setUpgradeNow(false))
+                        window.open(window.location.pathname, "_self")
+
+                    } else {
+                        toast?.error(res?.message);
+                        setLoader(false);
+                    }
+                },
+                (err) => {
+                    if (!err?.success) {
+                        toast?.error(err?.message);
+                        setLoader(false)
+                    }
+                }
+            )
+        } else {
+            return false
+        }
+    }
+
+
+    useEffect(() => {
+        loginWithSocial()
+    }, [googleLogin])
+
     return (
         <div className={clsx(styles.loginFormDiv)}>
             <Formik
@@ -133,23 +186,8 @@ const LoginForm = () => {
 
                         </p>
                         <div className={clsx("d-flex flex-column", styles.socialLoginBtnDiv)}>
-                            <a
-                                href={google}
-                                rel="nofollow"
-                                className={clsx("", styles.signupBtn, styles.cyan)}
-                                style={{
-                                    textTransform: "Uppercase",
-                                }}
-                            >
-                                <Image
-                                    src="/assets/images/signup/google-img.svg"
-                                    alt="google-img"
-                                    width={32}
-                                    height={32}
-                                />
-                                <span>{googleText || "Sign in with google"}</span>
-                            </a>
-                            {/* {
+
+                            {
                                 continueFromSocial?.length > 0 ? (
                                     continueFromSocial?.map((el, index) => {
                                         return (
@@ -165,14 +203,48 @@ const LoginForm = () => {
                                                 type={"button"}
                                                 label={el?.label}
                                                 icon={el?.icon}
-                                                handleFun={handleLoginWithSocialMedia}
-                                                socialType={el?.socialType}
+                                                handleFun={() => {
+
+                                                    if (el?.provider === "google") {
+                                                        handleLoginWithGoogle()
+
+                                                    } else {
+                                                        handleLoginWithFacebook()
+
+                                                    }
+                                                    setProvider(el?.provider)
+                                                }}
+                                                socialType={el?.provider}
                                             />
                                         )
                                     })
                                 ) : null
 
-                            } */}
+                            }
+                            <FacebookLogin
+                                appId="394106446938847"
+                                // autoLoad={true}
+                                callback={responseFacebook}
+                                render={renderProps => (
+                                    <LoginButton
+                                        color={"#000000"}
+                                        fontSize={"16px"}
+                                        fontWeight={"400"}
+                                        borderRadius={"8px"}
+                                        pAll={"8px 16px"}
+                                        bg={"#F5F5F5"}
+                                        border={"1px solid #DDDDDD"}
+                                        type={"button"}
+                                        label={`loginAndSignupModal.continueWithFacebook`}
+                                        icon={<FacebookIcon />}
+                                        handleFun={() => {
+                                            renderProps.onClick()
+                                            setProvider(`facebook`)
+                                        }}
+                                    />
+                                    // <button onClick={renderProps.onClick}>This is my custom FB button</button>
+                                )}
+                            />,
 
                         </div>
 

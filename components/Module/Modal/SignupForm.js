@@ -236,7 +236,9 @@ const SignupForm = () => {
                                                     type={"button"}
                                                     label={el?.label}
                                                     icon={el?.icon}
-                                                    handleFun={handleLoginWithSocialMedia}
+                                                    handleFun={() => {
+                                                        handleLoginWithSocialMedia(el?.provider)
+                                                    }}
                                                     socialType={el?.socialType}
                                                 />
                                             )

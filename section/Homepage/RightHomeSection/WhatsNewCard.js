@@ -33,7 +33,7 @@ const WhatsNewCard = ({ data, logo, headingLabel }) => {
                     data?.length > 0 ? (
                         data?.map((el, index) => {
                             return (
-                                <div key={index} className={clsx("d-flex flex-column column-gap-2 ", styles.trandingHeadlineDiv, hideBorderInLastDiv(data?.trandingNewsArr?.length, index))}>
+                                <div key={index} className={clsx("d-flex flex-column column-gap-2 ", styles.trandingHeadlineDiv, hideBorderInLastDiv(data?.length, index))}>
                                     <div className={clsx("d-flex align-items-center column-gap-2 ",)}>
                                         <Image
                                             src={el?.attributes?.whatsNewInCapsulePlusImage?.data?.attributes?.url

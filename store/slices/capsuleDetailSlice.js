@@ -22,6 +22,11 @@ export const getOperationDetailYearly = createAsyncThunk('capsuleDetailSlice/get
     return (response)
 });
 
+export const getPriceAndVolume = createAsyncThunk('capsuleDetailSlice/getPriceAndVolume', async (params) => {
+    const response = await getMethod(`company/priceAndVolume`, params);
+    return (response)
+});
+
 const getCapsuleCompanyDetailObj = {
     loading: false,
     error: false,
@@ -50,6 +55,13 @@ const getOperationDetailYearlyObj = {
 
 }
 
+const getPriceAndVolumeObj = {
+    loading: false,
+    error: false,
+    priceAndVolumeData: [],
+
+}
+
 const seoObj = {
     loading: false,
     error: false,
@@ -63,7 +75,8 @@ export const capsuleDetailSlice = createSlice({
         seoObj,
         getOperationDetailQuetarlyObj,
         getOperationDetailYearlyObj,
-        getSharePriceAndVolumeObj
+        getSharePriceAndVolumeObj,
+        getPriceAndVolumeObj
     },
     reducers: {
 
@@ -124,6 +137,18 @@ export const capsuleDetailSlice = createSlice({
             .addCase(getSharePriceAndVolume.rejected, (state, action) => {
                 state.getSharePriceAndVolumeObj.loading = false;
                 state.getSharePriceAndVolumeObj.error = true;
+            })
+            .addCase(getPriceAndVolume.pending, (state, action) => {
+                state.getPriceAndVolumeObj.loading = true;
+            })
+            .addCase(getPriceAndVolume.fulfilled, (state, action) => {
+                state.getPriceAndVolumeObj.loading = false;
+                state.getPriceAndVolumeObj.priceAndVolumeData = action?.payload?.data
+
+            })
+            .addCase(getPriceAndVolume.rejected, (state, action) => {
+                state.getPriceAndVolumeObj.loading = false;
+                state.getPriceAndVolumeObj.error = true;
             })
     },
 });

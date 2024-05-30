@@ -1,3 +1,4 @@
+import moment from "moment";
 
 export const DEFAULT_LOCALE = 'en';
 const TO_LOCALE_STRING = { en: "en-US", ar: "ar-EG" };
@@ -178,3 +179,16 @@ export function formatString(str) {
         })
         ?.join(' '); // Join the words with spaces
 }
+
+export const getUpdatedDate = (dateString) => {
+    const date = moment(dateString);
+    let formattedDate;
+    if (date?.isSame(new Date(), 'day')) {
+        // If the date is today, format it as "Today, hh:mm A"
+        formattedDate = `Today, ${date?.format('hh:mm A')}`;
+    } else {
+        // If the date is not today, format it as "MMM D, YYYY"
+        formattedDate = date?.format('MMM D, YYYY');
+    }
+    return formattedDate;
+};

@@ -1,5 +1,5 @@
 import { apiEndPoints } from '@/utils/apiEndPoints';
-import { getMethod } from '@/utils/apiServices';
+import { getMethod, postMethod } from '@/utils/apiServices';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 
@@ -16,11 +16,7 @@ export const getProfessionList = createAsyncThunk('authSlice/getProfeessionList'
     return (response)
 });
 
-export const getGoogleConnect = createAsyncThunk('authSlice/getGoogleConnect', async () => {
-    const response = await getMethod(`connect/google`);
-    return (response)
 
-});
 
 const loginModalObj = {
     showForm: false,
@@ -108,3 +104,15 @@ export const { setUpgradeNow, setShowForm, setAuthType, setResetSlice, setUpdate
 
 export default authSlice.reducer
 
+export const socialLoginApi = async (data = {}, success, error) => {
+    new Promise((resolve, reject) => {
+        postMethod(`authentication/socialLogin`, (data)).then((response) => {
+            if (response?.error?.status) {
+                error({ success: false, message: response?.error?.message })
+            } else {
+                console.log("response", response)
+                success({ success: true, message: response?.message, data: response?.data })
+            }
+        })
+    })
+}

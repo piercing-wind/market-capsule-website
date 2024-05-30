@@ -154,11 +154,18 @@ const ArticalAndCaseStudyCard = () => {
                             ) : null
                         }
                         <div className={clsx(styles.loadMoreBtn, "mt-3")} >
-                            <LoadMoreBtn
-                                totalList={feedTotalList}
-                                loading={feedLoading}
-                                data={feedList}
-                                loadMoreFun={loadMoreFun} />
+                            {
+                                feedList?.length > 4 ? (
+                                    <LoadMoreBtn
+                                        totalList={feedTotalList}
+                                        loading={feedLoading}
+                                        data={feedList}
+                                        loadMoreFun={loadMoreFun} />
+                                ) : (
+                                    <div></div>
+                                )
+                            }
+
                         </div>
 
 
