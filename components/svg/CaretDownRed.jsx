@@ -1,6 +1,6 @@
 import React from "react";
 
-export const CaretDownRed = () => {
+export const CaretDownRed = ({fill="#ff4f55"}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +13,7 @@ export const CaretDownRed = () => {
         data-name="caret-down (1)"
         d="M5.976,9h6.31a.564.564,0,0,1,.4.965L9.532,13.115a.564.564,0,0,1-.8,0L5.581,9.965A.564.564,0,0,1,5.976,9Z"
         transform="translate(-5.414 -9)"
-        fill="#ff4f55"
+        fill={fill}
       />
     </svg>
   );

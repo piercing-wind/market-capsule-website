@@ -12,6 +12,8 @@ import { Bar } from 'react-chartjs-2';
 import { faker } from "@faker-js/faker";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { sensexChartBarData, sensexChartData } from '../homePageData';
+import { shallowEqual, useSelector } from 'react-redux';
+import moment from 'moment';
 
 ChartJS.register(
     CategoryScale,
@@ -24,82 +26,96 @@ ChartJS.register(
 );
 
 
-const labels = ['21', '22', '23', '24', '25', '26', '27', "28", "29", "01"];
-const dataValues = sensexChartBarData?.map((item) => ({
-    value: item?.value,
-    backgroundColor: item?.value > 0 ? '#2EDC90' : '#FF4F55',
-    align: item?.value > 0 ? 'start' : 'end'
-}));
-export const options = {
-    plugins: {
-        legend: {
-            display: false
-        },
-        title: {
-            display: false,
-        },
-        datalabels: {
-            display: true,
-            anchor: dataValues.map(item => item?.align),
-            align: dataValues.map(item => item?.align),
-            color: '#868686', // Set the font color of the labels
-            font: {
-                size: 10, // Set the font size
-                weight: '500', // Set the font weight if needed
-            },
-            formatter: (value, context) => { // Customize label format
-                return sensexChartBarData[context.dataIndex]?.date; // Format the label to display date
-            }
-        }
-    },
-    responsive: true,
-    interaction: {
-        mode: 'index',
-        intersect: false,
-    },
-    scales: {
-        x: {
-            stacked: true,
-            grid: {
-                display: false, // Hide the grid lines on the y-axis
-            },
-            border: {
-                display: false
-            },
-            ticks: {
-                display: false
-            }
-        },
-        y: {
-            stacked: true,
-            grid: {
-                display: false, // Hide the grid lines on the y-axis
-            },
-            border: {
-                display: false
-            },
-            ticks: {
-                display: false
-            }
-        },
-    },
-};
 
-export const data = {
-    labels,
-    datasets: [
-        {
-            label: '',
-            data: dataValues?.map(item => item.value),
-            backgroundColor: dataValues.map(item => item?.backgroundColor),
-            stack: 'Stack 0',
-        },
-
-
-    ],
-};
 
 const DateBarChart = () => {
+    const { sensexAndNiftyData } = useSelector((state) => ({
+        sensexAndNiftyData: state?.homePageSlice?.sensexAndNiftyObj?.sensexAndNiftyData,
+
+    }), shallowEqual)
+    let sortedIndexes;
+    if (Array.isArray(sensexAndNiftyData?.indexes)) {
+        sortedIndexes = [...sensexAndNiftyData.indexes].sort((a, b) => new Date(a.date) - new Date(b.date));
+    }
+    const labels = sortedIndexes?.map((item) => (moment(item?.date)?.format('DD MMM YYYY')));
+    const dataValues = sortedIndexes?.map((item) => ({
+        value: item?.price,
+        backgroundColor: item?.price > 0 ? '#2EDC90' : '#FF4F55',
+        // align: item?.price > 0 ? 'start' : 'end'
+        align: "end"
+
+    }));
+
+    const options = {
+        plugins: {
+            legend: {
+                display: false
+            },
+            title: {
+                display: false,
+            },
+            datalabels: {
+                display: true,
+                anchor: dataValues?.map(item => item?.align),
+                align: dataValues?.map(item => item?.align),
+                color: '#868686', // Set the font color of the labels
+                font: {
+                    size: 10, // Set the font size
+                    weight: '500', // Set the font weight if needed
+                },
+                formatter: (value, context) => { // Customize label format
+                    const date = sortedIndexes?.[context.dataIndex]?.date;
+                    const formattedDate = moment(date)?.format('DD ');
+                    return formattedDate;
+                }
+            }
+        },
+        responsive: true,
+        interaction: {
+            mode: 'index',
+            intersect: false,
+        },
+        scales: {
+            x: {
+                stacked: true,
+                grid: {
+                    display: false, // Hide the grid lines on the y-axis
+                },
+                border: {
+                    display: false
+                },
+                ticks: {
+                    display: false
+                }
+            },
+            y: {
+                stacked: true,
+                grid: {
+                    display: false, // Hide the grid lines on the y-axis
+                },
+                border: {
+                    display: false
+                },
+                ticks: {
+                    display: false
+                }
+            },
+        },
+    };
+
+    const data = {
+        labels,
+        datasets: [
+            {
+                label: "",
+                data: dataValues?.map(item => item.value),
+                backgroundColor: dataValues?.map(item => item?.backgroundColor),
+                stack: 'Stack 0',
+            },
+
+
+        ],
+    };
     return (
         <div>
             <Bar options={options} data={data} />

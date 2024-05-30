@@ -281,52 +281,52 @@ export const sensexChartData = [{
 export const sensexChartBarData = [{
     id: 1,
     date: 21,
-    value: 5
+    price: 5
 },
 {
     id: 2,
     date: 22,
-    value: -5
+    price: -5
 },
 {
     id: 3,
     date: 23,
-    value: -2
+    price: -2
 },
 {
     id: 4,
     date: 24,
-    value: -3
+    price: -3
 },
 {
     id: 5,
     date: 25,
-    value: 8
+    price: 8
 },
 {
     id: 6,
     date: 26,
-    value: -1
+    price: -1
 },
 {
     id: 7,
     date: 27,
-    value: 6
+    price: 6
 },
 {
     id: 8,
     date: 28,
-    value: 5
+    price: 5
 },
 {
     id: 9,
     date: 29,
-    value: -3
+    price: -3
 },
 {
     id: 10,
     date: 1,
-    value: 4
+    price: 4
 }
 
 ]

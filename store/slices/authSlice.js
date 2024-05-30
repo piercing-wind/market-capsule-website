@@ -110,7 +110,6 @@ export const socialLoginApi = async (data = {}, success, error) => {
             if (response?.error?.status) {
                 error({ success: false, message: response?.error?.message })
             } else {
-                console.log("response", response)
                 success({ success: true, message: response?.message, data: response?.data })
             }
         })

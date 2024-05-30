@@ -49,7 +49,9 @@ const LoginModal = ({ children }) => {
                                         </Col>
 
                                         <Col md={5} className={clsx("px-0 d-md-block d-none")} >
-                                            <Image priority={false} src="/assests/auth-flow/right-form-banner.png" alt="right-form-banner" width="306" height="501" className='w-100 h-100' />
+                                            <Image
+                                                //  priority={false} 
+                                                src="/assests/auth-flow/right-form-banner.png" alt="right-form-banner" width="306" height="501" className='w-100 h-100' />
                                         </Col>
                                     </Row>
 

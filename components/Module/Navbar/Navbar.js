@@ -63,14 +63,18 @@ const NavbarLayout = () => {
             <Navbar expanded={expanded} onToggle={handleToggle} sticky="top" expand="lg" className={clsx("white", styles.navBar)}>
                 <Container fluid className={clsx(styles.navContainer)}>
                     <Link className="navbar-brand d-lg-none d-block" href="/" onClick={handleLinkClick} >
-                        <Image priority={true} src="/assests/homepage/market-capsule-logo.svg" alt="market capsule logo" width="150" height="40" />
+                        <Image
+                            //  priority={true} 
+                            src="/assests/homepage/market-capsule-logo.svg" alt="market capsule logo" width="150" height="40" />
                     </Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto  w-100">
                             <div className='d-flex flex-lg-row flex-column   w-100 justify-content-lg-between align-items-lg-center align-items-start row-gap-2 px-lg-0 px-2' >
                                 <Link className="navbar-brand d-lg-block d-none" href="/" onClick={handleLinkClick}>
-                                    <Image priority={true} src="/assests/homepage/market-capsule-logo.svg" alt="market capsule logo" width="150" height="40" />
+                                    <Image
+                                        //  priority={true} 
+                                        src="/assests/homepage/market-capsule-logo.svg" alt="market capsule logo" width="150" height="40" />
                                 </Link>
                                 <ul className={clsx("d-flex flex-lg-row flex-column row-gap-2 ", styles.ulLink)}>
                                     {

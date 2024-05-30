@@ -104,7 +104,9 @@ const ArticalAndCaseStudyCard = () => {
                                     return (
                                         <div key={index} className={clsx("  column-gap-3 d-flex  mb-2", styles.midleDiv, articalAndCaseStudyCardCss(el?.type) ? styles.orangeBackground : styles.grayBackground)}>
                                             <div className='d-flex align-items-center'>
-                                                <Image priority={false} className={clsx(" h-100", styles.imgWidth)} src={el?.featuredImage?.url} alt={el?.featuredImage?.alternativeText ? el?.featuredImage?.alternativeText : "feed list"} width="197" height="158" />
+                                                <Image
+                                                    // priority={false}
+                                                    className={clsx(" h-100", styles.imgWidth)} src={el?.featuredImage?.url} alt={el?.featuredImage?.alternativeText ? el?.featuredImage?.alternativeText : "feed list"} width="197" height="158" />
                                             </div>
                                             <div className={clsx("pe-1 d-flex flex-column justify-content-evenly")}>
                                                 <div>

@@ -94,7 +94,6 @@ const LoginForm = () => {
                 token: googleLogin?.access_token,
                 provider: provider,
             }
-            console.log("googleLogin", googleLogin)
             await socialLoginApi(data,
                 (res) => {
                     if (res?.success) {

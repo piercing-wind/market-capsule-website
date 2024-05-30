@@ -33,7 +33,6 @@ const VolumeTable = dynamic(() => import("@/section/CapsulePlus/CapsulePlusDetai
 export default function IpoDetails(props) {
     const { t } = useTranslation("common");
     const { getCapsuleCompanyDetailObj, getDisclaimerDataObj, getOperationDetailQuetarlyObj, getOperationDetailYearlyObj, getSharePriceAndVolumeObj, getPriceAndVolumeObj } = props;
-    console.log("getPriceAndVolumeObj", getPriceAndVolumeObj)
     const { capsulePlus } = getCapsuleCompanyDetailObj;
     const { marketCap = null, prevClosePrice = null, sector = null, ttpmPE = null, sectoralPERange = null, peRemark = null, BSE = null } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData?.company_share_detail || {}
     const {

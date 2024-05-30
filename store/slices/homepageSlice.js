@@ -10,6 +10,12 @@ export const getHomePageMetaData = createAsyncThunk('homePageSlice/getHomePageMe
     const response = await getMethod(`homepage?fields[0]=metaTitle&fields[1]=metaDescription`);
     return (response)
 });
+
+export const getSansexAndNiftyData = createAsyncThunk('homePageSlice/getSansexAndNiftyData', async (params) => {
+    const response = await getMethod(`index/list`, params);
+    return (response)
+});
+
 export const getTopGainerList = createAsyncThunk('homePageSlice/getTopGainerList', async (params) => {
     const response = await getMethod(`${apiEndPoints.getTopGainerList}?filters[exchangeType][$eq]=${params.filter}&pagination[page]=${params.page}&pagination[pageSize]=${params.limit}&sort=${params.sort}&populate[company][fields][0]=${params.populate}`);
     return (response)
@@ -50,6 +56,12 @@ const filterBtnObj = {
 
 }
 
+const sensexAndNiftyObj = {
+    loading: false,
+    error: false,
+    sensexAndNiftyData: {},
+}
+
 const topGainerObj = {
     loading: false,
     error: false,
@@ -78,6 +90,7 @@ const whatsNewInCapsulePlusObj = {
     error: false,
     whatsNewInCapsulePlusList: [],
     whatsNewInCapsulePlusTotalList: 0,
+
 }
 
 
@@ -140,12 +153,15 @@ export const homePageSlice = createSlice({
         industriesObj,
         feedListObj,
         getGlobalSearchObj,
-        seoObj
-
+        seoObj,
+        sensexAndNiftyObj
     },
     reducers: {
         setShowFilterModalForm(state, action) {
             state.showFilterModal.showFilterModalForm = action.payload
+        },
+        setSensexAndNifty: (state, action) => {
+            state.sensexAndNiftyObj.sensexAndNiftyData = action.payload;
         },
         setTopGainerList: (state, action) => {
             state.topGainerObj.topGainerList = action.payload;
@@ -230,6 +246,20 @@ export const homePageSlice = createSlice({
             .addCase(getTopLosersList.rejected, (state, action) => {
                 state.topLosersObj.loading = false;
                 state.topLosersObj.error = true;
+            })
+            .addCase(getSansexAndNiftyData.pending, (state, action) => {
+                state.sensexAndNiftyObj.loading = true;
+                state.sensexAndNiftyObj.error = false;
+            })
+            .addCase(getSansexAndNiftyData.fulfilled, (state, action) => {
+                state.sensexAndNiftyObj.loading = false;
+                state.sensexAndNiftyObj.error = false;
+                state.sensexAndNiftyObj.sensexAndNiftyData = action?.payload?.data;
+
+            })
+            .addCase(getSansexAndNiftyData.rejected, (state, action) => {
+                state.sensexAndNiftyObj.loading = false;
+                state.sensexAndNiftyObj.error = true;
             })
             .addCase(getTrandingNewsList.pending, (state, action) => {
                 state.trandingNewsObj.loading = true;
@@ -322,7 +352,8 @@ export const {
     setFeedTotalList,
     setFeedCurrentPage,
     setIndustryId,
-    setFeedListEmpty
+    setFeedListEmpty,
+    setSensexAndNifty
 } = homePageSlice.actions
 
 export default homePageSlice.reducer

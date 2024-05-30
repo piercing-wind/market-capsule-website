@@ -11,7 +11,7 @@ import styles from "../section/Homepage/style/home.module.scss"
 import LoderModule from "@/components/Module/LoaderModule";
 import React, { Suspense, startTransition, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
-import { getCategoriesList, getFeedList, getHomePageMetaData, getIndustriesList, getTopGainerList, getTopLosersList, getTrandingNewsList, getWhatsNewInCapsulePlusList, setTopGainerList, setTopGainerTotalList } from "@/store/slices/homePageSlice";
+import { getCategoriesList, getFeedList, getHomePageMetaData, getIndustriesList, getSansexAndNiftyData, getSansexAndNiftyList, getTopGainerList, getTopLosersList, getTrandingNewsList, getWhatsNewInCapsulePlusList, setTopGainerList, setTopGainerTotalList } from "@/store/slices/homePageSlice";
 import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
 import { GoogleLogin, googleLogout, useGoogleLogin } from "@react-oauth/google";
@@ -38,7 +38,11 @@ export default function Home(props) {
   return (
     <Container fluid className={clsx(styles.containerPadding, "mt-3 pb-5 ")}>
       <Row className="mx-0 app">
-        <LeftHomeSection topGainerObj={props?.topGainerObj} topLosersObj={props?.topLosersObj} />
+        <LeftHomeSection
+          topGainerObj={props?.topGainerObj}
+          topLosersObj={props?.topLosersObj}
+          sensexAndNiftyObj={props?.sensexAndNiftyObj}
+        />
         <MidleHomeSection
           industriesObj={props?.industriesObj}
           feedListObj={props?.feedListObj}
@@ -89,6 +93,9 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     limit: 5,
     industryId: ``
   }
+  const indexParams = {
+    indexType: `Sensex`
+  }
   await store.dispatch(getHomePageMetaData());
   await store.dispatch(getTopGainerList(params));
   await store.dispatch(getTopGainerList(params));
@@ -97,9 +104,10 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
   await store.dispatch(getWhatsNewInCapsulePlusList(trandingNewsParams));
   await store.dispatch(getIndustriesList(industryParams));
   await store.dispatch(getFeedList(feedListParams));
+  await store.dispatch(getSansexAndNiftyData(indexParams));
 
   const {
-    homePageSlice: { seoObj, topGainerObj, topLosersObj, trandingNewsObj, whatsNewInCapsulePlusObj, industriesObj, feedListObj }
+    homePageSlice: { seoObj, topGainerObj, topLosersObj, trandingNewsObj, whatsNewInCapsulePlusObj, industriesObj, feedListObj, sensexAndNiftyObj }
   } = store.getState();
   let fileList = getFileLangList();
   secureHeader(req, res, locale);
@@ -112,6 +120,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
       whatsNewInCapsulePlusObj,
       industriesObj,
       feedListObj,
+      sensexAndNiftyObj,
       seo: seoObj?.seo,
       language: locale,
 

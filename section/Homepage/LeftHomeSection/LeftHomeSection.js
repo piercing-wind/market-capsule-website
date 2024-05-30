@@ -11,7 +11,7 @@ const LineChart = dynamic(() => import('./LineChart'))
 const DateBarChart = dynamic(() => import('./DateBarChart'))
 import { Trans, useTranslation } from 'next-i18next';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { getTopGainerList, getTopLosersList, setTopGainerList, setTopGainerTotalList, setTopLosersList, setTopLosersTotalList } from '@/store/slices/homePageSlice';
+import { getSansexAndNiftyData, getTopGainerList, getTopLosersList, setSensexAndNifty, setTopGainerList, setTopGainerTotalList, setTopLosersList, setTopLosersTotalList } from '@/store/slices/homePageSlice';
 import { getUpdatedDate } from '@/utils/constants';
 
 /**
@@ -22,18 +22,18 @@ import { getUpdatedDate } from '@/utils/constants';
  * @param {Object} topLosersObj - The top losers object.
  * @returns {JSX.Element} The JSX element representing the LeftHomeSection component.
  */
-const LeftHomeSection = ({ topGainerObj, topLosersObj }) => {
+const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
   const { t } = useTranslation("common");
   const dispatch = useDispatch()
   const [bse, setBse] = useState("bse")
   const [sensex, setSensex] = useState("sensex")
   const [todayMarketStatus, setTodayMarketStatus] = useState(-258.45)
   const [lastUpdatedOn, setLastUpdatedOn] = useState("")
-  const { topGainerList, topLosersList } = useSelector((state) => ({
-    topGainerList: state?.homePageSlice?.topGainerObj?.topGainerList,
-    topLosersList: state?.homePageSlice?.topLosersObj?.topLosersList,
+  const { sensexAndNiftyData } = useSelector((state) => ({
+    sensexAndNiftyData: state?.homePageSlice?.sensexAndNiftyObj?.sensexAndNiftyData,
 
   }), shallowEqual)
+
 
   //topgainers and losers filter btn fun 
   const bseAndNseButtonFun = async (type) => {
@@ -65,32 +65,46 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj }) => {
   }
 
   //sensex and nifty filter btn fun 
-  const sensexAndNiftyFun = (type) => {
+  const sensexAndNiftyFun = async (type) => {
+    const params = {
+      indexType: type === "sensex" ? `Sensex` : "Nifty"
+    }
     if (type === "sensex") {
+      if (sensex !== type) {
+        await dispatch(getSansexAndNiftyData(params))
+      }
       setSensex("sensex")
     } else {
+      if (sensex !== type) {
+        await dispatch(getSansexAndNiftyData(params))
+      }
       setSensex("nifty")
     }
 
   }
 
   useEffect(() => {
-    if (topGainerList?.length === 0) {
+    if (topGainerObj?.topGainerList?.length > 0) {
       dispatch(setTopGainerList(topGainerObj?.topGainerList))
       dispatch(setTopGainerTotalList(topGainerObj?.topGainerTotalList))
-    }
 
-    if (topLosersList?.length === 0) {
-      dispatch(setTopLosersList(topLosersObj?.topLosersList))
-      dispatch(setTopLosersTotalList(topLosersObj?.topLosersTotalList))
     }
     if (topLosersObj?.topLosersList?.length > 0) {
-      console.log("topLosersObj", topLosersObj)
+      dispatch(setTopLosersList(topLosersObj?.topLosersList))
+      dispatch(setTopLosersTotalList(topLosersObj?.topLosersTotalList))
+
+    }
+
+    if (sensexAndNiftyObj?.sensexAndNiftyData?.indexes?.length > 0) {
+      dispatch(setSensexAndNifty(sensexAndNiftyObj?.sensexAndNiftyData))
+
+    }
+
+    if (topLosersObj?.topLosersList?.length > 0) {
       let data = [...topLosersObj?.topLosersList]?.sort((a, b) => new Date(b?.attributes?.updatedAt) - new Date(a?.attributes?.updatedAt));
       // Get the updatedAt value of the first element (the latest date)
-      const latestUpdateDate = topLosersObj?.topLosersList[0].attributes.updatedAt;
+      const latestUpdateDate = data[0]?.attributes?.updatedAt;
       setLastUpdatedOn(latestUpdateDate);
-
     }
   }, [dispatch]);
   return (
@@ -120,13 +134,13 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj }) => {
             />
           </div>
           <div className={clsx("d-flex column-gap-2 mt-2", styles.numberDiv)}>
-            <p className='mb-0 '>73,418.57</p>
+            <p className='mb-0 '>{sensexAndNiftyData?.currentPrice}</p>
             {
-              todayMarketStatus < 0 ? (
-                <p className={clsx(" d-flex align-items-center column-gap-1  mb-0", styles.redColor)}>{"-"}258.45{"  "}<CaretDownRed /></p>
+              sensexAndNiftyData?.changeInprice < 0 ? (
+                <p className={clsx(" d-flex align-items-center column-gap-1  mb-0", styles.redColor)}>{sensexAndNiftyData?.changeInprice}{"  "}<CaretDownRed /></p>
 
               ) : (
-                <p className={clsx("d-flex align-items-center column-gap-1  mb-0", styles.greenColor)}>{"+"}258.45{"  "}<CaretDownRed /></p>
+                <p className={clsx("d-flex align-items-center column-gap-1  mb-0", styles.greenColor)}>{"+"}{sensexAndNiftyData?.changeInprice}{"  "}<CaretDownRed fill={"green"} /></p>
 
               )
             }
@@ -139,7 +153,7 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj }) => {
           <div className={clsx("mt-3 d-flex justify-content-between align-items-center", styles.refreshDiv)}>
             <p className='mb-0 '>
               <span>{t("homepage.leftSection.lastUpdatedOn")}{" "}</span>
-              <span className={clsx(styles.semiboldSpan)}>{getUpdatedDate(lastUpdatedOn)}</span>
+              <span className={clsx(styles.semiboldSpan)}>{getUpdatedDate(sensexAndNiftyData?.lastUpdated)}</span>
             </p>
 
           </div>
