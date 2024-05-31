@@ -7,11 +7,10 @@ import { wrapper } from "@/store";
 import { Container, Row, Col } from "react-bootstrap";
 import clsx from "clsx";
 import styles from "../../section/Watchlist/style/watchlist.module.scss"
-import LoderModule from "@/components/Module/LoaderModule";
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
-import { companyData, companyTableHeading } from "@/section/Watchlist/watchlistData";
-import { getWatchListData, getWatchListHeader, setError, setWatchList, setWatchListCurrentPage, setWatchListEmpty, setWatchListTotalList } from "@/store/slices/watchListSlice";
+import { companyTableHeading } from "@/section/Watchlist/watchlistData";
+import { getWatchListData, getWatchListHeader, setWatchList, setWatchListCurrentPage, setWatchListEmpty, setWatchListTotalList } from "@/store/slices/watchListSlice";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { fetchCookie } from "@/utils/storageService";
@@ -30,11 +29,9 @@ export default function WatchlistPage(props) {
     router.defaultLocale = "en";
     const dispatch = useDispatch();
     const { getWatchListObj, getWatchListHeaderObj } = props;
-    const { watchList, watchListError, watchListCurrentPage } = useSelector((state) => ({
+    const { watchList, watchListCurrentPage } = useSelector((state) => ({
         watchList: state?.watchListSlice?.getWatchListObj?.watchList,
-        watchListError: state?.watchListSlice?.getWatchListObj?.error,
         watchListCurrentPage: state?.watchListSlice?.getWatchListObj?.watchListCurrentPage,
-
     }), shallowEqual)
 
 
@@ -66,7 +63,6 @@ export default function WatchlistPage(props) {
                         watchList?.length > 0 ? (
                             <Col xs={12} className='ps-4 pe-0 '>
                                 <WatchlistTable companyTableHeading={companyTableHeading} />
-
                             </Col>
 
                         ) : (
@@ -75,9 +71,7 @@ export default function WatchlistPage(props) {
                             </Col>
                         )
                     }
-
                 </Row>
-
             </Container>
         </>
     );

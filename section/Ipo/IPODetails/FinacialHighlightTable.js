@@ -24,16 +24,12 @@ const FinacialHighlightTable = ({ uniqueYears, finacialHightlightGroupedData, pa
                                                     {`${el?.month}-${el?.year}`}
 
                                                 </span>
-
-
                                             </div>
-
                                         </th>
                                     )
                                 })
                             ) : null
                         }
-
                     </tr>
                 </thead>
                 <tbody>
@@ -48,7 +44,6 @@ const FinacialHighlightTable = ({ uniqueYears, finacialHightlightGroupedData, pa
                             })}
                         </tr>
                     ))}
-
                 </tbody>
             </Table>
         </div>

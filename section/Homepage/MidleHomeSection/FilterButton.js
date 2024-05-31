@@ -72,9 +72,7 @@ const FilterButton = () => {
 
                             )
                         }
-
                     </div>
-
                 ) : null
             }
             <HomepageFilterModal
@@ -82,7 +80,6 @@ const FilterButton = () => {
                 setFilterActiveState={setFilterActiveState}
             />
         </>
-
     )
 }
 

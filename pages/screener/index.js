@@ -10,12 +10,10 @@ import { Container, Row, Col } from "react-bootstrap";
 import clsx from "clsx";
 import styles from "../../section/Screener/style/screener.module.scss"
 import dynamic from "next/dynamic";
-import { cardData, filterButtonData } from "@/section/Screener/screenerData";
 import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
 import { getBucketList, getFilterList, getScreenerHeading, setBucketCurrentPage, setBucketList, setBucketListEmpty, setBucketTotalList } from "@/store/slices/screenerSlice";
 import LoadMoreBtn from "@/components/Module/Button/LoadMoreBtn";
-const LoderModule = dynamic(() => import("@/components/Module/LoaderModule"))
 const ScreeenerHeadingCom = dynamic(() => import("@/components/Module/HeadingComponent/ScreenerHeadingCom"))
 const FilterButton = dynamic(() => import("@/components/Module/Button/FilterButton"))
 const CompanyCard = dynamic(() => import("@/components/Module/ScreenerCard/CompanyCard"))
@@ -23,7 +21,6 @@ const CompanyCard = dynamic(() => import("@/components/Module/ScreenerCard/Compa
 export default function CapsulePlusPage(props) {
     const { t } = useTranslation("common");
     const [screenerFilter, setScreenerFilter] = useState(0)
-    const [itemPerPage, setItemPerPage] = useState(9)
     const dispatch = useDispatch();
     const {
         bucketObj,
@@ -35,7 +32,6 @@ export default function CapsulePlusPage(props) {
         bucketCurrentPage: state?.screenerSlice?.bucketObj?.bucketCurrentPage,
         bucketTotalList: state?.screenerSlice?.bucketObj?.bucketTotalList,
         bucketLoading: state?.screenerSlice?.bucketObj?.loading,
-
     }), shallowEqual)
 
 
@@ -101,7 +97,6 @@ export default function CapsulePlusPage(props) {
                                 getFilterObj?.filterList?.length > 0 && (
                                     getFilterObj?.filterList?.map((el, index) => {
                                         return (
-
                                             <FilterButton
                                                 key={index}
                                                 color={screenerFilter === el?.id ? "#FFFFFF" : "#606F7B"}
@@ -117,15 +112,11 @@ export default function CapsulePlusPage(props) {
                                                 pRight={"16px"}
                                                 disable={screenerFilter === el?.id ? true : false}
                                             />
-
                                         )
                                     })
-
                                 )
                             }
-
                         </div>
-
                     </Col>
 
                     <Col xs={12} className={clsx(styles.cardSection)} >
@@ -142,11 +133,9 @@ export default function CapsulePlusPage(props) {
                                                 <CompanyCard
                                                     dataObj={el}
                                                 />
-
                                             </Col>
                                         )
                                     })
-
                                 ) : null
                             }
 
@@ -157,17 +146,13 @@ export default function CapsulePlusPage(props) {
                                         loading={bucketLoading}
                                         data={bucketList}
                                         loadMoreFun={loadMoreFun} />
-
                                 )
                                 }
                             </div>
-
                         </Row>
                     </Col>
-
                 </Row>
             </Container>
-
         </>
     );
 }

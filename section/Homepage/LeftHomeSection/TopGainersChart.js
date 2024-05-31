@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react'
 import clsx from "clsx";
 import styles from "../style/topGainersAndLosersCard.module.scss"
 import { Trans, useTranslation } from 'next-i18next';
-
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -14,10 +13,8 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { topGainerArr } from '../homePageData';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { getScreenHeight, getScreenWidth } from '@/utils/constants';
-import LoderModule from '@/components/Module/LoaderModule';
 import { shallowEqual, useSelector } from 'react-redux';
 import NotFoundCard from '@/components/Module/NotFoundCard/NotFoundCard';
 ChartJS.register(
@@ -34,10 +31,9 @@ const TopGainersChart = () => {
     const { t } = useTranslation("common");
     const { topGainerList } = useSelector((state) => ({
         topGainerList: state?.homePageSlice?.topGainerObj?.topGainerList,
-
     }), shallowEqual)
 
-    // Extract labels and data from topGainerArr
+    // Extract labels and data from topGainerList
     const labels = topGainerList?.map((item) => item?.attributes?.company?.data?.attributes?.name);
     const dataValues = topGainerList?.map((item) => item?.attributes?.value);
     const data = {
@@ -159,13 +155,9 @@ const TopGainersChart = () => {
         function handleResize() {
             setScreenWidth(getScreenWidth());
             serScreenHeight(getScreenHeight());
-
         }
-
         const resizeListener = () => handleResize();
-
         window.addEventListener("resize", resizeListener);
-
         return () => {
             window.removeEventListener("resize", resizeListener);
         };

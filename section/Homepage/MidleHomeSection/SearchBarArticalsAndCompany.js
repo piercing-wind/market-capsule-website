@@ -1,4 +1,4 @@
-import React, { use, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from "clsx";
 import styles from "../style/searchBarArticalsAndCompany.module.scss"
 import Search from '@/components/svg/Search';
@@ -18,7 +18,6 @@ const SearchBarArticalsAndCompany = () => {
   const router = useRouter()
   const { globalSearchList } = useSelector((state) => ({
     globalSearchList: state?.homePageSlice?.getGlobalSearchObj?.globalSearchList,
-
   }), shallowEqual)
   //handle search based on search button
   const searchFun = async () => {
@@ -31,9 +30,8 @@ const SearchBarArticalsAndCompany = () => {
       search: value
     }
     await dispatch(getGlobalSearchList(params))
-
-
   }
+
   useEffect(() => {
     if (value) {
       searchTypeFun()
@@ -43,7 +41,6 @@ const SearchBarArticalsAndCompany = () => {
   return (
     <div className={clsx("p-3", styles.searchBarSection)}>
       <div className={clsx(styles.inputBlock, styles.typeahead)}>
-
         <div className={clsx("d-flex align-items-center column-gap-2 px-2 ", styles.searchBar, styles.div1)}>
           <Search />
           <input
@@ -55,8 +52,6 @@ const SearchBarArticalsAndCompany = () => {
               setText(e.target.value);
             }}
           />
-
-
           <div className={clsx(styles.searchBtn)}>
             <IconPayNowButton
               label={`homepage.midleSection.search`}
@@ -70,7 +65,6 @@ const SearchBarArticalsAndCompany = () => {
               type={"button"}
               handleFun={searchFun}
               disabled={value === "" ? true : false}
-
             />
           </div>
         </div>
@@ -90,7 +84,6 @@ const SearchBarArticalsAndCompany = () => {
               })
               ?.map((elId, typeIndex) => (
                 <div
-                  // value={elId?.id}
                   key={typeIndex}
                   className={clsx(styles.linkDiv)}
                 >

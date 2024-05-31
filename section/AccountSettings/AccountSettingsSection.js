@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import clsx from "clsx";
 import styles from "./style/accountSettings.module.scss";
-import Image from 'next/image';
 import PenCircle from '@/components/svg/PenCircle';
 import { Col, Row } from 'react-bootstrap';
 import dynamic from 'next/dynamic';
@@ -15,7 +14,6 @@ const HomeBlueButton = dynamic(() => import('@/components/Module/Button/HomeBlue
 const DefaultProfile = dynamic(() => import('@/components/Module/ProfileImage/DefaultProfile'))
 import * as Yup from "yup";
 import { useDropzone } from 'react-dropzone';
-import { RxCross2 } from "react-icons/rx";
 import CrossCircle from '@/components/svg/CrossCircle';
 import { Trans, useTranslation } from "next-i18next";
 import { useSelector, shallowEqual, useDispatch } from 'react-redux';
@@ -38,7 +36,6 @@ const AccountSettingsSection = ({ userDetails }) => {
     const { professionData } = useSelector((state) => (
         {
             professionData: state?.authSlice?.professionDataObj?.professionData
-
         }
     ), shallowEqual)
     const [profile, setProfile] = useState(userDetails?.image);
@@ -77,6 +74,7 @@ const AccountSettingsSection = ({ userDetails }) => {
 
         }
     }, []);
+
     const { getRootProps, getInputProps } = useDropzone({
         onDrop,
         maxFiles: 1,
@@ -188,9 +186,6 @@ const AccountSettingsSection = ({ userDetails }) => {
         dispatch(getProfessionList())
     }, [])
 
-
-
-
     return (
         <div className={clsx(styles.leftSidebarMaindDiv, "px-sm-4 px-3")}>
             {/* heading section */}
@@ -230,9 +225,7 @@ const AccountSettingsSection = ({ userDetails }) => {
                                     />
                                 )}
                                 <DefaultProfile firstCharHeight={"75px"} firstCharWidth={"75px"} userName={formik?.values?.name} src={profile ? profile : ""} width={75} height={75} />
-
                             </div>
-
                             {
                                 profile && (
                                     <button type="button" style={{ cursor: editForm ? "pointer" : "not-allowed" }} className={clsx(styles.crossBtn)} onClick={() => {
@@ -254,7 +247,6 @@ const AccountSettingsSection = ({ userDetails }) => {
                                     name={"name"}
                                     formik={formik}
                                     readOnly={!editForm ? true : false}
-
                                 />
 
                             </Col>
@@ -266,9 +258,7 @@ const AccountSettingsSection = ({ userDetails }) => {
                                     handleFun={handleGenderFun}
                                     formik={formik}
                                     readOnly={!editForm ? true : false}
-
                                 />
-
                             </Col>
                             <Col className='ps-lg-0 pe-lg-1 pb-1 px-sm-3 px-0' lg={6}>
                                 <DobDatePikar
@@ -276,9 +266,7 @@ const AccountSettingsSection = ({ userDetails }) => {
                                     startDate={formik?.values.dob}
                                     formik={formik}
                                     readOnly={!editForm ? true : false}
-
                                 />
-
                             </Col>
                             <Col className='ps-lg-1 pe-lg-0 pb-1 px-sm-3 px-0' lg={6}>
                                 <GenderDropdown
@@ -288,11 +276,9 @@ const AccountSettingsSection = ({ userDetails }) => {
                                     handleFun={handleProfessionFun}
                                     formik={formik}
                                     readOnly={!editForm ? true : false}
-
                                 />
                             </Col>
                             <Col className='ps-lg-0 pe-lg-1  pb-1 px-sm-3 px-0' lg={12}>
-
                                 <hr className='mt-3 mb-4 ' />
                             </Col>
 
@@ -306,7 +292,6 @@ const AccountSettingsSection = ({ userDetails }) => {
                                     touchedName={formik.touched.email}
                                     errorName={formik.errors.email}
                                     readOnly={true}
-
                                 />
                             </Col>
 

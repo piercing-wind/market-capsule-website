@@ -6,12 +6,10 @@ import { useRouter } from "next/router";
 import { wrapper } from "@/store";
 import { Col, Container, Row } from "react-bootstrap";
 import clsx from "clsx";
-import LoderModule from "@/components/Module/LoaderModule";
 import React, { Suspense, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import styles from "../../section/Ipo/style/ipo.module.scss"
-import { filterData, ipoTableData, ipoTableHeading } from "@/section/Ipo/ipoData";
-import SectorAutofillDropdown from "@/components/Module/Dropdown/SectorAutofillDropdown";
+import { ipoTableHeading } from "@/section/Ipo/ipoData";
 import { getFilterSectionList, getIpoCompanyData, getIpoCompanyHeadingData, setCompanyList, setCompanyListCurrentPage, setCompanyListEmpty, setCompanyListTotalList } from "@/store/slices/ipoSlice";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
@@ -23,7 +21,6 @@ const IpoFilter = dynamic(() => import("@/components/Module/Accrodian/IpoFilter"
 
 export default function CapsulePlusPage(props) {
     const { getIpoCompanyDataObj, getFilterSectionObj, getIpoCompanyHeadingObj } = props;
-
     const { t } = useTranslation("common");
     const router = useRouter();
     router.locale = props?.language
@@ -32,17 +29,14 @@ export default function CapsulePlusPage(props) {
 
     router.defaultLocale = "en";
     const dispatch = useDispatch();
-    const { companyList, companyListCurrentPage } = useSelector((state) => ({
-        companyList: state?.ipoSlice?.getIpoCompanyDataObj?.companyList,
+    const { companyListCurrentPage } = useSelector((state) => ({
         companyListCurrentPage: state?.ipoSlice?.getIpoCompanyDataObj?.companyListCurrentPage,
-
     }), shallowEqual)
 
     //set server data to client side
     useEffect(() => {
         if (getIpoCompanyDataObj?.error === false) {
             dispatch(setCompanyListEmpty())
-
             dispatch(setCompanyList(getIpoCompanyDataObj?.companyList))
             dispatch(setCompanyListTotalList(getIpoCompanyDataObj?.companyTotalList))
             dispatch(setCompanyListCurrentPage(companyListCurrentPage + 1))
@@ -54,9 +48,7 @@ export default function CapsulePlusPage(props) {
 
     return (
         <>
-
             <Container fluid className={clsx(styles.containerPadding, "mt-4 pb-5 ")}>
-
                 <Row className={clsx("mx-0 ", styles.row)}>
                     {/* heading section */}
                     <Col xs={12} className='px-0'>
@@ -67,19 +59,14 @@ export default function CapsulePlusPage(props) {
                     </Col>
 
                     <Col lg={3} className='px-0 '>
-
                         <IpoFilter filters={getFilterSectionObj?.filterSectionList} />
-
                     </Col>
                     <Col lg={9} className={clsx('px-0 ps-lg-4 mt-lg-0 mt-3 pb-5', styles.borderLeft)}>
                         <IpoTable
                             dataTableHeading={ipoTableHeading} />
                     </Col>
-
                 </Row>
-
             </Container>
-
         </>
     );
 }

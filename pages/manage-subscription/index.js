@@ -18,10 +18,8 @@ import toast from "react-hot-toast";
 const LeftSidebar = dynamic(() => import("@/components/Module/Sidebar/LeftSidebar"))
 const ManageSubscription = dynamic(() => import("@/section/ManageSubscription/ManageSubscription"))
 
-
 export default function ManageSubscriptionPage(props) {
     const { t } = useTranslation("common");
-
     const dispatch = useDispatch()
     const router = useRouter();
     router.locale = props?.language
@@ -33,7 +31,6 @@ export default function ManageSubscriptionPage(props) {
     const { subscriptionListCurrentPage } = useSelector((state) => ({
         subscriptionList: state?.manageSubscriptionSlice?.getSubscriptionObj?.subscriptionList,
         subscriptionListCurrentPage: state?.manageSubscriptionSlice?.getSubscriptionObj?.subscriptionListCurrentPage,
-
     }), shallowEqual)
 
     //set server data to client side
@@ -44,29 +41,23 @@ export default function ManageSubscriptionPage(props) {
             dispatch(setSubscriptionListTotalList(getSubscriptionObj?.subscriptionTotalList))
             dispatch(setSubscriptionListCurrentPage(subscriptionListCurrentPage + 1))
             dispatch(setNextBillingData(getSubscriptionObj?.nextBilingDate))
-
         } else if (getSubscriptionObj?.error) {
             toast.error(`something went wrong`)
-
         }
     }, [dispatch]);
-
 
     return (
         <>
             <Container fluid className={clsx(styles.containerPadding)}>
                 <Row className={clsx("mx-0")}>
-
                     <Col className={clsx("px-0", styles.LeftSidebar)} lg={3} sm={12}>
                         <LeftSidebar userDetails={props?.userDetails} />
                     </Col>
                     <Col className="px-0" lg={9} sm={12}>
                         <ManageSubscription />
                     </Col>
-
                 </Row>
             </Container>
-
         </>
     );
 }

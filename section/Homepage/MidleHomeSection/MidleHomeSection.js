@@ -10,12 +10,9 @@ const FilterButton = dynamic(() => import('./FilterButton'))
 
 const MidleHomeSection = ({ industriesObj, feedListObj }) => {
   const dispatch = useDispatch()
-  const { industryList, feedList, feedCurrentPage, feedTotalList } = useSelector((state) => ({
+  const { industryList, feedCurrentPage } = useSelector((state) => ({
     industryList: state?.homePageSlice?.industriesObj?.industryList,
-    feedList: state?.homePageSlice?.feedListObj?.feedList,
     feedCurrentPage: state?.homePageSlice?.feedListObj?.feedCurrentPage,
-    feedTotalList: state?.homePageSlice?.feedListObj?.feedTotalList,
-
   }), shallowEqual)
 
   //set server data to client side
@@ -23,12 +20,10 @@ const MidleHomeSection = ({ industriesObj, feedListObj }) => {
     if (industryList?.length === 1) {
       dispatch(setIndustryList(industriesObj?.industryList))
     }
-
     dispatch(setFeedListEmpty())
     dispatch(setFeedList(feedListObj?.feedList))
     dispatch(setFeedTotalList(feedListObj?.feedTotalList))
     dispatch(setFeedCurrentPage(feedCurrentPage + 1))
-
   }, [dispatch]);
   return (
     <Col lg={6} className='order-lg-1 order-0 px-2'>
@@ -36,7 +31,6 @@ const MidleHomeSection = ({ industriesObj, feedListObj }) => {
         <SearchBarArticalsAndCompany />
         <FilterButton />
         <ArticalAndCaseStudyCard />
-
       </div>
     </Col>
   )

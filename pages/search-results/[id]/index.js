@@ -7,7 +7,7 @@ import { wrapper } from "@/store";
 import { Col, Container, Row } from "react-bootstrap";
 import clsx from "clsx";
 import LoderModule from "@/components/Module/LoaderModule";
-import React, { Suspense, useEffect, useRef } from "react";
+import React, { Suspense, } from "react";
 import dynamic from "next/dynamic";
 import styles from "../../../section/Screener/ScreenerDetailPage/style/screenerDetail.module.scss"
 import BackToHomeLink from "@/components/Module/Button/BackToHomeLink";
@@ -27,12 +27,9 @@ export default function SearchResults(props) {
 
     router.defaultLocale = "en";
 
-
     return (
-
         <Suspense fallback={<LoderModule />}>
             <Container fluid className={clsx(styles.containerPadding, "mt-4 pb-5 ")}>
-
                 <OneIdBreadcrumb
                     linkSlug={`/`}
                     linkLable={t(`navbar.home`)}
@@ -75,9 +72,7 @@ export default function SearchResults(props) {
                         <BackToHomeLink />
                     </Col>
                 </Row>
-
             </Container>
-
         </Suspense>
     );
 }

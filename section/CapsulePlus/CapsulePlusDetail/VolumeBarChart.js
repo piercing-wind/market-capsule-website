@@ -10,7 +10,6 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { price } from './capsulePlusDetailData';
 import { getMonthAbbreviation, isNewYear } from '@/utils/constants';
 
 ChartJS.register(
@@ -24,14 +23,7 @@ ChartJS.register(
 );
 
 
-
-
-
-
-
 const VolumeBarChart = ({ prices }) => {
-
-
     // Extract unique starting dates of each month
     const uniqueDates = [...new Set(prices?.map(item => item?.date?.split('-')?.slice(0, 2)?.join('-') + '-01'))];
     // Configure the ticks for the x-axis
@@ -62,7 +54,6 @@ const VolumeBarChart = ({ prices }) => {
                 formatter: (value, context) => { // Customize label format
                     return uniqueDates[context?.dataIndex] ? uniqueDates[context?.dataIndex] : ""
                     // Format the label to display date
-
                 }
             }
         },
@@ -139,8 +130,6 @@ const VolumeBarChart = ({ prices }) => {
                 backgroundColor: dataValues?.map(item => item?.backgroundColor),
                 stack: 'Stack 0',
             },
-
-
         ],
     };
 

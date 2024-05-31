@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 import { wrapper } from "@/store";
 import { Col, Container, Row } from "react-bootstrap";
 import clsx from "clsx";
-import LoderModule from "@/components/Module/LoaderModule";
 import React, { Suspense, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import styles from "../../../section/Screener/ScreenerDetailPage/style/screenerDetail.module.scss"
@@ -17,7 +16,6 @@ import toast from "react-hot-toast";
 import { ScreenerFilter } from "@/components/Module/Accrodian/ScreenerFilter";
 const OneIdBreadcrumb = dynamic(() => import("@/components/Module/Breadcrumb/OneIdBreadcrumb"))
 const ScreeenerHeadingCom = dynamic(() => import("@/components/Module/HeadingComponent/ScreenerHeadingCom"))
-const ScreenerFilterAccrodian = dynamic(() => import("@/components/Module/Accrodian/ScreenerFilterAccrodian"))
 const ScreenerDetailTable = dynamic(() => import("@/section/Screener/ScreenerDetailPage/ScreenerDetailTable"))
 
 export default function Home(props) {
@@ -30,10 +28,8 @@ export default function Home(props) {
     router.defaultLocale = "en";
     const dispatch = useDispatch();
     const { getScreenerIdDataObj, getFilterSectionObj, getScreenerCompanyDataObj } = props;
-    const { companyList, companyListCurrentPage } = useSelector((state) => ({
-        companyList: state?.screenerIdSlice?.getScreenerIdDataObj?.companyList,
+    const { companyListCurrentPage } = useSelector((state) => ({
         companyListCurrentPage: state?.screenerIdSlice?.getScreenerIdDataObj?.companyListCurrentPage,
-
     }), shallowEqual)
     //set server data to client side
     useEffect(() => {
@@ -47,11 +43,8 @@ export default function Home(props) {
         }
     }, [dispatch]);
 
-
     return (
-
         <Container fluid className={clsx(styles.containerPadding, "mt-4 pb-5 ")}>
-
             <OneIdBreadcrumb
                 linkSlug={`/screener`}
                 linkLable={t(`Screener`)}
@@ -67,21 +60,15 @@ export default function Home(props) {
                 </Col>
 
                 <Col lg={3} className='px-0 '>
-
                     <ScreenerFilter filters={getFilterSectionObj?.filterSectionList} />
-
                 </Col>
                 <Col lg={9} className={clsx('px-0 ps-lg-4 mt-lg-0 mt-3 pb-5', styles.borderLeft)}>
                     <ScreenerDetailTable
                         dataTableHeading={screenerDetailTableHeading}
-
                     />
                 </Col>
-
             </Row>
-
         </Container>
-
     );
 }
 
@@ -101,7 +88,6 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     const {
         screenerIdSlice: { getScreenerIdDataObj, getFilterSectionObj, getScreenerCompanyDataObj }
     } = store.getState();
-
 
     let fileList = getFileLangList();
     secureHeader(req, res, locale);

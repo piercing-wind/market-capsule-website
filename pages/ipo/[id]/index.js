@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import { useTranslation } from "next-i18next";
 import { getFileLangList } from "@/middleware/getProps";
 import { secureHeader } from "@/middleware/securityHeader";
@@ -10,7 +9,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import clsx from "clsx";
 import styles from "../../../section/Ipo/IPODetails/style/ipoDetails.module.scss"
 import dynamic from "next/dynamic";
-import { ipoDetailsData } from "@/section/Ipo/IPODetails/ipoDetailsData";
 import { commaSeprater, numberToLocaleString } from "@/utils/constants";
 import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
@@ -27,14 +25,12 @@ const CapsuleView = dynamic(() => import("@/section/Ipo/IPODetails/CapsuleView")
 const FinacialHighlightTable = dynamic(() => import("@/section/Ipo/IPODetails/FinacialHighlightTable"))
 const HeadingCom = dynamic(() => import("@/components/Module/BannerSection/HeadingCom"))
 
-
 export default function IpoDetails(props) {
     const { t } = useTranslation("common");
     const { getIpoCompanyDetailObj } = props;
     const { rocePercent = null, marketCap = null, peRatio = null, roicPercent = null, roePercent = null, currentPrice = null, deRatio = null, cwip = null, cashConversionCycle = null, pegRatio = null } = getIpoCompanyDetailObj?.ipoCompanyDetailData?.company_share_detail || {}
     const { capsuleView, aboutTheCompany, business_segments, keyHighlights, industry, share_holdings, financial_highlights } = getIpoCompanyDetailObj?.ipoCompanyDetailData || {};
     const { capsulePlus } = getIpoCompanyDetailObj
-
     const router = useRouter();
     router.locale = props?.language
         ? props?.language
@@ -103,7 +99,6 @@ export default function IpoDetails(props) {
             id: 10,
             label: "ipoDetailPage.pegRatio",
             value: `${pegRatio || "N/A"}`,
-
             bg: true
         }
     ]
@@ -128,19 +123,15 @@ export default function IpoDetails(props) {
     }, {});
     const shareHoldingUniqueYears = [...new Set(share_holdings.map((item) => ({ month: item?.month, year: item?.year })))];
 
-
     return (
         <>
-
             <Suspense fallback={<LoderModule />}>
-
                 <div className={clsx(styles.breadPading, "mt-4")}>
                     <OneIdBreadcrumb
                         linkSlug={`/ipo`}
                         linkLable={t(`ipoDetailPage.ipoZone`)}
                         idLable={getIpoCompanyDetailObj?.ipoCompanyDetailData?.name}
                     />
-
                 </div>
                 <Container fluid className={clsx(styles.containerPadding)}>
                     <Row className={clsx("mx-0", styles.row)}>
@@ -152,7 +143,6 @@ export default function IpoDetails(props) {
                                 url={getIpoCompanyDetailObj?.ipoCompanyDetailData?.websiteUrl}
                                 companyLogo={getIpoCompanyDetailObj?.ipoCompanyDetailData?.logo?.url}
                                 alt={getIpoCompanyDetailObj?.ipoCompanyDetailData?.logo?.alternativeText}
-
                             />
                         </Col>
                         <Col xs={12} className={clsx(styles.paddingDetails)} >
@@ -161,7 +151,6 @@ export default function IpoDetails(props) {
                                 headingLabel={`ipoDetailPage.keyMetrics`}
                             />
                         </Col>
-
                         <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                             <AboutTheCompany
                                 aboutDescription={aboutTheCompany}
@@ -176,7 +165,6 @@ export default function IpoDetails(props) {
                                 capsuleplus={capsulePlus}
                             />
                         </Col>
-
                         {/* capsulePluse */}
                         {
                             !capsulePlus ? (
@@ -187,14 +175,12 @@ export default function IpoDetails(props) {
                                             keyHightlightData={keyHighlights}
                                         />
                                     </Col>
-
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                                         <IndustryOutlook
                                             headingLabel={`ipoDetailPage.industrialOutlook`}
                                             industryOutlookData={industry?.industrialOutlook}
                                         />
                                     </Col>
-
                                     <Col lg={6} className={clsx(styles.finacialHightlightPadding)}  >
                                         <HeadingCom
                                             label={`ipoDetailPage.financialHighlights`}
@@ -215,27 +201,20 @@ export default function IpoDetails(props) {
                                             paricular={false}
                                         />
                                     </Col>
-
                                 </>
                             ) : (
                                 <></>
                                 // <ExclusiveViewCard />
                             )
                         }
-
-
-
                         <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                             <CapsuleView
                                 headingLabel={`ipoDetailPage.capsuleView`}
                                 capsuleViewData={capsuleView}
                             />
                         </Col>
-
-
                     </Row>
                 </Container>
-
             </Suspense>
         </>
     );

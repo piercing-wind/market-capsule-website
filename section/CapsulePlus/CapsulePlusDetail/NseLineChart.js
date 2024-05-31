@@ -12,8 +12,6 @@ import {
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { sensexChartData } from './capsulePlusDetailData';
-
 ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -25,12 +23,8 @@ ChartJS.register(
     ChartDataLabels,
     Filler
 );
-
-
-
 const NseLineChart = ({ prices }) => {
     const options = {
-
         responsive: true,
         plugins: {
             legend: {
@@ -62,8 +56,6 @@ const NseLineChart = ({ prices }) => {
                     beginAtZero: false,
 
                 },
-
-
                 drawBorder: true
             },
             x: {
@@ -75,11 +67,8 @@ const NseLineChart = ({ prices }) => {
                 },
                 ticks: {
                     display: false,
-
                 }
-
             },
-
         }
     };
 

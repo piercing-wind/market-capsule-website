@@ -9,9 +9,7 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { faker } from "@faker-js/faker";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { sensexChartBarData, sensexChartData } from '../homePageData';
 import { shallowEqual, useSelector } from 'react-redux';
 import moment from 'moment';
 
@@ -25,13 +23,9 @@ ChartJS.register(
     ChartDataLabels
 );
 
-
-
-
 const DateBarChart = () => {
     const { sensexAndNiftyData } = useSelector((state) => ({
         sensexAndNiftyData: state?.homePageSlice?.sensexAndNiftyObj?.sensexAndNiftyData,
-
     }), shallowEqual)
     let sortedIndexes;
     if (Array.isArray(sensexAndNiftyData?.indexes)) {
@@ -43,7 +37,6 @@ const DateBarChart = () => {
         backgroundColor: item?.price > 0 ? '#2EDC90' : '#FF4F55',
         // align: item?.price > 0 ? 'start' : 'end'
         align: "end"
-
     }));
 
     const options = {
@@ -112,8 +105,6 @@ const DateBarChart = () => {
                 backgroundColor: dataValues?.map(item => item?.backgroundColor),
                 stack: 'Stack 0',
             },
-
-
         ],
     };
     return (

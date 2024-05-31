@@ -10,7 +10,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import clsx from "clsx";
 import styles from "../../../section/Screener/ScreenerSlugDetailPage/style/screenerSlug.module.scss"
 import dynamic from "next/dynamic";
-import { basicDetailsData } from "@/section/Screener/ScreenerSlugDetailPage/screenerSlugDetailData";
 import DisclamerCard from "@/components/Module/BannerSection/DisclamerCard";
 import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";

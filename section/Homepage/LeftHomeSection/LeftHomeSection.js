@@ -27,13 +27,10 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
   const dispatch = useDispatch()
   const [bse, setBse] = useState("bse")
   const [sensex, setSensex] = useState("sensex")
-  const [todayMarketStatus, setTodayMarketStatus] = useState(-258.45)
   const [lastUpdatedOn, setLastUpdatedOn] = useState("")
   const { sensexAndNiftyData } = useSelector((state) => ({
     sensexAndNiftyData: state?.homePageSlice?.sensexAndNiftyObj?.sensexAndNiftyData,
-
   }), shallowEqual)
-
 
   //topgainers and losers filter btn fun 
   const bseAndNseButtonFun = async (type) => {
@@ -57,11 +54,8 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
         await dispatch(getTopGainerList(params))
         await dispatch(getTopLosersList(params))
       }
-
       setBse("nse")
-
     }
-
   }
 
   //sensex and nifty filter btn fun 
@@ -80,24 +74,20 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
       }
       setSensex("nifty")
     }
-
   }
 
   useEffect(() => {
     if (topGainerObj?.topGainerList?.length > 0) {
       dispatch(setTopGainerList(topGainerObj?.topGainerList))
       dispatch(setTopGainerTotalList(topGainerObj?.topGainerTotalList))
-
     }
     if (topLosersObj?.topLosersList?.length > 0) {
       dispatch(setTopLosersList(topLosersObj?.topLosersList))
       dispatch(setTopLosersTotalList(topLosersObj?.topLosersTotalList))
-
     }
 
     if (sensexAndNiftyObj?.sensexAndNiftyData?.indexes?.length > 0) {
       dispatch(setSensexAndNifty(sensexAndNiftyObj?.sensexAndNiftyData))
-
     }
 
     if (topLosersObj?.topLosersList?.length > 0) {
@@ -107,6 +97,7 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
       setLastUpdatedOn(latestUpdateDate);
     }
   }, [dispatch]);
+
   return (
     <Col lg={3} className=' px-2 order-lg-0 order-1'>
       <div className='positionSticky'>
@@ -121,7 +112,6 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
               label={t("homepage.leftSection.sensex")}
               type={"sensex"}
               disable={sensex === "sensex" ? true : false}
-
             />
             <FilterButton
               color={sensex === "nifty" ? "#FFFFFF" : "#606F7B"}
@@ -130,7 +120,6 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
               label={t("homepage.leftSection.nifty")}
               type={"nifty"}
               disable={sensex === "nifty" ? true : false}
-
             />
           </div>
           <div className={clsx("d-flex column-gap-2 mt-2", styles.numberDiv)}>
@@ -141,13 +130,11 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
 
               ) : (
                 <p className={clsx("d-flex align-items-center column-gap-1  mb-0", styles.greenColor)}>{"+"}{sensexAndNiftyData?.changeInprice}{"  "}<CaretDownRed fill={"green"} /></p>
-
               )
             }
           </div>
           <LineChart />
           <DateBarChart />
-          {/* <Dummy /> */}
 
           {/* refresh button */}
           <div className={clsx("mt-3 d-flex justify-content-between align-items-center", styles.refreshDiv)}>
@@ -155,7 +142,6 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
               <span>{t("homepage.leftSection.lastUpdatedOn")}{" "}</span>
               <span className={clsx(styles.semiboldSpan)}>{getUpdatedDate(sensexAndNiftyData?.lastUpdated)}</span>
             </p>
-
           </div>
         </div>
         {/* gainer and loser div */}
@@ -177,10 +163,8 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
               label={t("homepage.leftSection.nse")}
               type={"nse"}
               disable={bse === "nse" ? true : false}
-
             />
           </div>
-
           <TopGainersChart />
           <TopLosersChart />
           {/* refresh button */}
@@ -189,7 +173,6 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
               <span>{t("homepage.leftSection.lastUpdatedOn")}{" "}</span>
               <span className={clsx(styles.semiboldSpan)}>{getUpdatedDate(lastUpdatedOn)}</span>
             </p>
-
           </div>
         </div>
       </div>

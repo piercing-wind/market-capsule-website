@@ -1,4 +1,4 @@
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Trans, useTranslation } from "next-i18next";
 import { getFileLangList } from "@/middleware/getProps";
 import { secureHeader } from "@/middleware/securityHeader";
@@ -11,13 +11,11 @@ import { Col, Container, Row } from "react-bootstrap";
 import styles from "../../section/AccountSettings/style/accountSettings.module.scss"
 import clsx from "clsx";
 import dynamic from "next/dynamic";
-import { fetchTodos } from "@/store/slices/homePageSlice";
 import { getFetchAuth } from "@/store/slices/authSlice";
-import { fetchCookie, getCookiesStorage } from "@/utils/storageService";
+import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
 const LeftSidebar = dynamic(() => import("@/components/Module/Sidebar/LeftSidebar"))
 const AccountSettingsSection = dynamic(() => import("@/section/AccountSettings/AccountSettingsSection"))
-
 
 export default function AccountSettingsPage(props) {
     const { t } = useTranslation("common");
@@ -29,25 +27,19 @@ export default function AccountSettingsPage(props) {
 
     router.defaultLocale = "en";
 
-
     return (
         <>
-
             <Suspense fallback={<LoderModule />}>
                 <Container fluid className={clsx(styles.containerPadding)}>
                     <Row className={clsx("mx-0")}>
-
                         <Col className="px-0" md={3} sm={4}>
                             <LeftSidebar userDetails={props?.userDetails} />
-
                         </Col>
                         <Col className="px-0" md={9} sm={8}>
                             <AccountSettingsSection userDetails={props?.userDetails} />
                         </Col>
-
                     </Row>
                 </Container>
-
             </Suspense>
         </>
     );

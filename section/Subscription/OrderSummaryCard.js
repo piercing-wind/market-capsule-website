@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import Lock from '@/components/svg/Lock';
 import { Trans, useTranslation } from 'next-i18next';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { buyPlanApi, paymentVerification, setBuyPlanData } from '@/store/slices/subscriptionSlice';
+import { buyPlanApi, setBuyPlanData } from '@/store/slices/subscriptionSlice';
 import toast from 'react-hot-toast';
 import { initializeRazorpay } from '@/utils/apiEndPoints';
 import { useRouter } from 'next/router';
@@ -21,12 +21,10 @@ const OrderSummaryCard = () => {
             planId: state?.subscriptionSlice?.getPlanDataObj?.planId,
             checkoutData: state?.subscriptionSlice?.promoCodeModalObj?.checkoutData,
             userDetails: state?.authSlice?.userDetails,
-
         }
     ), shallowEqual)
 
     const dispatch = useDispatch()
-
     const panyNowFun = async () => {
         const submitData = {
             amount: checkoutData?.totalPayableAmount,
@@ -64,8 +62,6 @@ const OrderSummaryCard = () => {
             window.location.reload()
             return false;
         }
-
-
         var options = {
             key: process.env.RAZORPAY_KEY,
             amount: checkoutData?.totalPayableAmount ? checkoutData?.totalPayableAmount : 0,
@@ -123,10 +119,9 @@ const OrderSummaryCard = () => {
             }
         };
         const paymentObject = new window.Razorpay(options);
-
         paymentObject.open();
-
     }
+
     return (
         <>
             {
@@ -177,11 +172,8 @@ const OrderSummaryCard = () => {
                                 handleFun={panyNowFun}
                                 disabled={loader ? true : false}
                             />
-
                         </div>
-
                     </div>
-
                 )
             }
         </>

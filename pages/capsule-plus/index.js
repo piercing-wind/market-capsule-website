@@ -16,7 +16,6 @@ import { setAuthorizationToken } from "@/utils/apiServices";
 import { getCapsulePlusCompanyData, getCapsulePlusHeadingData, getFilterSectionList, setCompanyList, setCompanyListCurrentPage, setCompanyListEmpty, setCompanyListTotalList } from "@/store/slices/capsulePlusSlice";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
-import { getSharePriceAndVolume } from "@/store/slices/capsuleDetailSlice";
 const ScreeenerHeadingCom = dynamic(() => import("@/components/Module/HeadingComponent/ScreenerHeadingCom"))
 const CapsulePlusFilter = dynamic(() => import("@/components/Module/Accrodian/CapsulePlusFilter"))
 const CapsulePlusCompanyCard = dynamic(() => import("@/components/Module/ScreenerCard/CapsulePlusCompanyCard"))
@@ -44,11 +43,7 @@ export default function CapsulePlusPage(props) {
         industryId: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.industryId,
         companyName: state?.capsulePlusSlice?.getCapsulePlusCompanyDataObj?.companyName,
         userDetails: state?.authSlice?.userDetails
-
     }), shallowEqual)
-
-
-
 
     //load more btn 
     const loadMoreFun = async () => {
@@ -56,12 +51,10 @@ export default function CapsulePlusPage(props) {
             page: companyListCurrentPage,
             limit: 9,
             capsuleplus: true,
-
             companyTypeId: companyTypeId || '',
             sectorId: sectorId || "",
             industryId: industryId || "",
             companyName: companyName || "",
-
         }
         await dispatch(getCapsulePlusCompanyData(params))
         dispatch(setCompanyListCurrentPage(companyListCurrentPage + 1))
@@ -79,13 +72,9 @@ export default function CapsulePlusPage(props) {
         }
     }, [dispatch]);
 
-
     return (
         <>
-
-
             <Container fluid className={clsx(styles.containerPadding, "mt-4 pb-5 ")}>
-
                 <Row className={clsx("mx-0 ", styles.row)}>
                     {/* heading section */}
                     <Col xs={12} className='px-0'>
@@ -103,10 +92,8 @@ export default function CapsulePlusPage(props) {
 
                     </Col>
 
-
                     <Col lg={9} className={clsx('px-0 ', styles.borderLeft)}>
                         <Row className={clsx("mx-0", styles.rowDiv)}>
-
                             <Col xs={12}
                                 className={clsx("px-0", styles.cardSection)}
                             >
@@ -146,11 +133,8 @@ export default function CapsulePlusPage(props) {
                                 </Row>
                             </Col>
                         </Row>
-
                     </Col>
-
                 </Row>
-
             </Container>
             {
                 capsulePlus && (
@@ -169,7 +153,6 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         limit: 9,
         capsuleplus: true
     }
-
 
     await store.dispatch(getCapsulePlusCompanyData(params));
     await store.dispatch(getFilterSectionList());

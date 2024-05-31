@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React from 'react';
 import clsx from "clsx";
 import styles from "./style/manageSubscription.module.scss";
 import dynamic from 'next/dynamic';
@@ -13,7 +13,6 @@ const ManageSubscriptionTable = dynamic(() => import('@/components/Module/Table/
 const ManageSubscription = () => {
     const { nextBillingDate } = useSelector((state) => ({
         nextBillingDate: state?.manageSubscriptionSlice?.getSubscriptionObj?.nextBilingDate,
-
     }), shallowEqual)
 
     return (
@@ -34,19 +33,14 @@ const ManageSubscription = () => {
                             </Trans>
                         </span>
                         <span className={clsx(styles.mediumFont)}>{nextBillingDate ? moment(nextBillingDate).format('DD MMM, YYYY') : nextBillingDate}</span>
-
                     </p>
-
                 </div>
-
-
             </div>
             <Row className='mx-0'>
                 <Col xs={12} className='px-0 '>
                     <ManageSubscriptionTable
                         dataTableHeading={manageSubscriptionTableHeading} />
                 </Col>
-
             </Row>
         </div>
     )

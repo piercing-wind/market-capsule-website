@@ -1,6 +1,5 @@
 import PaymentSuccess from '@/components/Module/PaymentSuccess/PaymentSuccess'
 import PaymentFailCross from '@/components/svg/PaymentFailCross';
-import PaymentSuccessRight from '@/components/svg/PaymentSuccessRight';
 import { getFileLangList } from '@/middleware/getProps';
 import { secureHeader } from '@/middleware/securityHeader';
 import { wrapper } from '@/store';

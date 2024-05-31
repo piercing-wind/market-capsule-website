@@ -1,27 +1,20 @@
 import { apiEndPoints } from '@/utils/apiEndPoints';
 import { getMethod, postMethod } from '@/utils/apiServices';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { HYDRATE } from 'next-redux-wrapper';
-
 
 export const getFetchAuth = createAsyncThunk('authSlice/getFetchAuth', async () => {
     const response = await getMethod(`${apiEndPoints.authUserDetail}`);
     return (response)
 });
 
-
-
 export const getProfessionList = createAsyncThunk('authSlice/getProfeessionList', async () => {
     const response = await getMethod(`${apiEndPoints.getProfessionList}`);
     return (response)
 });
 
-
-
 const loginModalObj = {
     showForm: false,
     authType: "login"
-
 }
 
 const professionDataObj = {
@@ -29,6 +22,7 @@ const professionDataObj = {
     professionData: {},
     error: false
 }
+
 export const authSlice = createSlice({
     name: 'authSlice',
     initialState: {

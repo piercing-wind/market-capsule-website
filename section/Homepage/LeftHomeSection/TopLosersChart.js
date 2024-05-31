@@ -12,7 +12,6 @@ import {
     Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import { topGainerArr } from '../homePageData';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { getScreenHeight, getScreenWidth } from '@/utils/constants';
 import ChartLineUpRed from '@/components/svg/ChartLineUpRed';
@@ -30,15 +29,12 @@ ChartJS.register(
     ChartDataLabels
 );
 
-
-
-
 const TopLosersChart = () => {
     const { t } = useTranslation("common");
     const { topLosersList } = useSelector((state) => ({
         topLosersList: state?.homePageSlice?.topLosersObj?.topLosersList,
     }), shallowEqual)
-    // Extract labels and data from topGainerArr
+    // Extract labels and data from topLosersList
     const labels = topLosersList?.map((item) => item?.attributes?.company?.data?.attributes?.name);
     const dataValues = topLosersList?.map((item) => item?.attributes?.value);
 
@@ -57,12 +53,9 @@ const TopLosersChart = () => {
                 },
                 borderColor: [
                     'rgba(127, 253, 198,1)',
-
                 ],
                 borderRadius: 30,
                 barPercentage: 0.6, // Adjust as needed
-                // categoryPercentage: 0.8, //
-
             },
 
         ],
@@ -79,7 +72,6 @@ const TopLosersChart = () => {
             // Calculate the aspect ratio dynamically based on screen size
             // You can adjust this calculation as needed
             const calculatedAspectRatio = screenWidth / screenHeight * aspectRatio;
-
             return calculatedAspectRatio
         } else {
             return 1;
@@ -160,17 +152,14 @@ const TopLosersChart = () => {
         function handleResize() {
             setScreenWidth(getScreenWidth());
             serScreenHeight(getScreenHeight());
-
         }
-
         const resizeListener = () => handleResize();
-
         window.addEventListener("resize", resizeListener);
-
         return () => {
             window.removeEventListener("resize", resizeListener);
         };
     }, []);
+
     return (
         <div className='mt-4'>
             <div className={clsx('d-flex column-gap-2', styles.topGainer)}>

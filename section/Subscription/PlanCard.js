@@ -3,8 +3,8 @@ import clsx from 'clsx';
 import styles from "./style/planCard.module.scss";
 import Bolt from '@/components/svg/Bolt';
 import { Trans, useTranslation } from 'next-i18next';
-import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { checkPromoCode, checkoutApi, setCheckoutData, setDiscountAmount, setPlanId } from '@/store/slices/subscriptionSlice';
+import { useDispatch } from 'react-redux';
+import { checkoutApi, setCheckoutData, setPlanId } from '@/store/slices/subscriptionSlice';
 import toast from 'react-hot-toast';
 
 const PlanCard = ({ planCardData }) => {
@@ -41,8 +41,6 @@ const PlanCard = ({ planCardData }) => {
                 }
             }
         );
-
-
     }
     const findYear = (days) => {
         if (days / 365 > 1) {

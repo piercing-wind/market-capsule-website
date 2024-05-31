@@ -18,10 +18,8 @@ import { getNotificationList } from "@/store/slices/notificationSlice";
 const LeftSidebar = dynamic(() => import("@/components/Module/Sidebar/LeftSidebar"))
 const Notifications = dynamic(() => import("@/section/Notifications/Notifications"))
 
-
 export default function ManageSubscriptionPage(props) {
     const { t } = useTranslation("common");
-
     const dispatch = useDispatch()
     const router = useRouter();
     router.locale = props?.language
@@ -32,11 +30,9 @@ export default function ManageSubscriptionPage(props) {
 
     return (
         <>
-
             <Suspense fallback={<LoderModule />}>
                 <Container fluid className={clsx(styles.containerPadding)}>
                     <Row className={clsx("mx-0")}>
-
                         <Col className={clsx("px-0", styles.LeftSidebar)} lg={3} sm={12}>
                             <LeftSidebar userDetails={props?.userDetails} />
                         </Col>
@@ -47,10 +43,8 @@ export default function ManageSubscriptionPage(props) {
                                 notificationError={props?.notificationError}
                             />
                         </Col>
-
                     </Row>
                 </Container>
-
             </Suspense>
         </>
     );
@@ -72,7 +66,6 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         notificationSlice: { notificationList, notificationTotalList, loader, error }
     } = store.getState();
     secureHeader(req, res, locale);
-
 
     return {
         props: {

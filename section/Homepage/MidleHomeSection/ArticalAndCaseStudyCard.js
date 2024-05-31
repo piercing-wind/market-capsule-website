@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useTransition } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from "clsx";
 import styles from "../style/articalAndCaseStudyCard.module.scss";
-import { midleSectionArr } from '../homePageData';
 import { useTranslation } from 'next-i18next';
 import Image from 'next/image';
 import { CapsulePlus } from '@/components/svg/CapsulePlus';
@@ -27,8 +26,6 @@ const ArticalAndCaseStudyCard = () => {
         feedCurrentPage: state?.homePageSlice?.feedListObj?.feedCurrentPage,
         industryId: state?.homePageSlice?.industriesObj?.industryId,
         jwt: state?.authSlice?.jwt,
-
-
     }), shallowEqual)
 
     const { t } = useTranslation("common");
@@ -46,13 +43,10 @@ const ArticalAndCaseStudyCard = () => {
         if (!jwt) {
             dispatch(setShowForm(true))
             dispatch(setUpgradeNow(true))
-
         } else {
             router.push("/subscription")
         }
     }
-
-    //show cssbased on type
 
     const articalAndCaseStudyCardCss = (type) => {
         if (type === "CAPSULE+") {
@@ -61,7 +55,6 @@ const ArticalAndCaseStudyCard = () => {
             return false
         }
     }
-
 
     //load more btn 
     const loadMoreFun = async () => {
@@ -78,11 +71,8 @@ const ArticalAndCaseStudyCard = () => {
         function handleResize() {
             setScreenWidth(getScreenWidth());
         }
-
         const resizeListener = () => handleResize();
-
         window.addEventListener("resize", resizeListener);
-
         return () => {
             window.removeEventListener("resize", resizeListener);
         };
@@ -90,13 +80,11 @@ const ArticalAndCaseStudyCard = () => {
 
     return (
         <>
-
             {
                 feedLoading ? (
                     <LoderModule isAbsolute={true} />
 
                 ) : (
-
                     <div className=' mt-3 px12'>
                         {
                             feedList?.length > 0 ? (
@@ -126,7 +114,6 @@ const ArticalAndCaseStudyCard = () => {
                                                                     handlerFun={upgradeNowFunction}
                                                                     label={"homepage.midleSection.upgradeNow"}
                                                                 />
-
                                                             ) : (
                                                                 <HomeBlueButton
                                                                     color={"#FFFFFF"}
@@ -143,14 +130,11 @@ const ArticalAndCaseStudyCard = () => {
                                                                 <p className='mb-0'>{t("homepage.midleSection.exclusiveFor")}</p>
                                                                 <CapsulePlus />
                                                             </div>
-
                                                         )
                                                     }
                                                 </div>
                                             </div>
-
                                         </div>
-
                                     )
                                 })
                             ) : null
@@ -167,10 +151,7 @@ const ArticalAndCaseStudyCard = () => {
                                     <div></div>
                                 )
                             }
-
                         </div>
-
-
                     </div>
                 )
             }

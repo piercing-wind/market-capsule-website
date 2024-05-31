@@ -2,19 +2,14 @@ import React, { useState } from 'react';
 import clsx from "clsx";
 import Table from 'react-bootstrap/Table';
 import { Trans, useTranslation } from 'next-i18next';
-import dynamic from 'next/dynamic';
 import styles from "./style/companyTypeDetail.module.scss"
-import Link from 'next/link';
 
 const CompanyTypeDetail = (props) => {
-
     const { dataTable, dataTableHeading } = props;
     const { t } = useTranslation("common")
-
     return (
         <>
             <div className={clsx("tableScroll")}>
-
                 <Table responsive>
                     <thead>
                         <tr>

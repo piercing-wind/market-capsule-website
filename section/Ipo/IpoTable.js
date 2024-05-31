@@ -12,7 +12,6 @@ import { getIpoCompanyData, setCompanyListCurrentPage } from '@/store/slices/ipo
 const LoadMoreBtn = dynamic(() => import("@/components/Module/Button/LoadMoreBtn"))
 
 const IpoTable = (props) => {
-
     const router = useRouter()
     const { dataTableHeading } = props;
     const { t } = useTranslation("common")
@@ -26,12 +25,10 @@ const IpoTable = (props) => {
         sectorId: state?.ipoSlice?.getIpoCompanyDataObj?.sectorId,
         industryId: state?.ipoSlice?.getIpoCompanyDataObj?.industryId,
         companyName: state?.ipoSlice?.getIpoCompanyDataObj?.companyName,
-
     }), shallowEqual)
 
     //load more btn 
     const loadMoreFun = async () => {
-        // /ipo/list?companyTypeId=[2]&sectorId=[1,2,3,4]&industryId=[1,2]&companyName=["Mahindra"]
         const params = {
             page: companyListCurrentPage,
             limit: 10,
@@ -39,18 +36,14 @@ const IpoTable = (props) => {
             sectorId: sectorId || "",
             industryId: industryId || "",
             companyName: companyName || "",
-
         }
         await dispatch(getIpoCompanyData(params))
         dispatch(setCompanyListCurrentPage(companyListCurrentPage + 1))
     }
 
-
-
     return (
         <>
             <div className={clsx("tableScroll")}>
-
                 <Table responsive>
                     <thead>
                         <tr>

@@ -11,7 +11,6 @@ import {
     Filler
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { sensexChartData, topGainerArr } from '../homePageData';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { shallowEqual, useSelector } from 'react-redux';
 
@@ -27,16 +26,12 @@ ChartJS.register(
     Filler
 );
 
-
-
 const LineChart = () => {
     const { sensexAndNiftyData } = useSelector((state) => ({
         sensexAndNiftyData: state?.homePageSlice?.sensexAndNiftyObj?.sensexAndNiftyData,
-
     }), shallowEqual)
 
     const options = {
-
         responsive: true,
         plugins: {
             legend: {
@@ -60,7 +55,6 @@ const LineChart = () => {
                 ticks: {
                     display: false
                 },
-
                 drawBorder: false
             },
             x: {
@@ -73,9 +67,7 @@ const LineChart = () => {
                 ticks: {
                     display: false
                 }
-
             },
-
         }
     };
     let sortedIndexes;
@@ -99,7 +91,6 @@ const LineChart = () => {
                     gradient.addColorStop(1, "#FFFFFF");
                     return gradient;
                 },
-
                 pointStyle: 'circle',
                 pointRadius: 5,
                 pointHoverRadius: 5,
@@ -111,7 +102,6 @@ const LineChart = () => {
     return (
         <div>
             <Line options={options} data={data} />
-
         </div>
     )
 }

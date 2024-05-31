@@ -1,4 +1,4 @@
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Trans, useTranslation } from "next-i18next";
 import { getFileLangList } from "@/middleware/getProps";
 import { secureHeader } from "@/middleware/securityHeader";
@@ -9,13 +9,11 @@ import { Container, Row } from "react-bootstrap";
 import clsx from "clsx";
 import styles from "../section/Homepage/style/home.module.scss"
 import LoderModule from "@/components/Module/LoaderModule";
-import React, { Suspense, startTransition, useEffect, useState } from "react";
+import React, { useState } from "react";
 import dynamic from "next/dynamic";
-import { getCategoriesList, getFeedList, getHomePageMetaData, getIndustriesList, getSansexAndNiftyData, getSansexAndNiftyList, getTopGainerList, getTopLosersList, getTrandingNewsList, getWhatsNewInCapsulePlusList, setTopGainerList, setTopGainerTotalList } from "@/store/slices/homePageSlice";
+import { getFeedList, getHomePageMetaData, getIndustriesList, getSansexAndNiftyData, getTopGainerList, getTopLosersList, getTrandingNewsList, getWhatsNewInCapsulePlusList } from "@/store/slices/homePageSlice";
 import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
-import { GoogleLogin, googleLogout, useGoogleLogin } from "@react-oauth/google";
-import axios from "axios";
 const LeftHomeSection = dynamic(() => import('@/section/Homepage/LeftHomeSection/LeftHomeSection'), { suspense: true, loading: () => <LoderModule /> })
 const MidleHomeSection = dynamic(() => import('@/section/Homepage/MidleHomeSection/MidleHomeSection'), { suspense: true, loading: () => <LoderModule /> })
 const RightHomeSection = dynamic(() => import('@/section/Homepage/RightHomeSection/RightHomeSection'), { suspense: true, loading: () => <LoderModule /> })
@@ -23,17 +21,12 @@ const RightHomeSection = dynamic(() => import('@/section/Homepage/RightHomeSecti
 
 export default function Home(props) {
   const { t } = useTranslation("common");
-  const dispatch = useDispatch()
-
   const router = useRouter();
   router.locale = props?.language
     ? props?.language
     : "en";
 
   router.defaultLocale = "en";
-  const [user, setUser] = useState('');
-  const [profile, setProfile] = useState('');
-
 
   return (
     <Container fluid className={clsx(styles.containerPadding, "mt-3 pb-5 ")}>

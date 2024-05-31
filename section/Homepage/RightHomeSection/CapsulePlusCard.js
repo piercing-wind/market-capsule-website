@@ -9,24 +9,23 @@ import { useRouter } from 'next/router';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { setShowForm, setUpgradeNow } from '@/store/slices/authSlice';
 
-
 const CapsulePlusCard = () => {
     const { t } = useTranslation("common");
     const router = useRouter();
     const dispatch = useDispatch();
     const { jwt } = useSelector((state) => ({
         jwt: state?.authSlice?.jwt,
-
     }), shallowEqual)
+
     const upgradeNowFun = () => {
         if (!jwt) {
             dispatch(setShowForm(true))
             dispatch(setUpgradeNow(true))
-
         } else {
             router.push("/subscription")
         }
     }
+
     return (
         <div className={clsx("p-2", styles.trandingDiv)}>
             {/* news heading div */}
@@ -44,10 +43,7 @@ const CapsulePlusCard = () => {
                     handlerFun={upgradeNowFun}
                     label={t("homepage.rightSection.upgradeNow")}
                 />
-
             </div>
-
-
         </div>
     )
 }

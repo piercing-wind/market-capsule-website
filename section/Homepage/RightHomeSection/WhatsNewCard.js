@@ -4,12 +4,9 @@ import clsx from "clsx";
 import styles from '../style/trandingNewsCard.module.scss'
 import { truncateText } from '@/utils/constants';
 import { useTranslation } from 'next-i18next';
-import LoderModule from '@/components/Module/LoaderModule';
-
 
 const WhatsNewCard = ({ data, logo, headingLabel }) => {
     const { t } = useTranslation("common");
-
     const hideBorderInLastDiv = (trandingNewsArrLength, index) => {
         if (trandingNewsArrLength - 1 !== index) {
             return styles.trandingBorder
@@ -18,7 +15,6 @@ const WhatsNewCard = ({ data, logo, headingLabel }) => {
 
     return (
         <div className={clsx(styles.trandingDiv, "marginTop12")}>
-
             {/* news heading div */}
             <div className={clsx("d-flex align-items-center column-gap-2 ps-3 pt-4 pb-3", styles.trandingHeadingDiv, styles.trandingBorder)}>
                 {
@@ -44,7 +40,6 @@ const WhatsNewCard = ({ data, logo, headingLabel }) => {
                                             width={58}
                                             height={43} />
                                         <p className={styles.paragraph}>{truncateText(el?.attributes?.title, 25)}</p>
-
                                     </div>
 
                                 </div>

@@ -1,4 +1,3 @@
-import { useDispatch } from "react-redux";
 import { useTranslation } from "next-i18next";
 import { getFileLangList } from "@/middleware/getProps";
 import { secureHeader } from "@/middleware/securityHeader";
@@ -10,8 +9,8 @@ import { Container, Row, Col } from "react-bootstrap";
 import clsx from "clsx";
 import styles from "../../../section/CapsulePlus/CapsulePlusDetail/style/capsulePlusDetail.module.scss"
 import dynamic from "next/dynamic";
-import { commaSeprater, numberToLocaleString } from "@/utils/constants";
-import { capsulePluseDetailsData, companyDetailHeading, sensexChartBarData, sensexChartData } from "@/section/CapsulePlus/CapsulePlusDetail/capsulePlusDetailData";
+import { commaSeprater } from "@/utils/constants";
+import { companyDetailHeading } from "@/section/CapsulePlus/CapsulePlusDetail/capsulePlusDetailData";
 import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
 import { getCapsuleCompanyDetailData, getOperationDetailQuetarly, getOperationDetailYearly, getPriceAndVolume, getSharePriceAndVolume } from "@/store/slices/capsuleDetailSlice";
@@ -29,7 +28,6 @@ const CompanyTypeDetail = dynamic(() => import("@/section/CapsulePlus/CapsulePlu
 const CapsuleHightlights = dynamic(() => import("@/section/CapsulePlus/CapsulePlusDetail/CapsuleHighlights"))
 const VolumeTable = dynamic(() => import("@/section/CapsulePlus/CapsulePlusDetail/VolumeTable"))
 
-
 export default function IpoDetails(props) {
     const { t } = useTranslation("common");
     const { getCapsuleCompanyDetailObj, getDisclaimerDataObj, getOperationDetailQuetarlyObj, getOperationDetailYearlyObj, getSharePriceAndVolumeObj, getPriceAndVolumeObj } = props;
@@ -37,7 +35,7 @@ export default function IpoDetails(props) {
     const { marketCap = null, prevClosePrice = null, sector = null, ttpmPE = null, sectoralPERange = null, peRemark = null, BSE = null } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData?.company_share_detail || {}
     const {
         businessOverview, financialReport, shareCapitalAndEmployees,
-        companyTypeDetails, capsuleHighlights, name, logo, industry, operation_details, prices, websiteUrl } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData || {};
+        companyTypeDetails, capsuleHighlights, name, logo, industry, websiteUrl } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData || {};
     const router = useRouter();
     router.locale = props?.language
         ? props?.language
@@ -114,16 +112,13 @@ export default function IpoDetails(props) {
     const uniqueYears = [...new Set(getOperationDetailYearlyObj?.yearlyData?.map((item) => ({ month: item?.month, year: item?.year })))];
     return (
         <>
-
             <Suspense fallback={<LoderModule />}>
-
                 <div className={clsx(styles.breadPading, "mt-4")}>
                     <OneIdBreadcrumb
                         linkSlug={`/capsule-plus`}
                         linkLable={t(`capsuleDetailPage.capsulePlus`)}
                         idLable={name}
                     />
-
                 </div>
                 <Container fluid className={clsx(styles.containerPadding)}>
                     <Row className={clsx("mx-0", styles.row)}>
@@ -135,7 +130,6 @@ export default function IpoDetails(props) {
                                 url={websiteUrl}
                                 companyLogo={logo?.url || `/assests/capsule-plus/company-logo.png`}
                                 alt={logo?.alternativeText || "company logo"}
-
                             />
                         </Col>
 
@@ -143,7 +137,6 @@ export default function IpoDetails(props) {
                             <AboutTheCompany
                                 aboutDescription={businessOverview}
                                 headingLabel={`capsuleDetailPage.businessOverview`}
-
                             />
                             <div className={clsx(styles.mainDiv)}>
                                 {
@@ -151,7 +144,6 @@ export default function IpoDetails(props) {
                                         <ExclusiveViewCard
                                             line={false}
                                         />
-
                                     )
                                 }
                             </div>
@@ -160,46 +152,35 @@ export default function IpoDetails(props) {
                         {
                             !capsulePlus && (
                                 <>
-
-
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                                         <AboutTheCompany
                                             aboutDescription={financialReport}
                                             headingLabel={`capsuleDetailPage.financialReport`}
                                         />
                                     </Col>
-
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                                         <AboutTheCompany
                                             aboutDescription={shareCapitalAndEmployees}
                                             headingLabel={`capsuleDetailPage.shareCapitalAndNumberOfEmployess`}
                                         />
                                     </Col>
-
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                                         <SharePriceAndVolume
                                             headingLabel={`capsuleDetailPage.sharePriceAndVolume`}
                                             prices={getSharePriceAndVolumeObj?.sharePriceAndVolume || []}
                                         />
                                     </Col>
-
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout, "pt-3")} >
                                         <VolumeTable
                                             dataTable={getPriceAndVolumeObj?.priceAndVolumeData || []}
                                             currentDate={props?.currentDate}
                                         />
                                     </Col>
-
-
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout, "pt-3")} >
                                         <CapsuleHightlights
                                             aboutDescription={capsuleHighlights}
                                         />
                                     </Col>
-
-
-
-
                                     <Col xs={12} className={clsx(styles.paddingDetails)} >
                                         <BasicDetailsSection
                                             basicDetailArr={basicDetailArr}
@@ -207,22 +188,18 @@ export default function IpoDetails(props) {
                                             heading={false}
                                         />
                                     </Col>
-
                                     <Col lg={12} className={clsx(styles.shareHoldingPadding)} style={{ paddingBottom: "60px" }}>
                                         <CompanyTypeDetail
                                             dataTable={companyTypeDetails}
                                             dataTableHeading={companyDetailHeading}
                                         />
-
                                     </Col>
-
                                     <Col lg={12} className={clsx(styles.shareHoldingPadding, "pb-3")} >
                                         <FinacialHighlightTable
                                             uniqueYears={uniqueMonths}
                                             finacialHightlightGroupedData={monthGroupedData}
                                             paricular={`capsuleDetailPage.inINRCR`}
                                         />
-
                                     </Col>
                                     <Col lg={12} className={clsx(styles.shareHoldingPadding)} >
                                         <FinacialHighlightTable
@@ -230,7 +207,6 @@ export default function IpoDetails(props) {
                                             finacialHightlightGroupedData={yearsData}
                                             paricular={`capsuleDetailPage.inINRCR`}
                                         />
-
                                     </Col>
 
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout, "mt-5")} >
@@ -240,7 +216,6 @@ export default function IpoDetails(props) {
                                             para={getDisclaimerDataObj?.
                                                 description
                                                 ?.attributes?.description || ""}
-
                                         />
                                     </Col>
                                 </>

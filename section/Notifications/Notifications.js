@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import clsx from "clsx";
 import styles from "./style/notifications.module.scss";
 import dynamic from 'next/dynamic';
@@ -18,7 +18,6 @@ const Notifications = ({ notificationListServer, notificationTotalListServer, no
         notificationListClient: state?.notificationSlice?.notificationList,
         notificationCurrentPage: state?.notificationSlice?.notificationCurrentPage,
         notificationTotalList: state?.notificationSlice?.notificationTotalList,
-
     }), shallowEqual)
     // load more btn 
     const loadMoreFun = async () => {
@@ -28,12 +27,9 @@ const Notifications = ({ notificationListServer, notificationTotalListServer, no
         }
         await dispatch(getNotificationList(params))
         dispatch(setNotificationCurrentPage(notificationCurrentPage + 1))
-
     }
 
     useEffect(() => {
-
-
         if (!notificationError) {
             dispatch(setNotificationListEmpty());
             dispatch(setNotificationList(notificationListServer));
@@ -72,17 +68,14 @@ const Notifications = ({ notificationListServer, notificationTotalListServer, no
                                                     : moment(el?.createdAt).format('DD, MMM YYYY')
                                             }
                                         </span>
-
                                     </div>
                                     <div className={clsx(index === 0 && styles.blueDot)}>
                                         <span></span>
                                     </div>
                                 </div>
-
                             </Col>
                         )
                     })
-
                 }
                 {
                     notificationListClient?.length > 9 && (
@@ -93,7 +86,6 @@ const Notifications = ({ notificationListServer, notificationTotalListServer, no
                             loadMoreFun={loadMoreFun} />
                     )
                 }
-
             </Row>
         </div>
     )

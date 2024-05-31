@@ -20,7 +20,6 @@ const PlanCard = dynamic(() => import("@/section/Subscription/PlanCard"))
 const OrderSummaryCard = dynamic(() => import("@/section/Subscription/OrderSummaryCard"))
 const PromoCodeModal = dynamic(() => import("@/components/Module/Modal/PromoCodeModal"))
 
-
 export default function SubscriptionPage(props) {
     const { t } = useTranslation("common");
     const dispatch = useDispatch()
@@ -33,7 +32,6 @@ export default function SubscriptionPage(props) {
     const { getPlanDataObj } = props;
     const addPromoCodeFun = () => {
         dispatch(setShowForm(true))
-
     }
 
     useEffect(() => {
@@ -41,9 +39,9 @@ export default function SubscriptionPage(props) {
             toast.error(t(`message.somethingWentWrong`))
         }
     }, [])
+
     return (
         <>
-
             <Suspense fallback={<LoderModule />}>
                 <Container fluid className={clsx(styles.containerPadding)}>
                     <Row className={clsx("mx-0 ")}>
@@ -66,13 +64,11 @@ export default function SubscriptionPage(props) {
                             <p className="d-flex justify-content-between">
                                 <span>
                                     <Trans i18nKey={"subscriptionPage.orderSummary"}>
-
                                         ORDER SUMMARY
                                     </Trans>
                                 </span>
                                 <button className={clsx(styles.addPromoCode)} onClick={addPromoCodeFun}>
                                     <Trans i18nKey={"subscriptionPage.addPromoCode"}>
-
                                         + Add Promo Code
                                     </Trans>
                                 </button>
@@ -85,7 +81,6 @@ export default function SubscriptionPage(props) {
                 </Container>
                 {/* promo code modal */}
                 <PromoCodeModal />
-
             </Suspense>
         </>
     );
