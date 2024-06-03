@@ -146,7 +146,7 @@ export const ScreenerFilter = ({ filters }) => {
                         filterData?.map((el, filterIndex) => {
                             return (
                                 <Accordion.Item eventKey={`${filterIndex}`} key={filterIndex}>
-                                    <Accordion.Header className={clsx("accrodianBtn", styles.btn)} >{t(el?.filterName)}</Accordion.Header>
+                                    <Accordion.Header className={clsx("accrodianBtn", styles.btn)} >{t(el?.name)}</Accordion.Header>
                                     <Accordion.Body className={clsx(styles.body)}>
                                         {
 

@@ -10,6 +10,7 @@ const CapsuleView = ({ headingLabel, capsuleViewData = [] }) => {
         <div className={clsx(styles.yelloBg)}>
             <HeadingCom
                 label={headingLabel}
+                capsuleViewHeadingColor={true}
             />
             {
                 capsuleViewData?.length > 0 && (

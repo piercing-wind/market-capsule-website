@@ -22,7 +22,11 @@ const VolumeTable = (props) => {
                             </th>
                             {
                                 dataTable?.length > 0 ? (
-                                    dataTable?.map((el, index) => {
+                                    dataTable?.sort((a, b) => {
+                                        const dateA = new Date(a.monthAndYear);
+                                        const dateB = new Date(b.monthAndYear);
+                                        return dateA - dateB;
+                                    })?.map((el, index) => {
                                         return (
                                             <th key={index} className={clsx(styles.heading, index % 2 === 1 ? styles.skyBlueBgColor : styles.whiteBgColor)} >
                                                 <div className={clsx('d-flex column-gap-2 align-items-center ', index !== 0 && "justify-content-center")}>

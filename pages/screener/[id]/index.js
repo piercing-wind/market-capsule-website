@@ -42,7 +42,6 @@ export default function Home(props) {
             toast.error(`something went wrong`)
         }
     }, [dispatch]);
-
     return (
         <Container fluid className={clsx(styles.containerPadding, "mt-4 pb-5 ")}>
             <OneIdBreadcrumb
@@ -55,7 +54,7 @@ export default function Home(props) {
                 <Col xs={12} className='px-0'>
                     <ScreeenerHeadingCom
                         heading={getScreenerCompanyDataObj?.screenerIdData?.name}
-                        para={getScreenerCompanyDataObj?.screenerIdData?.description ? getScreenerIdDataObj?.screenerIdData?.description : "Curated selection of company data using our powerful screener, tailored to your specified criteria."}
+                        para={getScreenerCompanyDataObj?.screenerIdData?.description ? getScreenerCompanyDataObj?.screenerIdData?.description : "Curated selection of company data using our powerful screener, tailored to your specified criteria."}
                     />
                 </Col>
 

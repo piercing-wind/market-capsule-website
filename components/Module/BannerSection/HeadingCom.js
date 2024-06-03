@@ -3,10 +3,10 @@ import clsx from 'clsx';
 import styles from "./style/headingCom.module.scss"
 import { useTranslation } from 'next-i18next';
 
-const HeadingCom = ({ label, updated = false }) => {
+const HeadingCom = ({ label, updated = false, capsuleViewHeadingColor = false }) => {
     const { t } = useTranslation("common")
     return (
-        <div className={clsx(styles.heading)}>
+        <div className={clsx(styles.heading, capsuleViewHeadingColor && styles.capsuleHeading)}>
             <p>
                 <span>
                     {t(label)}

@@ -27,6 +27,10 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'lh3.googleusercontent.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'https://d1gg24sxbl1rgc.cloudfront.net',
+      },
     ],
   },
 }

@@ -88,6 +88,8 @@ const ExclusiveViewCard = ({ line = true, getSubscriptionBtnObj }) => {
                             border={"none"}
                             type={"button"}
                             handleFun={handleUpgradeNowFun}
+                            gradient={true}
+
                         />
                     </div>
                 </div>

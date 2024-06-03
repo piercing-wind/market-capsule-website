@@ -56,7 +56,7 @@ export default function WatchlistPage(props) {
                     <Col xs={12} className='px-0'>
                         <ScreeenerHeadingCom
                             heading={getWatchListHeaderObj?.watchListHeading ? getWatchListHeaderObj?.watchListHeading : "watchlist.myWatchlist"}
-                            para={getWatchListHeaderObj?.watchListHeading ? getWatchListHeaderObj?.watchListDescription : "Monitor stocks by adding them to your Watchlist"}
+                            para={watchList?.length && getWatchListHeaderObj?.watchListHeading ? getWatchListHeaderObj?.watchListDescription : "Monitor stocks by adding them to your Watchlist"}
                         />
                     </Col>
                     {

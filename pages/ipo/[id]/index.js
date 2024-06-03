@@ -111,7 +111,7 @@ export default function IpoDetails(props) {
         acc[item.title].push(item);
         return acc;
     }, {});
-    const uniqueYears = [...new Set(financial_highlights.map((item) => ({ month: item?.month, year: item?.year })))];
+    const uniqueYears = [...new Set(financial_highlights.map((item) => ({ month: item?.month ? item?.month : "", year: item?.year })))];
 
     //create custom structure for share holding  table
     const shareHoldingData = share_holdings.reduce((acc, item) => {
@@ -121,7 +121,7 @@ export default function IpoDetails(props) {
         acc[item.title].push(item);
         return acc;
     }, {});
-    const shareHoldingUniqueYears = [...new Set(share_holdings.map((item) => ({ month: item?.month, year: item?.year })))];
+    const shareHoldingUniqueYears = [...new Set(share_holdings.map((item) => ({ month: item?.month ? item?.month : "", year: item?.year })))];
 
     return (
         <>
@@ -189,6 +189,7 @@ export default function IpoDetails(props) {
                                         <FinacialHighlightTable
                                             uniqueYears={uniqueYears}
                                             finacialHightlightGroupedData={finacialHightlightGroupedData}
+                                            paricular={"PARTICULARS"}
                                         />
                                     </Col>
 

@@ -4,7 +4,7 @@ import styles from "./style/upgradeCard.module.scss"
 import { Trans, useTranslation } from 'next-i18next';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { setShowForm, setUpgradeNow } from '@/store/slices/authSlice';
 import { findDiscount, findYear } from '@/utils/constants';
 const IconPayNowButton = dynamic(() => import("../Button/IconPayNowButton"))
@@ -15,7 +15,7 @@ const UpgradeCard = ({ getSubscriptionBtnObj }) => {
     const { jwt } = useSelector((state) => ({
         jwt: state?.authSlice?.jwt,
     }), shallowEqual)
-
+    const dispatch = useDispatch()
     const router = useRouter()
     const handleUpgradeNowFun = () => {
         if (!jwt) {
@@ -66,6 +66,8 @@ const UpgradeCard = ({ getSubscriptionBtnObj }) => {
                         border={"none"}
                         type={"button"}
                         handleFun={handleUpgradeNowFun}
+                        gradient={true}
+
                     />
                 </div>
             </div>
