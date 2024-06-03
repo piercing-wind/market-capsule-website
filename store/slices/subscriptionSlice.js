@@ -7,6 +7,11 @@ export const getPlanData = createAsyncThunk('subscriptionSlice/getPlanData', asy
     return (response)
 });
 
+export const getSubscriptionBtnData = createAsyncThunk('ipoDetailSlice/getSubscriptionBtnData', async (params) => {
+    const response = await getMethod(`subscription-button?populate[plan][fields][0]=regularPrice&fields[0]=title&populate[plan][fields][1]=price&populate[plan][fields][3]=durationInDays`,);
+    return (response)
+});
+
 const promoCodeModalObj = {
     showForm: false,
     discountAmount: 0,
@@ -22,11 +27,18 @@ const getPlanDataObj = {
     buyPlanData: {}
 }
 
+const getSubscriptionBtnObj = {
+    loading: false,
+    error: false,
+    subscriptionBtnData: ""
+}
+
 export const subscriptionSlice = createSlice({
     name: 'subscriptionSlice',
     initialState: {
         promoCodeModalObj,
-        getPlanDataObj
+        getPlanDataObj,
+        getSubscriptionBtnObj
     },
     reducers: {
         setShowForm(state, action) {
@@ -60,6 +72,20 @@ export const subscriptionSlice = createSlice({
             .addCase(getPlanData.rejected, (state, action) => {
                 state.getPlanDataObj.loading = false;
                 state.getPlanDataObj.error = true;
+            })
+            .addCase(getSubscriptionBtnData.pending, (state, action) => {
+                state.getSubscriptionBtnObj.loading = true;
+                state.getSubscriptionBtnObj.error = false;
+            })
+            .addCase(getSubscriptionBtnData.fulfilled, (state, action) => {
+                state.getSubscriptionBtnObj.loading = false;
+                state.getSubscriptionBtnObj.error = false;
+                state.getSubscriptionBtnObj.subscriptionBtnData = action?.payload?.data
+
+            })
+            .addCase(getSubscriptionBtnData.rejected, (state, action) => {
+                state.getSubscriptionBtnObj.loading = false;
+                state.getSubscriptionBtnObj.error = true;
             })
     }
 

@@ -25,16 +25,21 @@ const ManageSubscription = () => {
                     </Trans>
                 </h4>
 
-                <div className={clsx("d-flex align-items-center flex-wrap", styles.nextBillingDiv)}>
-                    <p className={clsx("mb-0")}>
-                        <span>
-                            <Trans i18nKey={"manageSubscription.nextBillingOn"}>
-                                Next billing on:
-                            </Trans>
-                        </span>
-                        <span className={clsx(styles.mediumFont)}>{nextBillingDate ? moment(nextBillingDate).format('DD MMM, YYYY') : nextBillingDate}</span>
-                    </p>
-                </div>
+                {
+                    nextBillingDate && (
+                        <div className={clsx("d-flex align-items-center flex-wrap", styles.nextBillingDiv)}>
+                            <p className={clsx("mb-0")}>
+                                <span>
+                                    <Trans i18nKey={"manageSubscription.nextBillingOn"}>
+                                        Next billing on:
+                                    </Trans>
+                                </span>
+                                <span className={clsx(styles.mediumFont)}>{nextBillingDate ? moment(nextBillingDate).format('DD MMM, YYYY') : nextBillingDate}</span>
+                            </p>
+                        </div>
+
+                    )
+                }
             </div>
             <Row className='mx-0'>
                 <Col xs={12} className='px-0 '>

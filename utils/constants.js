@@ -192,3 +192,15 @@ export const getUpdatedDate = (dateString) => {
     }
     return formattedDate;
 };
+
+export const findYear = (days) => {
+    if (days / 365 > 1) {
+        return Math.floor(days / 365)
+    } else {
+        return ""
+    }
+}
+
+export const findDiscount = (regularPrice, price) => {
+    return Math.floor(((regularPrice - price) / regularPrice) * 100)
+}

@@ -16,6 +16,7 @@ import { setAuthorizationToken } from "@/utils/apiServices";
 import { getCapsulePlusCompanyData, getCapsulePlusHeadingData, getFilterSectionList, setCompanyList, setCompanyListCurrentPage, setCompanyListEmpty, setCompanyListTotalList } from "@/store/slices/capsulePlusSlice";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
+import { getSubscriptionBtnData } from "@/store/slices/subscriptionSlice";
 const ScreeenerHeadingCom = dynamic(() => import("@/components/Module/HeadingComponent/ScreenerHeadingCom"))
 const CapsulePlusFilter = dynamic(() => import("@/components/Module/Accrodian/CapsulePlusFilter"))
 const CapsulePlusCompanyCard = dynamic(() => import("@/components/Module/ScreenerCard/CapsulePlusCompanyCard"))
@@ -28,7 +29,7 @@ export default function CapsulePlusPage(props) {
         : "en";
 
     router.defaultLocale = "en";
-    const { getCapsulePlusCompanyDataObj, getFilterSectionObj, getCapsulePlusCompanyHeadingObj } = props;
+    const { getCapsulePlusCompanyDataObj, getFilterSectionObj, getCapsulePlusCompanyHeadingObj, getSubscriptionBtnObj } = props;
     const { capsulePlus } = getCapsulePlusCompanyDataObj;
     const { capsulePlusHeadingData } = getCapsulePlusCompanyHeadingObj;
 
@@ -138,7 +139,10 @@ export default function CapsulePlusPage(props) {
             </Container>
             {
                 capsulePlus && (
-                    <UpgradeCard />
+                    <UpgradeCard
+                        getSubscriptionBtnObj={getSubscriptionBtnObj}
+
+                    />
                 )
             }
         </>
@@ -157,9 +161,12 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     await store.dispatch(getCapsulePlusCompanyData(params));
     await store.dispatch(getFilterSectionList());
     await store.dispatch(getCapsulePlusHeadingData());
+    await store.dispatch(getSubscriptionBtnData());
 
     const {
-        capsulePlusSlice: { getCapsulePlusCompanyDataObj, getFilterSectionObj, getCapsulePlusCompanyHeadingObj, seoObj }
+        capsulePlusSlice: { getCapsulePlusCompanyDataObj, getFilterSectionObj, getCapsulePlusCompanyHeadingObj, seoObj },
+        subscriptionSlice: { getSubscriptionBtnObj }
+
     } = store.getState();
 
     let fileList = getFileLangList();
@@ -173,6 +180,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             getFilterSectionObj,
             getCapsulePlusCompanyHeadingObj,
             seo: seoObj?.seo,
+            getSubscriptionBtnObj,
 
             ...(await serverSideTranslations(locale, fileList)),
         },

@@ -6,6 +6,7 @@ import { Trans, useTranslation } from 'next-i18next';
 import { useDispatch } from 'react-redux';
 import { checkoutApi, setCheckoutData, setPlanId } from '@/store/slices/subscriptionSlice';
 import toast from 'react-hot-toast';
+import { findDiscount, findYear } from '@/utils/constants';
 
 const PlanCard = ({ planCardData }) => {
     const [plan, setPlan] = useState("yearly")
@@ -42,17 +43,7 @@ const PlanCard = ({ planCardData }) => {
             }
         );
     }
-    const findYear = (days) => {
-        if (days / 365 > 1) {
-            return Math.floor(days / 365)
-        } else {
-            return ""
-        }
-    }
 
-    const findDiscount = (regularPrice, price) => {
-        return Math.floor(((regularPrice - price) / regularPrice) * 100)
-    }
 
     useEffect(() => {
         // Set the default planId to the id of the first "yearly" plan

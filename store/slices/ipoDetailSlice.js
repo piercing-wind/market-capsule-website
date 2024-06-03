@@ -7,6 +7,8 @@ export const getIpoCompanyDetailData = createAsyncThunk('ipoDetailSlice/getIpoCo
     return (response)
 });
 
+
+
 const getIpoCompanyDetailObj = {
     loading: false,
     error: false,
@@ -20,6 +22,8 @@ const seoObj = {
     error: false,
     seo: ""
 }
+
+
 
 export const ipoDetailSlice = createSlice({
     name: 'ipoDetailSlice',

@@ -13,6 +13,7 @@ import { commaSeprater, numberToLocaleString } from "@/utils/constants";
 import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
 import { getIpoCompanyDetailData } from "@/store/slices/ipoDetailSlice";
+import { getSubscriptionBtnData } from "@/store/slices/subscriptionSlice";
 const LoderModule = dynamic(() => import("@/components/Module/LoaderModule"))
 const OneIdBreadcrumb = dynamic(() => import("@/components/Module/Breadcrumb/OneIdBreadcrumb"))
 const ScreenerSlugBanner = dynamic(() => import("@/components/Module/BannerSection/ScreenerSlugBanner"))
@@ -27,7 +28,7 @@ const HeadingCom = dynamic(() => import("@/components/Module/BannerSection/Headi
 
 export default function IpoDetails(props) {
     const { t } = useTranslation("common");
-    const { getIpoCompanyDetailObj } = props;
+    const { getIpoCompanyDetailObj, getSubscriptionBtnObj } = props;
     const { rocePercent = null, marketCap = null, peRatio = null, roicPercent = null, roePercent = null, currentPrice = null, deRatio = null, cwip = null, cashConversionCycle = null, pegRatio = null } = getIpoCompanyDetailObj?.ipoCompanyDetailData?.company_share_detail || {}
     const { capsuleView, aboutTheCompany, business_segments, keyHighlights, industry, share_holdings, financial_highlights } = getIpoCompanyDetailObj?.ipoCompanyDetailData || {};
     const { capsulePlus } = getIpoCompanyDetailObj
@@ -37,7 +38,6 @@ export default function IpoDetails(props) {
         : "en";
 
     router.defaultLocale = "en";
-
     // basic detailsobj
     const basicDetailArr = [
         {
@@ -163,6 +163,7 @@ export default function IpoDetails(props) {
                                 headingLabel={`ipoDetailPage.bussinessSegment`}
                                 bussinessSegmentData={business_segments}
                                 capsuleplus={capsulePlus}
+                                getSubscriptionBtnObj={getSubscriptionBtnObj}
                             />
                         </Col>
                         {/* capsulePluse */}
@@ -229,8 +230,12 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         pageName: "ipo-company-detail"
     }
     await store.dispatch(getIpoCompanyDetailData(params));
+    await store.dispatch(getSubscriptionBtnData());
+
     const {
-        ipoDetailSlice: { getIpoCompanyDetailObj, seoObj }
+        ipoDetailSlice: { getIpoCompanyDetailObj, seoObj },
+        subscriptionSlice: { getSubscriptionBtnObj }
+
     } = store.getState();
 
     let fileList = getFileLangList();
@@ -242,6 +247,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             language: locale,
             getIpoCompanyDetailObj,
             seo: seoObj?.seo,
+            getSubscriptionBtnObj,
             ...(await serverSideTranslations(locale, fileList)),
         },
     };

@@ -7,7 +7,7 @@ import { Col, Row } from 'react-bootstrap';
 import ExclusiveViewCard from '@/components/Module/UpgradeCard/ExclusiveViewCard';
 const HeadingCom = dynamic(() => import("@/components/Module/BannerSection/HeadingCom"))
 
-const BussinessSegment = ({ headingLabel, bussinessSegmentData = [], capsuleplus }) => {
+const BussinessSegment = ({ headingLabel, bussinessSegmentData = [], capsuleplus, getSubscriptionBtnObj }) => {
     return (
         <div className={clsx(styles.mainDiv)}>
             <HeadingCom
@@ -34,7 +34,9 @@ const BussinessSegment = ({ headingLabel, bussinessSegmentData = [], capsuleplus
             }
             {
                 capsuleplus && (
-                    <ExclusiveViewCard />
+                    <ExclusiveViewCard
+                        getSubscriptionBtnObj={getSubscriptionBtnObj}
+                    />
                 )
             }
         </div>

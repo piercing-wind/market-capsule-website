@@ -6,9 +6,11 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { shallowEqual, useSelector } from 'react-redux';
 import { setShowForm, setUpgradeNow } from '@/store/slices/authSlice';
+import { findDiscount, findYear } from '@/utils/constants';
 const IconPayNowButton = dynamic(() => import("../Button/IconPayNowButton"))
 
-const UpgradeCard = () => {
+const UpgradeCard = ({ getSubscriptionBtnObj }) => {
+    const { subscriptionBtnData } = getSubscriptionBtnObj || {};
     const { t } = useTranslation("common");
     const { jwt } = useSelector((state) => ({
         jwt: state?.authSlice?.jwt,
@@ -30,25 +32,28 @@ const UpgradeCard = () => {
             <div className={clsx("px-sm-4 py-sm-4 p-3 d-flex flex-lg-row flex-column row-gap-2 justify-content-between align-items-center", styles.planDiv)}>
                 <div className={clsx("d-flex  align-items-center column-gap-3", styles.leftPara)}>
                     <p className='m-0 text-center'>
-                        <Trans i18nKey={"capsulePlusPage.upgradeToCapsulePlus"}>
-                            Upgrade to Capsule+ now to unlock exclusive content!
-                        </Trans>
+                        {
+                            subscriptionBtnData?.attributes?.title
+                        }
                     </p>
                 </div>
 
                 <div className={clsx("d-flex column-gap-2 align-items-center", styles.rightDiv)}>
                     <p className={clsx('d-flex flex-column mb-0', styles.minWidth)}>
                         <span className={clsx(styles.realPrice)}>
-                            ₹6000
+                            ₹{subscriptionBtnData?.attributes?.plan?.data?.attributes?.regularPrice}
                         </span>
                         <span className={clsx(styles.redColor, "d-flex")} >
-                            20<Trans i18nKey={"capsulePlusPage.persentOff"}>% OFF</Trans>
+                            {findDiscount(subscriptionBtnData?.attributes?.plan?.data?.attributes?.regularPrice, subscriptionBtnData?.attributes?.plan?.data?.attributes?.price)}<Trans i18nKey={"capsulePlusPage.persentOff"}>% OFF</Trans>
                         </span>
                     </p>
                     <p className='mb-0'>
-                        <span className={clsx(styles.offerPrice)}>₹4999</span>
+                        <span className={clsx(styles.offerPrice)}>₹{subscriptionBtnData?.attributes?.plan?.data?.attributes?.price}</span>
                         <span className={clsx(styles.planDuration)}>/
-                            <Trans i18nKey={"capsulePlusPage.year"}>YEAR</Trans></span>
+                            {
+                                subscriptionBtnData?.attributes?.plan?.data?.attributes?.durationInDays >= 365 ? `${findYear(subscriptionBtnData?.attributes?.plan?.data?.attributes?.durationInDays) && findYear(subscriptionBtnData?.attributes?.plan?.data?.attributes?.durationInDays)}YEAR` : `${subscriptionBtnData?.attributes?.plan?.data?.attributes?.durationInDays}DAYS`
+                            }
+                        </span>
                     </p>
                     <IconPayNowButton
                         label={"capsulePlusPage.upgradeNow"}

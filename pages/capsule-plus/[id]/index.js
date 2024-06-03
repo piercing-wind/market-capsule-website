@@ -15,6 +15,7 @@ import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
 import { getCapsuleCompanyDetailData, getOperationDetailQuetarly, getOperationDetailYearly, getPriceAndVolume, getSharePriceAndVolume } from "@/store/slices/capsuleDetailSlice";
 import { getDisclaimerData } from "@/store/slices/screenerSlugDetailSlice";
+import { getSubscriptionBtnData } from "@/store/slices/subscriptionSlice";
 const LoderModule = dynamic(() => import("@/components/Module/LoaderModule"))
 const OneIdBreadcrumb = dynamic(() => import("@/components/Module/Breadcrumb/OneIdBreadcrumb"))
 const ScreenerSlugBanner = dynamic(() => import("@/components/Module/BannerSection/ScreenerSlugBanner"))
@@ -30,7 +31,7 @@ const VolumeTable = dynamic(() => import("@/section/CapsulePlus/CapsulePlusDetai
 
 export default function IpoDetails(props) {
     const { t } = useTranslation("common");
-    const { getCapsuleCompanyDetailObj, getDisclaimerDataObj, getOperationDetailQuetarlyObj, getOperationDetailYearlyObj, getSharePriceAndVolumeObj, getPriceAndVolumeObj } = props;
+    const { getCapsuleCompanyDetailObj, getDisclaimerDataObj, getOperationDetailQuetarlyObj, getOperationDetailYearlyObj, getSharePriceAndVolumeObj, getPriceAndVolumeObj, getSubscriptionBtnObj } = props;
     const { capsulePlus } = getCapsuleCompanyDetailObj;
     const { marketCap = null, prevClosePrice = null, sector = null, ttpmPE = null, sectoralPERange = null, peRemark = null, BSE = null } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData?.company_share_detail || {}
     const {
@@ -143,6 +144,8 @@ export default function IpoDetails(props) {
                                     capsulePlus && (
                                         <ExclusiveViewCard
                                             line={false}
+                                            getSubscriptionBtnObj={getSubscriptionBtnObj}
+
                                         />
                                     )
                                 }
@@ -256,10 +259,12 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     await store.dispatch(getOperationDetailQuetarly(quetarlySlug));
     await store.dispatch(getOperationDetailYearly(yearlySlug));
     await store.dispatch(getPriceAndVolume(shareParams));
+    await store.dispatch(getSubscriptionBtnData());
 
     const {
         capsuleDetailSlice: { getCapsuleCompanyDetailObj, seoObj, getOperationDetailQuetarlyObj, getOperationDetailYearlyObj, getSharePriceAndVolumeObj, getPriceAndVolumeObj },
-        screenerSlugDetailSlice: { getDisclaimerDataObj }
+        screenerSlugDetailSlice: { getDisclaimerDataObj },
+        subscriptionSlice: { getSubscriptionBtnObj }
 
     } = store.getState();
     let fileList = getFileLangList();
@@ -278,6 +283,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
             getOperationDetailYearlyObj,
             getSharePriceAndVolumeObj,
             getPriceAndVolumeObj,
+            getSubscriptionBtnObj,
             ...(await serverSideTranslations(locale, fileList)),
         },
     };

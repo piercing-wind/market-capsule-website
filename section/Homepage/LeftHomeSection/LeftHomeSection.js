@@ -129,7 +129,7 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
                 <p className={clsx(" d-flex align-items-center column-gap-1  mb-0", styles.redColor)}>{sensexAndNiftyData?.changeInprice}{"  "}<CaretDownRed /></p>
 
               ) : (
-                <p className={clsx("d-flex align-items-center column-gap-1  mb-0", styles.greenColor)}>{"+"}{sensexAndNiftyData?.changeInprice}{"  "}<CaretDownRed fill={"green"} /></p>
+                <p className={clsx("d-flex align-items-center column-gap-1  mb-0", styles.greenColor)}>{"+"}{sensexAndNiftyData?.changeInprice}{"  "}<CaretDownRed transform={true} fill={"green"} /></p>
               )
             }
           </div>
