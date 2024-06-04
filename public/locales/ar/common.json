@@ -169,7 +169,9 @@
     "accountSetting": "Account Settings",
     "manageSubscription": "Manage Subscription",
     "notifications": "Notifications",
-    "logout": "Logout"
+    "logout": "Logout",
+    "termsAndCondition":"Terms & Conditions",
+    "privacyPolicy":"Privacy Policy"
   },
   "accountSettingsPage": {
     "accountSetting": "Account Settings",

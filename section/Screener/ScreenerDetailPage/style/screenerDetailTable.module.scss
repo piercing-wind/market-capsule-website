@@ -53,3 +53,16 @@
 }
 
 
+@media screen and (max-width: 576px) {
+  .addTo{
+    svg{
+      width: 15px;
+    }
+  }
+
+  .readMore{
+    svg{
+      width: 15px;
+    }
+  }
+}

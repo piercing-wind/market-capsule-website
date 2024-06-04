@@ -13,7 +13,7 @@ const VolumeTable = (props) => {
                     <thead>
                         <tr>
                             <th className={clsx(styles.heading, styles.skyBlueBgColor)} >
-                                <div className={clsx('d-flex column-gap-2 align-items-center')}>
+                                <div className={clsx('d-flex column-gap-2 align-items-center justify-content-center')}>
                                     <span className='text-center'>
                                         Month and Year
                                     </span>
@@ -29,7 +29,7 @@ const VolumeTable = (props) => {
                                     })?.map((el, index) => {
                                         return (
                                             <th key={index} className={clsx(styles.heading, index % 2 === 1 ? styles.skyBlueBgColor : styles.whiteBgColor)} >
-                                                <div className={clsx('d-flex column-gap-2 align-items-center ', index !== 0 && "justify-content-center")}>
+                                                <div className={clsx('d-flex column-gap-2 align-items-center ', "justify-content-center")}>
                                                     <span className='text-center'>
                                                         {
                                                             el?.monthAndYear
@@ -46,7 +46,7 @@ const VolumeTable = (props) => {
                     </thead>
                     <tbody>
                         <tr >
-                            <td className={clsx(styles.trTable, styles.skyBlueBgColor)}>Volume</td>
+                            <td className={clsx(styles.trTable, styles.skyBlueBgColor, "text-center")}>Volume</td>
                             {
                                 dataTable?.length > 0 ? (
                                     dataTable?.map((el, index) => {

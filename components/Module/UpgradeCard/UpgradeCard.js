@@ -47,7 +47,7 @@ const UpgradeCard = ({ getSubscriptionBtnObj }) => {
                             {findDiscount(subscriptionBtnData?.attributes?.plan?.data?.attributes?.regularPrice, subscriptionBtnData?.attributes?.plan?.data?.attributes?.price)}<Trans i18nKey={"capsulePlusPage.persentOff"}>% OFF</Trans>
                         </span>
                     </p>
-                    <p className='mb-0'>
+                    <p className='mb-0 '>
                         <span className={clsx(styles.offerPrice)}>₹{subscriptionBtnData?.attributes?.plan?.data?.attributes?.price}</span>
                         <span className={clsx(styles.planDuration)}>/
                             {

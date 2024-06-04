@@ -42,6 +42,17 @@ export const userProfileNavData = [
         label: "userProfileDropdown.notifications",
         slug: "/notifications"
     }
+    ,
+    {
+        id: 4,
+        label: "userProfileDropdown.termsAndCondition",
+        slug: "/terms-and-conditions"
+    },
+    {
+        id: 5,
+        label: "userProfileDropdown.privacyPolicy",
+        slug: "/privacy-policy"
+    }
 ]
 
 export const navLinkData404 = [
@@ -87,5 +98,15 @@ export const userProfileNavData400 = [
         id: 3,
         label: "Notifications",
         slug: "/notifications"
+    },
+    {
+        id: 4,
+        label: "userProfileDropdown.termsAndCondition",
+        slug: "/terms-and-conditions"
+    },
+    {
+        id: 5,
+        label: "userProfileDropdown.privacyPolicy",
+        slug: "/privacy-policy"
     }
 ]

@@ -5,7 +5,7 @@ import signupStyles from "./style/signupCheckbox.module.scss"
 import { continueFromSocial } from './loginFormData';
 import dynamic from 'next/dynamic';
 import { setAuthType } from '@/store/slices/authSlice';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import { Formik } from 'formik';
 const LoginButton = dynamic(() => import('../Button/LoginButton'))
@@ -39,7 +39,12 @@ const signupFormData = {
 const SignupForm = () => {
     const dispatch = useDispatch()
     const [loader, setLoader] = useState(false);
+    const { upgradeNow } = useSelector((state) => (
+        {
+            upgradeNow: state?.authSlice?.upgradeNow,
 
+        }
+    ), shallowEqual)
     //handle login with social media
     const handleLoginWithSocialMedia = () => {
         console.log("handle login with social media")

@@ -77,21 +77,21 @@ const IpoTable = (props) => {
 
                                     return (
                                         <tr key={index} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
-                                            <td >{el?.companyName}</td>
+                                            <td >{el?.companyName ? el?.companyName : "N/A"}</td>
                                             <td className='text-center'>
-                                                {el?.openDate}
+                                                {el?.openDate ? el?.openDate : "N/A"}
                                             </td>
-                                            <td className='text-center'>{el?.offerPricePe}</td>
-                                            <td className='text-center' >{el?.lySalesGrowth}</td>
+                                            <td className='text-center'>{el?.offerPricePe ? el?.offerPricePe : "N/A"}</td>
+                                            <td className='text-center' >{el?.lastYearSaleGrowth ? `${el?.lastYearSaleGrowth}%` : "N/A"}</td>
                                             <td className='text-center'>
                                                 {
-                                                    el?.industry
+                                                    el?.industry ? el?.industry : "N/A"
                                                 }
                                             </td>
                                             <td className={clsx('text-center', styles.readMore)}>
                                                 <Link href={`/ipo/${el?.slug}`}>
 
-                                                    <p className={clsx('mb-0  d-flex align-items-center ')}>
+                                                    <p className={clsx('mb-0  d-flex align-items-center ', styles.svg)}>
                                                         <span style={{ marginRight: "5px" }}>
                                                             <Trans i18nKey={"screenerIdPage.readMore"}>
                                                                 Read More

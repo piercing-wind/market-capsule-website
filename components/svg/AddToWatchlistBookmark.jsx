@@ -7,6 +7,7 @@ const AddToWatchlistBookmark = ({width="11px"}) => {
       width={width}
       height="12.001"
       viewBox="0 0 11 12.001"
+      style={{marginRight: "5px"}}
     >
       <path
         id="bookmark"

@@ -14,6 +14,8 @@ import ipoDetailSlice from './slices/ipoDetailSlice';
 import capsuleDetailSlice from './slices/capsuleDetailSlice';
 import ipoSlice from './slices/ipoSlice';
 import capsulePlusSlice from './slices/capsulePlusSlice';
+import privacyPolicySlice from './slices/privacyPolicySlice';
+import termsAndConditionsSlice from './slices/termsAndConditionsSlice';
 
 const rootReducer = combineReducers({
     authSlice: authSlice,
@@ -29,7 +31,9 @@ const rootReducer = combineReducers({
     ipoDetailSlice,
     capsuleDetailSlice,
     ipoSlice,
-    capsulePlusSlice
+    capsulePlusSlice,
+    privacyPolicySlice,
+    termsAndConditionsSlice
 });
 
 

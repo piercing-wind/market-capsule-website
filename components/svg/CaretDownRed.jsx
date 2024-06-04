@@ -1,13 +1,13 @@
 import React from "react";
 
-export const CaretDownRed = ({fill="#ff4f55",transform=false}) => {
+export const CaretDownRed = ({fill="#ff4f55",transform="false"}) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="7.434"
       height="4.282"
       viewBox="0 0 7.434 4.282"
-      transform={transform && "rotate(180)"}
+      transform={transform ==="true" && "rotate(180)"}
     >
       <path
         id="caret-down_1_"

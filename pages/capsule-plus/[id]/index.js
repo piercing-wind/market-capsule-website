@@ -37,7 +37,6 @@ export default function IpoDetails(props) {
     const {
         businessOverview, financialReport, shareCapitalAndEmployees,
         companyTypeDetails, capsuleHighlights, name, logo, industry, websiteUrl } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData || {};
-    console.log("logo", logo)
     const router = useRouter();
     router.locale = props?.language
         ? props?.language

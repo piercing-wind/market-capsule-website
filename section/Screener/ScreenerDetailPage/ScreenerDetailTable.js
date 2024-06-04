@@ -182,16 +182,18 @@ const ScreenerDetailTable = (props) => {
                                                             <td className='text-center'>
                                                                 {el?.company_share_detail?.marketCap ? el?.company_share_detail?.marketCap : "N/A"}
                                                             </td>
-                                                            <td className='text-center'>{el?.company_share_detail?.ttpmPE ? el?.company_share_detail?.ttpmPE : "N/A"}</td>
+                                                            <td className='text-center'>{el?.company_share_detail?.ttpmPE ? `${el?.company_share_detail?.ttpmPE}%` : "N/A"}</td>
                                                             <td className='text-center' >{el?.createdAt
                                                                 ? moment(el?.createdAt).format('MMM D, YYYY')
                                                                 : "N/A"}</td>
                                                             <td className={clsx('text-center', styles.addToTd)}>
-                                                                <p className={clsx(' d-flex align-items-center  mb-0', styles.addTo)} onClick={() => {
+                                                                <p className={clsx(' d-flex align-items-center  mb-0 ', styles.addTo)} onClick={() => {
                                                                     addToWatchlist(el?.id)
                                                                 }}>
                                                                     <AddToWatchlistBookmark />
-                                                                    <span style={{ marginLeft: "5px" }}>
+                                                                    <span
+                                                                    // style={{ paddingLeft: "5px" }}
+                                                                    >
                                                                         <Trans i18nKey={"screenerIdPage.addToWatchlist"}>
                                                                             Add to Watchlist
                                                                         </Trans>

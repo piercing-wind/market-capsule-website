@@ -31,7 +31,6 @@ const OtpForm = () => {
         upgradeNow: state?.authSlice?.upgradeNow,
 
     }), shallowEqual)
-
     //signup form btn 
     const handleSubmit = async (e) => {
         e.preventDefault()

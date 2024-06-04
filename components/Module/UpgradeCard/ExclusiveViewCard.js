@@ -73,7 +73,7 @@ const ExclusiveViewCard = ({ line = true, getSubscriptionBtnObj }) => {
                             <span className={clsx(styles.offerPrice)}>₹{subscriptionBtnData?.attributes?.plan?.data?.attributes?.price}</span>
                             <span className={clsx(styles.planDuration)}>/
                                 {
-                                    subscriptionBtnData?.attributes?.plan?.data?.attributes?.durationInDays >= 365 ? `${findYear(subscriptionBtnData?.attributes?.plan?.data?.attributes?.durationInDays) && findYear(subscriptionBtnData?.attributes?.plan?.data?.attributes?.durationInDays)} YEAR` : `${subscriptionBtnData?.attributes?.plan?.data?.attributes?.durationInDays} DAYS`
+                                    subscriptionBtnData?.attributes?.plan?.data?.attributes?.durationInDays >= 365 ? `${findYear(subscriptionBtnData?.attributes?.plan?.data?.attributes?.durationInDays) && findYear(subscriptionBtnData?.attributes?.plan?.data?.attributes?.durationInDays)}YEAR` : `${subscriptionBtnData?.attributes?.plan?.data?.attributes?.durationInDays}DAYS`
                                 }
                             </span>
                         </p>

@@ -41,7 +41,6 @@ const AccountCreatedSuccessForm = () => {
 
         }
     ), shallowEqual)
-
     const { t } = useTranslation("common");
     const dispatch = useDispatch()
 
@@ -96,14 +95,16 @@ const AccountCreatedSuccessForm = () => {
                     dispatch(setShowForm(false))
                     dispatch(setAuthType("homePage"))
                     if (upgradeNow) {
-                        router.push("/subscription")
+                        // router.push("/subscription")
                         dispatch(setUpgradeNow(false))
-                        window.location.reload();
+                        // window.location.reload();
+                        window.open(`/subscription`, "_self")
+
                     } else {
                         router.push("/")
                         window.location.reload();
                     }
-                    resetForm()
+                    // resetForm()
 
                 } else {
                     setLoader(false)
