@@ -90,7 +90,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     indexType: `Sensex`
   }
   await store.dispatch(getHomePageMetaData());
-  await store.dispatch(getTopGainerList(params));
+  // await store.dispatch(getTopGainerList(params));
   await store.dispatch(getTopGainerList(params));
   await store.dispatch(getTopLosersList(params));
   await store.dispatch(getTrandingNewsList(trandingNewsParams));

@@ -22,7 +22,7 @@ const VolumeTable = (props) => {
                             </th>
                             {
                                 dataTable?.length > 0 ? (
-                                    dataTable?.sort((a, b) => {
+                                    [...dataTable]?.sort((a, b) => {
                                         const dateA = new Date(a.monthAndYear);
                                         const dateB = new Date(b.monthAndYear);
                                         return dateA - dateB;

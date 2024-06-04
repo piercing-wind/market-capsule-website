@@ -36,18 +36,11 @@ function ManageSubscriptionTable(props) {
     }
 
     //download invoice
-    const downloadInvoice = async () => {
-        let url = `https://www.clickdimensions.com/links/TestPDFfile.pdf`
+    const downloadInvoice = async (url) => {
         try {
-            const response = await fetch(url);
-            const blob = await response.blob();
-
-            const blobUrl = window.URL.createObjectURL(blob);
-
             const link = document.createElement('a');
             link.href = blobUrl;
             link.download = 'invoice.pdf'; // This is the file name that will be used for the downloaded file
-
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
@@ -96,19 +89,19 @@ function ManageSubscriptionTable(props) {
                                             <td className='text-center'>{`${el?.plan?.name} (${el?.plan?.planType})`}</td>
                                             <td className='text-center'>{`₹${el?.amount ? el?.amount : "-"}`}</td>
                                             <td className='text-center'>
-                                                <button
-                                                    onClick={() => {
-                                                        if (el?.invoiceUrl) {
-                                                            downloadInvoice(el?.invoiceUrl)
-                                                        } else {
-                                                            toast.error(t(`message.invoiceNotAvailable`))
-                                                        }
-                                                    }}
-                                                    style={{ cursor: el?.invoiceUrl ? "pointer" : "not-allowed" }}
-                                                    className={clsx("d-flex align-items-center column-gap-2", styles.btn)}>
-                                                    <LuDownload />
-                                                    {t("manageSubscription.downloadInvoice")}
-                                                </button>
+                                                {
+                                                    el?.invoiceUrl && (
+                                                        <a style={{ textDecoration: "none" }} href={el?.invoiceUrl} target="_blank" rel="noreferrer" >
+                                                            <button
+                                                                style={{ cursor: el?.invoiceUrl ? "pointer" : "not-allowed" }}
+                                                                className={clsx("d-flex align-items-center column-gap-2", styles.btn)}>
+                                                                <LuDownload />
+                                                                {t("manageSubscription.downloadInvoice")}
+                                                            </button>
+                                                        </a>
+
+                                                    )
+                                                }
                                             </td>
                                         </tr>
                                     )
