@@ -60,7 +60,7 @@ const ArticalAndCaseStudyCard = () => {
     const loadMoreFun = async () => {
         const feedListParams = {
             page: feedCurrentPage,
-            limit: 1,
+            limit: 5,
             industryId: industryId !== 0 ? industryId : ""
         }
         await dispatch(getFeedList(feedListParams))
