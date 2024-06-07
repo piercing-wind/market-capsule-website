@@ -14,7 +14,6 @@ const SharePriceAndVolume = ({ headingLabel = "", prices = [] }) => {
             />
             <NseLineChart prices={prices} />
             <VolumeBarChart prices={prices} />
-            {/* <SharePriceVolumeChart /> */}
         </div>
     )
 }
