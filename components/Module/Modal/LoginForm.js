@@ -221,7 +221,7 @@ const LoginForm = () => {
 
                             }
                             <FacebookLogin
-                                appId="394106446938847"
+                                appId={process.env.Facebook_APP_ID}
                                 // autoLoad={true}
                                 callback={responseFacebook}
                                 render={renderProps => (
