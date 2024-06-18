@@ -24,6 +24,14 @@
   padding-left: 40px;
   padding-right: 40px;
 }
+@media screen and (max-width: 1300px) {
+  .containerPadding {
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-bottom: 48px;
+  }
+  
+}
 
 @media screen and (max-width: 1200px) {
   .containerPadding {
