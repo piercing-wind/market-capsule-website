@@ -186,6 +186,7 @@ const AccountSettingsSection = ({ userDetails }) => {
         dispatch(getProfessionList())
     }, [])
 
+    console.log("professionData", professionData)
     return (
         <div className={clsx(styles.leftSidebarMaindDiv, "px-sm-4 px-3")}>
             {/* heading section */}

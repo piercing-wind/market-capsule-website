@@ -13,7 +13,6 @@ const WhatsNewCard = ({ data, logo, headingLabel }) => {
             return styles.trandingBorder
         }
     }
-    console.log("data", data)
     return (
         <div className={clsx(styles.trandingDiv, "marginTop12")}>
             {/* news heading div */}

@@ -4,7 +4,7 @@ import { secureHeader } from "@/middleware/securityHeader";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useRouter } from "next/router";
 import { wrapper } from "@/store";
-import { Suspense, useState } from "react";
+import { Suspense, use, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import clsx from "clsx";
 import styles from "../../../section/CapsulePlus/CapsulePlusDetail/style/capsulePlusDetail.module.scss"
@@ -16,6 +16,7 @@ import { setAuthorizationToken } from "@/utils/apiServices";
 import { getCapsuleCompanyDetailData, getOperationDetailQuetarly, getOperationDetailYearly, getPriceAndVolume, getSharePriceAndVolume } from "@/store/slices/capsuleDetailSlice";
 import { getDisclaimerData } from "@/store/slices/screenerSlugDetailSlice";
 import { getSubscriptionBtnData } from "@/store/slices/subscriptionSlice";
+import { useDispatch } from "react-redux";
 const LoderModule = dynamic(() => import("@/components/Module/LoaderModule"))
 const OneIdBreadcrumb = dynamic(() => import("@/components/Module/Breadcrumb/OneIdBreadcrumb"))
 const ScreenerSlugBanner = dynamic(() => import("@/components/Module/BannerSection/ScreenerSlugBanner"))
@@ -31,6 +32,7 @@ const VolumeTable = dynamic(() => import("@/section/CapsulePlus/CapsulePlusDetai
 
 export default function IpoDetails(props) {
     const { t } = useTranslation("common");
+    const dispatch = useDispatch();
     const { getCapsuleCompanyDetailObj, getDisclaimerDataObj, getOperationDetailQuetarlyObj, getOperationDetailYearlyObj, getSharePriceAndVolumeObj, getPriceAndVolumeObj, getSubscriptionBtnObj } = props;
     const { capsulePlus } = getCapsuleCompanyDetailObj;
     const { marketCap = null, prevClosePrice = null, sector = null, ttpmPE = null, sectoralPERange = null, peRemark = null, BSE = null } = getCapsuleCompanyDetailObj?.capsuleCompanyDetailData?.company_share_detail || {}
@@ -111,6 +113,8 @@ export default function IpoDetails(props) {
         return acc;
     }, {});
     const uniqueYears = [...new Set(getOperationDetailYearlyObj?.yearlyData?.map((item) => ({ month: item?.month, year: item?.year })))];
+
+
     return (
         <>
             <Suspense fallback={<LoderModule />}>
@@ -267,6 +271,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
         subscriptionSlice: { getSubscriptionBtnObj }
 
     } = store.getState();
+
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
     // Get the current date on the server
