@@ -42,8 +42,40 @@ const LoginForm = () => {
         onSuccess: (codeResponse) => setGoogleLogin(codeResponse),
         onError: (error) => console.log('Login Failed:', error)
     });
-    const responseFacebook = (response) => {
+    const responseFacebook = async (response) => {
         console.log("responseFacebook", response);
+        if (response?.accessToken) {
+            let data = {
+                token: response?.accessToken,
+                provider: "facebook",
+            }
+            await socialLoginApi(data,
+                (res) => {
+                    if (res?.success) {
+                        setCookiesStorage("_jwt", res?.data?.token)
+                        dispatch(setUpdateJwtToken(res?.data?.token))
+                        dispatch(setUpdateProfileDetails(res?.data?.user))
+                        toast.success(res?.message)
+                        setLoader(false)
+                        dispatch(setShowForm(false))
+                        dispatch(setAuthType("homePage"))
+                        dispatch(setUpgradeNow(false))
+                        window.open(window.location.pathname, "_self")
+
+                    } else {
+                        toast?.error(res?.message);
+                        setLoader(false);
+                    }
+                },
+                (err) => {
+                    if (!err?.success) {
+                        toast?.error(err?.message);
+                        setLoader(false)
+                    }
+                }
+            )
+
+        }
     }
 
     const componentClicked = () => {
@@ -238,6 +270,7 @@ const LoginForm = () => {
                                         icon={<FacebookIcon />}
                                         handleFun={() => {
                                             renderProps.onClick()
+                                            console.log("hello")
                                             setProvider(`facebook`)
                                         }}
                                     />
