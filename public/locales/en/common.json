@@ -21,8 +21,8 @@
 "paymentSuccess":"Payment Successful!",
 "paymentDescription":"Thank you for your purchase and are pleased to confirm that your payment has been successfully processed.",
 "paymentFail":"Something went wrong",
-"paymentFailDescription":"We apologize for the inconvenience. Please try again or contact our support team for assistance"
-
+"paymentFailDescription":"We apologize for the inconvenience. Please try again or contact our support team for assistance",
+"loginFirst":"Please login first"
   },
 "searchResultPage":{
 "searchResult":"Search results",

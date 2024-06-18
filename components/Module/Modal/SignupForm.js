@@ -129,15 +129,17 @@ const SignupForm = () => {
                                 </Trans>
                             </p>
                             {/* email */}
-                            <EmailInput
-                                type={"email"}
-                                placeholder={"loginAndSignupModal.emailAddress"}
-                                value={formik?.values?.email}
-                                name={"email"}
-                                formik={formik}
-                                touchedName={formik.touched.email}
-                                errorName={formik.errors.email}
-                            />
+                            <div className={clsx(signupStyles.emailInput)}>
+                                <EmailInput
+                                    type={"email"}
+                                    placeholder={"loginAndSignupModal.emailAddress"}
+                                    value={formik?.values?.email}
+                                    name={"email"}
+                                    formik={formik}
+                                    touchedName={formik.touched.email}
+                                    errorName={formik.errors.email}
+                                />
+                            </div>
                             {/* checkbox */}
                             <div className={clsx(signupStyles.checkMainDiv)}>
                                 <div className={clsx("d-flex", signupStyles.checkboxDiv)}>

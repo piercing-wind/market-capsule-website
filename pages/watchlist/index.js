@@ -43,7 +43,7 @@ export default function WatchlistPage(props) {
             dispatch(setWatchListTotalList(getWatchListObj?.watchListTotalList))
             dispatch(setWatchListCurrentPage(watchListCurrentPage + 1))
         } else if (getWatchListObj?.error) {
-            toast.error(`something went wrong`)
+            // toast.error(`something went wrong`)
         }
     }, [dispatch]);
 

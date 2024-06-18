@@ -4,6 +4,7 @@ import clsx from "clsx";
 import styles from '../style/trandingNewsCard.module.scss'
 import { truncateText } from '@/utils/constants';
 import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
 
 const WhatsNewCard = ({ data, logo, headingLabel }) => {
     const { t } = useTranslation("common");
@@ -12,7 +13,7 @@ const WhatsNewCard = ({ data, logo, headingLabel }) => {
             return styles.trandingBorder
         }
     }
-
+    console.log("data", data)
     return (
         <div className={clsx(styles.trandingDiv, "marginTop12")}>
             {/* news heading div */}
@@ -29,20 +30,24 @@ const WhatsNewCard = ({ data, logo, headingLabel }) => {
                     data?.length > 0 ? (
                         data?.map((el, index) => {
                             return (
-                                <div key={index} className={clsx("d-flex flex-column column-gap-2 ", styles.trandingHeadlineDiv, hideBorderInLastDiv(data?.length, index))}>
-                                    <div className={clsx("d-flex align-items-center column-gap-2 ",)}>
-                                        <Image
-                                            src={el?.attributes?.whatsNewInCapsulePlusImage?.data?.attributes?.url
-                                            }
-                                            alt={el?.attributes?.whatsNewInCapsulePlusImage?.data?.attributes?.alternativeText
-                                                ? el?.attributes?.whatsNewInCapsulePlusImage?.data?.attributes?.alternativeText
-                                                : "Whats New in Capsule Plus"}
-                                            width={58}
-                                            height={43} />
-                                        <p className={styles.paragraph}>{truncateText(el?.attributes?.title, 25)}</p>
-                                    </div>
+                                <Link className={clsx(el?.attributes?.slug ? styles.link : styles.linkDisabled)} key={index} href={`${el?.attributes?.slug ? `/capsule-plus/${el?.attributes?.slug}` : ""}`} passHref>
 
-                                </div>
+                                    <div key={index} className={clsx("d-flex flex-column column-gap-2 ", styles.trandingHeadlineDiv, hideBorderInLastDiv(data?.length, index))}>
+                                        <div className={clsx("d-flex align-items-center column-gap-2 ",)}>
+                                            <Image
+                                                src={el?.attributes?.whatsNewInCapsulePlusImage?.data?.attributes?.url
+                                                }
+                                                alt={el?.attributes?.whatsNewInCapsulePlusImage?.data?.attributes?.alternativeText
+                                                    ? el?.attributes?.whatsNewInCapsulePlusImage?.data?.attributes?.alternativeText
+                                                    : "Whats New in Capsule Plus"}
+                                                width={58}
+                                                height={43} />
+                                            <p className={styles.paragraph}>{truncateText(el?.attributes?.title, 25)}</p>
+                                        </div>
+
+                                    </div>
+                                </Link>
+
                             )
                         })
                     ) : null

@@ -21,7 +21,14 @@
     @include basicFontSize(12px, 500, #3e63ff);
   }
 }
+@media screen and (max-width: 992px) {
+  .emailInput{
+     &>div{
+      margin-bottom: 16px!important;
+     }
+  }
 
+}
 @media screen and (max-width: 767px) {
   .form {
     padding-bottom: 20px;

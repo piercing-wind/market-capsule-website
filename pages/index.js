@@ -73,7 +73,17 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     sort: `createdAt:desc`,
     alternativeText: `alternativeText`,
   }
-
+  const whatsNewParams = {
+    page: 1,
+    limit: 5,
+    title: "title",
+    url: `url`,
+    source: `source`,
+    image: `url`,
+    sort: `createdAt:desc`,
+    alternativeText: `alternativeText`,
+    slug: `slug`,
+  }
   const industryParams = {
     industryName: `name`,
     industrySlug: `slug`,
@@ -94,7 +104,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
   await store.dispatch(getTopGainerList(params));
   await store.dispatch(getTopLosersList(params));
   await store.dispatch(getTrandingNewsList(trandingNewsParams));
-  await store.dispatch(getWhatsNewInCapsulePlusList(trandingNewsParams));
+  await store.dispatch(getWhatsNewInCapsulePlusList(whatsNewParams));
   await store.dispatch(getIndustriesList(industryParams));
   await store.dispatch(getFeedList(feedListParams));
   await store.dispatch(getSansexAndNiftyData(indexParams));

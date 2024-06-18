@@ -4,6 +4,7 @@ import clsx from "clsx";
 import styles from '../style/trandingNewsCard.module.scss'
 import { truncateText } from '@/utils/constants';
 import { useTranslation } from 'next-i18next';
+import Link from 'next/link';
 
 const TrandingNewsCard = ({ data, logo, headingLabel }) => {
     const { t } = useTranslation("common");
@@ -28,31 +29,34 @@ const TrandingNewsCard = ({ data, logo, headingLabel }) => {
                     data?.length > 0 ? (
                         data?.map((el, index) => {
                             return (
-                                <div key={index} className={clsx("d-flex flex-column column-gap-2 ", styles.trandingHeadlineDiv, hideBorderInLastDiv(data?.length, index))}>
-                                    <div className={clsx("d-flex align-items-center column-gap-2 ",)}>
-                                        <Image
-                                            src={el?.attributes?.image?.data?.attributes?.url}
-                                            alt={el?.attributes?.image?.data?.attributes?.alternativeText
-                                                ? el?.attributes?.image?.data?.attributes?.alternativeText
-                                                : "Tranding News"}
-                                            width={58}
-                                            height={43} />
-                                        <p className={styles.paragraph}>{truncateText(el?.attributes?.title, 25)}</p>
+                                <Link className={clsx(el?.attributes?.url ? styles.link : styles.linkDisabled)} key={index} target='_blank' href={`${el?.attributes?.url ? el?.attributes?.url : ""}`} passHref>
+                                    <div className={clsx("d-flex flex-column column-gap-2 ", styles.trandingHeadlineDiv, hideBorderInLastDiv(data?.length, index))}>
+                                        <div className={clsx("d-flex align-items-center column-gap-2 ",)}>
+                                            <Image
+                                                src={el?.attributes?.image?.data?.attributes?.url}
+                                                alt={el?.attributes?.image?.data?.attributes?.alternativeText
+                                                    ? el?.attributes?.image?.data?.attributes?.alternativeText
+                                                    : "Tranding News"}
+                                                width={58}
+                                                height={43} />
+                                            <p className={styles.paragraph}>{truncateText(el?.attributes?.title, 25)}</p>
+                                        </div>
+                                        {
+                                            el?.attributes?.source ? (
+                                                <p className={clsx("mb-0 mt-2", styles.sourcePara)}>
+                                                    <span>
+                                                        {t("homepage.rightSection.source")}
+                                                    </span>
+                                                    {" "}
+                                                    <span className={clsx("mb-0", styles.mediumItalic)}>
+                                                        {el?.attributes?.source}
+                                                    </span>
+                                                </p>
+                                            ) : null
+                                        }
                                     </div>
-                                    {
-                                        el?.attributes?.source ? (
-                                            <p className={clsx("mb-0 mt-2", styles.sourcePara)}>
-                                                <span>
-                                                    {t("homepage.rightSection.source")}
-                                                </span>
-                                                {" "}
-                                                <span className={clsx("mb-0", styles.mediumItalic)}>
-                                                    {el?.attributes?.source}
-                                                </span>
-                                            </p>
-                                        ) : null
-                                    }
-                                </div>
+
+                                </Link>
                             )
                         })
                     ) : null

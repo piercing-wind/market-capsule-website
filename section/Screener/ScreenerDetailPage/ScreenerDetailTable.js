@@ -23,7 +23,7 @@ const ScreenerDetailTable = (props) => {
     const { dataTableHeading } = props;
     const { t } = useTranslation("common")
     const dispatch = useDispatch()
-    const { companyTypeId, peLte, peGte, marketCapLte, marketCapGte, loading, companyList, companyListCurrentPage, companyTotalList, sortCompany } = useSelector((state) => ({
+    const { jwt, companyTypeId, peLte, peGte, marketCapLte, marketCapGte, loading, companyList, companyListCurrentPage, companyTotalList, sortCompany } = useSelector((state) => ({
         companyList: state?.screenerIdSlice?.getScreenerIdDataObj?.companyList,
         companyListCurrentPage: state?.screenerIdSlice?.getScreenerIdDataObj?.companyListCurrentPage,
         companyTotalList: state?.screenerIdSlice?.getScreenerIdDataObj?.companyTotalList,
@@ -34,6 +34,8 @@ const ScreenerDetailTable = (props) => {
         peGte: state?.screenerIdSlice?.getScreenerIdDataObj?.peGte,
         marketCapLte: state?.screenerIdSlice?.getScreenerIdDataObj?.marketCapLte,
         marketCapGte: state?.screenerIdSlice?.getScreenerIdDataObj?.marketCapGte,
+        jwt: state?.authSlice?.jwt,
+
     }), shallowEqual)
 
     //load more btn 
@@ -188,7 +190,11 @@ const ScreenerDetailTable = (props) => {
                                                                 : "N/A"}</td>
                                                             <td className={clsx('text-center', styles.addToTd)}>
                                                                 <p className={clsx(' d-flex align-items-center  mb-0 ', styles.addTo)} onClick={() => {
-                                                                    addToWatchlist(el?.id)
+                                                                    if (jwt) {
+                                                                        addToWatchlist(el?.id)
+                                                                    } else {
+                                                                        toast.error(t("message.loginFirst"))
+                                                                    }
                                                                 }}>
                                                                     <AddToWatchlistBookmark />
                                                                     <span

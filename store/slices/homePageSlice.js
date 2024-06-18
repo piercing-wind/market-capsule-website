@@ -31,7 +31,7 @@ export const getTrandingNewsList = createAsyncThunk('homePageSlice/getTrandingNe
 });
 
 export const getWhatsNewInCapsulePlusList = createAsyncThunk('homePageSlice/getWhatsNewInCapsulePlusList', async (params) => {
-    const response = await getMethod(`companies?fields[0]=${params?.title}&pagination[page]=${params?.page}&pagination[pageSize]=${params?.limit}&populate[whatsNewInCapsulePlusImage][fields][0]=${params?.url}&populate[whatsNewInCapsulePlusImage][fields][1]=${params?.alternativeText}&sort=${params.sort}`);
+    const response = await getMethod(`companies?fields[0]=${params?.title}&fields[1]=${params?.slug}&pagination[page]=${params?.page}&pagination[pageSize]=${params?.limit}&populate[whatsNewInCapsulePlusImage][fields][0]=${params?.url}&populate[whatsNewInCapsulePlusImage][fields][1]=${params?.alternativeText}&sort=${params.sort}`);
     return (response)
 });
 

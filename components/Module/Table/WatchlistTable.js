@@ -66,12 +66,12 @@ function WatchlistTable(props) {
                 dispatch(setSortWatchList("lowHighChange%"))
             }
         } else {
-            if (sortWatchList === "highLowDayHigh") {
+            if (sortWatchList === "lowHighDayLow") {
                 sort = "highLowDayLow";
                 dispatch(setSortWatchList("highLowDayLow"))
             } else {
-                sort = "highLowDayHigh";
-                dispatch(setSortWatchList("highLowDayHigh"))
+                sort = "lowHighDayLow";
+                dispatch(setSortWatchList("lowHighDayLow"))
             }
         }
         const params = {

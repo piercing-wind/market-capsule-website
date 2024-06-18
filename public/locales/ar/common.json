@@ -12,7 +12,17 @@
     "addedToWatchlist":"Added to watchlist",
     "somethingWentWrong":"Something went wrong",
     "removedFromWatchlist":"Removed from watchlist",
-    "invoiceNotAvailable":"Invoice not available"
+    "invoiceNotAvailable":"Invoice not available",
+"promoCodeNotValid":"Promo code not valid",
+"pleaseEnterPromoCode":"Please enter promo code",
+"failedToInitializeRazorpay":"Failed to initialize Razorpay!",
+"networkResponseWasNotOk":"Network response was not ok",
+"paymentVerificationFailed":"Payment verification failed",
+"paymentSuccess":"Payment Successful!",
+"paymentDescription":"Thank you for your purchase and are pleased to confirm that your payment has been successfully processed.",
+"paymentFail":"Something went wrong",
+"paymentFailDescription":"We apologize for the inconvenience. Please try again or contact our support team for assistance",
+"loginFirst":"Please login first"
 
       },
   "homepage": {
