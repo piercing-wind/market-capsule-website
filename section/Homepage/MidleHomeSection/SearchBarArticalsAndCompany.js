@@ -11,6 +11,7 @@ import { getGlobalSearchList } from '@/store/slices/homePageSlice';
 import { useRouter } from 'next/router';
 
 const SearchBarArticalsAndCompany = () => {
+  const [selectedItem, setSelectedItem] = useState(-1);
   const { t } = useTranslation("common");
   const [text, setText] = useState('');
   const [value] = useDebounce(text, 1000);
@@ -32,12 +33,37 @@ const SearchBarArticalsAndCompany = () => {
     await dispatch(getGlobalSearchList(params))
   }
 
+  // handle key down
+  const KeyDownFun = (e, setSelectedItem, selectedItem, globalSearchListLength) => {
+    if (!e?.target?.value) return
+    if (e?.key === 'Enter') {
+      if (selectedItem >= 0) {
+        // Navigate to the selected item
+        router.push(`/search-results/${globalSearchList[selectedItem]?.name}`);
+      } else if (selectedItem === -1) {
+        if (e?.target?.value === "") return
+        router.push(`/search-results/${e?.target?.value}`)
+      }
+    } else if (e.key === 'ArrowDown') {
+      setSelectedItem(prevState => {
+        const nextItem = Math.min(prevState + 1, globalSearchList?.length - 1);
+        document.getElementById(`item-${nextItem}`)?.scrollIntoView({ block: 'nearest' });
+        return nextItem;
+      });
+    } else if (e.key === 'ArrowUp') {
+      setSelectedItem(prevState => {
+        const prevItem = Math.max(prevState - 1, -1);
+        document.getElementById(`item-${prevItem}`)?.scrollIntoView({ block: 'nearest' });
+        return prevItem;
+      });
+    }
+  }
+
   useEffect(() => {
     if (value) {
       searchTypeFun()
     }
   }, [value])
-
   return (
     <div className={clsx("p-3", styles.searchBarSection)}>
       <div className={clsx(styles.inputBlock, styles.typeahead)}>
@@ -50,6 +76,11 @@ const SearchBarArticalsAndCompany = () => {
             placeholder={t("homepage.midleSection.searchForArticlesAndCompanies")}
             onChange={(e) => {
               setText(e.target.value);
+            }}
+            onKeyDown={(e) => {
+
+              KeyDownFun(e, setSelectedItem, selectedItem, globalSearchList?.length)
+
             }}
           />
           <div className={clsx(styles.searchBtn)}>
@@ -70,22 +101,19 @@ const SearchBarArticalsAndCompany = () => {
         </div>
         {/* input search box*/}
         <div
-          className={clsx(styles.inputSearchBox, 'px-2')}
+          className={clsx(styles.inputSearchBox,)}
           style={{
             display: value ? "block" : "none",
           }}
         >
           {globalSearchList?.length > 0
             ? globalSearchList
-              ?.filter((elId) => {
-                return value
-                  ? elId?.name?.toLowerCase()?.includes(value?.toLowerCase())
-                  : null;
-              })
+
               ?.map((elId, typeIndex) => (
                 <div
                   key={typeIndex}
-                  className={clsx(styles.linkDiv)}
+                  id={`item-${typeIndex}`}
+                  className={clsx(styles.linkDiv, 'px-2', selectedItem === typeIndex ? styles.selected : null)}
                 >
 
                   <Link href={`/search-results/${elId?.name}`}>

@@ -132,7 +132,7 @@ const feedListObj = {
 const getGlobalSearchObj = {
     loading: false,
     error: false,
-    globalSearchList: {},
+    globalSearchList: [],
     globalSearchTotalList: 0,
 }
 
