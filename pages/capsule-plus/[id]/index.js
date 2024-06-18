@@ -102,7 +102,12 @@ export default function IpoDetails(props) {
         acc[item.title].push(item);
         return acc;
     }, {});
-    const uniqueMonths = [...new Set(getOperationDetailQuetarlyObj?.quetarlyData?.map((item) => ({ month: item?.month, year: item?.year })))];
+    const uniqueMonths = getOperationDetailQuetarlyObj?.quetarlyData?.reduce((unique, item) => {
+        if (unique.findIndex(x => x.month === item.month && x.year === item.year) === -1) {
+            unique.push(item);
+        }
+        return unique;
+    }, []);
 
     //create custom structure for year  table
     const yearsData = getOperationDetailYearlyObj?.yearlyData?.reduce((acc, item) => {
@@ -112,9 +117,12 @@ export default function IpoDetails(props) {
         acc[item.title].push(item);
         return acc;
     }, {});
-    const uniqueYears = [...new Set(getOperationDetailYearlyObj?.yearlyData?.map((item) => ({ month: item?.month, year: item?.year })))];
-
-
+    const uniqueYears = getOperationDetailYearlyObj?.yearlyData?.reduce((unique, item) => {
+        if (unique.findIndex(x => x.month === item.month && x.year === item.year) === -1) {
+            unique.push(item);
+        }
+        return unique;
+    }, []);
     return (
         <>
             <Suspense fallback={<LoderModule />}>

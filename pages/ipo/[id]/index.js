@@ -111,7 +111,16 @@ export default function IpoDetails(props) {
         acc[item.title].push(item);
         return acc;
     }, {});
-    const uniqueYears = [...new Set(financial_highlights.map((item) => ({ month: item?.month ? item?.month : "", year: item?.year })))];
+    const uniqueYears = financial_highlights?.reduce((unique, item) => {
+        if (unique.findIndex(x => x.year === item.year) === -1) {
+            let obj = {
+                month: item?.month ? item?.month : "",
+                year: item?.year
+            }
+            unique.push(obj);
+        }
+        return unique;
+    }, []);
 
     //create custom structure for share holding  table
     const shareHoldingData = share_holdings.reduce((acc, item) => {
@@ -121,8 +130,16 @@ export default function IpoDetails(props) {
         acc[item.title].push(item);
         return acc;
     }, {});
-    const shareHoldingUniqueYears = [...new Set(share_holdings.map((item) => ({ month: item?.month ? item?.month : "", year: item?.year })))];
-
+    const shareHoldingUniqueYears = share_holdings?.reduce((unique, item) => {
+        if (unique.findIndex(x => x.year === item.year) === -1) {
+            let obj = {
+                month: item?.month ? item?.month : "",
+                year: item?.year
+            }
+            unique.push(obj);
+        }
+        return unique;
+    }, []);
     return (
         <>
             <Suspense fallback={<LoderModule />}>
