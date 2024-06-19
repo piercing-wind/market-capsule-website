@@ -40,10 +40,12 @@ const LoginForm = () => {
     //handle login with social media
     const handleLoginWithGoogle = useGoogleLogin({
         onSuccess: (codeResponse) => setGoogleLogin(codeResponse),
-        onError: (error) => console.log('Login Failed:', error)
+        onError: (error) => console.log('Login Failed:', error),
+        // uxMode: 'redirect',
+        // redirectUri: 'http://localhost:4001/screener',
     });
     const responseFacebook = async (response) => {
-        console.log("responseFacebook", response);
+        // console.log("responseFacebook", response);
         if (response?.accessToken) {
             let data = {
                 token: response?.accessToken,
@@ -78,9 +80,6 @@ const LoginForm = () => {
         }
     }
 
-    const componentClicked = () => {
-        console.log("Facebook login button clicked");
-    };
 
     //signup form btn 
     const goToSignupModal = () => {
@@ -239,9 +238,6 @@ const LoginForm = () => {
                                                     if (el?.provider === "google") {
                                                         handleLoginWithGoogle()
 
-                                                    } else {
-                                                        handleLoginWithFacebook()
-
                                                     }
                                                     setProvider(el?.provider)
                                                 }}
@@ -270,11 +266,9 @@ const LoginForm = () => {
                                         icon={<FacebookIcon />}
                                         handleFun={() => {
                                             renderProps.onClick()
-                                            console.log("hello")
                                             setProvider(`facebook`)
                                         }}
                                     />
-                                    // <button onClick={renderProps.onClick}>This is my custom FB button</button>
                                 )}
                             />,
 

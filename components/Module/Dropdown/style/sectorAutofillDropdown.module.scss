@@ -93,3 +93,7 @@ div.inputBlock .searchBar {
 .medium {
   @include basicFontSize(14px, 500, #000000);
 }
+
+.selected{
+  background-color: rgba(240, 240, 240, .8);
+}

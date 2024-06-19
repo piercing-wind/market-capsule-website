@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import clsx from "clsx"
 import styles from "./style/loginForm.module.scss";
 import signupStyles from "./style/signupCheckbox.module.scss"
 import { continueFromSocial } from './loginFormData';
 import dynamic from 'next/dynamic';
-import { setAuthType } from '@/store/slices/authSlice';
+import { setAuthType, setShowForm, setUpdateJwtToken, setUpdateProfileDetails, setUpgradeNow, socialLoginApi } from '@/store/slices/authSlice';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import Link from 'next/link';
 import { Formik } from 'formik';
@@ -16,8 +16,11 @@ import { Trans, useTranslation } from 'next-i18next';
 import LoderModule from '../LoaderModule';
 import { postMethod } from '@/utils/apiServices';
 import toast from 'react-hot-toast';
-import { setSessionStorage } from '@/utils/storageService';
+import { setCookiesStorage, setSessionStorage } from '@/utils/storageService';
 import { apiEndPoints } from '@/utils/apiEndPoints';
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import { FacebookIcon } from '@/components/svg/FacebookIcon';
+import { useGoogleLogin } from '@react-oauth/google';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email format").required("* This field is mandatory"),
@@ -39,16 +42,10 @@ const signupFormData = {
 const SignupForm = () => {
     const dispatch = useDispatch()
     const [loader, setLoader] = useState(false);
-    const { upgradeNow } = useSelector((state) => (
-        {
-            upgradeNow: state?.authSlice?.upgradeNow,
+    const [provider, setProvider] = useState('');
+    const [googleLogin, setGoogleLogin] = useState('');
 
-        }
-    ), shallowEqual)
-    //handle login with social media
-    const handleLoginWithSocialMedia = () => {
-        console.log("handle login with social media")
-    }
+
 
     //go to login form 
     const goToLoginModal = () => {
@@ -101,7 +98,87 @@ const SignupForm = () => {
         })
 
     }
+    const responseFacebook = async (response) => {
+        // console.log("responseFacebook", response);
+        if (response?.accessToken) {
+            let data = {
+                token: response?.accessToken,
+                provider: "facebook",
+            }
+            await socialLoginApi(data,
+                (res) => {
+                    if (res?.success) {
+                        setCookiesStorage("_jwt", res?.data?.token)
+                        dispatch(setUpdateJwtToken(res?.data?.token))
+                        dispatch(setUpdateProfileDetails(res?.data?.user))
+                        toast.success(res?.message)
+                        setLoader(false)
+                        dispatch(setShowForm(false))
+                        dispatch(setAuthType("homePage"))
+                        dispatch(setUpgradeNow(false))
+                        window.open(window.location.pathname, "_self")
 
+                    } else {
+                        toast?.error(res?.message);
+                        setLoader(false);
+                    }
+                },
+                (err) => {
+                    if (!err?.success) {
+                        toast?.error(err?.message);
+                        setLoader(false)
+                    }
+                }
+            )
+
+        }
+    }
+    //handle login with social media
+    const handleLoginWithGoogle = useGoogleLogin({
+        onSuccess: (codeResponse) => setGoogleLogin(codeResponse),
+        onError: (error) => console.log('Login Failed:', error)
+    });
+
+    const loginWithSocial = async () => {
+        if (googleLogin && provider === "google") {
+            let data = {
+                token: googleLogin?.access_token,
+                provider: provider,
+            }
+            await socialLoginApi(data,
+                (res) => {
+                    if (res?.success) {
+                        setCookiesStorage("_jwt", res?.data?.token)
+                        dispatch(setUpdateJwtToken(res?.data?.token))
+                        dispatch(setUpdateProfileDetails(res?.data?.user))
+                        toast.success(res?.message)
+                        setLoader(false)
+                        dispatch(setShowForm(false))
+                        dispatch(setAuthType("homePage"))
+                        dispatch(setUpgradeNow(false))
+                        window.open(window.location.pathname, "_self")
+
+                    } else {
+                        toast?.error(res?.message);
+                        setLoader(false);
+                    }
+                },
+                (err) => {
+                    if (!err?.success) {
+                        toast?.error(err?.message);
+                        setLoader(false)
+                    }
+                }
+            )
+        } else {
+            return false
+        }
+    }
+
+
+    useEffect(() => {
+        loginWithSocial()
+    }, [googleLogin])
 
     return (
         <div className={clsx(styles.loginFormDiv)}>
@@ -244,15 +321,44 @@ const SignupForm = () => {
                                                     label={el?.label}
                                                     icon={el?.icon}
                                                     handleFun={() => {
-                                                        handleLoginWithSocialMedia(el?.provider)
+
+                                                        if (el?.provider === "google") {
+                                                            handleLoginWithGoogle()
+
+                                                        }
+                                                        setProvider(el?.provider)
                                                     }}
-                                                    socialType={el?.socialType}
+                                                    socialType={el?.provider}
                                                 />
                                             )
                                         })
                                     ) : null
 
                                 }
+                                <FacebookLogin
+                                    appId={process.env.Facebook_APP_ID}
+                                    // autoLoad={true}
+                                    callback={responseFacebook}
+                                    render={renderProps => (
+                                        <LoginButton
+                                            color={"#000000"}
+                                            fontSize={"16px"}
+                                            fontWeight={"400"}
+                                            borderRadius={"8px"}
+                                            pAll={"8px 16px"}
+                                            bg={"#F5F5F5"}
+                                            border={"1px solid #DDDDDD"}
+                                            type={"button"}
+                                            label={`loginAndSignupModal.continueWithFacebook`}
+                                            icon={<FacebookIcon />}
+                                            handleFun={() => {
+                                                renderProps.onClick()
+                                                console.log("hello")
+                                                setProvider(`facebook`)
+                                            }}
+                                        />
+                                    )}
+                                />
 
                             </div>
 
