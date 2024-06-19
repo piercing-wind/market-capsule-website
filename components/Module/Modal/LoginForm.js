@@ -41,8 +41,8 @@ const LoginForm = () => {
     const handleLoginWithGoogle = useGoogleLogin({
         onSuccess: (codeResponse) => setGoogleLogin(codeResponse),
         onError: (error) => console.log('Login Failed:', error),
-        // uxMode: 'redirect',
-        // redirectUri: 'http://localhost:4001/screener',
+        uxMode: 'redirect',
+        redirectUri: 'http://ec2-65-2-181-238.ap-south-1.compute.amazonaws.com:1337/api/authentication/google/callback',
     });
     const responseFacebook = async (response) => {
         // console.log("responseFacebook", response);
