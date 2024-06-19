@@ -29,7 +29,7 @@ export default function Home(props) {
   router.defaultLocale = "en";
 
   return (
-    <Container fluid className={clsx(styles.containerPadding, "mt-3 pb-5 ")}>
+    <Container className={clsx(styles.containerPadding, "mt-3 pb-5 ")}>
       <Row className="mx-0 app">
         <LeftHomeSection
           topGainerObj={props?.topGainerObj}

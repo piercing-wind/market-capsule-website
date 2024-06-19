@@ -50,7 +50,7 @@ export default function WatchlistPage(props) {
 
     return (
         <>
-            <Container fluid className={clsx(styles.containerPadding, "mt-4  ")}>
+            <Container className={clsx(styles.containerPadding, "mt-4 containerPadding ")}>
                 <Row className="mx-0 app">
                     {/* heading section */}
                     <Col xs={12} className='px-0'>

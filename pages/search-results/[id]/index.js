@@ -29,7 +29,7 @@ export default function SearchResults(props) {
 
     return (
         <Suspense fallback={<LoderModule />}>
-            <Container fluid className={clsx(styles.containerPadding, "mt-4 pb-5 ")}>
+            <Container className={clsx(styles.containerPadding, "mt-4 pb-5 containerPadding")}>
                 <OneIdBreadcrumb
                     linkSlug={`/`}
                     linkLable={t(`navbar.home`)}

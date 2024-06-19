@@ -20,6 +20,7 @@
   top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
+  max-width: 1366px;
 }
 
 .leftPara {
@@ -50,6 +51,12 @@
     & > .planDuration {
       @include basicFontSize(10px, 300, #000000);
     }
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .containerPadding {
+    max-width: 100%;
   }
 }
 

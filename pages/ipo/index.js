@@ -48,7 +48,7 @@ export default function CapsulePlusPage(props) {
 
     return (
         <>
-            <Container fluid className={clsx(styles.containerPadding, "mt-4 pb-5 ")}>
+            <Container className={clsx(styles.containerPadding, "mt-4 pb-5 containerPadding")}>
                 <Row className={clsx("mx-0 ", styles.row)}>
                     {/* heading section */}
                     <Col xs={12} className='px-0'>

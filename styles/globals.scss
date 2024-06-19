@@ -259,14 +259,37 @@ a {
 }
 
 
-@media screen and (max-width: 575px) {
-  .borderBottomGray {
-    border: none;
+
+
+
+
+
+@media screen and (max-width: 1440px) {
+  .containerPadding {
+    max-width: 100%!important;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .containerPadding {
+    padding-left: 25px!important;
+    padding-right: 25px!important;
   }
 }
 
 @media screen and (max-width: 992px) {
   .marginTop12 {
     margin-top: 12px;
+  }
+}
+
+@media screen and (max-width: 575px) {
+  .containerPadding {
+    padding-left: 15px !important;
+    padding-right: 15px!important;
+  }
+
+  .borderBottomGray {
+    border: none;
   }
 }

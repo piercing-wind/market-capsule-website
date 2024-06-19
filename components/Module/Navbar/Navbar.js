@@ -61,7 +61,7 @@ const NavbarLayout = () => {
     return (
         <>
             <Navbar expanded={expanded} onToggle={handleToggle} sticky="top" expand="lg" className={clsx("white", styles.navBar)}>
-                <Container fluid className={clsx(styles.navContainer)}>
+                <Container className={clsx(styles.navContainer)}>
                     <Link className="navbar-brand d-lg-none d-block" href="/" onClick={handleLinkClick} >
                         <Image
                             //  priority={true} 

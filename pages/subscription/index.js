@@ -43,7 +43,7 @@ export default function SubscriptionPage(props) {
     return (
         <>
             <Suspense fallback={<LoderModule />}>
-                <Container fluid className={clsx(styles.containerPadding)}>
+                <Container className={clsx(styles.containerPadding, "containerPadding")}>
                     <Row className={clsx("mx-0 ")}>
                         <Col className={clsx("px-0 pe-md-3 ", styles.colDiv)} md={7} sm={12}>
                             <p>

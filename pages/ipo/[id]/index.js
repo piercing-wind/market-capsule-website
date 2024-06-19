@@ -143,14 +143,14 @@ export default function IpoDetails(props) {
     return (
         <>
             <Suspense fallback={<LoderModule />}>
-                <div className={clsx(styles.breadPading, "mt-4")}>
+                <Container className={clsx(styles.breadPading, "mt-4 containerPadding")}>
                     <OneIdBreadcrumb
                         linkSlug={`/ipo`}
                         linkLable={t(`ipoDetailPage.ipoZone`)}
                         idLable={getIpoCompanyDetailObj?.ipoCompanyDetailData?.name}
                     />
-                </div>
-                <Container fluid className={clsx(styles.containerPadding)}>
+                </Container>
+                <Container className={clsx(styles.containerPadding, "containerPadding")}>
                     <Row className={clsx("mx-0", styles.row)}>
                         <Col xs={12} className={clsx("px-0")} >
                             <ScreenerSlugBanner

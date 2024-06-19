@@ -31,7 +31,7 @@ export default function ManageSubscriptionPage(props) {
     return (
         <>
             <Suspense fallback={<LoderModule />}>
-                <Container fluid className={clsx(styles.containerPadding)}>
+                <Container className={clsx(styles.containerPadding, 'containerPadding')}>
                     <Row className={clsx("mx-0")}>
                         <Col className={clsx("px-0", styles.LeftSidebar)} lg={3} sm={12}>
                             <LeftSidebar userDetails={props?.userDetails} />

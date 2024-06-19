@@ -30,7 +30,7 @@ export default function AccountSettingsPage(props) {
     return (
         <>
             <Suspense fallback={<LoderModule />}>
-                <Container fluid className={clsx(styles.containerPadding)}>
+                <Container className={clsx(styles.containerPadding, "containerPadding")}>
                     <Row className={clsx("mx-0")}>
                         <Col className="px-0" md={3} sm={4}>
                             <LeftSidebar userDetails={props?.userDetails} />

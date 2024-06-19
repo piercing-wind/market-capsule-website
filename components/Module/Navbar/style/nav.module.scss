@@ -38,7 +38,11 @@
     visibility: hidden;
   }
 }
-
+@media screen and (max-width: 1440px) {
+  .navContainer {
+    max-width: 100%;
+  }
+}
 @media screen and (max-width: 1100px) {
   .ulLink {
     column-gap: 30px;

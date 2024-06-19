@@ -21,7 +21,7 @@ export default function Home(props) {
     router.defaultLocale = "en";
     const { getTermsAndConditionsObj } = props;
     return (
-        <Container fluid className={clsx(styles.containerPadding, "mt-3 pb-5 ")}>
+        <Container className={clsx(styles.containerPadding, "mt-3 pb-5 containerPadding ")}>
             <Row className="mx-0 app">
                 <h1 className="text-center mt-5 mb-5">Terms And Conditions</h1>
 

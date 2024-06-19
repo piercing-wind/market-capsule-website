@@ -86,7 +86,7 @@ export default function CapsulePlusPage(props) {
         <>
 
             <Suspense fallback={<LoderModule />}>
-                <div className={clsx(styles.breadPading)}>
+                <Container className={clsx(styles.breadPading, "containerPadding")}>
                     <TwoIdBreadcrumb
                         linkSlug1={`/screener`}
                         linkLable1={t(`screenerSlugPage.screener`)}
@@ -95,8 +95,8 @@ export default function CapsulePlusPage(props) {
                         idLable={getScreenerCompanyDetailObj?.screenerCompanyDetailData?.name}
                     />
 
-                </div>
-                <Container fluid className={clsx(styles.containerPadding)}>
+                </Container>
+                <Container className={clsx(styles.containerPadding, "containerPadding")}>
                     <Row className={clsx("mx-0", styles.row)}>
                         <Col xs={12} className={clsx("px-0")} >
                             <ScreenerSlugBanner

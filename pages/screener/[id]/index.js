@@ -43,7 +43,7 @@ export default function Home(props) {
         }
     }, [dispatch]);
     return (
-        <Container fluid className={clsx(styles.containerPadding, "mt-4 pb-5 ")}>
+        <Container className={clsx(styles.containerPadding, "mt-4 pb-5 containerPadding")}>
             <OneIdBreadcrumb
                 linkSlug={`/screener`}
                 linkLable={t(`Screener`)}

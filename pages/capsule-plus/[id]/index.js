@@ -126,14 +126,14 @@ export default function IpoDetails(props) {
     return (
         <>
             <Suspense fallback={<LoderModule />}>
-                <div className={clsx(styles.breadPading, "mt-4")}>
+                <Container className={clsx(styles.breadPading, "mt-4 containerPadding",)}>
                     <OneIdBreadcrumb
                         linkSlug={`/capsule-plus`}
                         linkLable={t(`capsuleDetailPage.capsulePlus`)}
                         idLable={name}
                     />
-                </div>
-                <Container fluid className={clsx(styles.containerPadding)}>
+                </Container>
+                <Container className={clsx(styles.containerPadding)}>
                     <Row className={clsx("mx-0", styles.row)}>
                         <Col xs={12} className={clsx("px-0")} >
                             <ScreenerSlugBanner
