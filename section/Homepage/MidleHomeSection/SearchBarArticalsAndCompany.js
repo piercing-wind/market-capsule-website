@@ -122,7 +122,12 @@ const SearchBarArticalsAndCompany = () => {
 
                 </div>
               ))
-            : null}
+            : (
+              <div className={clsx(styles.noResult)} >
+                <p >{t("No Result Found")}</p>
+              </div>
+
+            )}
 
         </div>
       </div>

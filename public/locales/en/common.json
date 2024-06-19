@@ -63,7 +63,8 @@
       "noMoreData": "No more data is available",
       "screener": "SCREENER",
       "capsulePlus": "CAPSULE+",
-      "ipo": "IPO"
+      "ipo": "IPO",
+      "noResultFound": "No result found"
     },
     "rightSection": {
       "trandingNewsHeading": "Trending News",

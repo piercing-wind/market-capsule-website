@@ -44,30 +44,55 @@ export default function SearchResults(props) {
                             backToHome={true}
                         />
                     </Col>
+                    {
+                        globalSearchList?.capsuleplus?.length > 0 && (
+                            <Col xs={12} className='px-xl-4 py-xl-4 px-3 py-3 '>
+                                <IpoZoneSlider
+                                    heading={`searchResultPage.capsulePlus`}
+                                    sliderData={globalSearchList?.capsuleplus
+                                    }
+                                    url={`capsule-plus`}
+                                />
+                            </Col>
 
-                    <Col xs={12} className='px-xl-4 py-xl-4 px-3 py-3 '>
-                        <IpoZoneSlider
-                            heading={`searchResultPage.capsulePlus`}
-                            sliderData={globalSearchList?.capsuleplus
-                            }
-                            url={`capsule-plus`}
-                        />
-                    </Col>
+                        )
+                    }
+                    {
+                        globalSearchList?.ipoZone?.length > 0 && (
+                            <Col xs={12} className='px-xl-4 py-xl-4 px-3 py-3 '>
+                                <IpoZoneSlider
+                                    heading={`searchResultPage.ipoZone`}
+                                    sliderData={globalSearchList?.ipoZone}
+                                    url={`ipo`}
+                                />
+                            </Col>
+                        )
+                    }
 
-                    <Col xs={12} className='px-xl-4 py-xl-4 px-3 py-3 '>
-                        <IpoZoneSlider
-                            heading={`searchResultPage.ipoZone`}
-                            sliderData={globalSearchList?.ipoZone}
-                            url={`ipo`}
-                        />
-                    </Col>
-                    <Col xs={12} className='px-xl-4 py-xl-4 px-3 py-3 '>
-                        <IpoZoneSlider
-                            heading={`searchResultPage.screener`}
-                            sliderData={globalSearchList?.screener}
-                            url={`screener`}
-                        />
-                    </Col>
+                    {
+                        globalSearchList?.screener?.length > 0 && (
+                            <Col xs={12} className='px-xl-4 py-xl-4 px-3 py-3 '>
+                                <IpoZoneSlider
+                                    heading={`searchResultPage.screener`}
+                                    sliderData={globalSearchList?.screener}
+                                    url={`screener`}
+                                />
+                            </Col>
+                        )
+                    }
+
+                    {
+                        !globalSearchList?.screener?.length && !globalSearchList?.ipoZone?.length && !globalSearchList?.capsuleplus?.length && (
+                            <Col xs={12} className='px-xl-4 py-xl-4 px-3 py-3 '>
+                                <div className={clsx(styles.noResult)} >
+                                    <p className="mb-0">{t("No Result Found")}</p>
+                                </div>
+
+                            </Col>
+
+                        )
+
+                    }
                     <Col xs={12} className='px-xl-4 py-xl-4 px-3 py-3 mb-5 '>
                         <BackToHomeLink />
                     </Col>

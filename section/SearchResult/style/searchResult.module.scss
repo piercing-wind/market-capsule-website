@@ -11,6 +11,17 @@
   .borderLeft {
     border-left: 1px solid #dbdbdb;
   }
+
+  .noResult{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+    &>p{
+      @include basicFontSize(18px,500 ,#606F7B );
+  
+    }
+  }
   
   @media screen and (max-width: 1200px) {
     .containerPadding {

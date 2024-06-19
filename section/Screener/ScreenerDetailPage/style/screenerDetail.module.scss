@@ -1,3 +1,9 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+
 .containerPadding {
   padding-left: 80px;
   padding-right: 80px;
@@ -11,7 +17,16 @@
 .borderLeft {
   border-left: 1px solid #dbdbdb;
 }
+.noResult{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 250px;
+  &>p{
+    @include basicFontSize(18px,500 ,#606F7B );
 
+  }
+}
 @media screen and (max-width: 1200px) {
   .containerPadding {
     padding-left: 25px;
