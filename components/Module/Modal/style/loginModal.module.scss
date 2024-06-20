@@ -1,5 +1,5 @@
 @mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
-  font-size: $fontSize + px !important;
+  font-size: $fontSize  !important;
   font-weight: $fontWeight !important;
   color: $color !important;
 }
@@ -47,6 +47,25 @@
 
 .formCol {
   padding: 40px 35px 40px 40px;
+}
+
+.sideBanner{
+  background-image: url("/assests/auth-flow/banner.svg");
+  background-repeat: no-repeat;
+  background-size: cover; /* Cover the entire element */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-position: center center;
+  padding: 20px 15px 40px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.para{
+  @include basicFontSize(16px,300 ,#FFFFFF );
+  text-align: center;
+  margin-top: 14px;
 }
 
 @media screen and (max-width: 1200px) {
