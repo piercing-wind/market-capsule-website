@@ -43,7 +43,7 @@ const FilterButton = () => {
         <>
             {
                 industryList?.length > 0 ? (
-                    <div className={clsx("py-3 mx-3 d-flex column-gap-1 borderBottomGray", styles.btnScroll)}>
+                    <div className={clsx("py-3 mx-3 d-flex column-gap-1 borderBottomGray borderBottomGray2", styles.btnScroll)}>
                         {
                             industryList?.slice(0, 5)?.map((el, index) => {
                                 return (

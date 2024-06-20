@@ -39,3 +39,12 @@
     color: green;
   }
 }
+
+
+@media screen and (max-width: 576px) {
+  .trandingDiv {
+    border-radius: 0px;
+  }
+  
+  
+}

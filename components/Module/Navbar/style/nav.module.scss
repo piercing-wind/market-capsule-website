@@ -60,6 +60,10 @@
   .greenDiv {
     display: none;
   }
+  .ulLink{
+    row-gap: 12px!important;
+    margin-top: 8px;
+  }
 }
 
 @media screen and (max-width: 575px) {

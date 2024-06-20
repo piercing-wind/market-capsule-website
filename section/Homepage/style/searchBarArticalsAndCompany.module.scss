@@ -125,3 +125,11 @@ position: relative;
 
   }
 }
+
+
+@media screen and (max-width: 576px) {
+  .searchBarSection {
+    
+    border-radius: 0px;
+  }
+}

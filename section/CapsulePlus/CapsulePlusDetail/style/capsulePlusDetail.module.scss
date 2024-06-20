@@ -82,10 +82,12 @@
       }
       
     }
-    @media screen and (max-width: 575px) {
+    @media screen and (max-width: 576px) {
       .containerPadding {
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: 0px;
+        padding-right: 0px;
+        padding-bottom: 0px;
+
       }
       .breadPading {
         padding-left: 25px;

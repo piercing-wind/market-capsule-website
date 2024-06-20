@@ -43,8 +43,9 @@
 
 @media screen and (max-width: 576px) {
   .containerPadding {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 16px!important;
+    padding-right: 16px!important;
     margin-top: 15px;
+    padding-bottom: 45px!important;
   }
 }

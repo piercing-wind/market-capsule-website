@@ -99,10 +99,10 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
   }, [dispatch]);
 
   return (
-    <Col lg={3} className=' px-2 order-lg-0 order-1'>
+    <Col lg={3} className=' px-sm-2 px-0 order-lg-0 order-1'>
       <div className='positionSticky'>
         {/* gainer and loser div */}
-        <div className={clsx("left2 px-2 pb-3", styles.trandingDiv)}>
+        <div className={clsx("left2 px-sm-2 px-3 pb-3", styles.trandingDiv)}>
           {/* filter button div */}
           <div className='me-1 py-3 d-flex column-gap-1 borderBottomGray'>
             <FilterButton
@@ -145,7 +145,7 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
           </div>
         </div>
         {/* gainer and loser div */}
-        <div className={clsx("left2 px-2 pb-3", styles.trandingDiv)}>
+        <div className={clsx("left2 px-sm-2 px-3 pb-3", styles.trandingDiv)}>
           {/* filter button div */}
           <div className='me-1 py-3 d-flex column-gap-1 borderBottomGray'>
             <FilterButton

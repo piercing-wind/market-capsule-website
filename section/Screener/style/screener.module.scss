@@ -52,10 +52,11 @@
   }
 }
 
-@media screen and (max-width: 575px) {
+@media screen and (max-width: 576px) {
   .containerPadding {
-    padding-left: 15px;
-    padding-right: 15px;
+    & > div {
+      border-radius: 0px;
+    }
   }
 }
 

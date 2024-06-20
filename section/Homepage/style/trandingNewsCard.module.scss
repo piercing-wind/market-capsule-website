@@ -56,3 +56,11 @@
   text-decoration: none;
   cursor: not-allowed;
 }
+
+@media screen and (max-width: 576px) {
+  .trandingDiv {
+    border-radius: 0px;
+  }
+  
+  
+}

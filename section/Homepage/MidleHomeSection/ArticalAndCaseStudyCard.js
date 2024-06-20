@@ -85,26 +85,26 @@ const ArticalAndCaseStudyCard = () => {
                     <LoderModule isAbsolute={true} />
 
                 ) : (
-                    <div className=' mt-3 px12'>
+                    <div className='mt-sm-3 mt-2 px12 px16 '>
                         {
                             feedList?.length > 0 ? (
                                 feedList?.map((el, index) => {
                                     return (
-                                        <div key={index} className={clsx("  column-gap-3 d-flex  mb-2", styles.midleDiv, articalAndCaseStudyCardCss(el?.type) ? styles.orangeBackground : styles.grayBackground)}>
+                                        <div key={index} className={clsx("column-gap-3 d-flex flex-sm-row  flex-column mb-2", styles.midleDiv, articalAndCaseStudyCardCss(el?.type) ? styles.orangeBackground : styles.grayBackground)}>
                                             <div className='d-flex align-items-center'>
                                                 <Image
                                                     // priority={false}
                                                     className={clsx(" h-100", styles.imgWidth)} src={el?.featuredImage?.url} alt={el?.featuredImage?.alternativeText ? el?.featuredImage?.alternativeText : "feed list"} width="197" height="158" />
                                             </div>
-                                            <div className={clsx("pe-1 d-flex flex-column justify-content-evenly")}>
+                                            <div className={clsx("pe-1 d-flex flex-column justify-content-evenly mt-sm-0 mt-3")}>
                                                 <div>
                                                     <p className={clsx("d-flex column-gap-1 align-items-center ", styles.statusPara)}>
                                                         <span className={clsx(styles.dot)} style={{ background: el?.tag?.colorHash ? el?.tag?.colorHash : "#00F3BB" }} ></span>
                                                         <span>{el?.type}</span>
                                                     </p>
-                                                    <p className={clsx(styles.textPara)}>{truncateText(el?.title, screenWidth < 768 ? 5 : 13)}</p>
+                                                    <p className={clsx(styles.textPara)}>{truncateText(el?.title, screenWidth < 576 ? 14 : screenWidth < 768 ? 5 : 13)}</p>
                                                 </div>
-                                                <div className={clsx("d-flex align-items-center column-gap-2 flex-wrap-reverse row-gap-2", styles.btnDiv)}>
+                                                <div className={clsx("d-flex align-items-center column-gap-2 flex-wrap-reverse row-gap-2 mt-sm-0 mt-1 mb-sm-0 mb-3", styles.btnDiv)}>
                                                     {
                                                         el?.isPremium
                                                             ? (

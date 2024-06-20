@@ -26,7 +26,7 @@ const MidleHomeSection = ({ industriesObj, feedListObj }) => {
     dispatch(setFeedCurrentPage(feedCurrentPage + 1))
   }, [dispatch]);
   return (
-    <Col lg={6} className='order-lg-1 order-0 px-2'>
+    <Col lg={6} className='order-lg-1 order-0 px-sm-2 px-0'>
       <div className={clsx('gray-border trandingDiv')}>
         <SearchBarArticalsAndCompany />
         <FilterButton />

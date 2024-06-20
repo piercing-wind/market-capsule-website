@@ -15,7 +15,7 @@ const RightHomeSection = ({ trandingNewsObj, whatsNewInCapsulePlusObj }) => {
   }), shallowEqual)
 
   return (
-    <Col lg={3} className='order-2 ps-2 pe-2 pe-lg-0' >
+    <Col lg={3} className='order-2 ps-sm-2 pe-sm-2  px-0 pe-lg-0' >
       {/* tranding news div */}
       <div className="positionSticky">
         <TrandingNewsCard

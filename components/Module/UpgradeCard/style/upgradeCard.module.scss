@@ -71,6 +71,11 @@
     padding: 0px 25px;
   }
 }
+@media screen and (max-width: 576px) {
+  .card {
+    top: 87%;
+  }
+}
 
 @media screen and (max-width: 420px) {
   .leftPara {
