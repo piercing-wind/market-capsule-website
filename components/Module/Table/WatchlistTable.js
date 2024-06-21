@@ -11,6 +11,7 @@ import { getWatchListData, getWatchListObjData, removeToWatchList, setSortWatchL
 import { useState } from 'react';
 import LoderModule from '../LoaderModule';
 import toast from 'react-hot-toast';
+import SeeMore from './SeeMore';
 
 function WatchlistTable(props) {
     const { companyTableHeading } = props;
@@ -250,6 +251,8 @@ function WatchlistTable(props) {
 
                                 </tbody>
                             </Table>
+                            <SeeMore />
+
                         </div>
                         {
                             watchList?.length > 9 && (

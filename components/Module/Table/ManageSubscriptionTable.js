@@ -10,6 +10,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { getSubscriptionList, setSubscriptionListCurrentPage } from '@/store/slices/manageSubscriptionSlice';
 import toast from 'react-hot-toast';
 import moment from 'moment';
+import SeeMore from './SeeMore';
 const LoadMoreBtn = dynamic(() => import("../Button/LoadMoreBtn"))
 
 function ManageSubscriptionTable(props) {
@@ -111,6 +112,8 @@ function ManageSubscriptionTable(props) {
 
                     </tbody>
                 </Table>
+                <SeeMore />
+
             </div>
             {
                 subscriptionList?.length > 4

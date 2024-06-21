@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { getIpoCompanyData, setCompanyListCurrentPage } from '@/store/slices/ipoSlice';
+import SeeMore from '@/components/Module/Table/SeeMore';
 const LoadMoreBtn = dynamic(() => import("@/components/Module/Button/LoadMoreBtn"))
 
 const IpoTable = (props) => {
@@ -111,6 +112,8 @@ const IpoTable = (props) => {
 
                     </tbody>
                 </Table>
+                <SeeMore />
+
             </div>
             {
                 companyList?.length > 9 && (

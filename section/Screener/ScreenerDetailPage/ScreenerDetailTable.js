@@ -15,6 +15,7 @@ import { addToWatchList } from '@/store/slices/watchListSlice';
 import moment from 'moment';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { getScreenerIdData, setCompanyListCurrentPage, setCompanyListEmpty, setCompanySorting } from '@/store/slices/screenerIdSlice';
+import SeeMore from '@/components/Module/Table/SeeMore';
 const LoadMoreBtn = dynamic(() => import("@/components/Module/Button/LoadMoreBtn"))
 
 const ScreenerDetailTable = (props) => {
@@ -225,7 +226,10 @@ const ScreenerDetailTable = (props) => {
                                     }
                                 </tbody>
                             </Table>
+                            <SeeMore />
                         </div>
+
+
                         {
                             companyList?.length > 9 &&
                             (
