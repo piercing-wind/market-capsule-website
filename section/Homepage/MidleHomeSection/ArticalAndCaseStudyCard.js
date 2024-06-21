@@ -94,6 +94,7 @@ const ArticalAndCaseStudyCard = () => {
                                             <div className='d-flex align-items-center'>
                                                 <Image
                                                     // priority={false}
+
                                                     className={clsx(" h-100", styles.imgWidth)} src={el?.featuredImage?.url} alt={el?.featuredImage?.alternativeText ? el?.featuredImage?.alternativeText : "feed list"} width="197" height="158" />
                                             </div>
                                             <div className={clsx("pe-1 d-flex flex-column justify-content-evenly mt-sm-0 mt-3")}>

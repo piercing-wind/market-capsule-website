@@ -29,7 +29,7 @@ const CapsulePlusCard = () => {
     return (
         <div className={clsx("p-2", styles.trandingDiv)}>
             {/* news heading div */}
-            <Image className={clsx("w-100 h-auto")} src="/assests/homepage/capsule-img.png" alt="capsule+ img" width={278} height={203} />
+            <Image className={clsx("w-100 h-auto")} src="/assests/homepage/capsule.png" alt="capsule+ img" width={278} height={203} />
             <div className={clsx("my-4", styles.paraDiv)}>
                 <p>
                     <Trans i18nKey={"homepage.rightSection.upgradeToCapsulePlus"} >Upgrade to</Trans>
