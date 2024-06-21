@@ -51,7 +51,7 @@ const ScreenerSlugBanner = ({ banner = "screener", companyName, sector, url, com
             {/* left div */}
             <div className={clsx("d-flex flex-sm-row flex-column justify-content-sm-start justify-content-center  column-gap-3 row-gap-2 align-items-center")}>
                 <div className={clsx(styles.image)}>
-                    <Image src={companyLogo} alt={alt} width="116" height="116" />
+                    <Image className='borderRadius8' src={companyLogo} alt={alt} width="116" height="116" />
                 </div>
                 <div className={clsx(styles.leftDiv)}>
                     <h5>{companyName}</h5>

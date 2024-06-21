@@ -29,7 +29,7 @@ const SearchResultCard = (props) => {
         <div className={clsx("px-2 pt-2 pb-4", styles.trandingDiv)}>
             {/* news heading div */}
             <div className={clsx(styles.imageDiv)}>
-                <Image className={clsx("w-100 h-auto")} src={dataObj?.featuredImage?.url} alt={dataObj?.featuredImage?.alternativeText ? dataObj?.featuredImage?.alternativeText : dataObj?.name} width={278} height={146} />
+                <Image className={clsx("w-100 h-auto borderRadius8")} src={dataObj?.featuredImage?.url} alt={dataObj?.featuredImage?.alternativeText ? dataObj?.featuredImage?.alternativeText : dataObj?.name} width={278} height={146} />
                 {
                     dataObj?.capsuleplus && (
                         <div className={clsx("d-flex column-gap-1 align-items-center justify-content-center", styles.capsulePlusDiv)}>

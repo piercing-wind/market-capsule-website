@@ -20,7 +20,7 @@ const CompanyCard = (props) => {
         <div className={clsx("px-2 pt-2 pb-4", styles.trandingDiv)}>
             {/* news heading div */}
             <div className={clsx(styles.imageDiv)}>
-                <Image className={clsx("w-100 h-auto")} src={image?.url} alt={image?.alternativeText ? image?.alternativeText : name} width={278} height={146} />
+                <Image className={clsx("w-100 h-auto borderRadius8")} src={image?.url} alt={image?.alternativeText ? image?.alternativeText : name} width={278} height={146} />
                 {
                     capsuleplus && (
                         <div className={clsx("d-flex column-gap-1 align-items-center justify-content-center", styles.capsulePlusDiv)}>

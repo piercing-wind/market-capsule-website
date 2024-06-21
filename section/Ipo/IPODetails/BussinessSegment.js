@@ -19,7 +19,7 @@ const BussinessSegment = ({ headingLabel, bussinessSegmentData = [], capsuleplus
                         <Row key={index} className="mx-0 mb-3">
                             <Col md={4} lg={3} className='p-0'>
                                 <div className='d-flex justify-content-md-start justify-content-center'  >
-                                    <Image className={clsx("w-100", styles.imageWidth)} src={el?.image?.url} alt={el?.image?.alternativeText} width="278" height="146" />
+                                    <Image className={clsx("w-100 borderRadius8", styles.imageWidth)} src={el?.image?.url} alt={el?.image?.alternativeText} width="278" height="146" />
                                 </div>
                             </Col>
                             <Col md={8} lg={9} className='p-0 ps-md-3 pt-md-0 pt-3'>
