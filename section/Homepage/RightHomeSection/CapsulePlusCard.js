@@ -45,6 +45,7 @@ const CapsulePlusCard = () => {
                 />
             </div>
         </div>
+
     )
 }
 
