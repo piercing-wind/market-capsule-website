@@ -19,8 +19,8 @@ const FinacialHighlightTable = ({ uniqueYears, finacialHightlightGroupedData, pa
                                 uniqueYears?.map((el, index) => {
                                     return (
                                         <th key={index} className={clsx(styles.heading)} >
-                                            <div className={clsx('d-flex column-gap-2 align-items-center justify-content-center ', index !== 0 && "justify-content-center")}>
-                                                <span className='text-center'>
+                                            <div className={clsx('d-flex column-gap-2 align-items-center ')}>
+                                                <span className=''>
                                                     {`${el?.month}${el?.month && "-"}${el?.year}`}
 
                                                 </span>
@@ -40,7 +40,7 @@ const FinacialHighlightTable = ({ uniqueYears, finacialHightlightGroupedData, pa
                                 const item = finacialHightlightGroupedData[title]?.find(
                                     (dataItem) => dataItem?.year === el?.year
                                 );
-                                return <td key={index} className={clsx('text-center', styles.regular)}>{item ? item?.value : "-"}</td>;
+                                return <td key={index} className={clsx('', styles.regular)}>{item ? item?.value : "-"}</td>;
                             })}
                         </tr>
                     ))}

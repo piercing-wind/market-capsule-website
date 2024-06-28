@@ -45,7 +45,6 @@ const LoginForm = () => {
         redirectUri: 'http://ec2-65-2-181-238.ap-south-1.compute.amazonaws.com:1337/api/authentication/google/callback',
     });
     const responseFacebook = async (response) => {
-        // console.log("responseFacebook", response);
         if (response?.accessToken) {
             let data = {
                 token: response?.accessToken,
@@ -274,11 +273,12 @@ const LoginForm = () => {
 
                         </div>
 
-                        <div className={clsx("d-flex justify-content-center align-items-center mt-lg-4 mt-2", styles.signUpBtnDiv)}>
+                        <div className={clsx("d-flex justify-content-center align-items-center mt-lg-4 mt-2 column-gap-1", styles.signUpBtnDiv)}>
                             <p className='mb-0'>
                                 <Trans i18nKey={"loginAndSignupModal.dontHaveAnAccount"}>
                                     Don`t have an account?
                                 </Trans>
+                                {" "}
 
                             </p>
                             <button type='button' onClick={goToSignupModal} >

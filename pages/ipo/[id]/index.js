@@ -43,7 +43,7 @@ export default function IpoDetails(props) {
         {
             id: 1,
             label: "ipoDetailPage.marketCap",
-            value: `${marketCap ? `₹${commaSeprater(marketCap)}Cr.` : "N/A"}`,
+            value: `${marketCap ? `₹${commaSeprater(marketCap)} Cr.` : "N/A"}`,
             bg: true
         },
         {
@@ -74,7 +74,7 @@ export default function IpoDetails(props) {
         {
             id: 6,
             label: "ipoDetailPage.cwip",
-            value: `${cwip ? `₹${commaSeprater(cwip)}Cr.` : "N/A"}`,
+            value: `${cwip ? `₹${commaSeprater(cwip)} Cr.` : "N/A"}`,
             bg: true
         },
         {

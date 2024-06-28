@@ -25,7 +25,6 @@ export const getStocksItems = (points) => {
 };
 
 export const getStocksBetween = (dateStart, dateEnd) => {
-    console.log("inside")
     let interval = intervalDays.value * 24 * 60;
     interval += intervalHours.value * 60;
     interval += intervalMinutes.value;

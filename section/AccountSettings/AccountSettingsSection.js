@@ -170,10 +170,13 @@ const AccountSettingsSection = ({ userDetails }) => {
             } else {
                 if (response?.success) {
                     toast.success(response?.message, {
-                        duration: 5000,
+                        duration: 3000,
                     })
                     setEditForm(false)
-                    window.location.reload();
+                    // window.location.reload();
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 3000);
 
                 } else {
                     setLoader(false)
@@ -186,7 +189,6 @@ const AccountSettingsSection = ({ userDetails }) => {
         dispatch(getProfessionList())
     }, [])
 
-    console.log("professionData", professionData)
     return (
         <div className={clsx(styles.leftSidebarMaindDiv, "px-sm-4 px-3")}>
             {/* heading section */}

@@ -136,7 +136,7 @@ const ScreenerDetailTable = (props) => {
                                             dataTableHeading?.length > 0 ? (
                                                 dataTableHeading?.map((el, index) => {
                                                     return (
-                                                        <th key={index} className={clsx(styles.heading)} >
+                                                        <th key={index} className={clsx(styles.heading)} style={{ minWidth: el?.minWidth && el?.minWidth }} >
                                                             <div className={clsx('d-flex column-gap-2 align-items-center ', index !== 0 && "justify-content-center")}>
                                                                 <span  >
                                                                     {t(el?.heading)}

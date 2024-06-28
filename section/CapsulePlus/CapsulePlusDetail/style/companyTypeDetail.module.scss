@@ -1,35 +1,33 @@
 @mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
-    font-size: $fontSize;
-    font-weight: $fontWeight;
-    color: $color;
-  }
-  
-  .heading span {
-    font-size: 14px;
-    font-weight: 500;
-    color: #606f7b;
-  }
-  .heading {
-    border-bottom: none;
-    background:#E0E6FF 0% 0% no-repeat padding-box!important;
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
 
+.heading span {
+  font-size: 14px;
+  font-weight: 500;
+  color: #606ea9;
+}
+.heading {
+  border-bottom: none;
+  background: #e0e6ff 0% 0% no-repeat padding-box !important;
+}
+.trTable > td {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+  border-bottom: none;
+}
+
+.skyBlueBgColor {
+  & > td {
+    background: #f5f7ff 0% 0% no-repeat padding-box;
   }
-  .trTable > td {
-    font-size: 14px;
-    font-weight: 500;
-    color: #000000;
-    border-bottom: none;
+}
+
+.whiteBgColor {
+  & > td {
+    background: #ffffff;
   }
-  
-  .skyBlueBgColor {
-    & > td {
-      background: #f5f7ff 0% 0% no-repeat padding-box;
-    }
-  }
-  
-  .whiteBgColor {
-    & > td {
-      background: #ffffff;
-    }
-  }
-  
+}

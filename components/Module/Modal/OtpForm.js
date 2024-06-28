@@ -178,7 +178,12 @@ const OtpForm = () => {
                             onChange={setOtp}
                             numInputs={4}
                             renderSeparator={<span>&nbsp;&nbsp;</span>}
-                            renderInput={(props) => <input {...props} />}
+                            renderInput={(props) => <input
+                                {...props}
+                                inputMode="numeric"
+                                pattern="[0-9]*"
+                                maxLength="1"
+                            />}
                             inputStyle={styles.inputStyle1}
                             containerStyle={styles.containerStyle1}
                             shouldAutoFocus

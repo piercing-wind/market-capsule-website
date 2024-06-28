@@ -48,7 +48,11 @@ function ManageSubscriptionTable(props) {
         } catch (error) {
             console.error('Failed to fetch invoice:', error);
         }
+
+
     };
+
+    console.log("subscriptionList", subscriptionList)
     return (
 
         <>
@@ -81,15 +85,16 @@ function ManageSubscriptionTable(props) {
                                 subscriptionList?.map((el, index) => {
                                     return (
                                         <tr key={index} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
-                                            <td >
-                                                {el?.expiryDate ? moment(el?.expiryDate).format('MMMM D, YYYY') : "-"}
+                                            <td className={clsx(styles.createdAt)}>
+
+                                                {el?.createdAt ? moment(el?.createdAt).format('MMMM D, YYYY') : "-"}
                                             </td>
                                             <td className='text-center'>
                                                 {el?.orderId ? el?.orderId : "-"}
                                             </td>
                                             <td className='text-center'>{`${el?.plan?.name} (${el?.plan?.planType})`}</td>
                                             <td className='text-center'>{`₹${el?.amount ? el?.amount : "-"}`}</td>
-                                            <td className='text-center'>
+                                            <td className={clsx('text-center', styles.invoice)}>
                                                 {
                                                     el?.invoiceUrl && (
                                                         <a style={{ textDecoration: "none" }} href={el?.invoiceUrl} target="_blank" rel="noreferrer" >

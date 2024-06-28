@@ -4,7 +4,8 @@ export const companyTableHeading = [
     {
         id: 1,
         heading: "watchlist.companyName",
-        type: "companyName"
+        type: "companyName",
+        minWidth: "150px"
     },
     {
         id: 2,
@@ -34,7 +35,8 @@ export const companyTableHeading = [
     {
         id: 6,
         heading: "watchlist.daysLowHigh",
-        type: "highLowDayLow"
+        type: "highLowDayLow",
+        minWidth: "180px"
 
     }
 

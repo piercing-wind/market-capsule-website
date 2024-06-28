@@ -19,7 +19,9 @@ import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
 
 const validationSchema = Yup.object().shape({
-    name: Yup.string().required("* This field is mandatory"),
+    name: Yup.string()
+        .matches(/^[A-Za-z ]+$/, "Name must only contain letters")
+        .required("* This field is mandatory"),
 });
 
 

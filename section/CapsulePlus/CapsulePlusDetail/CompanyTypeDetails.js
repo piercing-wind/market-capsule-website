@@ -18,8 +18,8 @@ const CompanyTypeDetail = (props) => {
                                     dataTableHeading?.map((el, index) => {
                                         return (
                                             <th key={index} className={clsx(styles.heading)} >
-                                                <div className={clsx('d-flex column-gap-2 align-items-center ', index !== 0 && "justify-content-center")}>
-                                                    <span className='text-center'>
+                                                <div className={clsx('d-flex column-gap-2 align-items-center ')}>
+                                                    <span className=''>
                                                         {t(el?.heading)}
 
                                                     </span>
@@ -43,10 +43,10 @@ const CompanyTypeDetail = (props) => {
                                     return (
                                         <tr key={index} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
                                             <td >{el?.title}</td>
-                                            <td className='text-center'>
+                                            <td className=''>
                                                 {el?.value}
                                             </td>
-                                            <td className='text-center'>{el?.remark}</td>
+                                            <td className=''>{el?.remark}</td>
 
                                         </tr>
                                     )

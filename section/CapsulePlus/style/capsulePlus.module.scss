@@ -37,7 +37,6 @@
   padding-right: 40px;
 }
 
-
 @media screen and (max-width: 1440px) {
   .containerPadding {
     max-width: 100%;
@@ -55,9 +54,13 @@
   .containerPadding {
     padding-left: 0px;
     padding-right: 0px;
-    margin-top: 0px!important;
+    margin-top: 0px !important;
     .row {
       border-radius: 0px;
     }
+  }
+
+  .capsuleRow {
+    margin-bottom: 80px;
   }
 }

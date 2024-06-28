@@ -18,8 +18,10 @@ function WatchlistTable(props) {
     const { t } = useTranslation("common");
     const [loader, setLoader] = useState(false);
     const dispatch = useDispatch();
-    const { watchListLoading, watchList, watchListCurrentPage, watchListTotalList, sortWatchList } = useSelector((state) => ({
+    const { loading, watchListLoading, watchList, watchListCurrentPage, watchListTotalList, sortWatchList } = useSelector((state) => ({
         watchList: state?.watchListSlice?.getWatchListObj?.watchList,
+        loading: state?.watchListSlice?.getWatchListObj?.loading,
+
         watchListCurrentPage: state?.watchListSlice?.getWatchListObj?.watchListCurrentPage,
         watchListTotalList: state?.watchListSlice?.getWatchListObj?.watchListTotalList,
         watchListLoading: state?.watchListSlice?.getWatchListObj?.loading,
@@ -138,8 +140,9 @@ function WatchlistTable(props) {
 
     return (
         <>
+
             {
-                loader ? (
+                loader || loading ? (
                     <LoderModule />
                 ) : (
 
@@ -153,7 +156,7 @@ function WatchlistTable(props) {
                                             companyTableHeading?.length > 0 ? (
                                                 companyTableHeading?.map((el, index) => {
                                                     return (
-                                                        <th key={index} className={clsx(styles.heading)} >
+                                                        <th key={index} className={clsx(styles.heading)} style={{ minWidth: el?.minWidth && el?.minWidth }} >
                                                             <div className={clsx('d-flex column-gap-2 align-items-center ', index !== 0 && "justify-content-center")}>
                                                                 <span  >
                                                                     {t(el?.heading)}

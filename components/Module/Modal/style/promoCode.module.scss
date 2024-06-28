@@ -1,110 +1,103 @@
 @mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
-    font-size: $fontSize ;
-    font-weight: $fontWeight;
-    color: $color ;
-  }
-  
-  .fGOverlay {
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    position: fixed;
-    top: 0;
-    left: 0px;
-    z-index: 1100;
-    display: block;
-  }
-  
-  .feedbackGForm {
-    // max-width: 720px;
-    background: #fff;
-    position: fixed;
-    border-radius: 4px;
-    z-index: 1100;
-    width: 450px;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-  
-  .crossIcon {
-    position: absolute;
-    cursor: pointer;
-    top: 0px;
-    right: -35px;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-  }
-  
-  .getintouchPageUpdate {
-    position: relative;
-  }
-  
-  .formCol {
-    padding: 40px 40px 40px 40px;
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
 
-    &>h5{
-      @include basicFontSize(22px,bold,#000000 )
-    }
-
-    &>p{
-      margin-bottom: 26px;
-      @include basicFontSize(16px,400,#606F7B )
-
-    }
-  }
-
-  .inputDiv{
-    background: #FFFFFF 0% 0% no-repeat padding-box;
-border: 1px solid #D1D1D1;
-border-radius: 4px;
-padding: 14px 16px;
-
-& > input {
-  // border: none
+.fGOverlay {
   width: 100%;
-  border: none;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0px;
+  z-index: 1100;
+  display: block;
+}
 
-  @include basicFontSize(14px, 400, #000000);
+.feedbackGForm {
+  // max-width: 720px;
+  background: #fff;
+  position: fixed;
+  border-radius: 4px;
+  z-index: 1100;
+  width: 450px;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
-  &::placeholder {
-    @include basicFontSize(14px, 400, #a8a8a8);
+.crossIcon {
+  position: absolute;
+  cursor: pointer;
+  top: 0px;
+  right: -35px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.getintouchPageUpdate {
+  position: relative;
+}
+
+.formCol {
+  padding: 40px 40px 40px 40px;
+
+  & > h5 {
+    @include basicFontSize(22px, bold, #000000);
   }
-  &:focus-visible {
-    outline: none;
+
+  & > p {
+    margin-bottom: 26px;
+    @include basicFontSize(16px, 400, #606f7b);
   }
 }
 
-&>button{
-  border: none;
-  background-color: transparent;
-  @include basicFontSize(14px, 600, #3E63FF);
+.inputDiv {
+  background: #ffffff 0% 0% no-repeat padding-box;
+  border: 1px solid #d1d1d1;
+  border-radius: 4px;
+  padding: 14px 16px;
 
-}
-  }
+  & > input {
+    // border: none
+    width: 100%;
+    border: none;
 
-  .promoShowDiv{
-    p{
-      .bold{
-        @include basicFontSize(16px, 800, #000000);
+    @include basicFontSize(14px, 400, #000000);
 
-      }
-      @include basicFontSize(16px, 500, #000000);
-
+    &::placeholder {
+      @include basicFontSize(14px, 400, #a8a8a8);
+    }
+    &:focus-visible {
+      outline: none;
     }
   }
-.marginBtn{
+
+  & > button {
+    border: none;
+    background-color: transparent;
+    @include basicFontSize(14px, 600, #3e63ff);
+  }
+}
+
+.promoShowDiv {
+  p {
+    .bold {
+      @include basicFontSize(16px, 800, #000000);
+    }
+    @include basicFontSize(16px, 500, #000000);
+  }
+}
+.marginBtn {
   margin-top: 32px;
 }
-  
-  
-  
-  
+
 @media screen and (max-width: 576px) {
   .formCol {
     padding: 15px 15px 15px 15px;
@@ -113,66 +106,66 @@ padding: 14px 16px;
   .feedbackGForm {
     width: 320px;
   }
+
+  .promoShowDiv {
+    p {
+      .bold {
+        @include basicFontSize(14px, 800, #000000);
+      }
+      @include basicFontSize(14px, 500, #000000);
+    }
+  }
+
+  .crossIcon {
+    right: 10px;
+    top: 10px;
+  }
 }
 
-  
-  
-  
-  @media screen and (max-width: 385px) {
-    .crossIcon {
-      right: -26px !important;
-    }
-    .feedbackGForm {
-      width: 300px;
-    }
+@media screen and (max-width: 385px) {
+  .feedbackGForm {
+    width: 300px;
   }
-  
+}
 
-  @media screen and (max-width: 350px) {
-    .crossIcon {
-      right: -26px !important;
-    }
-    .feedbackGForm {
-      width: 80%;
+@media screen and (max-width: 350px) {
+  // .crossIcon {
+  //   right: -26px !important;
+  // }
+  .feedbackGForm {
+    width: 80%;
+  }
+
+  .formCol {
+    & > h5 {
+      @include basicFontSize(18px, bold, #000000);
     }
 
-    .formCol {
-  
-      &>h5{
-        @include basicFontSize(18px,bold,#000000 )
-      }
-  
-      &>p{
-        @include basicFontSize(14px,400,#606F7B )
-  
-      }
-    }
-  
-    .inputDiv{
-  
-  & > input {
-    @include basicFontSize(12px, 400, #000000);
-  
-    &::placeholder {
-      @include basicFontSize(12px, 400, #a8a8a8);
-    }
-    
-  }
-  
-  &>button{
-    @include basicFontSize(12px, 600, #3E63FF);
-  
-  }
-    }
-  
-    .promoShowDiv{
-      p{
-        .bold{
-          @include basicFontSize(14px, 800, #000000);
-  
-        }
-        @include basicFontSize(14px, 500, #000000);
-  
-      }
+    & > p {
+      @include basicFontSize(14px, 400, #606f7b);
     }
   }
+
+  .inputDiv {
+    & > input {
+      @include basicFontSize(12px, 400, #000000);
+
+      &::placeholder {
+        @include basicFontSize(12px, 400, #a8a8a8);
+      }
+    }
+
+    & > button {
+      @include basicFontSize(12px, 600, #3e63ff);
+    }
+  }
+
+  .promoShowDiv {
+    p {
+      .bold {
+        @include basicFontSize(12px, 800, #000000);
+      }
+      @include basicFontSize(12px, 500, #000000);
+    }
+  }
+}

@@ -53,7 +53,7 @@ export default function CapsulePlusPage(props) {
         {
             id: 3,
             label: "screenerSlugPage.marketCap",
-            value: `${marketCap ? `₹${marketCap}Cr` : "N/A"}`,
+            value: `${marketCap ? `₹${marketCap} Cr` : "N/A"}`,
             bg: false
         },
         {

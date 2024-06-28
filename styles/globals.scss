@@ -3,9 +3,8 @@
   padding: 0;
   margin: 0;
 }
-body{
-  background-color: #f0f0f0!important;
-
+body {
+  background-color: #f0f0f0 !important;
 }
 a {
   color: inherit;
@@ -147,80 +146,77 @@ a {
   border: 1px solid rgb(219, 49, 49) !important;
 }
 
-.mainSlider{
-  .slick-prev.slick-disabled svg, .slick-next.slick-disabled svg{
-    opacity: .30;
+.mainSlider {
+  .slick-prev.slick-disabled svg,
+  .slick-next.slick-disabled svg {
+    opacity: 0.3;
     display: none;
-}
-.slick-prev, .slick-next{
-  top:45%;
-}
-.slick-prev {
-  left: -20px;
-  z-index: 2;
-}
+  }
+  .slick-prev,
+  .slick-next {
+    top: 45%;
+  }
+  .slick-prev {
+    left: -20px;
+    z-index: 2;
+  }
 
-.slick-next {
-  right: -15px;
-  z-index: 2;
-}
+  .slick-next {
+    right: -15px;
+    z-index: 2;
+  }
 
-.slick-track{
-  margin-left: unset;
-}
-
+  .slick-track {
+    margin-left: unset;
+  }
 }
 
 .chart-container .chartjs-chart .tick {
   font-style: normal !important;
 }
 
-.table{
-  th{
-    padding: 14px!important;
-  
+.table {
+  th {
+    padding: 14px !important;
   }
 
-  td{
-    padding: 14px!important;
+  td {
+    padding: 14px !important;
     vertical-align: middle;
   }
 }
 
-.tableScroll >div{
+.tableScroll > div {
   overflow-x: auto;
-  -webkit-overflow-scrolling: touch; 
-&::-webkit-scrollbar {
-  width: 0px;
-  height: 0px;
-  border-radius: 5px;
-  height: 2px;
-}
+  -webkit-overflow-scrolling: touch;
+  &::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+    border-radius: 5px;
+    height: 2px;
+  }
 
-/* Track */
-&::-webkit-scrollbar-track {
-  background: #C6C6C6;
-  border: 1px solid #C6C6C6;
-  border-radius: 5px;
-  // height: 2px;
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #c6c6c6;
+    border: 1px solid #c6c6c6;
+    border-radius: 5px;
+    // height: 2px;
+  }
 
-}
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #000000;
+    border-radius: 5px;
+    // height: 2px;
+  }
 
-/* Handle */
-&::-webkit-scrollbar-thumb {
-  background: #000000;
-  border-radius: 5px;
-  // height: 2px;
-
-}
-
-/* Handle on hover */
-&::-webkit-scrollbar-thumb:hover {
-  background: #000000;
-  border-radius: 5px;
-  // height: 2px;
-
-}
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #000000;
+    border-radius: 5px;
+    // height: 2px;
+  }
 }
 
 .custom-checkbox-container {
@@ -256,33 +252,37 @@ a {
   display: none;
 }
 
-.custom-checkbox-input:checked + .custom-checkbox-label .custom-checkbox-icon svg {
+.custom-checkbox-input:checked
+  + .custom-checkbox-label
+  .custom-checkbox-icon
+  svg {
   display: block;
 }
 
-.custom-checkbox-input:checked + .custom-checkbox-label .custom-checkbox-icon{
-    border: 1px solid #3e63ff;
+.custom-checkbox-input:checked + .custom-checkbox-label .custom-checkbox-icon {
+  border: 1px solid #3e63ff;
 }
 
-
-
-
-
-.borderRadius8{
+.borderRadius8 {
   border-radius: 8px;
-
 }
 
 @media screen and (max-width: 1440px) {
   .containerPadding {
-    max-width: 100%!important;
+    max-width: 100% !important;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .containerPadding {
+    max-width: 1366px !important;
   }
 }
 
 @media screen and (max-width: 1200px) {
   .containerPadding {
-    padding-left: 25px!important;
-    padding-right: 25px!important;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
   }
 }
 
@@ -295,8 +295,8 @@ a {
 @media screen and (max-width: 576px) {
   .containerPadding {
     padding-left: 0px !important;
-    padding-right: 0px!important;
-    padding-bottom: 0px!important;
+    padding-right: 0px !important;
+    padding-bottom: 0px !important;
   }
 
   .borderBottomGray {

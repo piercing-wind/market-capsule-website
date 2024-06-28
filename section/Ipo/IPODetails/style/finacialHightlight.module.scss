@@ -1,46 +1,43 @@
 @mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
-    font-size: $fontSize;
-    font-weight: $fontWeight;
-    color: $color;
-  }
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
 
-  .heading1{
-    @include basicFontSize(14px,500 , #606EA9);
-    color: #606EA9!important;
-    background: #E0E6FF 0% 0% no-repeat padding-box!important;
-  }
-  
-  .heading span {
-    @include basicFontSize(14px,500 , #606EA9);
-  }
-  .heading {
-    border-bottom: none;
-    background: #E0E6FF 0% 0% no-repeat padding-box!important;
+.heading1 {
+  @include basicFontSize(14px, 500, #606ea9);
+  color: #606ea9 !important;
+  background: #e0e6ff 0% 0% no-repeat padding-box !important;
+  min-width: 120px;
+}
 
-  }
-  .trTable > td {
-    font-size: 14px;
-    font-weight: 500;
-    color: #000000;
-    border-bottom: none;
-  }
-  
- .trTable > .regular{
-    font-weight: 400;
+.heading span {
+  @include basicFontSize(14px, 500, #606ea9);
+  min-width: 80px;
+}
+.heading {
+  border-bottom: none;
+  background: #e0e6ff 0% 0% no-repeat padding-box !important;
+}
+.trTable > td {
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+  border-bottom: none;
+}
 
+.trTable > .regular {
+  font-weight: 400;
+}
+
+.skyBlueBgColor {
+  & > td {
+    background: #f5f7ff 0% 0% no-repeat padding-box;
   }
-  
-  
-  
-  .skyBlueBgColor {
-    & > td {
-      background: #f5f7ff 0% 0% no-repeat padding-box;
-    }
+}
+
+.whiteBgColor {
+  & > td {
+    background: #ffffff;
   }
-  
-  .whiteBgColor {
-    & > td {
-      background: #ffffff;
-    }
-  }
-  
+}

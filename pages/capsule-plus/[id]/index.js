@@ -51,7 +51,7 @@ export default function IpoDetails(props) {
         {
             id: 1,
             label: "capsuleDetailPage.prevClose",
-            value: `${prevClosePrice ? `₹${commaSeprater(prevClosePrice)}Cr.` : "N/A"}`,
+            value: `${prevClosePrice ? `₹${commaSeprater(prevClosePrice)} Cr.` : "N/A"}`,
             bg: true
         },
         {
@@ -63,13 +63,13 @@ export default function IpoDetails(props) {
         {
             id: 3,
             label: "capsuleDetailPage.marketCap",
-            value: `${marketCap ? `₹${marketCap}Cr.` : "N/A"}`,
+            value: `${marketCap ? `₹${marketCap} Cr.` : "N/A"}`,
             bg: false
         },
         {
             id: 4,
             label: "capsuleDetailPage.ttmPe",
-            value: `${ttpmPE ? `${ttpmPE}X` : "N/A"}`,
+            value: `${ttpmPE ? `${ttpmPE}x` : "N/A"}`,
             bg: false,
         },
         {

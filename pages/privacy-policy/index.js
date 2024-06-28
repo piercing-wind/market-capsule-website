@@ -10,7 +10,9 @@ import React, { useState } from "react";
 import styles from "./style/privacyPolicy.module.scss"
 import { getPrivacyPolicy } from "@/store/slices/privacyPolicySlice";
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
-
+import { MdKeyboardBackspace } from "react-icons/md";
+import Link from "next/link";
+import BackButton from "@/components/Module/Button/BackButton";
 export default function Home(props) {
     const { t } = useTranslation("common");
     const router = useRouter();
@@ -23,7 +25,9 @@ export default function Home(props) {
     return (
         <Container className={clsx(styles.containerPadding, "mt-3 pb-5 containerPadding")}>
             <Row className="mx-0 app">
-                <h1 className="text-center mt-5 mb-5">Privacy Policy</h1>
+                <BackButton />
+
+                <h1 className="text-center mt-lg-5 mb-5">Privacy Policy</h1>
 
                 <BlocksRenderer
                     blocks={{

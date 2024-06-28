@@ -21,6 +21,7 @@ const CompanyCard = (props) => {
             {/* news heading div */}
             <div className={clsx(styles.imageDiv)}>
                 <Image className={clsx("w-100 h-auto borderRadius8")} src={image?.url} alt={image?.alternativeText ? image?.alternativeText : name} width={278} height={146} />
+
                 {
                     capsuleplus && (
                         <div className={clsx("d-flex column-gap-1 align-items-center justify-content-center", styles.capsulePlusDiv)}>

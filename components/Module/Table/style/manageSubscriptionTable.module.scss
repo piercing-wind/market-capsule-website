@@ -35,4 +35,16 @@
   border: none;
   background-color: transparent;
   @include basicFontSize(14px, 400, #3e63ff);
+  & > svg {
+    min-width: 18px;
+    min-height: 18px;
+  }
+}
+
+.invoice {
+  min-width: 180px;
+}
+
+.createdAt {
+  min-width: 130px;
 }

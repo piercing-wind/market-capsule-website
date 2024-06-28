@@ -29,11 +29,12 @@ export default function WatchlistPage(props) {
     router.defaultLocale = "en";
     const dispatch = useDispatch();
     const { getWatchListObj, getWatchListHeaderObj } = props;
-    const { watchList, watchListCurrentPage } = useSelector((state) => ({
+    const { watchList, watchListCurrentPage, loading } = useSelector((state) => ({
         watchList: state?.watchListSlice?.getWatchListObj?.watchList,
+        loading: state?.watchListSlice?.getWatchListObj?.loading,
+
         watchListCurrentPage: state?.watchListSlice?.getWatchListObj?.watchListCurrentPage,
     }), shallowEqual)
-
 
     //set server data to client side
     useEffect(() => {
@@ -67,7 +68,11 @@ export default function WatchlistPage(props) {
 
                         ) : (
                             <Col xs={12} className='px-xl-4 px-4 '>
-                                <EmptyWatchlistCard />
+                                {
+                                    !loading && (
+                                        <EmptyWatchlistCard />
+                                    )
+                                }
                             </Col>
                         )
                     }

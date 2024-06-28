@@ -30,7 +30,7 @@ const LoginModal = ({ children }) => {
                         <div>
 
                             <div className={clsx(styles.feedbackGForm)} id="f_form_open" >
-                                <div className={clsx("getintouchPage box", styles.getintouchPageUpdate)}>
+                                <div className={clsx("getintouchPage box ", styles.getintouchPageUpdate)}>
                                     <div
                                         onClick={() => {
                                             dispatch(setShowForm(false))
@@ -40,7 +40,7 @@ const LoginModal = ({ children }) => {
                                             dispatch(setShowForm(false))
                                         }}
 
-                                        className={clsx(styles.crossIcon)}>
+                                        className={clsx(styles.crossIcon,)}>
                                         <CrossCircle />
                                     </div>
                                     <Row className={clsx("d-flex justify-content-center mx-0", styles.formRow)}>

@@ -10,6 +10,9 @@ import React, { useState } from "react";
 import styles from "./style/termsAndConditions.module.scss"
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { getTermsAndConditions } from "@/store/slices/termsAndConditionsSlice";
+import Link from "next/link";
+import { MdKeyboardBackspace } from "react-icons/md";
+import BackButton from "@/components/Module/Button/BackButton";
 
 export default function Home(props) {
     const { t } = useTranslation("common");
@@ -23,7 +26,8 @@ export default function Home(props) {
     return (
         <Container className={clsx(styles.containerPadding, "mt-3 pb-5 containerPadding ")}>
             <Row className="mx-0 app">
-                <h1 className="text-center mt-5 mb-5">Terms And Conditions</h1>
+                <BackButton />
+                <h1 className="text-center mt-lg-5 mb-5">Terms And Conditions</h1>
 
                 <BlocksRenderer
                     blocks={{

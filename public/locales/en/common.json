@@ -7,32 +7,32 @@
     "watchlist": "Watchlist",
     "createAnAccount": "Create an Account"
   },
-  "message":{
-"allReadyInWatchlist":"All ready in watchlist",
-"addedToWatchlist":"Added to watchlist",
-"somethingWentWrong":"Something went wrong",
-"removedFromWatchlist":"Removed from watchlist",
-"invoiceNotAvailable":"Invoice not available",
-"promoCodeNotValid":"Promo code not valid",
-"pleaseEnterPromoCode":"Please enter promo code",
-"failedToInitializeRazorpay":"Failed to initialize Razorpay!",
-"networkResponseWasNotOk":"Network response was not ok",
-"paymentVerificationFailed":"Payment verification failed",
-"paymentSuccess":"Payment Successful!",
-"paymentDescription":"Thank you for your purchase and are pleased to confirm that your payment has been successfully processed.",
-"paymentFail":"Something went wrong",
-"paymentFailDescription":"We apologize for the inconvenience. Please try again or contact our support team for assistance",
-"loginFirst":"Please login first"
+  "message": {
+    "allReadyInWatchlist": "All ready in watchlist",
+    "addedToWatchlist": "Added to watchlist",
+    "somethingWentWrong": "Something went wrong",
+    "removedFromWatchlist": "Removed from watchlist",
+    "invoiceNotAvailable": "Invoice not available",
+    "promoCodeNotValid": "Promo code not valid",
+    "pleaseEnterPromoCode": "Please enter promo code",
+    "failedToInitializeRazorpay": "Failed to initialize Razorpay!",
+    "networkResponseWasNotOk": "Network response was not ok",
+    "paymentVerificationFailed": "Payment verification failed",
+    "paymentSuccess": "Payment Successful!",
+    "paymentDescription": "Thank you for your purchase and are pleased to confirm that your payment has been successfully processed.",
+    "paymentFail": "Something went wrong",
+    "paymentFailDescription": "We apologize for the inconvenience. Please try again or contact our support team for assistance",
+    "loginFirst": "Please login first"
   },
-"searchResultPage":{
-"searchResult":"Search results",
-"showingResultFor":"Showing Results for",
-"searchResultFound":"Search results found",
-"capsulePlus":"Capsule+",
-"readNow":"Read Now",
-"ipoZone":"IPO Zone",
-"backToHomepage":"Back to Homepage",
-"screener":"Screener"
+  "searchResultPage": {
+    "searchResult": "Search results",
+    "showingResultFor": "Showing Results for",
+    "searchResultFound": "Search results found",
+    "capsulePlus": "Capsule+",
+    "readNow": "Read Now",
+    "ipoZone": "IPO Zone",
+    "backToHomepage": "Back to Homepage",
+    "screener": "Screener"
   },
   "homepage": {
     "leftSection": {
@@ -48,7 +48,7 @@
     },
     "midleSection": {
       "searchForArticlesAndCompanies": "Search for Articles, Companies",
-      "search":"Search",
+      "search": "Search",
       "all": "All",
       "finance": "Finance",
       "retail": "Retail",
@@ -76,10 +76,10 @@
       "source": "Source:",
       "whatNewInCapsulePlus": "What's New in Capsule+"
     },
-    "filterBtnModal":{
-      "selectCategory":"Select Category",
-      "selectAnyOne":"Select any one the category",
-      "submit":"Submit"
+    "filterBtnModal": {
+      "selectCategory": "Select Category",
+      "selectAnyOne": "Select any one the category",
+      "submit": "Submit"
     }
   },
   "screener": {
@@ -110,12 +110,12 @@
     "companyName": "COMPANY NAME",
     "marketCapInCrore": "MARKET CAP (IN CRORE)",
     "ttmPe": "TTM PE",
-    "dateOfInformation": "Date Of Information",
+    "dateOfInformation": "DATE OF INFORMATION",
     "addToWatchlist": "Add to Watchlist",
     "readMore": "Read More"
   },
   "screenerSlugPage": {
-    "screener":"Screener",
+    "screener": "Screener",
     "addToWatchlist": "Add to Watchlist",
     "basicDetails": "Basic Details",
     "prevClose": "Prev Close",
@@ -156,7 +156,7 @@
     "continueWithGoogle": "Continue with Google",
     "continueWithFacebook": "Continue with facebook",
     "continueWithLinkedin": "Continue with Linkedin",
-    "dontHaveAnAccount": "Don't have an account?",
+    "dontHaveAnAccount": "Don't have an account?  ",
     "signUp": "Signup",
     "createAnAccount": "Create an Account",
     "iAgreeToAll": "I agree to all",
@@ -189,8 +189,8 @@
     "manageSubscription": "Manage Subscription",
     "notifications": "Notifications",
     "logout": "Logout",
-    "termsAndCondition":"Terms & Conditions",
-    "privacyPolicy":"Privacy Policy"
+    "termsAndCondition": "Terms & Conditions",
+    "privacyPolicy": "Privacy Policy"
   },
   "accountSettingsPage": {
     "accountSetting": "Account Settings",
@@ -223,14 +223,14 @@
     "totalDueToday": "Total due today",
     "pay": "Pay ",
     "now": " now",
-    "promoCodeModal":{
-      "promoCode":"Promo code",
-      "reedem":"Redeem your promo code here",
-      "enterCoupenCode":"Enter coupon code",
-      "check":"CHECK",
-      "offOn":"off on capsule+ subscription",
-      "applyNow":"Apply Now",
-      "notValid":"This promo code is not valid"
+    "promoCodeModal": {
+      "promoCode": "Promo code",
+      "reedem": "Redeem your promo code here",
+      "enterCoupenCode": "Enter coupon code",
+      "check": "CHECK",
+      "offOn": "off on capsule+ subscription",
+      "applyNow": "Apply Now",
+      "notValid": "This promo code is not valid"
     }
   },
   "ipoPage": {
@@ -254,31 +254,29 @@
     "industryCaps": "INDUSTRY",
     "readMore": "Read More"
   },
-  "ipoDetailPage":{
-    "ipoZone":"ipo-zone",
-    "keyMetrics":"Key Metrics",
-    "marketCap":"Market Cap",
-    "currentPrice":"Current Price",
-    "peRatio":"PE Ratio",
-    "deRatio":"D/E Ratio",
-    "roce":"ROCE%",
-    "cwip":"CWIP",
-    "roic":"ROIC%",
-    "cashConversionCycle":"Cash Conversion Cycle",
-    "roe":"ROE%",
-    "pegRatio":"PEG Ratio",
-    "aboutTheCompany":"About the Company",
-    "bussinessSegment":"Business Segment",
-    "exclusiveContent":"Exclusive content",
-    "upgradeToCapsulePlus":"Upgrade to Capsule+ now to unlock exclusive content!",
-    "capsuleView":"Capsule’s View",
-    "keyHighlightsAndManagement":"Key Highlights & Management Guidance",
-    "industrialOutlook":"Industrial Outlook",
-    "financialHighlights":"Financial Highlights",
-    "shareholdingPattern":"Shareholding Pattern",
-    "particulars":"PARTICULARS"
-
-
+  "ipoDetailPage": {
+    "ipoZone": "ipo-zone",
+    "keyMetrics": "Key Metrics",
+    "marketCap": "Market Cap",
+    "currentPrice": "Current Price",
+    "peRatio": "PE Ratio",
+    "deRatio": "D/E Ratio",
+    "roce": "ROCE%",
+    "cwip": "CWIP",
+    "roic": "ROIC%",
+    "cashConversionCycle": "Cash Conversion Cycle",
+    "roe": "ROE%",
+    "pegRatio": "PEG Ratio",
+    "aboutTheCompany": "About the Company",
+    "bussinessSegment": "Business Segment",
+    "exclusiveContent": "Exclusive content",
+    "upgradeToCapsulePlus": "Upgrade to Capsule+ now to unlock exclusive content!",
+    "capsuleView": "Capsule’s View",
+    "keyHighlightsAndManagement": "Key Highlights & Management Guidance",
+    "industrialOutlook": "Industrial Outlook",
+    "financialHighlights": "Financial Highlights",
+    "shareholdingPattern": "Shareholding Pattern",
+    "particulars": "PARTICULARS"
   },
   "capsulePlusPage": {
     "capsulePlus": "capsule+",
@@ -293,22 +291,22 @@
     "year": "YEAR"
   },
 
-  "capsuleDetailPage":{
-    "capsulePlus":"CAPSULE+",
-    "businessOverview":"Business Overview",
-    "exclusiveContent":"Exclusive content",
-    "financialReport":"Financial Report",
-    "shareCapitalAndNumberOfEmployess":"Share Capital & Number of Employees",
-    "sharePriceAndVolume":"Share price and Volume (last 1 year):",
-    "prevClose":"Prev Close",
-    "sector":"Sector",
-    "marketCap":"Market Cap",
-    "ttmPe":"TTM PE",
-    "sectoralPeRange":"Sectoral PE Range",
-    "peRemark":"PE Remark",
-    "bse":"BSE",
-    "companyType":"COMPANY TYPE",
-    "everGreen":"EVERGREEN",
-    "inINRCR":"(IN INR CR)"
+  "capsuleDetailPage": {
+    "capsulePlus": "CAPSULE+",
+    "businessOverview": "Business Overview",
+    "exclusiveContent": "Exclusive content",
+    "financialReport": "Financial Report",
+    "shareCapitalAndNumberOfEmployess": "Share Capital & Number of Employees",
+    "sharePriceAndVolume": "Share price and Volume (last 1 year):",
+    "prevClose": "Prev Close",
+    "sector": "Sector",
+    "marketCap": "Market Cap",
+    "ttmPe": "TTM PE",
+    "sectoralPeRange": "Sectoral PE Range",
+    "peRemark": "PE Remark",
+    "bse": "BSE",
+    "companyType": "COMPANY TYPE",
+    "everGreen": "EVERGREEN",
+    "inINRCR": "(IN INR CR)"
   }
 }

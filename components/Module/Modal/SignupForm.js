@@ -99,7 +99,6 @@ const SignupForm = () => {
 
     }
     const responseFacebook = async (response) => {
-        // console.log("responseFacebook", response);
         if (response?.accessToken) {
             let data = {
                 token: response?.accessToken,
@@ -235,7 +234,10 @@ const SignupForm = () => {
                                                 I agree to all
                                             </Trans>
                                             {" "} </span>
-                                        <Link href={"#"} className={clsx(signupStyles.link)}>
+                                        <Link
+                                            onClick={() => {
+                                                dispatch(setShowForm(false))
+                                            }} href={"/terms-and-conditions"} className={clsx(signupStyles.link)}>
                                             <span >
                                                 <Trans i18nKey={"loginAndSignupModal.termsAndCondition"}>
                                                     Terms & Conditions
@@ -247,7 +249,9 @@ const SignupForm = () => {
                                                 and
                                             </Trans>
                                             {" "} </span>
-                                        <Link href={"#"} className={clsx(signupStyles.link)}>
+                                        <Link onClick={() => {
+                                            dispatch(setShowForm(false))
+                                        }} href={"/privacy-policy"} className={clsx(signupStyles.link)}>
                                             <span >
                                                 <Trans i18nKey={"loginAndSignupModal.privacyPolicy"}>
                                                     Privacy Policy
@@ -353,7 +357,6 @@ const SignupForm = () => {
                                             icon={<FacebookIcon />}
                                             handleFun={() => {
                                                 renderProps.onClick()
-                                                console.log("hello")
                                                 setProvider(`facebook`)
                                             }}
                                         />
@@ -362,13 +365,14 @@ const SignupForm = () => {
 
                             </div>
 
-                            <div className={clsx("d-flex justify-content-center align-items-center mt-lg-4 mt-2", styles.signUpBtnDiv)}>
+                            <div className={clsx("d-flex justify-content-center align-items-center mt-lg-4 mt-2 column-gap-1", styles.signUpBtnDiv)}>
                                 <p className='mb-0'>
                                     <Trans i18nKey={"loginAndSignupModal.alreadyHaveAnAccount"}>
                                         Already have an account?
                                     </Trans>
-                                    &nbsp;</p>
+                                </p>
                                 <button type='button' onClick={goToLoginModal}>
+                                    {" "}
                                     <Trans i18nKey={"loginAndSignupModal.loginIn"}>
                                         Login In
                                     </Trans>

@@ -21,6 +21,11 @@
 .addTo {
   cursor: pointer;
   @include basicFontSize(14px, 400, #7c7c7c);
+  svg {
+    min-width: 12px;
+    min-height: 12px;
+  }
+  min-width: 160px;
 }
 
 .readMore {
@@ -33,6 +38,11 @@
       @include basicFontSize(14px, 400, #3e63ff);
     }
   }
+  svg {
+    min-width: 6px;
+    min-height: 10px;
+  }
+  min-width: 120px;
 }
 
 .sortBtn {
@@ -52,17 +62,17 @@
   }
 }
 
-
 @media screen and (max-width: 576px) {
-  .addTo{
-    svg{
+  .addTo {
+    svg {
       width: 15px;
     }
   }
 
-  .readMore{
-    svg{
+  .readMore {
+    svg {
       width: 15px;
     }
+    min-width: 130px;
   }
 }

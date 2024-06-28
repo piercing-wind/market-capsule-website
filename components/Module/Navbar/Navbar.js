@@ -80,7 +80,7 @@ const NavbarLayout = () => {
                                     {
                                         navLinkData?.map((el, index) => {
                                             return (
-                                                <Link className={clsx(styles.grayColor, handleActiveNavFun(el?.slug, router?.pathname) ? styles.blackColor : "")} href={el?.slug} key={index} onClick={handleLinkClick} >
+                                                <a className={clsx(styles.grayColor, handleActiveNavFun(el?.slug, router?.pathname) ? styles.blackColor : "")} href={el?.slug} key={index} onClick={handleLinkClick} >
                                                     <li className='d-flex align-items-center column-gap-1'>
                                                         {el?.slug === "/capsule-plus" && <Image src="/assests/capsule-plus/bolt.svg" alt="bolt" width={"19"} height={"26"} />}{t(el?.label)}
 
@@ -94,7 +94,7 @@ const NavbarLayout = () => {
                                                         )
 
                                                     }
-                                                </Link>
+                                                </a>
                                             )
                                         })
                                     }
@@ -127,6 +127,7 @@ const NavbarLayout = () => {
 
             {/* login flow modal */}
             <LoginModal>
+
                 {
                     authType === "login" ? (
                         <LoginForm />

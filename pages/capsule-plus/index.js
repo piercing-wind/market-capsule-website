@@ -94,7 +94,7 @@ export default function CapsulePlusPage(props) {
                     </Col>
 
                     <Col lg={9} className={clsx('px-0 ', styles.borderLeft)}>
-                        <Row className={clsx("mx-0", styles.rowDiv)}>
+                        <Row className={clsx("mx-0", styles.rowDiv, capsulePlus && styles.capsuleRow)}>
                             <Col xs={12}
                                 className={clsx("px-0", styles.cardSection)}
                             >
