@@ -52,7 +52,7 @@ const IpoTable = (props) => {
                                 dataTableHeading?.length > 0 ? (
                                     dataTableHeading?.map((el, index) => {
                                         return (
-                                            <th key={index} className={clsx(styles.heading)} >
+                                            <th key={index} className={clsx(styles.heading)} style={{ minWidth: el?.minWidth && el?.minWidth }} >
                                                 <div className={clsx('d-flex column-gap-2 align-items-center ', index !== 0 && "justify-content-center")}>
                                                     <span className='text-center'>
                                                         {t(el?.heading)}

@@ -29,8 +29,8 @@
       @include basicFontSize(14px, 400, #3e63ff);
     }
   }
+  min-width: 130px;
 }
-
 
 .sortBtn {
   border: none;
@@ -49,10 +49,9 @@
   }
 }
 
-
 @media screen and (max-width: 767px) {
   .svg {
-    svg{
+    svg {
       width: 10px;
     }
   }
