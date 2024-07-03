@@ -181,7 +181,11 @@ const ScreenerDetailTable = (props) => {
                                                 ?.map((el, index) => {
                                                     return (
                                                         <tr key={index} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
-                                                            <td >{el?.name}</td>
+                                                            <td >
+                                                                <Link href={`/screener/${router?.query?.id}/${el?.slug}`} className='link'>
+                                                                    {el?.name}
+                                                                </Link>
+                                                            </td>
                                                             <td className='text-center'>
                                                                 {el?.company_share_detail?.marketCap ? el?.company_share_detail?.marketCap : "N/A"}
                                                             </td>

@@ -9,37 +9,48 @@ import { useTranslation, Trans } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { addToWatchList } from '@/store/slices/watchListSlice';
 import toast from 'react-hot-toast';
+import { shallowEqual, useSelector } from 'react-redux';
 
 
 const ScreenerSlugBanner = ({ banner = "screener", companyName, sector, url, companyLogo, alt, companyId }) => {
     const { t } = useTranslation("common");
     const router = useRouter();
     const [loder, setLoader] = useState(false)
+    const { jwt } = useSelector((state) => ({
+        jwt: state?.authSlice?.jwt,
+
+    }), shallowEqual)
 
     const handleAddToWatchlist = async () => {
-        const submitData = {
-            companyId: companyId
-        }
-        setLoader(true)
-
-        await addToWatchList(submitData,
-            (res) => {
-                if (res?.success) {
-                    toast.success(t(res?.message));
-                    setLoader(false)
-
-                } else {
-                    toast.error(res?.message);
-                    setLoader(false);
-                }
-            },
-            (err) => {
-                if (!err?.success) {
-                    toast.error(err?.message);
-                    setLoader(false)
-                }
+        if (jwt) {
+            const submitData = {
+                companyId: companyId
             }
-        );
+            setLoader(true)
+
+            await addToWatchList(submitData,
+                (res) => {
+                    if (res?.success) {
+                        toast.success(t(res?.message));
+                        setLoader(false)
+
+                    } else {
+                        toast.error(res?.message);
+                        setLoader(false);
+                    }
+                },
+                (err) => {
+                    if (!err?.success) {
+                        toast.error(err?.message);
+                        setLoader(false)
+                    }
+                }
+            );
+
+        } else {
+            toast.error(t("message.loginFirst"))
+
+        }
     }
     const goToUrlFun = () => {
         if (url) {

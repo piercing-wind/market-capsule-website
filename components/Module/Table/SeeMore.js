@@ -10,7 +10,6 @@ const SeeMore = () => {
     useEffect(() => {
         setCathedOs(detectOS());
     }, [])
-    // console.log("catchOS", catchOS)
     return (
         <>
             {

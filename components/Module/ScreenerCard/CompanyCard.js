@@ -49,8 +49,8 @@ const CompanyCard = (props) => {
             <p>{truncateText(description, 9)}</p>
 
             <Link className={clsx(styles.readNow)} href={`/screener/${slug}`}>
-                <Trans i18nKey={"screener.readNow"}>
-                    Read Now
+                <Trans i18nKey={""}>
+                    Know More
                 </Trans>  <RightArrow />
             </Link>
         </div>

@@ -78,7 +78,11 @@ const IpoTable = (props) => {
 
                                     return (
                                         <tr key={index} className={clsx(styles.trTable, index % 2 === 0 ? styles.skyBlueBgColor : styles.whiteBgColor)}>
-                                            <td >{el?.companyName ? el?.companyName : "N/A"}</td>
+                                            <td >
+                                                <Link href={`/ipo/${el?.slug}`} className='link'>
+                                                    {el?.companyName ? el?.companyName : "N/A"}
+                                                </Link>
+                                            </td>
                                             <td className='text-center'>
                                                 {el?.openDate ? el?.openDate : "N/A"}
                                             </td>

@@ -52,7 +52,6 @@ function ManageSubscriptionTable(props) {
 
     };
 
-    console.log("subscriptionList", subscriptionList)
     return (
 
         <>

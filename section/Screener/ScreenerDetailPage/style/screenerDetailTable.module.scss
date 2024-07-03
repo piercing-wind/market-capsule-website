@@ -20,12 +20,15 @@
 }
 .addTo {
   cursor: pointer;
-  @include basicFontSize(14px, 400, #7c7c7c);
+  @include basicFontSize(14px, 400, #000000);
   svg {
     min-width: 12px;
     min-height: 12px;
   }
   min-width: 160px;
+  &:hover {
+    @include basicFontSize(14px, 500, #000000);
+  }
 }
 
 .readMore {
