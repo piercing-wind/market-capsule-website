@@ -36,7 +36,7 @@
   background-color: #bc00f3;
 }
 
-.dot{
+.dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -53,10 +53,10 @@
 }
 
 .textPara {
-  font-size: 18px;
-  color: #000000;
   font-weight: 600;
   margin-bottom: 8px;
+  font-size: 16px;
+  color: #292929;
 }
 
 .exclusiveDiv > p {
@@ -79,7 +79,7 @@
   display: block;
 }
 
-.imgWidth{
+.imgWidth {
   border-radius: 8px;
 }
 
@@ -94,11 +94,11 @@
   }
 
   .textPara {
-    font-size: 18px;
+    font-size: 16px;
   }
   .loadMoreBtn > div {
     height: auto;
-    margin-top: 24px!important;
-    margin-bottom: 35px!important;
+    margin-top: 24px !important;
+    margin-bottom: 35px !important;
   }
 }

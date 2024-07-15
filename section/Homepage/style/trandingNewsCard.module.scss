@@ -11,9 +11,9 @@
 }
 .trandingHeadingDiv > h5 {
   font-weight: bold;
-  font-size: 18px;
-  color: #000000;
   margin-bottom: 0px;
+  color: #4f4f4f;
+  font-size: 16px;
 }
 
 .trandingHeadlineDiv {
@@ -31,9 +31,8 @@
   color: #272424;
   margin-bottom: 0px;
 
-  &:hover{
-    color: #3E63FF;
- 
+  &:hover {
+    color: #3e63ff;
   }
 }
 
@@ -47,12 +46,11 @@
   }
 }
 
-.link{
+.link {
   text-decoration: none;
-
 }
 
-.linkDisabled{
+.linkDisabled {
   text-decoration: none;
   cursor: not-allowed;
 }
@@ -61,6 +59,4 @@
   .trandingDiv {
     border-radius: 0px;
   }
-  
-  
 }
