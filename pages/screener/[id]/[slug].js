@@ -29,6 +29,7 @@ export default function CapsulePlusPage(props) {
     const { getScreenerCompanyDetailObj, getDisclaimerDataObj } = props;
     const { prevClosePrice, marketCap, sectoralPERange, BSE, ttpmPE, peRemark, sector } = getScreenerCompanyDetailObj?.screenerCompanyDetailData?.company_share_detail || {}
     const { about, compnay_timelines } = getScreenerCompanyDetailObj?.screenerCompanyDetailData || {};
+    console.log("getScreenerCompanyDetailObj?.screenerCompanyDetailData", getScreenerCompanyDetailObj?.screenerCompanyDetailData)
     const router = useRouter();
     router.locale = props?.language
         ? props?.language

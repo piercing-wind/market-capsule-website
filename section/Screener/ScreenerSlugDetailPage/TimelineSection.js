@@ -16,11 +16,12 @@ const TimelineSection = ({ headingLabel, compnayTimelineList }) => {
         }
     }
 
+
     return (
         <div>
             <HeadingCom
                 label={headingLabel}
-                updated={true}
+                updated={compnayTimelineList?.length > 0 ? compnayTimelineList[compnayTimelineList?.length - 1]?.updatedAt : false}
             />
             {/* timelinesection */}
             <div className={styles.verticalStepper}>

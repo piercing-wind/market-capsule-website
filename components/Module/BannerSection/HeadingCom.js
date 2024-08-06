@@ -2,6 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import styles from "./style/headingCom.module.scss"
 import { useTranslation } from 'next-i18next';
+import moment from 'moment';
 
 const HeadingCom = ({ label, updated = false, capsuleViewHeadingColor = false }) => {
     const { t } = useTranslation("common")
@@ -14,7 +15,10 @@ const HeadingCom = ({ label, updated = false, capsuleViewHeadingColor = false })
                 {
                     updated && (
                         <span className={clsx(styles.updated)}>
-                            {t(`screenerSlugPage.updated`)}
+                            {/* {t(`screenerSlugPage.updated`)} */}
+                            {
+                                moment(updated)?.format('YYYY-MM-DD hh:mm A')
+                            }
                         </span>
 
                     )
