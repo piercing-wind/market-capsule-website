@@ -8,6 +8,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { getNotificationList, setNotificationCurrentPage, setNotificationList, setNotificationListEmpty, setNotificationTotalList } from '@/store/slices/notificationSlice';
 import moment from 'moment';
 import toast from 'react-hot-toast';
+import ListNotFound from '@/components/Module/NotFoundCard/ListNotFound';
 const LoadMoreBtn = dynamic(() => import("@/components/Module/Button/LoadMoreBtn"))
 
 const Notifications = ({ notificationListServer, notificationTotalListServer, notificationError }) => {
@@ -52,40 +53,58 @@ const Notifications = ({ notificationListServer, notificationTotalListServer, no
                 </h4>
             </div>
             <Row className='mx-0'>
-                {
-                    notificationListClient?.map((el, index) => {
-                        return (
 
-                            <Col key={index} xs={12} className={clsx('px-sm-4 px-3  py-3', index === 0 && styles.blueBg)}>
-                                <div className={clsx("d-flex align-items-center justify-content-between column-gap-sm-5 column-gap-3", styles.notifcationDiv)}>
-                                    <div>
-                                        <h6 className={clsx(index === 0 && styles.blueColor)}>{el?.title}</h6>
-                                        <p className='mb-2'>{el?.message}</p>
-                                        <span>
-                                            {
-                                                moment().isSame(moment(el?.createdAt), 'day')
-                                                    ? 'TODAY'
-                                                    : moment(el?.createdAt).format('DD, MMM YYYY')
-                                            }
-                                        </span>
-                                    </div>
-                                    <div className={clsx(index === 0 && styles.blueDot)}>
-                                        <span></span>
-                                    </div>
-                                </div>
-                            </Col>
-                        )
-                    })
-                }
                 {
-                    notificationListClient?.length > 9 && (
-                        <LoadMoreBtn
-                            totalList={notificationTotalList}
-                            loading={notificationLoading}
-                            data={notificationListClient}
-                            loadMoreFun={loadMoreFun} />
+
+                    notificationListClient?.length > 0 ? (
+                        <>
+                            {
+                                notificationListClient?.map((el, index) => {
+                                    return (
+                                        <Col key={index} xs={12} className={clsx('px-sm-4 px-3  py-3', index === 0 && styles.blueBg)}>
+                                            <div className={clsx("d-flex align-items-center justify-content-between column-gap-sm-5 column-gap-3", styles.notifcationDiv)}>
+                                                <div>
+                                                    <h6 className={clsx(index === 0 && styles.blueColor)}>{el?.title}</h6>
+                                                    <p className='mb-2'>{el?.message}</p>
+                                                    <span>
+                                                        {
+                                                            moment().isSame(moment(el?.createdAt), 'day')
+                                                                ? 'TODAY'
+                                                                : moment(el?.createdAt).format('DD, MMM YYYY')
+                                                        }
+                                                    </span>
+                                                </div>
+                                                <div className={clsx(index === 0 && styles.blueDot)}>
+                                                    <span></span>
+                                                </div>
+                                            </div>
+                                        </Col>
+                                    )
+                                })
+                            }
+                            {
+                                notificationListClient?.length > 9 && (
+                                    <LoadMoreBtn
+                                        totalList={notificationTotalList}
+                                        loading={notificationLoading}
+                                        data={notificationListClient}
+                                        loadMoreFun={loadMoreFun} />
+                                )
+                            }
+
+                        </>
+
+                    ) : (
+                        <div className={clsx("d-flex flex-column justify-content-center align-items-center", styles.mainDiv)}>
+
+                            <ListNotFound
+                                heading={"You have no new notifications at this time."}
+                                label={''}
+                            />
+                        </div>
                     )
                 }
+
             </Row>
         </div>
     )

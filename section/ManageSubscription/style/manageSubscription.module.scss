@@ -32,6 +32,9 @@
     @include basicFontSize(16px, 500, #606f7b);
   }
 }
+.mainDiv {
+  height: 270px;
+}
 
 @media screen and (max-width: 1200px) {
   .containerPadding {
