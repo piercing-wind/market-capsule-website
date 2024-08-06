@@ -9,7 +9,7 @@ import toast from 'react-hot-toast';
 import { findDiscount, findYear } from '@/utils/constants';
 
 const PlanCard = ({ planCardData }) => {
-    const [plan, setPlan] = useState("yearly")
+    const [plan, setPlan] = useState(planCardData?.length ? planCardData?.[0]?.attributes?.slug : "");
     const { t } = useTranslation("common");
     const dispatch = useDispatch()
     const [loader, setLoader] = useState(false)
@@ -48,23 +48,23 @@ const PlanCard = ({ planCardData }) => {
     useEffect(() => {
         // Set the default planId to the id of the first "yearly" plan
         if (planCardData && planCardData?.length > 0) {
-            const defaultPlan = planCardData?.find(plan => plan?.attributes?.planType === "yearly");
+            const defaultPlan = planCardData?.find(planObj => planObj?.attributes?.slug === plan);
+
             if (defaultPlan) {
                 dispatch(setPlanId(defaultPlan?.id));
                 chackoutFun(defaultPlan?.id)
             }
         }
     }, []);
-
     return (
         <div className={clsx("p-3", styles.planCard)}>
             {
                 planCardData?.map((el, index) => {
                     return (
-                        <div key={index} className={clsx("px-3 py-4 d-flex justify-content-between align-items-center", styles.planDiv, plan === el?.attributes?.planType && styles.selectedDiv)}>
+                        <div key={index} className={clsx("px-3 py-4 d-flex justify-content-between align-items-center", styles.planDiv, plan === el?.attributes?.slug && styles.selectedDiv)}>
                             {/* left div */}
                             <div className={clsx("d-flex  align-items-center column-gap-3", styles.leftInputDiv)}>
-                                <input checked={plan === el?.attributes?.planType} type='radio' name="plan" value={el?.attributes?.planType} onChange={(e) => {
+                                <input checked={plan === el?.attributes?.slug} type='radio' name="plan" value={el?.attributes?.slug} onChange={(e) => {
                                     handlePlan(e.target.value)
                                     dispatch(setPlanId(el?.id));
                                     chackoutFun(el?.id)
@@ -86,7 +86,7 @@ const PlanCard = ({ planCardData }) => {
                             {/* right div */}
                             <div className={clsx("d-flex column-gap-2", styles.rightDiv)}>
                                 {
-                                    plan === el?.attributes?.planType && (
+                                    plan === el?.attributes?.slug && (
                                         <p className='d-flex flex-column'>
 
                                             <span className={clsx(styles.realPrice)}>₹{el?.attributes?.regularPrice}</span>
