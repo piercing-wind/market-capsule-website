@@ -34,7 +34,7 @@ export default function CapsulePlusPage(props) {
         bucketLoading: state?.screenerSlice?.bucketObj?.loading,
     }), shallowEqual)
 
-
+    console.log("bucketList", bucketList)
     const router = useRouter();
     router.locale = props?.language
         ? props?.language

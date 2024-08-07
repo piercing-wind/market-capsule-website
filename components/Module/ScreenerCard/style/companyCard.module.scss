@@ -38,12 +38,21 @@
   font-size: 16px;
   font-weight: 400;
   text-decoration: none;
-  &:hover{
-    color: #3E63FF;
-
+  &:hover {
+    color: #3e63ff;
   }
 }
-
+.btn {
+  display: flex;
+  align-items: center;
+  column-gap: 4px;
+  button {
+    padding: 0px;
+    &:hover {
+      color: #3e63ff !important;
+    }
+  }
+}
 .imageDiv {
   position: relative;
   & > .capsulePlusDiv {
