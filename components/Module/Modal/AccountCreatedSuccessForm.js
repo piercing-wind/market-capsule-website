@@ -24,7 +24,6 @@ const validationSchema = Yup.object().shape({
         .required("* This field is mandatory"),
 });
 
-
 const signupFormData = {
     name: "",
     gender: "",

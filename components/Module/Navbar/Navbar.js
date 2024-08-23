@@ -65,7 +65,7 @@ const NavbarLayout = () => {
                     <Link className="navbar-brand d-lg-none d-block" href="/" onClick={handleLinkClick} >
                         <Image
                             //  priority={true} 
-                            src="/assests/homepage/market-capsule-logo.svg" alt="market capsule logo" width="150" height="40" />
+                            src="/assests/homepage/market-capsule-rlogo.svg" alt="market capsule logo" width="150" height="40" />
                     </Link>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
@@ -74,7 +74,7 @@ const NavbarLayout = () => {
                                 <Link className="navbar-brand d-lg-block d-none" href="/" onClick={handleLinkClick}>
                                     <Image
                                         //  priority={true} 
-                                        src="/assests/homepage/market-capsule-logo.svg" alt="market capsule logo" width="150" height="40" />
+                                        src="/assests/homepage/market-capsule-rlogo.svg" alt="market capsule logo" width="150" height="40" />
                                 </Link>
                                 <ul className={clsx("d-flex flex-lg-row flex-column row-gap-2 ", styles.ulLink)}>
                                     {

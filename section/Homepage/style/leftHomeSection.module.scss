@@ -6,6 +6,15 @@
   margin-bottom: 12px;
 }
 
+.fii {
+  margin-top: 4px;
+  p {
+    margin-bottom: 0px;
+    color: #4f4f4f;
+    font-weight: bold;
+    margin-top: 4px;
+  }
+}
 .refreshDiv {
   & > p {
     font-size: 10px;
@@ -40,11 +49,8 @@
   }
 }
 
-
 @media screen and (max-width: 576px) {
   .trandingDiv {
     border-radius: 0px;
   }
-  
-  
 }

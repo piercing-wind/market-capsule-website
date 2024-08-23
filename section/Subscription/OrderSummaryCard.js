@@ -122,6 +122,7 @@ const OrderSummaryCard = () => {
         paymentObject.open();
     }
 
+    console.log("checkoutData", checkoutData)
     return (
         <>
             {
@@ -144,6 +145,24 @@ const OrderSummaryCard = () => {
                                 ₹ {checkoutData?.amount}
                             </p>
                         </div>
+
+                        {
+                            checkoutData?.promoCodeDiscount > 0 && (
+                                <div className={clsx("d-flex justify-content-between align-items-center mt-2", styles.div1)}>
+                                    <p className='d-flex flex-column'>
+                                        <span className={clsx(styles.medium)}>
+                                            <Trans i18nKey={"subscriptionPage.annualPlanSubscription"}>
+
+                                                Promo code discount
+                                            </Trans>
+                                        </span>
+                                    </p>
+                                    <p >
+                                        ₹ {checkoutData?.promoCodeDiscount}
+                                    </p>
+                                </div>
+                            )
+                        }
                         <div className={clsx("d-flex justify-content-between align-items-center", styles.div2)}>
                             <p>
                                 <Trans i18nKey={"subscriptionPage.totalDueToday"}>

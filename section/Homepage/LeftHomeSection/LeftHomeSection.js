@@ -98,6 +98,7 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
     }
   }, [dispatch]);
 
+  console.log("sensexAndNiftyData", sensexAndNiftyData)
   return (
     <Col lg={3} className=' px-sm-2 px-0 order-lg-0 order-1'>
       <div className='positionSticky'>
@@ -134,6 +135,33 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
             }
           </div>
           <LineChart />
+          {/* <DateBarChart /> */}
+
+          {/* refresh button */}
+          <div className={clsx("mt-3 d-flex justify-content-between align-items-center", styles.refreshDiv)}>
+            <p className='mb-0 '>
+              <span>{t("homepage.leftSection.lastUpdatedOn")}{" "}</span>
+              <span className={clsx(styles.semiboldSpan)}>{getUpdatedDate(sensexAndNiftyData?.lastUpdated)}</span>
+            </p>
+          </div>
+        </div>
+
+        <div className={clsx("left2 px-sm-2 px-3 pb-3", styles.trandingDiv)}>
+          {/* filter button div */}
+          <div className={clsx('me-1 py-3 d-flex column-gap-1 borderBottomGray', styles.fii)}>
+            <p>FII Cash</p>
+          </div>
+          <div className={clsx("d-flex column-gap-2 mt-2", styles.numberDiv)}>
+            {/* <p className='mb-0 '>{sensexAndNiftyData?.currentFIICash}</p> */}
+            {
+              sensexAndNiftyData?.currentFIICash < 0 ? (
+                <p className={clsx(" d-flex align-items-center column-gap-1  mb-0", styles.redColor)}>{sensexAndNiftyData?.currentFIICash}{" Cr  "}<CaretDownRed /></p>
+
+              ) : (
+                <p className={clsx("d-flex align-items-center column-gap-1  mb-0", styles.greenColor)}>{sensexAndNiftyData?.currentFIICash}{" Cr  "}<CaretDownRed transform={"true"} fill={"green"} /></p>
+              )
+            }
+          </div>
           <DateBarChart />
 
           {/* refresh button */}

@@ -33,9 +33,9 @@ const DateBarChart = () => {
     }
     const labels = sortedIndexes?.map((item) => (moment(item?.date)?.format('DD MMM YYYY')));
     const dataValues = sortedIndexes?.map((item) => ({
-        value: item?.price,
-        backgroundColor: item?.price > 0 ? '#2EDC90' : '#FF4F55',
-        // align: item?.price > 0 ? 'start' : 'end'
+        value: item?.FIICash,
+        backgroundColor: item?.FIICash > 0 ? '#2EDC90' : '#FF4F55',
+        align: item?.FIICash > 0 ? 'start' : 'end',
         align: "end"
     }));
 
