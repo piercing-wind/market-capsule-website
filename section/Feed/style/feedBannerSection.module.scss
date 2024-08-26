@@ -1,0 +1,85 @@
+.feedBannerImage {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+  font-size: $fontSize;
+  font-weight: $fontWeight;
+  color: $color;
+}
+.list {
+  list-style: none;
+  padding-left: 0px;
+  & > li {
+    margin-bottom: 15px;
+    background-image: url("/assests/ipo-zone/badge-check.svg");
+    background-repeat: no-repeat;
+    padding-left: 30px;
+    @include basicFontSize(16px, 400, #30373d);
+
+    strong {
+      @include basicFontSize(16px, 600, #30373d);
+    }
+  }
+}
+
+.yelloBg {
+  border-radius: 8px;
+  padding: 24px 46px 46px 46px;
+  h3,
+  h4,
+  h5,
+  h6 {
+    @include basicFontSize(16px, 700, #000000);
+    display: flex;
+    column-gap: 5px;
+    margin-bottom: 16px;
+    margin-top: 36px;
+    &::before {
+      content: "";
+      display: block;
+      width: 6px;
+      height: 20px;
+      background: #2edc90 0% 0% no-repeat padding-box;
+    }
+  }
+  p {
+    @include basicFontSize(16px, 400, #30373d);
+  }
+
+  strong {
+    @include basicFontSize(16px, 600, #30373d);
+  }
+}
+
+.h1Tag {
+  @include basicFontSize(22px, 700, #000000);
+}
+
+.create {
+  @include basicFontSize(14px, 400, #000000);
+  font-size: 14px;
+  font-weight: 400;
+  color: #000000;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+  span {
+    background: #e3d4fe;
+    padding: 4px 8px;
+    @include basicFontSize(10px, 600, #7300f3);
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .yelloBg {
+    padding: 24px 25px 46px 25px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .yelloBg {
+    padding: 24px 15px 46px 15px;
+  }
+}

@@ -20,115 +20,115 @@ const RightHomeSection = dynamic(() => import('@/section/Homepage/RightHomeSecti
 
 
 export default function Home(props) {
-  const { t } = useTranslation("common");
-  const router = useRouter();
-  router.locale = props?.language
-    ? props?.language
-    : "en";
+    const { t } = useTranslation("common");
+    const router = useRouter();
+    router.locale = props?.language
+        ? props?.language
+        : "en";
 
-  router.defaultLocale = "en";
+    router.defaultLocale = "en";
 
-  return (
-    <Container className={clsx(styles.containerPadding, "mt-sm-3 mt-0 pb-5 ")}>
-      <Row className="mx-0 app">
-        <LeftHomeSection
-          topGainerObj={props?.topGainerObj}
-          topLosersObj={props?.topLosersObj}
-          sensexAndNiftyObj={props?.sensexAndNiftyObj}
-        />
-        <MidleHomeSection
-          industriesObj={props?.industriesObj}
-          feedListObj={props?.feedListObj}
-        />
+    return (
+        <Container className={clsx(styles.containerPadding, "mt-sm-3 mt-0 pb-5 ")}>
+            <Row className="mx-0 app">
+                <LeftHomeSection
+                    topGainerObj={props?.topGainerObj}
+                    topLosersObj={props?.topLosersObj}
+                    sensexAndNiftyObj={props?.sensexAndNiftyObj}
+                />
+                <MidleHomeSection
+                    industriesObj={props?.industriesObj}
+                    feedListObj={props?.feedListObj}
+                />
 
-        <RightHomeSection
-          trandingNewsObj={props?.trandingNewsObj}
-          whatsNewInCapsulePlusObj={props?.whatsNewInCapsulePlusObj}
-        />
-      </Row>
+                <RightHomeSection
+                    trandingNewsObj={props?.trandingNewsObj}
+                    whatsNewInCapsulePlusObj={props?.whatsNewInCapsulePlusObj}
+                />
+            </Row>
 
-    </Container>
-  );
+        </Container>
+    );
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(store => async ({ req, res, locale }) => {
-  let userActive = fetchCookie("_jwt", req.headers);
-  setAuthorizationToken(userActive);
+    let userActive = fetchCookie("_jwt", req.headers);
+    setAuthorizationToken(userActive);
 
-  const params = {
-    filter: "BSE",
-    page: 1,
-    limit: 10,
-    sort: `createdAt:desc`,
-    populate: `name`
+    const params = {
+        filter: "BSE",
+        page: 1,
+        limit: 10,
+        sort: `createdAt:desc`,
+        populate: `name`
 
-  }
-  const trandingNewsParams = {
-    page: 1,
-    limit: 5,
-    title: "title",
-    url: `url`,
-    source: `source`,
-    image: `url`,
-    sort: `createdAt:desc`,
-    alternativeText: `alternativeText`,
-  }
-  const whatsNewParams = {
-    page: 1,
-    limit: 5,
-    title: "title",
-    url: `url`,
-    source: `source`,
-    image: `url`,
-    sort: `createdAt:desc`,
-    alternativeText: `alternativeText`,
-    slug: `slug`,
-  }
-  const industryParams = {
-    industryName: `name`,
-    industrySlug: `slug`,
-    industryTag: `name`,
-    industryColorHash: `colorHash`,
-  }
+    }
+    const trandingNewsParams = {
+        page: 1,
+        limit: 5,
+        title: "title",
+        url: `url`,
+        source: `source`,
+        image: `url`,
+        sort: `createdAt:desc`,
+        alternativeText: `alternativeText`,
+    }
+    const whatsNewParams = {
+        page: 1,
+        limit: 5,
+        title: "title",
+        url: `url`,
+        source: `source`,
+        image: `url`,
+        sort: `createdAt:desc`,
+        alternativeText: `alternativeText`,
+        slug: `slug`,
+    }
+    const industryParams = {
+        industryName: `name`,
+        industrySlug: `slug`,
+        industryTag: `name`,
+        industryColorHash: `colorHash`,
+    }
 
-  const feedListParams = {
-    page: 1,
-    limit: 5,
-    industryId: ``
-  }
-  const indexParams = {
-    indexType: `Sensex`
-  }
-  await store.dispatch(getHomePageMetaData());
-  // await store.dispatch(getTopGainerList(params));
-  await store.dispatch(getTopGainerList(params));
-  await store.dispatch(getTopLosersList(params));
-  await store.dispatch(getTrandingNewsList(trandingNewsParams));
-  await store.dispatch(getWhatsNewInCapsulePlusList(whatsNewParams));
-  await store.dispatch(getIndustriesList(industryParams));
-  await store.dispatch(getFeedList(feedListParams));
-  await store.dispatch(getSansexAndNiftyData(indexParams));
+    const feedListParams = {
+        page: 1,
+        limit: 5,
+        industryId: ``
+    }
+    const indexParams = {
+        indexType: `Sensex`
+    }
+    await store.dispatch(getHomePageMetaData());
+    // await store.dispatch(getTopGainerList(params));
+    await store.dispatch(getTopGainerList(params));
+    await store.dispatch(getTopLosersList(params));
+    await store.dispatch(getTrandingNewsList(trandingNewsParams));
+    await store.dispatch(getWhatsNewInCapsulePlusList(whatsNewParams));
+    await store.dispatch(getIndustriesList(industryParams));
+    await store.dispatch(getFeedList(feedListParams));
+    await store.dispatch(getSansexAndNiftyData(indexParams));
 
-  const {
-    homePageSlice: { seoObj, topGainerObj, topLosersObj, trandingNewsObj, whatsNewInCapsulePlusObj, industriesObj, feedListObj, sensexAndNiftyObj }
-  } = store.getState();
-  let fileList = getFileLangList();
-  secureHeader(req, res, locale);
-  return {
-    props: {
-      data: "",
-      topGainerObj,
-      topLosersObj,
-      trandingNewsObj,
-      whatsNewInCapsulePlusObj,
-      industriesObj,
-      feedListObj,
-      sensexAndNiftyObj,
-      seo: seoObj?.seo,
-      language: locale,
+    const {
+        homePageSlice: { seoObj, topGainerObj, topLosersObj, trandingNewsObj, whatsNewInCapsulePlusObj, industriesObj, feedListObj, sensexAndNiftyObj }
+    } = store.getState();
+    let fileList = getFileLangList();
+    secureHeader(req, res, locale);
+    return {
+        props: {
+            data: "",
+            topGainerObj,
+            topLosersObj,
+            trandingNewsObj,
+            whatsNewInCapsulePlusObj,
+            industriesObj,
+            feedListObj,
+            sensexAndNiftyObj,
+            seo: seoObj?.seo,
+            language: locale,
 
-      ...(await serverSideTranslations(locale, fileList)),
-    },
-  };
+            ...(await serverSideTranslations(locale, fileList)),
+        },
+    };
 
 });

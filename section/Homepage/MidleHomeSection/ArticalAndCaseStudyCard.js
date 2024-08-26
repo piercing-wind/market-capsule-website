@@ -78,6 +78,7 @@ const ArticalAndCaseStudyCard = () => {
         };
     }, []);
 
+    console.log("feedList", feedList)
     return (
         <>
             {
@@ -119,7 +120,7 @@ const ArticalAndCaseStudyCard = () => {
                                                                 <HomeBlueButton
                                                                     color={"#FFFFFF"}
                                                                     bg={"#3E63FF"}
-                                                                    handlerFun={() => { readNowFun(el?.url) }}
+                                                                    handlerFun={() => { readNowFun(`/feed/${el?.id}`) }}
                                                                     label={"homepage.midleSection.readNow"}
                                                                     disable={!el?.url ? true : false}
                                                                 />

@@ -98,7 +98,6 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
     }
   }, [dispatch]);
 
-  console.log("sensexAndNiftyData", sensexAndNiftyData)
   return (
     <Col lg={3} className=' px-sm-2 px-0 order-lg-0 order-1'>
       <div className='positionSticky'>
