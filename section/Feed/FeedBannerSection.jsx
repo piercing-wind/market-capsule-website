@@ -7,9 +7,7 @@ const FeedBannerSection = ({ img = false, alt = false }) => {
   return (
     <div>
       <Image
-        src={
-          img ? img : "https://d1gg24sxbl1rgc.cloudfront.net/gst_f8d1df897b.png"
-        }
+        src={img ? img : ""}
         alt={alt ? alt : "feed banner"}
         width="1006"
         height="335"

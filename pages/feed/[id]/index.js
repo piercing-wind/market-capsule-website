@@ -49,8 +49,8 @@ export default function FeedDetails(props) {
                     <Row className={clsx("mx-0")}>
                         <Col xs={12} className={clsx("px-0")} >
                             {
-                                image?.length > 0 ? (
-                                    <FeedBannerSection img={image[0]?.url ? image[0]?.url : ""} alt={image[0]?.alt ? image[0]?.alt : ""} />
+                                image?.data?.length > 0 ? (
+                                    <FeedBannerSection img={image?.data[0]?.attributes?.url ? image?.data[0]?.attributes?.url : ""} alt={image?.data[0]?.attributes?.alt ? image?.data[0]?.attributes?.alt : ""} />
                                 ) : (
                                     <FeedBannerSection />
 
@@ -78,6 +78,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     console.log("id", id)
     const params = {
         id: id,
+        image: "image"
     }
     await store.dispatch(getFeedDetailData(params));
 

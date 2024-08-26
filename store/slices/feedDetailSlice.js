@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getFeedDetailData = createAsyncThunk('feedDetailSlice/getFeedDetailData', async (params) => {
     // api/feeds/4
-    const response = await getMethod(`feeds/${params?.id}`,);
+    const response = await getMethod(`feeds/${params?.id}?populate=${params?.image}`,);
     return (response)
 });
 
