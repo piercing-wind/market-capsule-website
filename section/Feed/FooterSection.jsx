@@ -19,7 +19,7 @@ const FooterSection = ({ id, title }) => {
         </button>
       </div>
       <div>
-        <ShareButton url={`${process.env.WEB}/${id}`} title={title} />
+        <ShareButton url={`${process.env.WEB}/feed/${id}`} title={title} />
       </div>
     </div>
   );

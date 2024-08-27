@@ -100,10 +100,10 @@ const ArticalAndCaseStudyCard = () => {
                                             </div>
                                             <div className={clsx("pe-1 d-flex flex-column justify-content-evenly mt-sm-0 mt-3")}>
                                                 <div>
-                                                    <p className={clsx("d-flex column-gap-1 align-items-center ", styles.statusPara)}>
+                                                    {/* <p className={clsx("d-flex column-gap-1 align-items-center ", styles.statusPara)}>
                                                         <span className={clsx(styles.dot)} style={{ background: el?.tag?.colorHash ? el?.tag?.colorHash : "#00F3BB" }} ></span>
                                                         <span>{el?.type}</span>
-                                                    </p>
+                                                    </p> */}
                                                     <p className={clsx(styles.textPara)}>{truncateText(el?.title, screenWidth < 576 ? 14 : screenWidth < 768 ? 5 : 13)}</p>
                                                 </div>
                                                 <div className={clsx("d-flex align-items-center column-gap-2 flex-wrap-reverse row-gap-2 mt-sm-0 mt-1 mb-sm-0 mb-3", styles.btnDiv)}>

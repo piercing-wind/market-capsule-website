@@ -20,9 +20,32 @@ import styles from "./style/footerSection.module.scss";
 import clsx from "clsx";
 const ShareButton = ({ url, title }) => {
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(url);
-    toast.success("Link copied to clipboard!");
+    if (navigator.clipboard) {
+      navigator.clipboard
+        .writeText(url)
+        .then(() => {
+          toast.success("Link copied to clipboard!");
+        })
+        .catch((err) => {
+          console.error("Failed to copy: ", err);
+          toast.error("Failed to copy the link.");
+        });
+    } else {
+      const textArea = document.createElement("textarea");
+      textArea.value = url;
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand("copy");
+        toast.success("Link copied to clipboard!");
+      } catch (err) {
+        console.error("Failed to copy: ", err);
+        toast.error("Failed to copy the link.");
+      }
+      document.body.removeChild(textArea);
+    }
   };
+
   return (
     <div style={{ display: "flex", gap: "10px" }}>
       <FacebookShareButton url={url} quote={title}>
