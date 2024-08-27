@@ -14,6 +14,7 @@ const Artical = ({
   title = "",
   createdAt = "",
   capsuleViewData = [],
+  autherName = "John Doe",
 }) => {
   return (
     <div className={clsx(styles.yelloBg)}>
@@ -21,6 +22,9 @@ const Artical = ({
       <p className={clsx(styles.create)}>
         Caption:<span>{moment(createdAt)?.format("DD MMM YYYY")}</span>
       </p>
+      {/* <p className={clsx(styles.create)}>
+        Author:<span>{autherName}</span>
+      </p> */}
       {capsuleViewData?.length > 0 && (
         <BlocksRenderer
           blocks={{

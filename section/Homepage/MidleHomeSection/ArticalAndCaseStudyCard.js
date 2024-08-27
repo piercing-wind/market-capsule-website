@@ -114,6 +114,7 @@ const ArticalAndCaseStudyCard = () => {
                                                                     bg={"#0F0F0F"}
                                                                     handlerFun={upgradeNowFunction}
                                                                     label={"homepage.midleSection.upgradeNow"}
+                                                                    fontSize="12px"
                                                                 />
                                                             ) : (
                                                                 <HomeBlueButton
@@ -122,6 +123,8 @@ const ArticalAndCaseStudyCard = () => {
                                                                     handlerFun={() => { readNowFun(`/feed/${el?.slug}`) }}
                                                                     label={"homepage.midleSection.readNow"}
                                                                     disable={!el?.url ? true : false}
+                                                                    fontSize="12px"
+
                                                                 />
                                                             )
                                                     }
