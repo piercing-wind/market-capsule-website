@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const getFeedDetailData = createAsyncThunk('feedDetailSlice/getFeedDetailData', async (params) => {
     // api/feeds/4
-    const response = await getMethod(`feeds/${params?.id}?populate=${params?.image}`,);
+    const response = await getMethod(`feed/${params?.id}`);
     return (response)
 });
 
@@ -44,8 +44,8 @@ export const feedDetailSlice = createSlice({
                 state.getFeedDetailObj.loading = false;
                 state.getFeedDetailObj.feedDetailData = action?.payload?.data
                 const seo = (action?.payload?.data ? ({
-                    title: action?.payload?.data?.attributes?.metaTitle ? action?.payload?.data?.attributes?.metaTitle : '',
-                    description: action?.payload?.data?.attributes?.metaDescription ? action?.payload?.data?.attributes?.metaDescription : '',
+                    title: action?.payload?.data?.metaTitle ? action?.payload?.data?.metaTitle : '',
+                    description: action?.payload?.data?.metaDescription ? action?.payload?.data?.metaDescription : '',
                 }) : null)
                 state.seoObj.seo = seo;
 

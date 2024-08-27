@@ -122,7 +122,6 @@ const OrderSummaryCard = () => {
         paymentObject.open();
     }
 
-    console.log("checkoutData", checkoutData)
     return (
         <>
             {

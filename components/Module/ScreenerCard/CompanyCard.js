@@ -24,7 +24,6 @@ const CompanyCard = (props) => {
 
     }), shallowEqual)
     const dispatch = useDispatch()
-    console.log("userDetails", userDetails)
     const router = useRouter()
     //CASE STUdY FUNCTION
     const upgradeNowFunction = () => {

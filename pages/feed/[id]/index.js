@@ -19,9 +19,7 @@ import Artical from "@/section/Feed/Artical";
 export default function FeedDetails(props) {
     const { t } = useTranslation("common");
     const { getFeedDetailObj } = props;
-    const { title, url, createdAt, updatedAt, description, slug, image } = getFeedDetailObj?.feedDetailData?.attributes || {};
-    // console.log("attributes", attributes)
-    console.log("getFeedDetailObj?.feedDetailData?.attributes", getFeedDetailObj?.feedDetailData?.attributes)
+    const { title, url, createdAt, updatedAt, description, slug, image } = getFeedDetailObj?.feedDetailData || {};
     const router = useRouter();
     router.locale = props?.language
         ? props?.language
@@ -49,8 +47,8 @@ export default function FeedDetails(props) {
                     <Row className={clsx("mx-0")}>
                         <Col xs={12} className={clsx("px-0")} >
                             {
-                                image?.data?.length > 0 ? (
-                                    <FeedBannerSection img={image?.data[0]?.attributes?.url ? image?.data[0]?.attributes?.url : ""} alt={image?.data[0]?.attributes?.alt ? image?.data[0]?.attributes?.alt : ""} />
+                                image?.length > 0 ? (
+                                    <FeedBannerSection img={image[0]?.url ? image[0]?.url : ""} alt={image[0]?.alternativeText ? image[0]?.alternativeText : ""} />
                                 ) : (
                                     <FeedBannerSection />
 
@@ -61,7 +59,7 @@ export default function FeedDetails(props) {
                     </Row>
                     <Row className={clsx("mx-0", styles.row)}>
                         <Col xs={12} className={clsx("px-0")} >
-                            <Artical id={getFeedDetailObj?.feedDetailData?.id} title={title} createdAt={updatedAt} capsuleViewData={description} />
+                            <Artical id={slug} title={title} createdAt={updatedAt} capsuleViewData={description} />
                         </Col>
                     </Row>
 
@@ -75,10 +73,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     let userActive = fetchCookie("_jwt", req.headers);
     setAuthorizationToken(userActive);
     const id = query?.id;
-    console.log("id", id)
     const params = {
         id: id,
-        image: "image"
     }
     await store.dispatch(getFeedDetailData(params));
 
