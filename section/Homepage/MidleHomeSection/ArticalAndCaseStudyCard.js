@@ -78,6 +78,7 @@ const ArticalAndCaseStudyCard = () => {
         };
     }, []);
 
+    // console.log("feedList", feedList)
     return (
         <>
             {
@@ -122,7 +123,7 @@ const ArticalAndCaseStudyCard = () => {
                                                                     bg={"#3E63FF"}
                                                                     handlerFun={() => { readNowFun(`/feed/${el?.slug}`) }}
                                                                     label={"homepage.midleSection.readNow"}
-                                                                    disable={!el?.url ? true : false}
+                                                                    disable={!el?.slug ? true : false}
                                                                     fontSize="12px"
 
                                                                 />
