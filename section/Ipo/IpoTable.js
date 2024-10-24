@@ -42,7 +42,6 @@ const IpoTable = (props) => {
         dispatch(setCompanyListCurrentPage(companyListCurrentPage + 1))
     }
 
-    console.log("companyList", companyList)
     return (
         <>
             <div className={clsx("tableScroll")}>

@@ -9,7 +9,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import clsx from "clsx";
 import styles from "../../../section/Ipo/IPODetails/style/ipoDetails.module.scss"
 import dynamic from "next/dynamic";
-import { commaSeprater, numberToLocaleString } from "@/utils/constants";
 import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
 import { getIpoCompanyDetailData } from "@/store/slices/ipoDetailSlice";
@@ -17,131 +16,22 @@ import { getSubscriptionBtnData } from "@/store/slices/subscriptionSlice";
 const LoderModule = dynamic(() => import("@/components/Module/LoaderModule"))
 const OneIdBreadcrumb = dynamic(() => import("@/components/Module/Breadcrumb/OneIdBreadcrumb"))
 const ScreenerSlugBanner = dynamic(() => import("@/components/Module/BannerSection/ScreenerSlugBanner"))
-const BasicDetailsSection = dynamic(() => import("@/components/Module/BannerSection/BasicDetailsSection"))
 const AboutTheCompany = dynamic(() => import("@/components/Module/BannerSection/AboutTheCompany"))
-const BussinessSegment = dynamic(() => import("@/section/Ipo/IPODetails/BussinessSegment"))
-const KeyHighlightsAndManagementGuidance = dynamic(() => import("@/section/Ipo/IPODetails/KeyHighlightsAndManagementGuidance"))
 const IndustryOutlook = dynamic(() => import("@/section/Ipo/IPODetails/IndustryOutlook"))
 const CapsuleView = dynamic(() => import("@/section/Ipo/IPODetails/CapsuleView"))
-const FinacialHighlightTable = dynamic(() => import("@/section/Ipo/IPODetails/FinacialHighlightTable"))
-const HeadingCom = dynamic(() => import("@/components/Module/BannerSection/HeadingCom"))
 
 export default function IpoDetails(props) {
     const { t } = useTranslation("common");
-    const { getIpoCompanyDetailObj, getSubscriptionBtnObj } = props;
-    const { rocePercent = null, marketCap = null, peRatio = null, roicPercent = null, roePercent = null, currentPrice = null, deRatio = null, cwip = null, cashConversionCycle = null, pegRatio = null } = getIpoCompanyDetailObj?.ipoCompanyDetailData?.company_share_detail || {}
-    const { capsuleView, aboutTheCompany, business_segments, keyHighlights, industry, share_holdings, financial_highlights } = getIpoCompanyDetailObj?.ipoCompanyDetailData || {};
-    const { capsulePlus } = getIpoCompanyDetailObj
+    const { getIpoCompanyDetailObj } = props;
+    const { capsuleView, aboutTheCompany, industry } = getIpoCompanyDetailObj?.ipoCompanyDetailData || {};
     const router = useRouter();
     router.locale = props?.language
         ? props?.language
         : "en";
 
     router.defaultLocale = "en";
-    // basic detailsobj
-    const basicDetailArr = [
-        {
-            id: 1,
-            label: "ipoDetailPage.marketCap",
-            value: `${marketCap ? `₹${commaSeprater(marketCap)} Cr.` : "N/A"}`,
-            bg: true
-        },
-        {
-            id: 2,
-            label: "ipoDetailPage.currentPrice",
-            value: `${currentPrice ? `₹${commaSeprater(currentPrice)}` : "N/A"}`,
-            bg: true
-        },
-        {
-            id: 3,
-            label: "ipoDetailPage.peRatio",
-            value: `${peRatio || "N/A"}`,
-            bg: false
-        },
-        {
-            id: 4,
-            label: "ipoDetailPage.deRatio",
-            value: `${deRatio || "N/A"}`,
-            bg: false,
-        },
-        {
-            id: 5,
-            label: "ipoDetailPage.roce",
-            value: `${rocePercent ? `${rocePercent}%` : "N/A"}`,
-            bg: true,
-            updated: false,
-        },
-        {
-            id: 6,
-            label: "ipoDetailPage.cwip",
-            value: `${cwip ? `₹${commaSeprater(cwip)} Cr.` : "N/A"}`,
-            bg: true
-        },
-        {
-            id: 7,
-            label: "ipoDetailPage.roic",
-            value: `${roicPercent ? `${roicPercent}%` : "N/A"}`,
-            bg: false
-        },
-        {
-            id: 8,
-            label: "ipoDetailPage.cashConversionCycle",
-            value: `${cashConversionCycle ? `${cashConversionCycle} day` : "N/A"}`,
-            bg: false
-        },
-        {
-            id: 9,
-            label: "ipoDetailPage.roe",
-            value: `${roePercent ? `${roePercent}%` : "N/A"}`,
-            bg: true
-        },
-        {
-            id: 10,
-            label: "ipoDetailPage.pegRatio",
-            value: `${pegRatio || "N/A"}`,
-            bg: true
-        }
-    ]
 
-    //create custom structure for financial highlights table
-    // const finacialHightlightGroupedData = financial_highlights.reduce((acc, item) => {
-    //     if (!acc[item.title]) {
-    //         acc[item.title] = [];
-    //     }
-    //     acc[item.title].push(item);
-    //     return acc;
-    // }, {});
-    // const uniqueYears = financial_highlights?.reduce((unique, item) => {
-    //     if (unique.findIndex(x => x.year === item.year) === -1) {
-    //         let obj = {
-    //             month: item?.month ? item?.month : "",
-    //             year: item?.year
-    //         }
-    //         unique.push(obj);
-    //     }
-    //     return unique;
-    // }, []);
 
-    //create custom structure for share holding  table
-    // const shareHoldingData = share_holdings.reduce((acc, item) => {
-    //     if (!acc[item.title]) {
-    //         acc[item.title] = [];
-    //     }
-    //     acc[item.title].push(item);
-    //     return acc;
-    // }, {});
-    // const shareHoldingUniqueYears = share_holdings?.reduce((unique, item) => {
-    //     if (unique.findIndex(x => x.year === item.year) === -1) {
-    //         let obj = {
-    //             month: item?.month ? item?.month : "",
-    //             year: item?.year
-    //         }
-    //         unique.push(obj);
-    //     }
-    //     return unique;
-    // }, []);
-
-    console.log("getIpoCompanyDetailObj", getIpoCompanyDetailObj)
     return (
         <>
             <Suspense fallback={<LoderModule />}>
@@ -164,12 +54,7 @@ export default function IpoDetails(props) {
                                 alt={getIpoCompanyDetailObj?.ipoCompanyDetailData?.logo?.alternativeText}
                             />
                         </Col>
-                        {/* <Col xs={12} className={clsx(styles.paddingDetails)} >
-                            <BasicDetailsSection
-                                basicDetailArr={basicDetailArr}
-                                headingLabel={`ipoDetailPage.keyMetrics`}
-                            />
-                        </Col> */}
+
                         <Col xs={12} className={clsx(styles.paddingDetailsAbout, "mt-5")} >
                             <AboutTheCompany
                                 aboutDescription={aboutTheCompany}
@@ -177,51 +62,14 @@ export default function IpoDetails(props) {
                             />
                         </Col>
 
-                        {/* <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
-                            <BussinessSegment
-                                headingLabel={`ipoDetailPage.bussinessSegment`}
-                                bussinessSegmentData={business_segments}
-                                capsuleplus={capsulePlus}
-                                getSubscriptionBtnObj={getSubscriptionBtnObj}
-                            />
-                        </Col> */}
+
                         {/* capsulePluse */}
-                        <>
-                            {/* <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
-                                        <KeyHighlightsAndManagementGuidance
-                                            headingLabel={`ipoDetailPage.keyHighlightsAndManagement`}
-                                            keyHightlightData={keyHighlights}
-                                        />
-                                    </Col> */}
-                            <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
-                                <IndustryOutlook
-                                    headingLabel={`ipoDetailPage.industrialOutlook`}
-                                    industryOutlookData={industry?.industrialOutlook}
-                                />
-                            </Col>
-                            {/* <Col lg={6} className={clsx(styles.finacialHightlightPadding)}  >
-                                        <HeadingCom
-                                            label={`ipoDetailPage.financialHighlights`}
-                                        />
-                                        <FinacialHighlightTable
-                                            uniqueYears={uniqueYears}
-                                            finacialHightlightGroupedData={finacialHightlightGroupedData}
-                                            paricular={"PARTICULARS"}
-                                        />
-                                    </Col>
-
-                                    <Col lg={6} className={clsx(styles.shareHoldingPadding)} >
-                                        <HeadingCom
-                                            label={`ipoDetailPage.shareholdingPattern`}
-                                        />
-                                        <FinacialHighlightTable
-                                            uniqueYears={shareHoldingUniqueYears}
-                                            finacialHightlightGroupedData={shareHoldingData}
-                                            paricular={false}
-                                        />
-                                    </Col> */}
-                        </>
-
+                        <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
+                            <IndustryOutlook
+                                headingLabel={`ipoDetailPage.industrialOutlook`}
+                                industryOutlookData={industry?.industrialOutlook}
+                            />
+                        </Col>
                         <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                             <CapsuleView
                                 headingLabel={`ipoDetailPage.capsuleView`}

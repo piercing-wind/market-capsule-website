@@ -18,6 +18,20 @@ const AboutTheCompany = ({ aboutDescription = [], headingLabel = "" }) => {
                     <BlocksRenderer
                         blocks={{
                             paragraph: ({ children }) => <p className={clsx(styles.para)}>{children}</p>,
+                            image: ({ image }) => (
+                                <div className={clsx(styles.scrollContainer)}>
+                                    <img
+                                        src={image?.url}
+                                        alt={image?.alternativeText || 'Company image'}
+                                        className={clsx(styles.imgStyle)}
+                                        width={image?.width}
+                                        height={image?.height}
+                                    />
+                                    {image.caption && (
+                                        <p className={clsx(styles.caption)}>{image?.caption}</p>
+                                    )}
+                                </div>
+                            ),
                         }}
                         content={aboutDescription}
                     />

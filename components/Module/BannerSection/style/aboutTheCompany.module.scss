@@ -5,5 +5,45 @@
 }
 
 .para {
+  width: 100%;
   @include basicFontSize(16px, 400, #30373d);
+}
+
+.imgStyle {
+  max-width: none; /* Prevent image from shrinking */
+  height: auto;
+  display: inline-block;
+}
+
+.scrollContainer {
+  overflow-x: auto; /* Enable horizontal scrolling */
+  max-width: 100%; /* Ensure it doesn’t overflow the parent container */
+  white-space: nowrap; /* Prevent wrapping of image and content */
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+    border-radius: 0px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    border: 1px solid #6d8889;
+    border-radius: 0px;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #6d8889;
+
+    border-radius: 0px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #076a6f;
+
+    border-radius: 0px;
+  }
 }
