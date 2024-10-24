@@ -104,42 +104,44 @@ export default function IpoDetails(props) {
     ]
 
     //create custom structure for financial highlights table
-    const finacialHightlightGroupedData = financial_highlights.reduce((acc, item) => {
-        if (!acc[item.title]) {
-            acc[item.title] = [];
-        }
-        acc[item.title].push(item);
-        return acc;
-    }, {});
-    const uniqueYears = financial_highlights?.reduce((unique, item) => {
-        if (unique.findIndex(x => x.year === item.year) === -1) {
-            let obj = {
-                month: item?.month ? item?.month : "",
-                year: item?.year
-            }
-            unique.push(obj);
-        }
-        return unique;
-    }, []);
+    // const finacialHightlightGroupedData = financial_highlights.reduce((acc, item) => {
+    //     if (!acc[item.title]) {
+    //         acc[item.title] = [];
+    //     }
+    //     acc[item.title].push(item);
+    //     return acc;
+    // }, {});
+    // const uniqueYears = financial_highlights?.reduce((unique, item) => {
+    //     if (unique.findIndex(x => x.year === item.year) === -1) {
+    //         let obj = {
+    //             month: item?.month ? item?.month : "",
+    //             year: item?.year
+    //         }
+    //         unique.push(obj);
+    //     }
+    //     return unique;
+    // }, []);
 
     //create custom structure for share holding  table
-    const shareHoldingData = share_holdings.reduce((acc, item) => {
-        if (!acc[item.title]) {
-            acc[item.title] = [];
-        }
-        acc[item.title].push(item);
-        return acc;
-    }, {});
-    const shareHoldingUniqueYears = share_holdings?.reduce((unique, item) => {
-        if (unique.findIndex(x => x.year === item.year) === -1) {
-            let obj = {
-                month: item?.month ? item?.month : "",
-                year: item?.year
-            }
-            unique.push(obj);
-        }
-        return unique;
-    }, []);
+    // const shareHoldingData = share_holdings.reduce((acc, item) => {
+    //     if (!acc[item.title]) {
+    //         acc[item.title] = [];
+    //     }
+    //     acc[item.title].push(item);
+    //     return acc;
+    // }, {});
+    // const shareHoldingUniqueYears = share_holdings?.reduce((unique, item) => {
+    //     if (unique.findIndex(x => x.year === item.year) === -1) {
+    //         let obj = {
+    //             month: item?.month ? item?.month : "",
+    //             year: item?.year
+    //         }
+    //         unique.push(obj);
+    //     }
+    //     return unique;
+    // }, []);
+
+    console.log("getIpoCompanyDetailObj", getIpoCompanyDetailObj)
     return (
         <>
             <Suspense fallback={<LoderModule />}>
@@ -147,7 +149,7 @@ export default function IpoDetails(props) {
                     <OneIdBreadcrumb
                         linkSlug={`/ipo`}
                         linkLable={t(`ipoDetailPage.ipoZone`)}
-                        idLable={getIpoCompanyDetailObj?.ipoCompanyDetailData?.name}
+                        idLable={getIpoCompanyDetailObj?.ipoCompanyDetailData?.company?.name}
                     />
                 </Container>
                 <Container className={clsx(styles.containerPadding, "containerPadding")}>
@@ -155,51 +157,49 @@ export default function IpoDetails(props) {
                         <Col xs={12} className={clsx("px-0")} >
                             <ScreenerSlugBanner
                                 banner="ipo"
-                                companyName={getIpoCompanyDetailObj?.ipoCompanyDetailData?.name}
+                                companyName={getIpoCompanyDetailObj?.ipoCompanyDetailData?.company?.name}
                                 sector={getIpoCompanyDetailObj?.ipoCompanyDetailData?.industry?.name}
                                 url={getIpoCompanyDetailObj?.ipoCompanyDetailData?.websiteUrl}
                                 companyLogo={getIpoCompanyDetailObj?.ipoCompanyDetailData?.logo?.url}
                                 alt={getIpoCompanyDetailObj?.ipoCompanyDetailData?.logo?.alternativeText}
                             />
                         </Col>
-                        <Col xs={12} className={clsx(styles.paddingDetails)} >
+                        {/* <Col xs={12} className={clsx(styles.paddingDetails)} >
                             <BasicDetailsSection
                                 basicDetailArr={basicDetailArr}
                                 headingLabel={`ipoDetailPage.keyMetrics`}
                             />
-                        </Col>
-                        <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
+                        </Col> */}
+                        <Col xs={12} className={clsx(styles.paddingDetailsAbout, "mt-5")} >
                             <AboutTheCompany
                                 aboutDescription={aboutTheCompany}
                                 headingLabel={`screenerSlugPage.aboutTheCompany`}
                             />
                         </Col>
 
-                        <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
+                        {/* <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                             <BussinessSegment
                                 headingLabel={`ipoDetailPage.bussinessSegment`}
                                 bussinessSegmentData={business_segments}
                                 capsuleplus={capsulePlus}
                                 getSubscriptionBtnObj={getSubscriptionBtnObj}
                             />
-                        </Col>
+                        </Col> */}
                         {/* capsulePluse */}
-                        {
-                            !capsulePlus ? (
-                                <>
-                                    <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
+                        <>
+                            {/* <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                                         <KeyHighlightsAndManagementGuidance
                                             headingLabel={`ipoDetailPage.keyHighlightsAndManagement`}
                                             keyHightlightData={keyHighlights}
                                         />
-                                    </Col>
-                                    <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
-                                        <IndustryOutlook
-                                            headingLabel={`ipoDetailPage.industrialOutlook`}
-                                            industryOutlookData={industry?.industrialOutlook}
-                                        />
-                                    </Col>
-                                    <Col lg={6} className={clsx(styles.finacialHightlightPadding)}  >
+                                    </Col> */}
+                            <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
+                                <IndustryOutlook
+                                    headingLabel={`ipoDetailPage.industrialOutlook`}
+                                    industryOutlookData={industry?.industrialOutlook}
+                                />
+                            </Col>
+                            {/* <Col lg={6} className={clsx(styles.finacialHightlightPadding)}  >
                                         <HeadingCom
                                             label={`ipoDetailPage.financialHighlights`}
                                         />
@@ -219,13 +219,9 @@ export default function IpoDetails(props) {
                                             finacialHightlightGroupedData={shareHoldingData}
                                             paricular={false}
                                         />
-                                    </Col>
-                                </>
-                            ) : (
-                                <></>
-                                // <ExclusiveViewCard />
-                            )
-                        }
+                                    </Col> */}
+                        </>
+
                         <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                             <CapsuleView
                                 headingLabel={`ipoDetailPage.capsuleView`}
@@ -245,8 +241,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     const slug = query?.id;
     const params = {
         slug: slug,
-        pageName: "ipo-company-detail"
     }
+
     await store.dispatch(getIpoCompanyDetailData(params));
     await store.dispatch(getSubscriptionBtnData());
 

@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 // Action
 
 export const getIpoCompanyDetailData = createAsyncThunk('ipoDetailSlice/getIpoCompanyDetailData', async (params) => {
-    const response = await getMethod(`company/detail?slug=${params?.slug}&pageName=${params?.pageName}`,);
+    const response = await getMethod(`ipo/detail/${params?.slug}`,);
     return (response)
 });
 
@@ -42,7 +42,7 @@ export const ipoDetailSlice = createSlice({
             .addCase(getIpoCompanyDetailData.fulfilled, (state, action) => {
                 state.getIpoCompanyDetailObj.loading = false;
                 state.getIpoCompanyDetailObj.ipoCompanyDetailData = action?.payload?.data
-                state.getIpoCompanyDetailObj.capsulePlus = action?.payload?.capsuleplus
+                // state.getIpoCompanyDetailObj.capsulePlus = action?.payload?.capsuleplus
                 const seo = (action?.payload?.data ? ({
                     title: action?.payload?.data?.metaTitle ? action?.payload?.data?.metaTitle : '',
                     description: action?.payload?.data?.metaDescription ? action?.payload?.data?.metaDescription : '',
