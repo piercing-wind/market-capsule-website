@@ -26,6 +26,7 @@ const validationSchema = Yup.object().shape({
     email: Yup.string().email("Invalid email format").required("* This field is mandatory"),
 });
 
+// console.log("hello")
 const signupFormData = {
     email: "",
 
