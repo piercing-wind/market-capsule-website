@@ -102,7 +102,7 @@ const NavbarLayout = () => {
                                 </ul>
 
                                 {
-                                    userDetails?.fullName ? (
+                                    userDetails?.email ? (
                                         <ProfileDropdown
 
                                         />
