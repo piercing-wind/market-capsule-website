@@ -42,7 +42,7 @@ const postMethod = async (endpoint, data, params = {}) => {        //post method
 const getMethod = async (endpoint, params = {}) => {       //get methods
     return new Promise((resolve, reject) => {
         var config = {
-            method: 'get',
+            method: 'GET',
             url: endpoint,
             params: params
         };

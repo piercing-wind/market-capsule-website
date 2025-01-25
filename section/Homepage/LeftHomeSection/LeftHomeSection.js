@@ -99,8 +99,8 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
   }, [dispatch]);
 
   return (
-    <Col lg={3} className=' px-sm-2 px-0 order-lg-0 order-1'>
-      <div className='positionSticky'>
+    <Col lg={3} className='pr-sm-2 px-0 order-lg-0 order-1'>
+      <div className='positionSticky2 pr-2'>
         {/* gainer and loser div */}
         <div className={clsx("left2 px-sm-2 px-3 pb-3", styles.trandingDiv)}>
           {/* filter button div */}

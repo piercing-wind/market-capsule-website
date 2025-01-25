@@ -24,7 +24,6 @@ const plus_Jakarta_Sans = Plus_Jakarta_Sans({
   display: 'swap',
 });
 
-
 const App = ({ Component, ...rest }) => {
   const { store, props } = wrapper.useWrappedStore(rest);
   const { pageProps } = props;
@@ -43,7 +42,7 @@ const App = ({ Component, ...rest }) => {
             {...(pageProps?.seo ? pageProps?.seo : "")}
             backUrl={rest?.router?.pathname ? ((rest?.router?.asPath)) : "/"}
           />
-          <main className={clsx(`${plus_Jakarta_Sans.className}`, !isSpecialPath ? "gray-bg" : "")}>
+          <main className={clsx(plus_Jakarta_Sans.className, !isSpecialPath ? "gray-bg" : "")}>
             {
               router?.pathname !== "/404" ? (
                 <NavbarLayout />

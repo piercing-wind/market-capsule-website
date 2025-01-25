@@ -5,7 +5,8 @@
     "screener": "Screener",
     "ipo": "IPO",
     "watchlist": "Watchlist",
-    "createAnAccount": "Create an Account"
+    "createAnAccount": "Create an Account",
+    "summits" : "Summits"
   },
   "message": {
     "allReadyInWatchlist": "All ready in watchlist",

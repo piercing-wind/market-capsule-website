@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "env-cmd -f .env next dev",
-    "build": "env-cmd -f .env next build",
-    "start": "env-cmd -f .env next start",
-    "lint": "env-cmd -f .env next lint",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
     "dev:dev": "env-cmd -f .env.dev next dev",
     "build:dev": "env-cmd -f .env.dev next build",
     "start:dev": "env-cmd -f .env.dev next start",
@@ -17,10 +17,12 @@
     "lint:local": "env-cmd -f .env.local next lint"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.731.1",
     "@faker-js/faker": "^8.4.1",
     "@react-oauth/google": "^0.12.1",
     "@reduxjs/toolkit": "^2.2.1",
     "@strapi/blocks-react-renderer": "^1.0.1",
+    "autoprefixer": "^10.4.20",
     "axios": "^1.6.8",
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.2",
@@ -33,10 +35,14 @@
     "faker": "^6.6.6",
     "formik": "^2.4.5",
     "html-react-parser": "^5.1.10",
+    "i": "^0.3.7",
+    "lucide-react": "^0.473.0",
     "moment": "^2.30.1",
     "next": "13.4.6",
     "next-i18next": "^15.2.0",
     "next-redux-wrapper": "^8.1.0",
+    "npm": "^11.0.0",
+    "postcss": "^8.5.1",
     "react": "^18.3.1",
     "react-bootstrap": "^2.10.2",
     "react-chartjs-2": "^5.2.0",
@@ -49,6 +55,7 @@
     "react-icons": "^5.0.1",
     "react-loader-spinner": "^6.1.6",
     "react-otp-input": "^3.1.1",
+    "react-player": "^2.16.0",
     "react-redux": "^9.1.0",
     "react-share": "^5.1.0",
     "react-slick": "^0.30.2",
@@ -60,6 +67,8 @@
   },
   "devDependencies": {
     "eslint": "^8",
-    "eslint-config-next": "13.4.6"
+    "eslint-config-next": "13.4.6",
+    "husky": "^9.1.6",
+    "tailwindcss": "^3.4.17"
   }
 }

@@ -91,11 +91,16 @@ const ArticalAndCaseStudyCard = () => {
                                 feedList?.map((el, index) => {
                                     return (
                                         <div key={index} className={clsx("column-gap-3 d-flex flex-sm-row  flex-column mb-2", styles.midleDiv, articalAndCaseStudyCardCss(el?.type) ? styles.orangeBackground : styles.grayBackground)}>
-                                            <div className='d-flex align-items-center'>
+                                            <div className='relative aspect-[16/9] flex-shrink-0'>
                                                 <Image
-                                                    // priority={false}
+                                                    className={clsx("", styles.imgWidth)} 
+                                                    src={el?.featuredImage?.url} 
+                                                    alt={el?.featuredImage?.alternativeText ? el?.featuredImage?.alternativeText : "feed list"}
+                                                    style={{ objectFit: 'cover' }} 
+                                                    width={200}
+                                                    height={250}
+                                                />
 
-                                                    className={clsx(" h-100", styles.imgWidth)} src={el?.featuredImage?.url} alt={el?.featuredImage?.alternativeText ? el?.featuredImage?.alternativeText : "feed list"} width="197" height="158" />
                                             </div>
                                             <div className={clsx("pe-1 d-flex flex-column justify-content-evenly mt-sm-0 mt-3")}>
                                                 <div>

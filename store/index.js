@@ -17,6 +17,8 @@ import capsulePlusSlice from './slices/capsulePlusSlice';
 import privacyPolicySlice from './slices/privacyPolicySlice';
 import termsAndConditionsSlice from './slices/termsAndConditionsSlice';
 import feedDetailSlice from './slices/feedDetailSlice';
+import summitSlice  from './slices/summitSlice';
+import summitVideoSlice from "./slices/summitVideoSlice"
 
 const rootReducer = combineReducers({
     authSlice: authSlice,
@@ -35,7 +37,9 @@ const rootReducer = combineReducers({
     capsulePlusSlice,
     privacyPolicySlice,
     termsAndConditionsSlice,
-    feedDetailSlice
+    feedDetailSlice,
+    summitSlice,
+    summitVideoSlice
 });
 
 

@@ -82,6 +82,7 @@ const SignupForm = () => {
                 if (response?.success) {
                     if (response?.data?.token) {
                         setSessionStorage("_verify", ({ email: submitData?.email, token: response?.data?.token, timestamp: new Date(), prevPath: "signup" }))
+                        console.log("Register" , response)
                         toast.success(response?.message)
                         // window.open("?q=verify", "_self");
                         dispatch(setAuthType("otp"))

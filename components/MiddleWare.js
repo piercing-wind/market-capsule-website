@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setAuthorizationToken } from "@/utils/apiServices";
 import LoderModule from "./Module/LoaderModule";
 
-const MiddleWare = ({ children }) => {
+const MiddleWare = ({ children }) => { 
   const router = useRouter();
   const { pathname } = router;
 

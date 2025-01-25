@@ -30,6 +30,11 @@ export default function Home(props) {
 
     return (
         <Container className={clsx(styles.containerPadding, "mt-sm-3 mt-0 pb-5 ")}>
+            <div className="ml-4 w-full text-white py-4 bg-[#3e63ff] shadow-md mb-3 rounded-xl mt-3 sm:mt-0 mx-auto p-2 px-4 flex flex-col lg:flex-row items-center justify-between gap-y-4">
+                <h6 className=" text-xl text-center sm:text-2xl font-bold sm:text-nowrap">MicroCap Investing Summit - 20 Experts - 20 Ideas</h6>
+                
+                <button onClick={()=>router.push("/summit")} className="text-white glow-text text-lg sm:text-xl font-bold p-4 py-2 rounded-tl-full text-nowrap rounded-br-full border-8 border-double border-[#4af2a9] rounded-2xl shadow-sm uppercase">Coming Soon</button>
+            </div>
             <Row className="mx-0 app">
                 <LeftHomeSection
                     topGainerObj={props?.topGainerObj}
@@ -114,6 +119,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     } = store.getState();
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
+
     return {
         props: {
             data: "",

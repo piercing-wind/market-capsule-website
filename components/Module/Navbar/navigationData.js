@@ -23,7 +23,12 @@ export const navLinkData = [
         id: 5,
         label: "navbar.watchlist",
         slug: "/watchlist"
-    }
+    },
+    {
+        id: 6,
+        label: "navbar.summits",
+        slug: "/summit"
+    },
 ]
 
 export const userProfileNavData = [
@@ -80,6 +85,11 @@ export const navLinkData404 = [
         id: 5,
         label: "Watchlist",
         slug: "/watchlist"
+    },
+    {
+        id: 6,
+        label: "Summits",
+        slug: "/summits"
     }
 ]
 

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
   font-size: $fontSize;
   font-weight: $fontWeight;
@@ -15,6 +19,11 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.glow-text {
+  color: white;
+  text-shadow: 0 0 5px #fff, 0 0 10px #dbeafe , 0 0 15px #dcfce7 ;
 }
 
 .redColor {
@@ -60,6 +69,7 @@ a {
   border-radius: 8px;
   opacity: 1;
   margin-bottom: 12px;
+  margin: 0 0.5rem;
 }
 
 .left1 {
@@ -72,6 +82,12 @@ a {
   top: 100px;
   position: sticky;
 }
+.positionSticky2 {
+  top: 100px;
+  position: sticky;
+  padding-right: 0.5rem;
+}
+
 
 .threeDotDropdown {
   .btn-check:checked + .btn,
@@ -282,6 +298,16 @@ a {
   }
 }
 
+@media screen and (max-width: 990px) {
+  .positionSticky2 {
+   padding-right: 0rem;
+  }
+  .trandingDiv {
+    border-radius: 8px;
+    margin: 0 0;
+  }
+}
+
 @media screen and (max-width: 1440px) {
   .containerPadding {
     max-width: 100% !important;
@@ -319,6 +345,7 @@ a {
   }
   .trandingDiv {
     border-radius: 0px;
+    margin: 0 0;
   }
 
   .px16 {

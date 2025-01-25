@@ -13,7 +13,6 @@ export const companyTableHeading = [
         type: "ltp"
 
     },
-    ,
     {
         id: 3,
         heading: "watchlist.prevClose",
@@ -37,7 +36,6 @@ export const companyTableHeading = [
         heading: "watchlist.daysLowHigh",
         type: "highLowDayLow",
         minWidth: "180px"
-
     }
 
 ]
