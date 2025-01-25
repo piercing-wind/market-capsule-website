@@ -32,7 +32,7 @@ export default function Home(props) {
     return (
         <Container className={clsx(styles.containerPadding, "mt-sm-3 mt-0 pb-5 ")}>
             <div className="ml-4 w-full text-white py-4 bg-[#3e63ff] shadow-md mb-3 sm:rounded-xl mt-3 sm:mt-0 mx-auto p-2 px-4 flex flex-col lg:flex-row items-center justify-between">
-                <h6 className=" text-xl text-center sm:text-2xl font-bold sm:text-nowrap">MicroCap Investing Summit - 20 Experts - 20 Ideas</h6>
+                <h6 className=" text-xl text-center sm:text-2xl font-bold sm:text-nowrap">Microcap Investing Summit - 20 Experts - 20 Ideas</h6>
                 
                 <button onClick={()=>router.push("/summit")} className="w-52 lg:w-48 h-24 lg:h-20 relative">
                     <Image
