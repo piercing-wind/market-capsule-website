@@ -14,6 +14,7 @@ import dynamic from "next/dynamic";
 import { getFeedList, getHomePageMetaData, getIndustriesList, getSansexAndNiftyData, getTopGainerList, getTopLosersList, getTrandingNewsList, getWhatsNewInCapsulePlusList } from "@/store/slices/homePageSlice";
 import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
+import Image from "next/image";
 const LeftHomeSection = dynamic(() => import('@/section/Homepage/LeftHomeSection/LeftHomeSection'), { suspense: true, loading: () => <LoderModule /> })
 const MidleHomeSection = dynamic(() => import('@/section/Homepage/MidleHomeSection/MidleHomeSection'), { suspense: true, loading: () => <LoderModule /> })
 const RightHomeSection = dynamic(() => import('@/section/Homepage/RightHomeSection/RightHomeSection'), { suspense: true, loading: () => <LoderModule /> })
@@ -30,10 +31,20 @@ export default function Home(props) {
 
     return (
         <Container className={clsx(styles.containerPadding, "mt-sm-3 mt-0 pb-5 ")}>
-            <div className="ml-4 w-full text-white py-4 bg-[#3e63ff] shadow-md mb-3 rounded-xl mt-3 sm:mt-0 mx-auto p-2 px-4 flex flex-col lg:flex-row items-center justify-between gap-y-4">
+            <div className="ml-4 w-full text-white py-4 bg-[#3e63ff] shadow-md mb-3 sm:rounded-xl mt-3 sm:mt-0 mx-auto p-2 px-4 flex flex-col lg:flex-row items-center justify-between">
                 <h6 className=" text-xl text-center sm:text-2xl font-bold sm:text-nowrap">MicroCap Investing Summit - 20 Experts - 20 Ideas</h6>
                 
-                <button onClick={()=>router.push("/summit")} className="text-white glow-text text-lg sm:text-xl font-bold p-4 py-2 rounded-tl-full text-nowrap rounded-br-full border-8 border-double border-[#4af2a9] rounded-2xl shadow-sm uppercase">Coming Soon</button>
+                <button onClick={()=>router.push("/summit")} className="w-52 lg:w-48 h-24 lg:h-20 relative">
+                    <Image
+                        src="/comingsoon.svg" 
+                        alt="summit"
+                        fill
+                        style={{
+                            objectFit: "cover",
+                            position: "absolute",
+                        }}
+                    />
+                </button>
             </div>
             <Row className="mx-0 app">
                 <LeftHomeSection
