@@ -60,7 +60,7 @@ export default function Summit(props){
                 throw new Error("Please login to access this summit.")
             };
             // check Already purchased or not!
-            if(hasAccessArray.some(paidSummit => String(paidSummit.summit.id) === summitId)) throw new Error("You have already purchased this summit.") 
+            if(hasAccessArray.some(paidSummit => paidSummit?.summit && String(paidSummit.summit.id) === summitId)) throw new Error("You have already purchased this summit.") 
             setIsLoading(true);
             // from razorpay
             const data = {
@@ -96,7 +96,7 @@ export default function Summit(props){
                 const expiryDate = summit.attributes.organized_on ? moment(summit.attributes.organized_on).add(1, 'year').toDate() : moment(summit.attributes.createdAt).add(1, 'year').toDate(); // 1 year
                 const currentDate = new Date();
                 const daysLeft = expiryDate ? Math.ceil((expiryDate - currentDate) / (1000 * 60 * 60 * 24)) : null;
-                const hasPurchased = hasAccessArray.some(paidSummit => String(paidSummit.summit.id) === String(summit.id)) 
+                const hasPurchased = hasAccessArray.some(paidSummit => paidSummit?.summit && String(paidSummit.summit.id) === String(summit.id)) 
                 console.log(hasAccessArray)
                 
                 return(

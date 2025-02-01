@@ -138,7 +138,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     await store.dispatch(getUserPaymentInfo({userId : userDetails.id}))
     
     const { summitPaymentSlice } = store.getState();
-    const hasAccessList = summitPaymentSlice.data;
+    const hasAccessList = Array.isArray(summitPaymentSlice.data) ? summitPaymentSlice.data : [];
     const hasAccess = hasAccessList.some(paidSummit => String(paidSummit.summit.id) === slug);
     if(!hasAccess) {
         return {
