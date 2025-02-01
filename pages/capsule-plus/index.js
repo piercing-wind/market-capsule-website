@@ -137,14 +137,15 @@ export default function CapsulePlusPage(props) {
                     </Col>
                 </Row>
             </Container>
-            {
+            {/* Removed Exclusive on 1 Feb 2025 */}
+            {/* {
                 capsulePlus && (
                     <UpgradeCard
                         getSubscriptionBtnObj={getSubscriptionBtnObj}
 
                     />
                 )
-            }
+            } */}
         </>
     );
 }

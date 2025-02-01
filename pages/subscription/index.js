@@ -98,7 +98,6 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
 
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
-
     return {
         props: {
             data: "",

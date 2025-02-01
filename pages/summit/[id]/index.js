@@ -15,6 +15,8 @@ import { File,Download, ArrowBigLeftDash, ArrowBigRightDash } from 'lucide-react
 import Link from "next/link";
 import VideoList from "@/components/Module/Summit/videoList";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { getUserPaymentInfo } from "@/store/slices/summit-payment-slice";
+import moment from "moment";
 
 const VideoPlayer = dynamic(() => import("@/components/Module/Summit/video"))
 
@@ -26,6 +28,7 @@ export default function SummitVideos(props) {
     const { videos } = useSelector((state) => ({
            videos: state?.summitVideoSlice.summitVideosData || [],
          }), shallowEqual)
+  
 
     useEffect(() => {
         const fetchSummitVideos = async () => {
@@ -62,6 +65,12 @@ export default function SummitVideos(props) {
 
     return (
         <div className="w-full p-4 relative flex flex-col lg:flex-row items-start justify-center gap-4 mx-auto">
+          {videos.length === 0 && (
+            <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-full w-full z-50 flex flex-col items-center justify-center bg-white">
+              <h5>Thank you for registering</h5>
+              <p>All the recordings for the summit {summit.attributes.title} will be available here after {moment(summit.attributes.organized_on).format('DD MMM YYYY')}.</p>
+            </div>
+          )}
           <div className="max-w-5xl 2xl:max-w-full overflow-y-auto w-full top-24">
             <VideoPlayer className="h-56 sm:h-[70vh] xl:h-[80vh] 3xl:h-screen"/>
             <div className="flex items-center justify-between border-b border-neutral-400 sm:px-4 py-2 my-2">
@@ -123,41 +132,20 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     let userActive = fetchCookie("_jwt", req.headers);
     setAuthorizationToken(userActive);
     const slug = query?.id;
- 
     await store.dispatch(getFetchAuth());
-
     const { authSlice: { userDetails } } = store.getState();
-
-
-    const summitListOfUser = userDetails?.summits || [];
-    const summitAccessListOfUser = summitListOfUser.map((summit) => ({id : String(summit.id), organized_on : summit.organized_on ? summit.organized_on : summit.createdAt}));
+ 
+    await store.dispatch(getUserPaymentInfo({userId : userDetails.id}))
     
-    
-    const userHasAccess = summitAccessListOfUser.some(summit => summit.id === slug);
-
-    if (!userDetails || !userHasAccess) {
+    const { summitPaymentSlice } = store.getState();
+    const hasAccessList = summitPaymentSlice.data;
+    const hasAccess = hasAccessList.some(paidSummit => String(paidSummit.summit.id) === slug);
+    if(!hasAccess) {
         return {
             redirect: {
                 destination: '/summit',
                 permanent: false,
             },
-        };
-    }
-
-    const summit = summitAccessListOfUser.find(summit => summit.id === slug);
-
-    if (summit) {
-        const expiryDate = new Date(summit.organized_on);
-        expiryDate.setFullYear(expiryDate.getFullYear() + 1);
-        const currentDate = new Date();
-
-        if (expiryDate < currentDate) {
-            return {
-                redirect: {
-                    destination: '/summit',
-                    permanent: false,
-                },
-            };
         }
     }
 

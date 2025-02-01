@@ -6,7 +6,8 @@ import { useRouter } from 'next/router';
 const IconPayNowButton = dynamic(() => import("../Button/IconPayNowButton"));
 import styles from "./style/indepthCard.module.scss"
 import { CapsulePlus } from '@/components/svg/CapsulePlus';
-import MarketCapsule from '@/components/svg/MarketCapsule';
+import MarketCapsule from '@/components/svg/MarketCapsule'  ;
+import { ArrowUpRight } from 'lucide-react';
 
 const InDepthCard = () => {
     const { t } = useTranslation("common");
@@ -57,6 +58,27 @@ const InDepthCard = () => {
                 </div>
             </div>
 
+        </div>
+    )
+}
+
+export const TemporaryCard =()=>{
+    const router = useRouter()
+    const currentUrl = router.asPath.split("/").pop();
+    
+    const handleUpgradeNowFun = () => {
+        console.log("currentUrl",currentUrl)
+        router.push(`/capsule-plus/${currentUrl} `)
+    }
+
+    return (
+        <div className={clsx('d-flex', styles.card)}>
+            <div className={clsx("px-lg-4 py-lg-4 p-3 d-flex flex-md-row flex-column row-gap-2 column-xl-gap-0 column-gap-3 justify-content-between align-items-center", styles.planDiv)}>
+                <div onClick={()=>handleUpgradeNowFun()} className="flex items-center justify-center w-full h-full cursor-pointer">
+                    <h5 className="flex items-center gap-4 justify-center font-semibold">Read More <ArrowUpRight size={32}/></h5>
+
+                </div>
+            </div>
         </div>
     )
 }

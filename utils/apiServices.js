@@ -52,7 +52,7 @@ const getMethod = async (endpoint, params = {}) => {       //get methods
             if (!error.response || error.code === 'ECONNABORTED') {
                 reject({ status: false, message: 'error!', statusCode: 500 })
             } else {
-                reject(error.response.data)
+                reject(error.response?.data)
             }
         })
     })
@@ -71,7 +71,7 @@ const putMethod = async (endpoint, data, params = {}) => {        //post method 
         AxiosInstance(config).then(response => {
             resolve(response.data);
         }, error => {
-            resolve(error.response.data);
+            resolve(error.response?.data);
         })
     });
 }

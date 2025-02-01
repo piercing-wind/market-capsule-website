@@ -19,7 +19,7 @@ import termsAndConditionsSlice from './slices/termsAndConditionsSlice';
 import feedDetailSlice from './slices/feedDetailSlice';
 import summitSlice  from './slices/summitSlice';
 import summitVideoSlice from "./slices/summitVideoSlice"
-
+import summitPaymentSlice from './slices/summit-payment-slice';
 const rootReducer = combineReducers({
     authSlice: authSlice,
     subscriptionSlice: subscriptionSlice,
@@ -39,7 +39,8 @@ const rootReducer = combineReducers({
     termsAndConditionsSlice,
     feedDetailSlice,
     summitSlice,
-    summitVideoSlice
+    summitVideoSlice,
+    summitPaymentSlice
 });
 
 

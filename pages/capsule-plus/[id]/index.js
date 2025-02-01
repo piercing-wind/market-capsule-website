@@ -269,7 +269,7 @@ export default function IpoDetails(props) {
                                 aboutDescription={businessOverview}
                                 headingLabel={`capsuleDetailPage.businessOverview`}
                             />
-                            <div className={clsx(styles.mainDiv)}>
+                            {/* <div className={clsx(styles.mainDiv)}>
                                 {
                                     capsulePlus && (
                                         <ExclusiveViewCard
@@ -279,12 +279,12 @@ export default function IpoDetails(props) {
                                         />
                                     )
                                 }
-                            </div>
+                            </div> */}
                         </Col>
 
-
+            {/* Temporary remove exclusive */}
                         {
-                            !capsulePlus && (
+                            // !capsulePlus && (
                                 <>
                                     <Col xs={12} className={clsx(styles.paddingDetailsAbout)} >
                                         <AboutTheCompany
@@ -357,7 +357,7 @@ export default function IpoDetails(props) {
                                         <BussinessSegment
                                             headingLabel={`ipoDetailPage.bussinessSegment`}
                                             bussinessSegmentData={business_segments}
-                                            capsuleplus={capsulePlus}
+        //removed  exclusive from here      // capsuleplus={capsulePlus}  // Date : 1 feb 2025
                                             getSubscriptionBtnObj={getSubscriptionBtnObj}
                                         />
                                     </Col>
@@ -421,7 +421,7 @@ export default function IpoDetails(props) {
                                         />
                                     </Col>
                                 </>
-                            )
+                            // )
                         }
 
                     </Row>

@@ -39,7 +39,7 @@ const PromoCodeModal = () => {
                         toast.success(t(res?.message));
                         setLoader(false)
                         dispatch(setShowForm(false))
-
+                        
                     } else {
                         toast.error(res?.message);
                         setLoader(false);

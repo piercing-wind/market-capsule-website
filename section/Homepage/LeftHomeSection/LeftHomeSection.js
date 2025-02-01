@@ -172,9 +172,10 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
           </div>
         </div>
         {/* gainer and loser div */}
-        <div className={clsx("left2 px-sm-2 px-3 pb-3", styles.trandingDiv)}>
+        
+        {/* <div className={clsx("left2 px-sm-2 px-3 pb-3", styles.trandingDiv)}> */}
           {/* filter button div */}
-          <div className='me-1 py-3 d-flex column-gap-1 borderBottomGray'>
+          {/* <div className='me-1 py-3 d-flex column-gap-1 borderBottomGray'>
             <FilterButton
               color={bse === "bse" ? "#FFFFFF" : "#606F7B"}
               bg={bse === "bse" ? "#000000" : "#DFE2E4"}
@@ -191,17 +192,19 @@ const LeftHomeSection = ({ topGainerObj, topLosersObj, sensexAndNiftyObj }) => {
               type={"nse"}
               disable={bse === "nse" ? true : false}
             />
-          </div>
-          <TopGainersChart />
-          <TopLosersChart />
+          </div> */}
+          {/* <TopGainersChart /> */}
+          {/* <TopLosersChart /> */}
           {/* refresh button */}
-          <div className={clsx("mt-3 d-flex justify-content-between align-items-center", styles.refreshDiv)}>
+          {/* <div className={clsx("mt-3 d-flex justify-content-between align-items-center", styles.refreshDiv)}>
             <p className='mb-0'>
               <span>{t("homepage.leftSection.lastUpdatedOn")}{" "}</span>
               <span className={clsx(styles.semiboldSpan)}>{getUpdatedDate(lastUpdatedOn)}</span>
             </p>
           </div>
-        </div>
+        </div> */}
+
+
       </div>
     </Col>
   )

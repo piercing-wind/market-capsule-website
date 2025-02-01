@@ -10,11 +10,31 @@ import toast from 'react-hot-toast';
 import { initializeRazorpay } from '@/utils/apiEndPoints';
 import { useRouter } from 'next/router';
 import LoderModule from '@/components/Module/LoaderModule';
+import { XIcon } from 'lucide-react';
 const IconPayNowButton = dynamic(() => import("@/components/Module/Button/IconPayNowButton"))
+
+
+const FreeModel = ({ setShowFreeModel }) => {
+    return (
+        <div onClick={() => setShowFreeModel(false)} className='w-full inset-0 fixed h-full flex justify-center items-center bg-black bg-opacity-50 z-50'>
+            <div className='bg-white p-5 rounded-lg relative mx-2' onClick={(e) => e.stopPropagation()}>
+                <h1 className='text-green-500 font-semibold !tracking-widest' style={{ color: "#22c55e" }}>Free</h1>
+                <p>All Content is available for free! You don't have to pay anything for now.</p>
+                <button onClick={() => setShowFreeModel(false)} className='rounded-md px-8 py-1 bg-blue-800 text-white' style={{ background: "#3E63FF" }}>Ok</button>
+                <XIcon 
+                    onClick={() => setShowFreeModel(false)}
+                    className='absolute cursor-pointer'
+                    style={{ top: "10px", right: "10px" }}
+                />
+            </div>
+        </div>
+    );
+};
 
 const OrderSummaryCard = () => {
     const { t } = useTranslation("common");
     const [loader, setLoader] = useState(false)
+    const [showFreeModel, setShowFreeModel] = useState(true)
     const router = useRouter()
     const { planId, checkoutData, userDetails } = useSelector((state) => (
         {
@@ -32,26 +52,27 @@ const OrderSummaryCard = () => {
             currency: checkoutData?.currency || "INR",
             receipt: "buy a subscription plan"
         }
-        setLoader(true)
-        await buyPlanApi(submitData,
-            (res) => {
-                if (res?.success) {
-                    dispatch(setBuyPlanData(res?.data))
-                    handleRazorpay(res?.data)
-                    // toast.success(t(res?.message));
-                    setLoader(false)
-                } else {
-                    toast.error(res?.message);
-                    setLoader(false);
-                }
-            },
-            (err) => {
-                if (!err?.success) {
-                    toast.error(err?.message);
-                    setLoader(false)
-                }
-            }
-        );
+        setShowFreeModel(true)
+        // setLoader(true)
+        // await buyPlanApi(submitData,
+        //     (res) => {
+        //         if (res?.success) {
+        //             dispatch(setBuyPlanData(res?.data))
+        //             handleRazorpay(res?.data)
+        //             // toast.success(t(res?.message));
+        //             setLoader(false)
+        //         } else {
+        //             toast.error(res?.message);
+        //             setLoader(false);
+        //         }
+        //     },
+        //     (err) => {
+        //         if (!err?.success) {
+        //             toast.error(err?.message);
+        //             setLoader(false)
+        //         }
+        //     }
+        // );
     }
 
 
@@ -124,6 +145,7 @@ const OrderSummaryCard = () => {
 
     return (
         <>
+         {showFreeModel && <FreeModel setShowFreeModel={setShowFreeModel} />}
             {
                 loader ? (
                     <LoderModule />
@@ -200,3 +222,4 @@ const OrderSummaryCard = () => {
 }
 
 export default OrderSummaryCard
+

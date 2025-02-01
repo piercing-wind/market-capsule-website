@@ -15,6 +15,7 @@ import { fetchCookie } from "@/utils/storageService";
 import { setAuthorizationToken } from "@/utils/apiServices";
 import { getDisclaimerData, getScreenerCompanyData } from "@/store/slices/screenerSlugDetailSlice";
 import { formatString } from "@/utils/constants";
+import { TemporaryCard } from "@/components/Module/UpgradeCard/InDepthCard";
 const LoderModule = dynamic(() => import("@/components/Module/LoaderModule"))
 const TwoIdBreadcrumb = dynamic(() => import("@/components/Module/Breadcrumb/TwoIdBreadcrumb"))
 const ScreenerSlugBanner = dynamic(() => import("@/components/Module/BannerSection/ScreenerSlugBanner"))
@@ -128,7 +129,8 @@ export default function CapsulePlusPage(props) {
                             />
                         </Col>
                         <Col xs={12} className={clsx(styles.paddingDetailsInDefth)} >
-                            <InDepthCard />
+                            {/* <InDepthCard /> */}
+                            <TemporaryCard/>
                         </Col>
 
                         <Col xs={12} className={clsx(styles.line)} >
