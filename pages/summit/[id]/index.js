@@ -139,7 +139,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     
     const { summitPaymentSlice } = store.getState();
     const hasAccessList = Array.isArray(summitPaymentSlice.data) ? summitPaymentSlice.data : [];
-    const hasAccess = hasAccessList.some(paidSummit => String(paidSummit.summit.id) === slug);
+    const hasAccess = hasAccessList.some(paidSummit => paidSummit?.summit && paidSummit.summit?.id && String(paidSummit.summit.id) === slug);
     if(!hasAccess) {
         return {
             redirect: {
