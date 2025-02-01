@@ -68,7 +68,7 @@ export default function SummitVideos(props) {
           {videos.length === 0 && (
             <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 h-full w-full z-50 flex flex-col items-center justify-center bg-white">
               <h5>Thank you for registering</h5>
-              <p>All the recordings for the summit {summit.attributes.title} will be available here after {moment(summit.attributes.organized_on).format('DD MMM YYYY')}.</p>
+              <p>All the recordings for the summit {summit?.attributes?.title} will be available here after {moment(summit?.attributes?.organized_on).format('DD MMM YYYY')}.</p>
             </div>
           )}
           <div className="max-w-5xl 2xl:max-w-full overflow-y-auto w-full top-24">
