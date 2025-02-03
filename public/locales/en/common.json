@@ -164,6 +164,7 @@
     "termsAndCondition": "Terms & Conditions",
     "and": "and",
     "privacyPolicy": "Privacy Policy",
+    "refundPolicy": "Refund Policy",
     "ofMarketCapsule": "of Market Capsule",
     "iAgreeToReceive": "I agree to receive Newsletters and other promotional mails from Market Capsule",
     "alreadyHaveAnAccount": "Already have an account?",
@@ -191,7 +192,8 @@
     "notifications": "Notifications",
     "logout": "Logout",
     "termsAndCondition": "Terms & Conditions",
-    "privacyPolicy": "Privacy Policy"
+    "privacyPolicy": "Privacy Policy",
+    "refundPolicy": "Refund Policy"
   },
   "accountSettingsPage": {
     "accountSetting": "Account Settings",

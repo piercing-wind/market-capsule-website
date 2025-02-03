@@ -57,7 +57,12 @@ export const userProfileNavData = [
         id: 5,
         label: "userProfileDropdown.privacyPolicy",
         slug: "/privacy-policy"
-    }
+    },
+    {
+        id: 6,
+        label: "Refund Policy",
+        slug: "/refund-policy"
+    },
 ]
 
 export const navLinkData404 = [
@@ -118,5 +123,10 @@ export const userProfileNavData400 = [
         id: 5,
         label: "userProfileDropdown.privacyPolicy",
         slug: "/privacy-policy"
-    }
+    },
+    {
+        id: 6,
+        label: "Refund Policy",
+        slug: "/refund-policy"
+    },
 ]
