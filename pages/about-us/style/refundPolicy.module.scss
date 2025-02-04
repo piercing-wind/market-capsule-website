@@ -1,0 +1,40 @@
+@mixin basicFontSize($fontSize: 16px, $fontWeight: normal, $color: white) {
+    font-size: $fontSize;
+    font-weight: $fontWeight;
+    color: $color;
+  }
+  
+  .containerPadding {
+    padding-left: 180px;
+    padding-right: 180px;
+    padding-bottom: 200px;
+    margin-top: 58px;
+  }
+  
+  .para {
+    @include basicFontSize(16px, 400, #30373d);
+  }
+
+  .list{
+    padding-left: 30px;
+  }
+  
+  
+  @media screen and (max-width: 1200px) {
+    .containerPadding {
+      padding-left: 25px;
+      padding-right: 25px;
+      padding-bottom: 48px;
+    }
+  }
+  
+  
+  
+  @media screen and (max-width: 575px) {
+    .containerPadding {
+      padding-left: 15px;
+      padding-right: 15px;
+      margin-top: 15px;
+    }
+  }
+  

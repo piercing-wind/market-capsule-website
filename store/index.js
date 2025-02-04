@@ -21,6 +21,8 @@ import summitSlice  from './slices/summitSlice';
 import summitVideoSlice from "./slices/summitVideoSlice"
 import summitPaymentSlice from './slices/summit-payment-slice';
 import refundPolicySlice from './slices/refundPolicySlice';
+import aboutUsSlice from './slices/aboutUsSlice';
+import contactUsSlice from './slices/contactUsSlice';
 
 const rootReducer = combineReducers({
     authSlice: authSlice,
@@ -43,7 +45,9 @@ const rootReducer = combineReducers({
     summitSlice,
     summitVideoSlice,
     summitPaymentSlice,
-    refundPolicySlice
+    refundPolicySlice,
+    aboutUsSlice,
+    contactUsSlice
 });
 
 

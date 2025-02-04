@@ -46,20 +46,29 @@ export const userProfileNavData = [
         id: 3,
         label: "userProfileDropdown.notifications",
         slug: "/notifications"
-    }
-    ,
+    },
     {
         id: 4,
+        label: "About Us",
+        slug: "/about-us"
+    },
+    {
+        id: 5,
+        label: "Contact Us",
+        slug: "/contact-us"
+    },
+    {
+        id: 6,
         label: "userProfileDropdown.termsAndCondition",
         slug: "/terms-and-conditions"
     },
     {
-        id: 5,
+        id: 7,
         label: "userProfileDropdown.privacyPolicy",
         slug: "/privacy-policy"
     },
     {
-        id: 6,
+        id: 8,
         label: "Refund Policy",
         slug: "/refund-policy"
     },
@@ -116,17 +125,27 @@ export const userProfileNavData400 = [
     },
     {
         id: 4,
+        label: "About Us",
+        slug: "/about-us"
+    },
+    {
+        id: 5,
+        label: "Contact Us",
+        slug: "/contact-us"
+    },
+    {
+        id: 6,
         label: "userProfileDropdown.termsAndCondition",
         slug: "/terms-and-conditions"
     },
     {
-        id: 5,
+        id: 7,
         label: "userProfileDropdown.privacyPolicy",
         slug: "/privacy-policy"
     },
     {
-        id: 6,
+        id: 8,
         label: "Refund Policy",
         slug: "/refund-policy"
-    },
+    }, 
 ]
