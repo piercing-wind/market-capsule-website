@@ -31,7 +31,7 @@ export default function Summit(props){
     const { userDetails,} = useSelector((state) => ({
             userDetails: state?.authSlice?.userDetails,
         }), shallowEqual);
-    
+        
     useEffect(() => {
         if (userDetails) {
             dispatch(getSummitList());
