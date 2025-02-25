@@ -3,7 +3,7 @@ import { getMethod } from "@/utils/apiServices";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const getSummitList = createAsyncThunk('getSummitSlice/summits', async (params) => {
-    const response = await getMethod(`summits?populate=thumbnail`, params );
+    const response = await getMethod(`summits?populate=thumbnail&populate=detailposter`, params );
     return response;
 });
 

@@ -34,16 +34,8 @@ export default function Home(props) {
             <div className="ml-4 w-full text-white py-4 bg-[#3e63ff] shadow-md mb-3 sm:rounded-xl mt-3 sm:mt-0 mx-auto p-2 px-4 flex flex-col lg:flex-row items-center justify-between">
                 <h6 className=" text-xl text-center sm:text-2xl font-bold sm:text-nowrap">Microcap Investing Summit - 20 Experts - 20 Ideas</h6>
                 
-                <button onClick={()=>router.push("/summit")} className="w-52 lg:w-48 h-24 lg:h-20 relative">
-                    <Image
-                        src="/comingsoon.svg" 
-                        alt="summit"
-                        fill
-                        style={{
-                            objectFit: "cover",
-                            position: "absolute",
-                        }}
-                    />
+                <button onClick={()=>router.push("/summit")}  className=" px-8 py-2 relative bg-gradient-to-r from-blue-500 to-green-600 text-white font-semibold rounded-lg shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl">
+                  Register Now
                 </button>
             </div>
             <Row className="mx-0 app">
