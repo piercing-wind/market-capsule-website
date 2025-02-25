@@ -108,6 +108,7 @@ export default function Summit(props){
 
             if(Object?.keys(userDetails).length === 0){
                 dispatch(setShowForm(true))
+                setShowDetails(false);
                 throw new Error("Please login to access this summit?.")
             };
             // check Already purchased or not!
