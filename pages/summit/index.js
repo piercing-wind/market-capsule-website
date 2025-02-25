@@ -21,35 +21,41 @@ import LoderModule from "@/components/Module/LoaderModule";
 
 
 const Details = ({ summit, close, register, hasPurchased }) => {
+   const detailPosterUrl = summit?.attributes?.detailposter?.data?.attributes?.formats?.large?.url || '';
+   const title = summit?.attributes?.title || 'No Title';
+   const description = summit?.attributes?.description || 'No Description';
+   const organizedOn = summit?.attributes?.organized_on ? moment(summit.attributes.organized_on).format('DD MMM YYYY') : 'No Date';
+   const price = summit?.attributes?.price || '0';
+
    return (
        <div className="fixed inset-0 overflow-y-auto  w-full h-full  bg-gray-900 bg-opacity-50 z-[99999] p-4 md:p-16 md:px-32">
            <div className="bg-white m-auto w-full lg:h-full rounded-lg overflow-y-auto shadow-lg p-2 sm:p-4 border-double border-2 border-blue-300 flex flex-col lg:flex-row gap-2">
                <div className="w-full lg:w-9/12 relative aspect-[16/9] border rounded-md h-full overflow-hidden">
                    <Image
-                       src={summit?.attributes?.detailposter?.data.attributes?.formats?.large?.url}
-                       alt={summit?.attributes?.title}
+                       src={detailPosterUrl}
+                       alt={title}
                        fill
                        style={{ objectFit: "contain" }}
                    />
                </div>
                <div className="w-full lg:w-4/12 bg-blue-50 rounded-md p-4 space-y-4 h-auto md:h-full">
                    <h5 className="text-xs sm:text-sm text-neutral-700">Register this Summit to access all recordings.</h5>
-                   <h2 className="text-lg sm:text-2xl md:text-4xl">{summit?.attributes?.title}</h2>
-                   <p className="font-normal text-xs sm:text-sm">{summit?.attributes?.description}</p>
+                   <h2 className="text-lg sm:text-2xl md:text-4xl">{title}</h2>
+                   <p className="font-normal text-xs sm:text-sm">{description}</p>
                    <div className="border-t border-dashed border-neutral-500 w-full" />
                    <div className="flex items-center justify-between">
                        <h6>Date</h6>
-                       <p className="font-normal text-sm">{moment(summit?.attributes?.organized_on).format('DD MMM YYYY')}</p>
+                       <p className="font-normal text-sm">{organizedOn}</p>
                    </div>
                    <div className="flex items-center justify-between">
                        <h6>Amount</h6>
-                       <h6>₹ <span className="font-semibold text-lg">{summit?.attributes?.price} </span>/-</h6>
+                       <h6>₹ <span className="font-semibold text-lg">{price} </span>/-</h6>
                    </div>
                    <div className="border-t border-dashed border-neutral-500 w-full" />
                    {hasPurchased ? (
                        <Link href={`summit/${summit?.id}`} className="bg-gray-200 text-gray-600 border-2 border-gray-400 no-underline text-nowrap shadow-md font-medium w-48 flex items-center justify-center py-2 rounded ml-auto">Watch Now</Link>
                    ) : (
-                       <button onClick={() => register(String(summit?.id), summit?.attributes?.price, summit?.attributes?.title)} className="bg-gradient-to-b from-green-50 to-blue-50 border-2 border-blue-400 text-nowrap text-blue-900 shadow-md hover:scale-105 transition-all duration-300 font-medium w-48 py-2 rounded flex items-center justify-center ml-auto"><LockKeyhole size={24} color="#0d6efd" /> &nbsp;&nbsp; Register Now</button>
+                       <button onClick={() => register(String(summit?.id), price, title)} className="bg-gradient-to-b from-green-50 to-blue-50 border-2 border-blue-400 text-nowrap text-blue-900 shadow-md hover:scale-105 transition-all duration-300 font-medium w-48 py-2 rounded flex items-center justify-center ml-auto"><LockKeyhole size={24} color="#0d6efd" /> &nbsp;&nbsp; Register Now</button>
                    )}
                </div>
            </div>
