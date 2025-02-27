@@ -7,6 +7,7 @@ import { wrapper } from "@/store";
 import { Container, Row } from "react-bootstrap";
 import clsx from "clsx";
 import React, { useState } from "react";
+import styles from "./style/refundPolicy.module.scss";
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { MdKeyboardBackspace } from "react-icons/md";
 import Link from "next/link";
@@ -22,6 +23,7 @@ export default function Contact(props) {
 
     router.defaultLocale = "en";
     const { getContactUsObj } = props;
+    console.log(getContactUsObj)
     return (
         <Container className={clsx(styles.containerPadding, "mt-3 pb-5 containerPadding")}>
             <Row className="mx-0 app">
