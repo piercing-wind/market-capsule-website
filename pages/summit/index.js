@@ -150,7 +150,6 @@ export default function Summit(props){
                 const currentDate = new Date();
                 const daysLeft = expiryDate ? Math.ceil((expiryDate - currentDate) / (1000 * 60 * 60 * 24)) : null;
                 const hasPurchased = hasAccessArray.some(paidSummit => paidSummit?.summit && String(paidSummit?.summit?.id) === String(summit?.id)) 
-                console.log(hasAccessArray)
                 
                 return(
                   <div key={index} className="border-2 border-blue-100 shadow-sm shadow-blue-500 bg-white rounded-2xl m-auto flex-grow w-full h-full">

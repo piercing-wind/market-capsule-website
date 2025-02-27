@@ -67,7 +67,6 @@ export const TemporaryCard =()=>{
     const currentUrl = router.asPath.split("/").pop();
     
     const handleUpgradeNowFun = () => {
-        console.log("currentUrl",currentUrl)
         router.push(`/capsule-plus/${currentUrl} `)
     }
 

@@ -7,14 +7,13 @@ import { wrapper } from "@/store";
 import { Container, Row } from "react-bootstrap";
 import clsx from "clsx";
 import React, { useState } from "react";
-import styles from "./style/refundPolicy.module.scss"
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { MdKeyboardBackspace } from "react-icons/md";
 import Link from "next/link";
 import BackButton from "@/components/Module/Button/BackButton";
 import { getContactUs } from "@/store/slices/contactUsSlice";
 
-export default function Home(props) {
+export default function Contact(props) {
     const { t } = useTranslation("common");
     const router = useRouter();
     router.locale = props?.language
