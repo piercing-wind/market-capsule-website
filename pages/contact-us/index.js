@@ -23,7 +23,6 @@ export default function Contact(props) {
 
     router.defaultLocale = "en";
     const { getContactUsObj } = props;
-    console.log(getContactUsObj)
     return (
         <Container className={clsx(styles.containerPadding, "mt-3 pb-5 containerPadding")}>
             <Row className="mx-0 app">

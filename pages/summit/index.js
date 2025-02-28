@@ -71,7 +71,6 @@ const Details = ({ summit, close, register, hasPurchased }) => {
 
 export default function Summit(props){
     const { t } = useTranslation("common");
-    const {bearerToken} = props;
     const router = useRouter();
     router.locale = props?.language?props?.language: "en";
     router.defaultLocale = "en";
@@ -124,7 +123,7 @@ export default function Summit(props){
 
             if(!orderData.success) return toast?.error("Failed to create order. Please try again later.")
             
-            await handleRazorpay(router, orderData.data, userDetails,summitId, summitTitle, bearerToken, setIsLoading);
+            await handleRazorpay(router, orderData.data, userDetails,summitId, summitTitle, setIsLoading);
 
         }catch(err){
          console.log(err);
@@ -189,6 +188,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => async ({ r
     setAuthorizationToken(userActive);
     let fileList = getFileLangList();
     secureHeader(req, res, locale);
+    // Bearertoken is not required for this page
     return {
         props: {
             data: "",
