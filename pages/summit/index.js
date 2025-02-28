@@ -26,7 +26,6 @@ const Details = ({ summit, close, register, hasPurchased }) => {
    const description = summit?.attributes?.description || 'No Description';
    const organizedOn = summit?.attributes?.organized_on ? moment(summit.attributes.organized_on).format('DD MMM YYYY') : 'No Date';
    const price = summit?.attributes?.price || '0';
-
    return (
        <div className="fixed inset-0 overflow-y-auto  w-full h-full  bg-gray-900 bg-opacity-50 z-[99999] p-4 md:p-16 md:px-32">
            <div className="bg-white m-auto w-full lg:h-full rounded-lg overflow-y-auto shadow-lg p-2 sm:p-4 border-double border-2 border-blue-300 flex flex-col lg:flex-row gap-2">
@@ -77,14 +76,15 @@ export default function Summit(props){
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
     const [showDetails, setShowDetails] = useState(false);
+    const [selectedSummit, setSelectedSummit] = useState(null);
 
     const { userDetails,} = useSelector((state) => ({
             userDetails: state?.authSlice?.userDetails,
         }), shallowEqual);
         
     useEffect(() => {
+        dispatch(getSummitList());
         if (userDetails) {
-            dispatch(getSummitList());
             dispatch(getUserPaymentInfo({
                 userId : userDetails?.id
             }))
@@ -130,6 +130,11 @@ export default function Summit(props){
             toast?.error(`${err.message}`)
         }
     }
+
+    const handleShowDetails = (summit) => {
+        setSelectedSummit(summit);
+        setShowDetails(true);
+    }
     return (
         <div className="font-bold max-w-7xl mx-auto px-4 pb-4">
          
@@ -149,10 +154,9 @@ export default function Summit(props){
                 const currentDate = new Date();
                 const daysLeft = expiryDate ? Math.ceil((expiryDate - currentDate) / (1000 * 60 * 60 * 24)) : null;
                 const hasPurchased = hasAccessArray.some(paidSummit => paidSummit?.summit && String(paidSummit?.summit?.id) === String(summit?.id)) 
-                
                 return(
                   <div key={index} className="border-2 border-blue-100 shadow-sm shadow-blue-500 bg-white rounded-2xl m-auto flex-grow w-full h-full">
-                      {showDetails && <Details summit={summit} close={setShowDetails} register={handleClick} hasPurchased={hasPurchased}/> }
+                      {showDetails && selectedSummit?.id === summit.id && <Details summit={summit} close={setShowDetails} register={handleClick} hasPurchased={hasPurchased}/> }
                       <div className="relative aspect-[16/9] overflow-hidden rounded-2xl shadow-sm shadow-blue-200">
                           <Image
                               src={summit?.attributes?.thumbnail?.data?.attributes?.formats?.medium?.url}
@@ -172,7 +176,7 @@ export default function Summit(props){
                       <div className="px-4 mt-auto text-base font-medium flex items-baseline justify-between pb-2">
                         <p className="text-xs font-normal">Held on : <span className="font-medium">{moment(summit?.attributes?.organized_on).format('DD MMM YYYY')}</span></p>
                 
-                        <button onClick={()=>setShowDetails(true)} className="bg-gradient-to-b from-green-50 to-blue-50 border-2 border-blue-400  text-nowrap text-blue-900 shadow-md hover:scale-105 transition-all duration-300 font-medium w-48 py-2 rounded flex items-center justify-center">See Details</button>
+                        <button onClick={()=>handleShowDetails(summit)} className="bg-gradient-to-b from-green-50 to-blue-50 border-2 border-blue-400  text-nowrap text-blue-900 shadow-md hover:scale-105 transition-all duration-300 font-medium w-48 py-2 rounded flex items-center justify-center">See Details</button>
                      </div>
                   </div>
                   )
