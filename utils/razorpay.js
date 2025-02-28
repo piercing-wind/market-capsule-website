@@ -29,7 +29,6 @@ export const handleRazorpay = async (router, orderData, userDetails, summitId, s
         image: `${process.env.IMGURL}/logo.png`,
         order_id: orderData?.id,
         handler: async (response) => {
-            console.log(response);
             try {
                 const data = await grantAccess({
                         orderId : orderData?.id, 
