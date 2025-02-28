@@ -3,7 +3,6 @@ import toast from "react-hot-toast";
 import { postMethod } from "./apiServices";
 
 const grantAccess = async ({orderId, userId, paymentId, signature, summitId, bearerToken}) => {
-
     const response = await postMethod("summit-payments/accessProvider",{
         "razorpay_order_id": `${orderId}`,
         "razorpay_payment_id": `${paymentId}`,
@@ -30,6 +29,7 @@ export const handleRazorpay = async (router, orderData, userDetails, summitId, s
         image: `${process.env.IMGURL}/logo.png`,
         order_id: orderData?.id,
         handler: async (response) => {
+            console.log(response);
             try {
                 const data = await grantAccess({
                         orderId : orderData?.id, 
